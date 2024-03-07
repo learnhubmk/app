@@ -18,7 +18,9 @@ Before starting, ensure you have Node.js installed on your machine.
 1. Clone the repository to your local machine.
 2. Navigate to the project directory and run `npm install` to install dependencies.
 3. Start the development server with `npm run dev`.
-4. Open [localhost](http://localhost:3000) in your browser to view the app.
+4. Using yarn: Navigate to the project directory and run `yarn install` to install dependencies.
+5. Start the development server with `yarn dev`
+6. Open [localhost](http://localhost:3000) in your browser to view the app.
 
 # Backend
 
