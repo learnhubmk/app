@@ -64,7 +64,13 @@ Before diving into LearnHub.mk, make sure you have Node.js installed on your mac
 
        yarn dev
 
-4. Open [localhost:3000](http://localhost:3000) in your browser to explore the app.
+4. Install specific version of Node.js
+
+           nvm install $(cat .nvmrc)
+
+   
+5. Open [localhost:3000](http://localhost:3000) in your browser to explore the app.
+
 
 ## License
 LearnHub.mk is licensed under the MIT License. See the LICENSE file for more details.
