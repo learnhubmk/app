@@ -1,0 +1,77 @@
+/* Navbar styling */
+.navbar {
+    background-color: #2e2e2e; /* Dark background color */
+  }
+  
+  /* Button styling */
+  .btn-outline-success {
+    color: #fff;
+    border-color: #ff4500;
+    background-color: #ff713d; /* Orange background */
+  }
+  
+  .btn-outline-primary {
+    color: #fff;
+    border-color: #ff4500;
+    background-color: #ff4500; /* Orange background */
+  }
+
+  .navbarBrand {
+        color: #fff;
+        font-size: 30px;
+        margin-left: 100px;
+
+  }
+
+  .navLink {
+    color: #fff;
+    font-size: 20px;
+    margin-right: -400px;
+    margin-left: 470px;
+    
+    /* Adjust the margin for space between links */
+  }
+
+  .horizontalNav {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+  }
+
+  .navContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  .leftContent {
+    display: flex;
+    align-items: center;
+  }
+
+  .rightContent {
+  display: flex;
+  align-items: center;
+  }
+
+  .customButton1 {
+    background-color: rgba(46, 46, 46, 0.6); /* Transparent dark background */
+    padding: 10px;
+    margin-right: 10px;
+    color: #ff713d; /* Text color */
+    border: 1px solid #ff713d; /* Border color */
+    font-size: 20px; /* Adjust font size */
+    padding-inline: 25px;
+  }
+
+  .customButton {
+    background-color: hsl(16, 97%, 60%);
+    padding: 10px; 
+    font-size: 20px;
+    padding-inline: 25px;
+  }
+
+  .largeNavbar {
+    background-color: #2e2e2e;
+    padding: 40px; /* Adjust the padding to increase the size of the navbar */
+  }
+
+ 
