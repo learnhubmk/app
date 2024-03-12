@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import { Suspense } from 'react';
-import './globals.scss';
+import './styles/main.scss';
 import Loading from './loading';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <main>
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </main>
