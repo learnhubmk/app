@@ -1,12 +1,12 @@
-import style from "./loading.module.scss";
+import style from './loading.module.scss';
 
-const Loading = () => {
+function Loading() {
   return (
     <div className={style.loadingContainer}>
-      <div className={style.spinner}></div>
+      <div className={style.spinner} />
       <p>Loading...</p>
     </div>
   );
-};
+}
 
 export default Loading;
