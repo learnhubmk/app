@@ -27,5 +27,8 @@
     "lint-staged": "^15.2.2",
     "sass": "^1.71.1",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": "^20 || ^21"
   }
 }
