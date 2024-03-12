@@ -13,17 +13,22 @@ function Navigation() {
             <ul className={`navbar-nav ${styles.horizontalNav}`}>
               <li className={`nav-item ${styles.navLink}`}>
                 <a className={`nav-link text-white`} href="#">
-                  Home
+                  Визија
                 </a>
               </li>
               <li className={`nav-item ${styles.navLink}`}>
                 <a className={`nav-link text-white`} href="#">
-                  Link
+                  Цели
                 </a>
               </li>
               <li className={`nav-item ${styles.navLink}`}>
                 <a className={`nav-link text-white`} href="#">
-                  Blog
+                  Контакт
+                </a>
+              </li>
+              <li className={`nav-item ${styles.navLink}`}>
+                <a className={`nav-link text-white`} href="#">
+                  Блог
                 </a>
               </li>
             </ul>
