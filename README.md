@@ -51,7 +51,9 @@ Before diving into LearnHub.mk, make sure you have Node.js installed on your mac
 
 1. Install specific version of Node.js
 
-        nvm install $(cat .nvmrc)   
+        nvm install $(cat .nvmrc)
+
+        nvm use
 
 #### Clone the repository to your local machine. 
 
