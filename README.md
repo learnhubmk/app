@@ -42,33 +42,37 @@ Leverage the wisdom of experienced professionals to accelerate your learning jou
 ## Setup and Installation
 
 Before diving into LearnHub.mk, make sure you have Node.js installed on your machine.
-> Optional: Install Node Version Manager
-> - Linux/Mac: [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script)
-> - Windows: [nvm-windows](https://github.com/coreybutler/nvm-windows#install-nvm-windows)
 
-1. Clone the repository to your local machine. 
+#### Prerequisites
+
+- **Node.js version:** Make sure you have the specified Node.js version from the **.nvmrc** file.
+
+#### Important Note
+
+1. Install specific version of Node.js
+
+        nvm install $(cat .nvmrc)   
+
+#### Clone the repository to your local machine. 
+
+2. Open your terminal or command prompt.
 
         git clone https://github.com/learnhubmkd/app.git
 
-2. Navigate to the project directory to install dependencies run:
+3. Navigate to the project directory to install dependencies run:
  
         npm install
    or
 
        yarn install
      
-3. Start the development server with:
+4. Start the development server with:
    
        npm run dev
    or
 
        yarn dev
 
-4. Install specific version of Node.js
-
-           nvm install $(cat .nvmrc)
-
-   
 5. Open [localhost:3000](http://localhost:3000) in your browser to explore the app.
 
 
