@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-undef
-test('Jest setup', () => {
-  // eslint-disable-next-line no-undef
+test('Jest Test Example', () => {
   expect(true).toBe(true);
 });
