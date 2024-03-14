@@ -9,9 +9,9 @@ interface ButtonProps {
   color?: string;
   border?: string;
   borderRadius?: string;
-}  
+}
 
-function Button({ 
+function Button({
   onClick,
   children,
   className = '',
