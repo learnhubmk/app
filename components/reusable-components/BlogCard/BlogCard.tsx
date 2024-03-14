@@ -4,7 +4,6 @@ import { HiArrowLongRight } from 'react-icons/hi2';
 import style from './blogCard.module.scss';
 
 interface BlogCardProps {
-  id: string;
   title: string;
   body: string;
 }
@@ -14,14 +13,16 @@ interface TruncateProps {
   noWords: number;
 }
 
-function BlogCard({ id, title, body }: BlogCardProps) {
+function BlogCard({ title, body }: BlogCardProps) {
   const truncate = ({ str, noWords }: TruncateProps) => {
-    return str.split(' ').splice(0, noWords).join(' ');
+    return str.split(' ').slice(0, noWords).join(' ');
   };
   return (
-    <div key={id} className={style.cardContainer}>
+    <div className={style.cardContainer}>
       <div>
-        <h2 className={`headline-m ${style.cardTitle}`}>{title}</h2>
+        <h2
+          className={`headline-m ${style.cardTitle}`}
+        >{`${truncate({ str: title, noWords: 5 })}...`}</h2>
         <div className={style.divider} />
       </div>
       <div>

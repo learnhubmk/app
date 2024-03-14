@@ -12,14 +12,18 @@ const getPosts = async () => {
 
 async function BlogList() {
   const data = await getPosts();
+
+  if (!data.posts) {
+    return <div className="headline-m">Нема блог постови во моментов</div>;
+  }
+
   return (
     <>
       <div className={`grid grid__1x3 ${style.containerMargin}`}>
         {data.posts?.slice(0, 6).map((post: { id: string; title: string; body: string }) => {
-          return <BlogCard id={post?.id} title={post?.title} body={post?.body} />;
+          return <BlogCard key={post?.id} title={post?.title} body={post?.body} />;
         })}
       </div>
-
       <Link href="/blog" className={style.blogBtn}>
         Види повеќе <HiArrowLongRight fontSize={22} />
       </Link>
