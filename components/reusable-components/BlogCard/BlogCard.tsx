@@ -9,8 +9,13 @@ interface BlogCardProps {
   body: string;
 }
 
+interface TruncateProps {
+  str: string;
+  noWords: number;
+}
+
 function BlogCard({ id, title, body }: BlogCardProps) {
-  const truncate = (str, noWords) => {
+  const truncate = ({ str, noWords }: TruncateProps) => {
     return str.split(' ').splice(0, noWords).join(' ');
   };
   return (
@@ -20,7 +25,7 @@ function BlogCard({ id, title, body }: BlogCardProps) {
         <div className={style.divider} />
       </div>
       <div>
-        <p className={style.bodyText}>{`${truncate(body, 10)}...`}</p>
+        <p className={style.bodyText}>{`${truncate({ str: body, noWords: 10 })}...`}</p>
         <Link href={`/blog/${title}`} className={style.blogCardBtn}>
           <HiArrowLongRight className={style.arrowIcon} />
         </Link>

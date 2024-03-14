@@ -10,13 +10,13 @@ const getPosts = async () => {
   return res.json();
 };
 
-function BlogList() {
+async function BlogList() {
   const data = await getPosts();
   return (
     <>
       <div className={`grid grid__1x3 ${style.containerMargin}`}>
-        {data.posts.slice(0, 6).map((post) => {
-          return <BlogCard id={post.id} title={post.title} body={post.body} />;
+        {data.posts?.slice(0, 6).map((post: { id: string; title: string; body: string }) => {
+          return <BlogCard id={post?.id} title={post?.title} body={post?.body} />;
         })}
       </div>
 
