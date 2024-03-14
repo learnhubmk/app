@@ -1,8 +1,8 @@
-.navbar {
+.Navbar {
   background-color: #202023;
 }
 
-.navbarBrand {
+.NavbarBrand {
   color: #ffff;
   font-size: 30px;
   margin-left: 20px;
@@ -12,7 +12,7 @@
   left: 85px;
 }
 
-.navLink1 {
+.NavLink1 {
   color: #ffff;
   font-size: 20px;
   margin-right: -400px;
@@ -21,27 +21,27 @@
   /* Adjust the margin for space between links */
 }
 
-.horizontalNav {
+.HorizontalNav {
   display: flex;
   list-style: none;
   padding: 10px;
 }
 
-.navContainer {
+.NavContainer {
   display: flex;
   justify-content: space-between;
 }
-.leftContent {
+.LeftContent {
   display: flex;
   align-items: center;
 }
 
-.rightContent {
+.RightContent {
   display: flex;
   align-items: center;
 }
 
-.customButton1 {
+.CustomButton1 {
   background-color: #202023; /* Transparent dark background */
   padding: 10px;
   margin-right: 10px;
@@ -51,14 +51,14 @@
   padding-inline: 25px;
 }
 
-.customButton {
+.CustomButton {
   background-color: #ea713e;
   padding: 10px;
   font-size: 20px;
   padding-inline: 25px;
 }
 
-.largeNavbar {
+.LargeNavbar {
   background-color: #202023;
   padding: 40px; /* Adjust the padding to increase the size of the navbar */
 }

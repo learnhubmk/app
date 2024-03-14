@@ -1,4 +1,4 @@
-.footer {
+.Footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -8,7 +8,7 @@
   color: #fff;
 }
 
-.leftSection {
+.LeftSection {
   flex: 1;
   font-size: 36px;
   margin-left: 60px;
@@ -21,7 +21,7 @@
   left: 81px;
 }
 
-.contactSection p:first-child {
+.ContactSection p:first-child {
   flex: 2;
   margin-left: 350px;
   font-size: 24px;
@@ -33,7 +33,7 @@
   left: 536px;
 }
 
-.contactSection p:last-child {
+.ContactSection p:last-child {
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -43,7 +43,7 @@
   text-decoration: underline;
 }
 
-.socialMediaSection {
+.SocialMediaSection {
   flex: 2;
   margin-left: 150px;
   font-size: 24px;
@@ -52,13 +52,13 @@
   text-transform: uppercase;
 }
 
-.socialMediaSection p {
+.SocialMediaSection p {
   font-size: 24px;
   margin-bottom: 8px;
   padding-bottom: 20px;
 }
 
-.newsletterSection {
+.NewsletterSection {
   flex: 2;
   margin-left: -100px;
   font-size: 24px;
@@ -66,7 +66,7 @@
   font-weight: 700;
 }
 
-.socialMediaSection a {
+.SocialMediaSection a {
   display: block;
   margin-bottom: 8px;
   color: #fff;
@@ -75,7 +75,7 @@
   font-weight: 300;
 }
 
-.newsletterSection input {
+.NewsletterSection input {
   background-color: #202023;
   border: 1px solid #ffff;
   padding: 8px;
@@ -85,11 +85,11 @@
   height: 38px;
 }
 
-.newsletterSection input::placeholder {
+.NewsletterSection input::placeholder {
   color: #ffffff;
 }
 
-.newsletterSection button {
+.NewsletterSection button {
   padding: 9px;
   background-color: #fff;
   color: #333;
@@ -103,27 +103,27 @@
 
 /* Mobile responsive styles */
 @media screen and (max-width: 768px) {
-  .footer {
+  .Footer {
     padding: 10px;
   }
 
-  .leftSection {
+  .LeftSection {
     font-size: 18px;
     margin-bottom: 10px;
   }
 
-  .contactSection p:first-child,
-  .contactSection p:last-child,
-  .socialMediaSection,
-  .newsletterSection {
+  .ContactSection p:first-child,
+  .ContactSection p:last-child,
+  .SocialMediaSection,
+  .NewsletterSection {
     margin: 10px 0;
   }
 
-  .socialMediaSection p {
+  .SocialMediaSection p {
     padding-bottom: 5px;
   }
 
-  .newsletterSection button {
+  .NewsletterSection button {
     padding: 8px;
     font-size: 16px;
     margin-bottom: 10px;
