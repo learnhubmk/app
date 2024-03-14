@@ -1,7 +1,7 @@
 import Hero from '../components/module-components/Hero/Hero';
 import styles from './page.module.scss';
 
-export default function Home() {
+const Home = () => {
   return (
     <main className={styles.main}>
       <Hero
@@ -14,4 +14,5 @@ export default function Home() {
       <h1 className="display-l">Home LearnHub.mk</h1>
     </main>
   );
-}
+};
+export default Home;
