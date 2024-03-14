@@ -1,3 +1,4 @@
+import FAQ from '../components/module-components/FAQ/FAQ';
 import Hero from '../components/module-components/Hero/Hero';
 import styles from './page.module.scss';
 
@@ -10,8 +11,9 @@ export default function Home() {
         text="Овозможете си да достигнете до нови височини, развивајќи и споделувајќи вештини cо
           заедница од ентузијасти и професионалци. Со LearnHub, вие не сте само дел од заедница; вие
           градите иднина."
-      />
+      />   
       <h1 className="display-l">Home LearnHub.mk</h1>
+      <FAQ />
     </main>
   );
 }
