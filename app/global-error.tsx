@@ -1,6 +1,12 @@
 'use client';
 
-function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+const GlobalError = ({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) => {
   return (
     <html lang="en">
       <body>
@@ -11,6 +17,6 @@ function GlobalError({ error, reset }: { error: Error & { digest?: string }; res
       </body>
     </html>
   );
-}
+};
 
 export default GlobalError;
