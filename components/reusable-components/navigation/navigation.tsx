@@ -1,45 +1,45 @@
 import React from 'react';
 import Link from 'next/link';
-import Styles from './navigation.module.scss';
+import styles from './navigation.module.scss';
 
 function Navigation() {
   return (
-    <nav className={Styles.LargeNavbar}>
-      <div className={Styles.NavContainer}>
-        <div className={Styles.LeftContent}>
-          <Link className={Styles.NavbarBrand} href="/">
+    <nav className={styles.largeNavbar}>
+      <div className={styles.navContainer}>
+        <div className={styles.leftContent}>
+          <Link className={styles.navbarBrand} href="/">
             LearnHub.mk
           </Link>
           <div id="navbarNav">
-            <ul className={Styles.HorizontalNav}>
-              <Link className={Styles.NavLink1} href="/">
+            <ul className={styles.horizontalNav}>
+              <Link className={styles.navLink1} href="/">
                 Визија{' '}
               </Link>
-              <Link className={Styles.NavLink1} href="/">
+              <Link className={styles.navLink1} href="/">
                 {' '}
                 Цели{' '}
               </Link>
-              <Link className={Styles.NavLink1} href="/">
+              <Link className={styles.navLink1} href="/">
                 {' '}
                 Контакт{' '}
               </Link>
-              <Link className={Styles.NavLink1} href="/">
+              <Link className={styles.navLink1} href="/">
                 Блог{' '}
               </Link>
             </ul>
           </div>
         </div>
-        <div className={Styles.RightContent}>
+        <div className={styles.rightContent}>
           <div>
             <Link href="/signup" passHref>
-              <button type="button" className={Styles.CustomButton1}>
+              <button type="button" className={styles.customButton1}>
                 Sign Up
               </button>
             </Link>
           </div>
           <div>
             <Link href="/signin" passHref>
-              <button type="button" className={Styles.CustomButton}>
+              <button type="button" className={styles.customButton}>
                 Sign In
               </button>
             </Link>

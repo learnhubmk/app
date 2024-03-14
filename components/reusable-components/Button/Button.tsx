@@ -1,50 +1,50 @@
 import React from 'react';
-import Styles from '../../reusable-components/button/button.module.scss';
+import styles from './button.module.scss';
 
 interface ButtonProps {
-  OnClick: () => void;
-  Children: React.ReactNode;
-  ClassName?: string;
-  BackgroundColor?: string;
-  Color?: string;
-  Border?: string;
-  BorderRadius?: string;
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+  backgroundColor?: string;
+  color?: string;
+  border?: string;
+  borderRadius?: string;
 }
 
 function Button({
-  OnClick,
-  Children,
-  ClassName = '',
-  BackgroundColor = '',
-  Color = '',
-  Border = '',
-  BorderRadius = '',
+  onClick,
+  children,
+  className = '',
+  backgroundColor = '',
+  color = '',
+  border = '',
+  borderRadius = '',
 }: ButtonProps) {
-  const ButtonStyles = {
-    backgroundColor: BackgroundColor,
-    color: Color,
-    border: Border,
-    borderRadius: BorderRadius,
+  const buttonStyles = {
+    backgroundColor,
+    color,
+    border,
+    borderRadius,
   };
 
   return (
     <button
       type="button"
-      className={`${Styles.Button} ${ClassName}`}
-      style={ButtonStyles}
-      onClick={OnClick}
+      className={`${styles.button} ${className}`}
+      style={buttonStyles}
+      onClick={onClick}
     >
-      {Children}
+      {children}
     </button>
   );
 }
 
 Button.defaultProps = {
-  ClassName: '?',
-  BackgroundColor: '?',
-  Color: '?',
-  Border: '?',
-  BorderRadius: '?',
+  className: '?',
+  backgroundColor: '?',
+  color: '?',
+  border: '?',
+  borderRadius: '?',
 };
 
 export default Button;
