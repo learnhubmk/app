@@ -1,0 +1,23 @@
+.hero {
+  display: flex;
+  gap: 150px;
+}
+
+.heroLeftContainer {
+  width: 717px;
+}
+
+.heroTitle {
+  text-transform: uppercase;
+  line-height: 61px;
+}
+
+.heroHeadline {
+  line-height: 45px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.heroText {
+  width: 667px;
+}
