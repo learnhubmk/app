@@ -11,7 +11,7 @@ interface ButtonProps {
   borderRadius?: string;
 }  
 
-function Button({
+function Button({ 
   onClick,
   children,
   className = '',
