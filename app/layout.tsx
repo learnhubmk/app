@@ -1,11 +1,10 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-
 import './styles/main.scss';
 import Loading from './loading';
-import Footer from '../components/reusable-components/footer';
-import Navigation from '../components/reusable-components/navigation';
+import Footer from '../components/reusable-components/footer/footer';
+import Navigation from '../components/reusable-components/navigation/navigation';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
@@ -22,8 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
+        <Navigation />
         <main>
-          <Navigation />
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </main>
         <Footer />
