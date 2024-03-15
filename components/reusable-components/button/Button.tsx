@@ -39,12 +39,5 @@ const Button = ({
   );
 };
 
-Button.defaultProps = {
-  className: '?',
-  backgroundColor: '?',
-  color: '?',
-  border: '?',
-  borderRadius: '?',
-};
 
 export default Button;
