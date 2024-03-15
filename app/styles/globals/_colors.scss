@@ -1,8 +1,11 @@
 :root {
+  --black-color: hsl(0, 0%, 0%);
   --bg-color: hsl(0, 0%, 11%);
   --text-color: hsl(0, 0%, 100%);
   --error-light: hsla(3, 71%, 41%, 1);
   --error-light-text: hsl(0, 0%, 100%);
   --error-dark: hsla(3, 70%, 83%, 1);
   --error-dark-text: hsla(3, 71%, 22%, 1);
+  --blog-card-bg: hsla(0, 0%, 85%, 1);
+  --primary-btn-color: hsl(14, 82%, 58%);
 }
