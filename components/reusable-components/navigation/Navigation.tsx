@@ -1,29 +1,32 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import styles from './navigation.module.scss';
+import Button from '../button/Button';
 
 const Navigation = () => {
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <div className={styles.leftContent}>
-          <Link className={styles.navbarBrand} href="/">
+          <Link className={`display-s ${styles.navbarBrand}`} href="/">
             LearnHub.mk
           </Link>
           <div id="navbarNav">
             <ul className={styles.horizontalNav}>
-              <Link className={styles.navLink1} href="/">
+              <Link className={`headline-s ${styles.navLink1}`} href="/">
                 Визија{' '}
               </Link>
-              <Link className={styles.navLink1} href="/">
+              <Link className={`headline-s ${styles.navLink1}`} href="/">
                 {' '}
                 Цели{' '}
               </Link>
-              <Link className={styles.navLink1} href="/">
+              <Link className={`headline-s ${styles.navLink1}`} href="/">
                 {' '}
                 Контакт{' '}
               </Link>
-              <Link className={styles.navLink1} href="/">
+              <Link className={`headline-s ${styles.navLink1}`} href="/">
                 Блог{' '}
               </Link>
             </ul>
@@ -32,16 +35,33 @@ const Navigation = () => {
         <div className={styles.rightContent}>
           <div>
             <Link href="/signup" passHref>
-              <button type="button" className={styles.customButton1}>
+              <Button
+                style={{
+                  backgroundColor: 'var(--bg-color)',
+                  padding: '10px',
+                  marginRight: '10px',
+                  color: '#ea713e',
+                  border: '1px solid #ea713e',
+                  fontSize: '20px',
+                  paddingInline: '25px',
+                }}
+              >
                 Sign Up
-              </button>
+              </Button>
             </Link>
           </div>
           <div>
             <Link href="/signin" passHref>
-              <button type="button" className={styles.customButton}>
+              <Button
+                style={{
+                  backgroundColor: '#ea713e',
+                  padding: '10px',
+                  fontSize: '20px',
+                  paddingInline: '25px',
+                }}
+              >
                 Sign In
-              </button>
+              </Button>
             </Link>
           </div>
         </div>

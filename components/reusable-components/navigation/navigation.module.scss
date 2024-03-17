@@ -1,22 +1,42 @@
+@mixin respond-to($size) {
+  @if $size == 'small' {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $size == 'medium' {
+    @media (min-width: 769px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $size == 'large' {
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      @content;
+    }
+  } @else if $size == 'extra-large' {
+    @media (min-width: 1441px) {
+      @content;
+    }
+  }
+}
+
 .navbar {
   background-color: var(--bg-color);
 }
 
 .navbarBrand {
-  color: #ffff;
-  font-size: 36px;
-  margin-left: 20px;
-  width: 227px;
-  height: 44px;
-  top: 67px;
-  left: 85px;
+  color: var(--text-color);
+  margin-left: 0.55em;
+  width: 6.3em;
+  height: 1.22em;
+  top: 1.86em;
+  left: 2.36em;
 }
 
 .navLink1 {
-  color: #ffff;
-  font-size: 25px;
-  margin-right: -370px;
-  margin-left: 430px;
+  display: flex;
+  color: var(--text-color);
+  position: relative;
+  margin-left: 4.16em;
+  left: 10.41em;
 }
 
 .horizontalNav {
@@ -29,6 +49,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .leftContent {
   display: flex;
   align-items: center;
@@ -39,24 +60,67 @@
   align-items: center;
 }
 
-.customButton1 {
-  background-color: var(--bg-color);
-  padding: 10px;
-  margin-right: 10px;
-  color: #ea713e;
-  border: 1px solid #ea713e;
-  font-size: 20px;
-  padding-inline: 25px;
-}
-
-.customButton {
-  background-color: #ea713e;
-  padding: 10px;
-  font-size: 20px;
-  padding-inline: 25px;
-}
-
 .largeNavbar {
   background-color: var(--bg-color);
   padding: 40px;
+}
+
+@include respond-to('small') {
+  .navbarBrand {
+    margin-left: 0.25em;
+    width: 4em;
+    height: 1em;
+    top: 1.5em;
+    left: 1.5em;
+  }
+
+  .navLink1 {
+    margin-left: 2em;
+    left: 5em;
+  }
+}
+
+@include respond-to('medium') {
+  .navbarBrand {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .navLink1 {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}
+
+@include respond-to('large') {
+  .navbarBrand {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .navLink1 {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}
+
+@include respond-to('extra-large') {
+  .navbarBrand {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .navLink1 {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
 }

@@ -2,49 +2,23 @@ import React from 'react';
 import styles from './button.module.scss';
 
 interface ButtonProps {
-  onClick: () => void;
   children: React.ReactNode;
+  onClick?: () => void;
   className?: string;
-  backgroundColor?: string;
-  color?: string;
-  border?: string;
-  borderRadius?: string;
+  style?: React.CSSProperties;
 }
 
-const Button = ({
-  onClick,
-  children,
-  className = '',
-  backgroundColor = '',
-  color = '',
-  border = '',
-  borderRadius = '',
-}: ButtonProps) => {
-  const buttonStyles = {
-    backgroundColor,
-    color,
-    border,
-    borderRadius,
-  };
-
+const Button = ({ children, onClick = () => {}, className = '', style = {} }: ButtonProps) => {
   return (
     <button
       type="button"
       className={`${styles.button} ${className}`}
-      style={buttonStyles}
+      style={style}
       onClick={onClick}
     >
       {children}
     </button>
   );
-};
-
-Button.defaultProps = {
-  className: '?',
-  backgroundColor: '?',
-  color: '?',
-  border: '?',
-  borderRadius: '?',
 };
 
 export default Button;
