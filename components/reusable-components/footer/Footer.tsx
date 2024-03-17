@@ -12,7 +12,7 @@ const Footer = () => {
 
       <div className={` title-l ${styles.contactSection}`}>
         <p>CONTACT</p>
-        <p>contact@learnhub.mk</p>
+        <p>mailto: contact@learnhub.mk</p>
       </div>
 
       <div className={` title-l ${styles.socialMediaSection}`}>
