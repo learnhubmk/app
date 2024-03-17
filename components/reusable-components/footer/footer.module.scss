@@ -25,7 +25,7 @@
   align-items: center;
   padding: 20px;
   background-color: var(--bg-color);
-  color: #fff;
+  color: var(--text-color);
 }
 
 .footerLogo {
@@ -101,6 +101,7 @@
   cursor: text;
   width: 60%;
   max-width: 300px;
+  color: var(--text-color);
 }
 
 .newsletterSection input::placeholder {
