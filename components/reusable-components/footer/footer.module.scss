@@ -28,12 +28,16 @@
   color: #fff;
 }
 
-.footerBrand {
+.footerLogo {
   flex: 1;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   padding-left: 1.5em;
   padding-bottom: 6.5em;
+}
+
+.contactSection {
+  padding-bottom: 8.18em;
 }
 
 .contactSection p:first-child {
@@ -45,13 +49,14 @@
   margin-bottom: 1.3em;
 }
 
-.contactSection p:last-child {
+.contactSection a {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   margin-right: 6.25em;
   padding-left: 16em;
   padding-bottom: 8em;
   text-decoration: underline;
+  color: inherit;
 }
 
 .socialMediaSection {
@@ -68,14 +73,14 @@
 }
 
 .socialMediaSection a {
-  display: flex; // Use flex to allow centering the icon horizontally
-  align-items: center; // Center the icon vertically
+  display: flex;
+  align-items: center;
   margin-bottom: 12px;
-  color: #fff;
+  color: var(--text-color);
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  gap: 10px; // Add space between the icon and text
+  gap: 10px;
 }
 
 .newsletterSection {

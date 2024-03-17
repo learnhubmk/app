@@ -10,29 +10,29 @@ const Navigation = () => {
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <div className={styles.leftContent}>
-          <Link className={`display-s ${styles.navbarBrand}`} href="/">
+          <Link className={`display-s ${styles.NavigationLogo}`} href="/">
             LearnHub.mk
           </Link>
           <div id="navbarNav">
-            <ul className={styles.horizontalNav}>
-              <Link className={`headline-s ${styles.navLink1}`} href="/">
+            <ul className={styles.menuElementsNav}>
+              <Link className={`headline-s ${styles.menuElements}`} href="/">
                 Визија{' '}
               </Link>
-              <Link className={`headline-s ${styles.navLink1}`} href="/">
+              <Link className={`headline-s ${styles.menuElements}`} href="/">
                 {' '}
                 Цели{' '}
               </Link>
-              <Link className={`headline-s ${styles.navLink1}`} href="/">
+              <Link className={`headline-s ${styles.menuElements}`} href="/">
                 {' '}
                 Контакт{' '}
               </Link>
-              <Link className={`headline-s ${styles.navLink1}`} href="/">
+              <Link className={`headline-s ${styles.menuElements}`} href="/">
                 Блог{' '}
               </Link>
             </ul>
           </div>
         </div>
-        <div className={styles.rightContent}>
+        <div className={styles.buttonsContent}>
           <div>
             <Link href="/signup" passHref>
               <Button

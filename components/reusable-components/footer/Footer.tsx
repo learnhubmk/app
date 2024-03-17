@@ -6,13 +6,13 @@ import styles from './footer.module.scss';
 const Footer = () => {
   return (
     <footer className={`${styles.footer}`}>
-      <div className={` display-s ${styles.footerBrand}`}>
+      <div className={` display-s ${styles.footerLogo}`}>
         <p>LearnHub.mk</p>
       </div>
 
-      <div className={` title-l ${styles.contactSection}`}>
+      <div className={`title-l ${styles.contactSection}`}>
         <p>CONTACT</p>
-        <p>contact@learnhub.mk</p>
+        <a href="mailto:contact@learnhub.mk">contact@learnhub.mk</a>
       </div>
 
       <div className={` title-l ${styles.socialMediaSection}`}>
@@ -35,7 +35,7 @@ const Footer = () => {
         <p>NEWSLETTER</p>
         <div className={`${styles.inputContainer}`}>
           <input type="email" placeholder="Enter your email" />
-          <button type="button">→</button>
+          <button type="submit">→</button>
         </div>
       </div>
     </footer>

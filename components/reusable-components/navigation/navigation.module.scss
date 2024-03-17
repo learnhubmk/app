@@ -22,7 +22,7 @@
   background-color: var(--bg-color);
 }
 
-.navbarBrand {
+.NavigationLogo {
   color: var(--text-color);
   margin-left: 0.55em;
   width: 6.3em;
@@ -31,7 +31,7 @@
   left: 2.36em;
 }
 
-.navLink1 {
+.menuElements {
   display: flex;
   color: var(--text-color);
   position: relative;
@@ -39,7 +39,7 @@
   left: 10.41em;
 }
 
-.horizontalNav {
+.menuElementsNav {
   display: flex;
   list-style: none;
   padding: 10px;
@@ -55,7 +55,7 @@
   align-items: center;
 }
 
-.rightContent {
+.buttonsContent {
   display: flex;
   align-items: center;
 }
