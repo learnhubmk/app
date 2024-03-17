@@ -68,14 +68,14 @@
 }
 
 .socialMediaSection a {
-  display: flex;
-  align-items: center;
-  padding-bottom: 0.5em;
-  color: var(--text-color);
+  display: flex; // Use flex to allow centering the icon horizontally
+  align-items: center; // Center the icon vertically
+  margin-bottom: 12px;
+  color: #fff;
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  gap: 0.35em;
+  gap: 10px; // Add space between the icon and text
 }
 
 .newsletterSection {
