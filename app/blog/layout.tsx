@@ -14,10 +14,10 @@ const LayoutBlogPage = ({
       <div className={style.layoutContainer}>
         <Input type="text" placeholder="Пребарај" icon={<IoIosSearch />} />
         <div className={style.suggestArticleContainer}>
-          <h2 className="display-s">Предлог Блог Статии</h2>
+          <h2 className="title-l">Предлог Блог Статии</h2>
         </div>
         <div className={style.filterContainer}>
-          <h2 className="display-s">Филтрирај По Таг</h2>
+          <h2 className="title-l">Филтрирај По Таг</h2>
         </div>
       </div>
     </div>
