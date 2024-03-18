@@ -10,7 +10,7 @@ const getPosts = async () => {
   return res.json();
 };
 
-async function BlogList() {
+const BlogList = async () => {
   const data = await getPosts();
 
   if (!data.posts) {
@@ -29,6 +29,6 @@ async function BlogList() {
       </Link>
     </>
   );
-}
+};
 
 export default BlogList;
