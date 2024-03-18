@@ -10,7 +10,7 @@ const Navigation = () => {
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <div className={styles.leftContent}>
-          <Link className={`display-s ${styles.NavigationLogo}`} href="/">
+          <Link className={`display-s ${styles.navigationLogo}`} href="/">
             LearnHub.mk
           </Link>
           <div id="navbarNav">
