@@ -25,7 +25,7 @@
   align-items: center;
   padding: 20px;
   background-color: var(--bg-color);
-  color: var(--text-color);;
+  color: var(--text-color);
 }
 
 .footerLogo {
@@ -59,7 +59,6 @@
   margin-bottom: 1.3em;
 }
 
-
 .socialMediaSection {
   flex: 2;
   font-family: 'Roboto Condensed', sans-serif;
@@ -72,7 +71,7 @@
     padding-bottom: 1.3em;
   }
 
-  & a{
+  & a {
     display: flex;
     align-items: center;
     margin-bottom: 12px;
@@ -84,7 +83,6 @@
   }
 }
 
-
 .newsletterSection {
   flex: 2;
   font-family: 'Roboto Condensed', sans-serif;
@@ -95,7 +93,6 @@
     padding-bottom: 1.3em;
   }
 }
-
 
 .newsletterSection input {
   background-color: var(--bg-color);
@@ -136,8 +133,6 @@
       padding-bottom: 5px;
     }
   }
-
-  
 
   .newsletterSection button {
     padding: 8px;
