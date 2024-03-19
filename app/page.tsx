@@ -1,4 +1,4 @@
-import BlogList from '../components/module-components/BlogList/BlogList';
+// import BlogList from '../components/module-components/BlogList/BlogList';
 import Hero from '../components/module-components/Hero/Hero';
 import styles from './page.module.scss';
 
@@ -12,7 +12,6 @@ const Home = () => {
           заедница од ентузијасти и професионалци. Со LearnHub, вие не сте само дел од заедница; вие
           градите иднина."
       />
-      <BlogList />
     </main>
   );
 };
