@@ -1,3 +1,14 @@
+:root {
+  --fs-100: clamp(0.84rem, calc(0.94rem + -0.13vw), 0.91rem);
+  --fs-200: clamp(1.09rem, calc(1.08rem + 0.06vw), 1.13rem);
+  --fs-300: clamp(1.31rem, calc(1.24rem + 0.37vw), 1.5rem);
+  --fs-400: clamp(1.58rem, calc(1.41rem + 0.83vw), 2rem);
+  --fs-500: clamp(1.89rem, calc(1.59rem + 1.51vw), 2.67rem);
+  --fs-600: clamp(2.27rem, calc(1.77rem + 2.51vw), 3.55rem);
+  --fs-700: clamp(2.72rem, calc(1.94rem + 3.93vw), 4.74rem);
+  --fs-800: clamp(3.27rem, calc(2.08rem + 5.95vw), 6.31rem);
+}
+
 p {
   margin: 0px;
   padding: 0px;
