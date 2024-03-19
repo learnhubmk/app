@@ -9,7 +9,7 @@ interface BlogCardProps {
   body: string;
 }
 
-function BlogCard({ title, body }: BlogCardProps) {
+const BlogCard = ({ title, body }: BlogCardProps) => {
   return (
     <div className={style.cardContainer}>
       <div>
@@ -25,6 +25,6 @@ function BlogCard({ title, body }: BlogCardProps) {
       </div>
     </div>
   );
-}
+};
 
 export default BlogCard;
