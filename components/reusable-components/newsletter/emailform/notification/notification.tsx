@@ -22,7 +22,8 @@ const Notification = ({ message, type, onClose }: NotificationProps) => {
   return (
     <div className={styles.popup} style={{ display: isVisible ? 'flex' : 'none' }}>
       <div className={`${styles.notification} ${styles[type]}`}>
-        <p>{message}</p>
+        {type === 'success' && <p className={styles.success}>{message}</p>}
+        {type === 'error' && <p className={styles.error}>{message}</p>}
       </div>
     </div>
   );

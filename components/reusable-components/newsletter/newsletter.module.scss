@@ -14,7 +14,6 @@
 
   & p {
     display: inline;
-    margin: 0;
   }
 
   .contentContainer {
@@ -26,7 +25,6 @@
   .newsletterText {
     display: flex;
     align-items: center;
-    padding-right: 0px;
   }
 
   .ellipse {
@@ -78,5 +76,41 @@
     height: 2.25em;
     width: 3.5em;
     height: 44px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 40px;
+    padding-bottom: 100px;
+    padding-top: 100px;
+
+    .contentContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .newsletterText {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ellipsePosition {
+      margin-top: 10px;
+      margin-left: 0;
+    }
+
+    .newsletterSection input {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 30px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+
+    .newsletterSection input {
+      padding-right: 20px;
+    }
   }
 }

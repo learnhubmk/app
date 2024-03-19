@@ -5,7 +5,6 @@ import './styles/main.scss';
 import Loading from './loading';
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
-import Newsletter from '../components/reusable-components/newsletter/Newsletter';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
@@ -21,7 +20,6 @@ const RootLayout = ({
       <main>
         <Suspense fallback={<Loading />}>{children}</Suspense>
       </main>
-      <Newsletter />
       <Footer />
     </body>
   </html>

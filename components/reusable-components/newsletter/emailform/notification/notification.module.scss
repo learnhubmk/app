@@ -1,8 +1,7 @@
 .popup {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 20px;
+  left: 50px;
   z-index: 999;
   display: flex;
   justify-content: center;
@@ -10,37 +9,37 @@
 }
 
 .notification {
-  background-color: rgba(0, 0, 0, 0.8);
-  border: 1px solid #ccc;
+  background-color: var(--blog-card-bg);
+  border: 1px solid var(--blog-card-bg);
+  color: var(--bg-color);
   border-radius: 5px;
-  padding: 100px;
+  padding: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   min-width: 200px;
 }
 
 .success {
-  color: var(--primary-btn-color);
+  color: var(--bg-color);
   text-align: center;
   display: block;
-  font-size: 50px;
+  font-size: 20px;
   animation: appear 1s ease forwards;
-}
-
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .error {
+  background-color: var(--error-dark);
+  padding-top: 0.57em;
+  padding-right: 13.57em;
+  padding-left: 0.71em;
+  padding-bottom: 0.57em;
   color: var(--error-light);
+  position: absolute;
   text-align: center;
   display: block;
-  font-size: 50px;
+  font-size: 14px;
+  margin-left: 5em;
   animation: appear 1s ease forwards;
+  text-transform: capitalize;
 }
 
 @keyframes appear {
