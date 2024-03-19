@@ -1,0 +1,38 @@
+.buttonMorph {
+  background-color: var(--text-color);
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  position: relative;
+
+  .default {
+    position: absolute;
+    transition: 300ms;
+    background-color: var(--bg-color);
+    border-radius: 0.2rem;
+  }
+
+  .default:first-child {
+    top: 25%;
+    bottom: 25%;
+    width: 10%;
+    left: 45%;
+  }
+
+  .default:last-child {
+    left: 25%;
+    right: 25%;
+    height: 10%;
+    top: 45%;
+  }
+
+  .active {
+    transform: rotate(90deg);
+    transform-origin: center;
+  }
+
+  .active:last-child {
+    left: 50%;
+    right: 50%;
+  }
+}
