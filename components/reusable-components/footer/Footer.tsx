@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { FaLinkedin, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import styles from './footer.module.scss';
+import EmailForm from '../newsletter/emailform/emailform';
 
 const Footer = () => {
   return (
@@ -34,8 +35,7 @@ const Footer = () => {
       <div className={` title-l ${styles.newsletterSection}`}>
         <p>NEWSLETTER</p>
         <div className={`${styles.inputContainer}`}>
-          <input type="email" placeholder="Enter your email" />
-          <button type="submit">→</button>
+          <EmailForm inputClassName={styles.newsletterSection} buttonClassName={styles.button} />
         </div>
       </div>
     </footer>

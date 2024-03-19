@@ -1,0 +1,53 @@
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+}
+
+.success {
+  color: var(--primary-btn-color);
+  text-align: center;
+  display: block;
+  font-size: 50px;
+  animation: appear 1s ease forwards;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.error {
+  color: var(--error-light);
+  text-align: center;
+  display: block;
+  font-size: 50px;
+  animation: appear 1s ease forwards;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
