@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars, no-unused-expressions
+
 import type { Metadata } from 'next';
-import { useClient } from 'next-use-client';
 import { Roboto } from 'next/font/google';
 import { Suspense } from 'react';
 import './styles/main.scss';
@@ -13,7 +14,6 @@ const RootLayout = ({
 }: Readonly<{
   // eslint-disable-next-line no-undef
   children: React.ReactNode;
-  useClient();
 }>) => (
   <html lang="en">
     <body className={roboto.className}>

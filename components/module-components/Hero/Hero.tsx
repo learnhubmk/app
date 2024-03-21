@@ -1,3 +1,7 @@
+/* eslint-disable react/button-has-type */
+
+'use client';
+
 import Image from 'next/image';
 import { useEffect } from 'react';
 import style from './hero.module.scss';
@@ -18,14 +22,9 @@ const Hero = ({ title, headline, text }: HeroProps) => {
   }, [theme]);
 
   return (
+    // eslint-disable-next-line react/jsx-no-comment-textnodes
     <div className={style.hero}>
-      <button
-        onClick={(event) => {
-          toggleTheme();
-        }}
-      >
-        {theme === 'day' ? <p>M</p> : <p>S</p>}
-      </button>
+      <button onClick={toggleTheme}>Toggle Theme</button>
       <div className={style.heroLeftContainer}>
         <p className={`title-m ${style.heroTitle}`}>{title}</p>
         <h1 className={`display-m ${style.heroHeadline}`}>{headline}</h1>

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface ThemeContextType {
@@ -11,7 +13,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [theme, setTheme] = useState<'day' | 'night'>('day');
 
   const toggleTheme = () => {
-    setTheme(theme === 'day' ? 'night' : 'day');
+    setTheme((prevTheme) => (prevTheme === 'day' ? 'night' : 'day'));
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
