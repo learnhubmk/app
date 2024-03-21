@@ -1,5 +1,7 @@
+import Tab from '../../components/reusable-components/tab/Tab';
+
 const Blog = () => {
-  return <div>Blog page</div>;
+  return <Tab leftTabText="За тебе" rightTabText="Најново" />;
 };
 
 export default Blog;
