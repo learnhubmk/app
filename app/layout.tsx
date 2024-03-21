@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import { useClient } from 'next-use-client';
 import { Roboto } from 'next/font/google';
 import { Suspense } from 'react';
 import './styles/main.scss';
 import Loading from './loading';
+import { ThemeProvider } from '../components/context/ThemeContext';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
@@ -11,11 +13,14 @@ const RootLayout = ({
 }: Readonly<{
   // eslint-disable-next-line no-undef
   children: React.ReactNode;
+  useClient();
 }>) => (
   <html lang="en">
     <body className={roboto.className}>
       <main>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+        <Suspense fallback={<Loading />}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </Suspense>
       </main>
     </body>
   </html>

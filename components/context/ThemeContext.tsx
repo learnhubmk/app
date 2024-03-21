@@ -1,6 +1,3 @@
-// @ts-ignore
-// @ts-nocheck
-// @useClient
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface ThemeContextType {
@@ -8,7 +5,7 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<'day' | 'night'>('day');
