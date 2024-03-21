@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { HiArrowLongRight } from 'react-icons/hi2';
 
-import BlogCard from '../../reusable-components/BlogCard/BlogCard';
+import BlogCard from '../../reusable-components/blog-card/BlogCard';
 import style from './blogList.module.scss';
 
 const getPosts = async () => {
@@ -10,7 +10,7 @@ const getPosts = async () => {
   return res.json();
 };
 
-async function BlogList() {
+const BlogList = async () => {
   const data = await getPosts();
 
   if (!data.posts) {
@@ -29,6 +29,6 @@ async function BlogList() {
       </Link>
     </>
   );
-}
+};
 
 export default BlogList;
