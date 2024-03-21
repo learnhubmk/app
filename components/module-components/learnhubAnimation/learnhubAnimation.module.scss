@@ -17,7 +17,9 @@
   .titleMessage {
     position: absolute;
 
-    animation: rightToLeftAnimation 12s ease-out infinite;
+    $animation-duration: 13s;
+    $animation-type: ease-out infinite;
+    animation: rightToLeftAnimation $animation-duration $animation-type;
 
     @extend %title-font-styles;
   }
