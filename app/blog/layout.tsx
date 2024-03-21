@@ -1,5 +1,5 @@
 import { IoIosSearch } from 'react-icons/io';
-import Input from '../../components/reusable-components/Input/input';
+import Input from '../../components/reusable-components/input/Input';
 import style from './layout.module.scss';
 
 const LayoutBlogPage = ({

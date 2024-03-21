@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { HiArrowLongRight } from 'react-icons/hi2';
 
-import BlogCard from '../../reusable-components/BlogCard/BlogCard';
+import BlogCard from '../../reusable-components/blog-card/BlogCard';
 import style from './blogList.module.scss';
 
 const getPosts = async () => {
