@@ -27,17 +27,17 @@
 }
 
 .error {
-  background-color: var(--error-dark);
-  padding-top: 0.57em;
-  padding-right: 13.57em;
-  padding-left: 0.71em;
-  padding-bottom: 0.57em;
-  color: var(--error-light);
+  background-color: var(--bg-color);
+  padding-top: 9px;
+  padding-right: 170px; /* Adjust as needed */
+  padding-left: 15px;
+  padding-bottom: 9px;
+  color: var(--error-dark);
   position: absolute;
   text-align: center;
   display: block;
   font-size: 14px;
-  margin-left: 5em;
+  margin-left: 0px;
   animation: appear 1s ease forwards;
   text-transform: capitalize;
 }

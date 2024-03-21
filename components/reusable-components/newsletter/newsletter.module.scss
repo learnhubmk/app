@@ -45,7 +45,7 @@
     flex: 2;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 700;
-    padding-left: 20px;
+    padding-left: 100px;
 
     & p {
       padding-bottom: 1.3em;
@@ -57,7 +57,7 @@
     border: 1px solid var(--text-color);
     padding: 1em;
     padding-right: 50px;
-    margin-left: 70px;
+    margin-left: 00px;
     cursor: text;
     width: 320px;
     max-width: 1000px;
@@ -73,9 +73,8 @@
     color: var(--bg-color);
     border: none;
     cursor: pointer;
-    height: 2.25em;
-    width: 3.5em;
-    height: 44px;
+    width: 43px;
+    height: 43px;
   }
 
   @media screen and (max-width: 768px) {
