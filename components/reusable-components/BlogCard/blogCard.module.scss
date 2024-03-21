@@ -1,3 +1,14 @@
+.customCursor {
+  position: fixed;
+  width: 60px; /* Default size */
+  height: 60px; /* Default size */
+  background-image: url('https://i.ibb.co/vmCz08X/curosr-removebg-preview.png'); /* Replace with your cursor image URL */
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 9999;
+  pointer-events: none;
+}
+
 .cardContainer {
   display: flex;
   flex-direction: column;

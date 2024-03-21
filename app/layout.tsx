@@ -5,6 +5,7 @@ import './styles/main.scss';
 import Loading from './loading';
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
+import CustomCursor from '../components/custom-cursor/Customcursor';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
@@ -16,6 +17,7 @@ const RootLayout = ({
 }>) => (
   <html lang="en">
     <body className={roboto.className}>
+      <CustomCursor />
       <Navigation />
       <main>
         <Suspense fallback={<Loading />}>{children}</Suspense>

@@ -1,0 +1,16 @@
+/* customcursor.module.scss */
+
+.customCursor {
+  position: fixed;
+  width: 15px; /* Default size */
+  height: 15px; /* Default size */
+  background-color: var(--primary-btn-color); /* Default color */
+  border-radius: 50%; /* Make it a circle */
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.large {
+  width: 60px; /* Larger size */
+  height: 60px; /* Larger size */
+}
