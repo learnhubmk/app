@@ -5,12 +5,12 @@ import { useState } from 'react';
 import style from './tab.module.scss';
 
 interface TabProps {
-  tabOneText: string;
-  tabTwoText: string;
+  leftTabText: string;
+  rightTabText: string;
 }
 
-const Tab = ({ tabOneText, tabTwoText }: TabProps) => {
-  const [tabValue, setTabValue] = useState(tabOneText);
+const Tab = ({ leftTabText, rightTabText }: TabProps) => {
+  const [tabValue, setTabValue] = useState(leftTabText);
 
   return (
     <>
@@ -18,17 +18,17 @@ const Tab = ({ tabOneText, tabTwoText }: TabProps) => {
         <button
           type="button"
           className={`${style.tabLinks} title-l`}
-          onClick={() => setTabValue(tabOneText)}
+          onClick={() => setTabValue(leftTabText)}
         >
-          {tabOneText}
+          {leftTabText}
         </button>
         <div className={style.dividerVertical} />
         <button
           type="button"
           className={`${style.tabLinks} title-l`}
-          onClick={() => setTabValue(tabTwoText)}
+          onClick={() => setTabValue(rightTabText)}
         >
-          {tabTwoText}
+          {rightTabText}
         </button>
       </div>
       <div>{tabValue}</div>
