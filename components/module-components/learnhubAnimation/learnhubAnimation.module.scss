@@ -1,0 +1,24 @@
+@forward 'animation';
+
+%title-font-styles {
+  color: #ffffff;
+  filter: opacity(7%);
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 200px;
+}
+
+.titleController {
+  position: relative;
+  margin: 5rem;
+  height: inherit;
+
+  .titleMessage {
+    position: absolute;
+
+    animation: rightToLeftAnimation 12s ease-out infinite;
+
+    @extend %title-font-styles;
+  }
+}
