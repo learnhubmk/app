@@ -16,16 +16,19 @@ const EmailForm: React.FC<EmailFormProps> = ({ inputClassName, buttonClassName }
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
 
+  // Regular expression for basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const formik = useFormik({
     initialValues: { email: '' },
     validationSchema: Yup.object({
       email: Yup.string()
         .email('Invalid email address!')
         .required('Email is required!')
-        .matches(/your-regex-here/, 'Invalid email format'), 
+        .matches(emailRegex, 'Invalid email format'),
     }),
     onSubmit: (values) => {
-      if (values.email.match(/your-regex-here/)) { n
+      if (values.email.match(emailRegex)) {
         setNotificationMessage('Subscription successful!');
         setNotificationType('success');
         setShowNotification(true);
@@ -68,5 +71,3 @@ const EmailForm: React.FC<EmailFormProps> = ({ inputClassName, buttonClassName }
 };
 
 export default EmailForm;
-
-
