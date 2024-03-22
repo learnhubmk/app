@@ -13,7 +13,7 @@ const Tab = ({ leftTabText, rightTabText }: TabProps) => {
   const [tabValue, setTabValue] = useState(leftTabText);
 
   return (
-    <>
+    <div className={style.tabContainer}>
       <div className={style.tab}>
         <button
           type="button"
@@ -32,7 +32,7 @@ const Tab = ({ leftTabText, rightTabText }: TabProps) => {
         </button>
       </div>
       <div>{tabValue}</div>
-    </>
+    </div>
   );
 };
 

@@ -12,7 +12,7 @@ const Home = () => {
           заедница од ентузијасти и професионалци. Со LearnHub, вие не сте само дел од заедница; вие
           градите иднина."
       />
-      <BlogList />
+      <BlogList pageTitle="home" gridLayout="grid__1x3" />
     </main>
   );
 };

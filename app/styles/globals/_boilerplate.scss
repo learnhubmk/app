@@ -24,4 +24,9 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 60px;
   }
+
+  &__1x2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
 }
