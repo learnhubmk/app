@@ -10,7 +10,7 @@ interface TabProps {
 }
 
 const Tab = ({ leftTabText, rightTabText }: TabProps) => {
-  const [tabValue, setTabValue] = useState(leftTabText);
+  const [, setTabValue] = useState(leftTabText);
 
   return (
     <div className={style.tabContainer}>
@@ -31,7 +31,6 @@ const Tab = ({ leftTabText, rightTabText }: TabProps) => {
           {rightTabText}
         </button>
       </div>
-      <div>{tabValue}</div>
     </div>
   );
 };
