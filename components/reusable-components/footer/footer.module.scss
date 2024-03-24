@@ -43,15 +43,15 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     margin-right: 6.25em;
-    padding-left: 16em;
-    padding-bottom: 8em;
+    margin-left: 16em;
+    margin-bottom: 8em;
     text-decoration: underline;
     color: inherit;
   }
 }
 
 .contactSection p:first-child {
-  flex: 2;
+  flex: 0;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   margin-right: 5em;
@@ -60,7 +60,7 @@
 }
 
 .socialMediaSection {
-  flex: 2;
+  flex: 0;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -80,14 +80,16 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     gap: 10px;
+    padding-right: 0;
   }
 }
 
 .newsletterSection {
-  flex: 2;
+  flex: 1;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   padding-bottom: 8em;
+  padding-left: 150px;
 
   & p {
     padding-bottom: 1.3em;
@@ -98,6 +100,7 @@
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
   padding: 0.5em;
+  height: 36px;
   cursor: text;
   width: 60%;
   max-width: 300px;
@@ -106,6 +109,7 @@
 
 .newsletterSection input::placeholder {
   color: var(--text-color);
+  padding-left: 5px;
 }
 
 .newsletterSection button {
@@ -114,8 +118,8 @@
   color: var(--bg-color);
   border: none;
   cursor: pointer;
-  height: 2.25em;
-  width: 2em;
+  height: 36px;
+  width: 36px;
 }
 
 @media screen and (max-width: 768px) {
