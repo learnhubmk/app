@@ -9,28 +9,26 @@ const Navigation = () => {
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
-        <div className={styles.leftContent}>
-          <Link className={`display-s ${styles.navigationLogo}`} href="/">
-            LearnHub.mk
-          </Link>
-          <div id="navbarNav">
-            <ul className={styles.menuElementsNav}>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                Визија{' '}
-              </Link>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                {' '}
-                Цели{' '}
-              </Link>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                {' '}
-                Контакт{' '}
-              </Link>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                Блог{' '}
-              </Link>
-            </ul>
-          </div>
+        <Link className={`display-s ${styles.navigationLogo}`} href="/">
+          LearnHub.mk
+        </Link>
+        <div id="navbarNav">
+          <ul className={styles.menuElementsNav}>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              Визија{' '}
+            </Link>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              {' '}
+              Цели{' '}
+            </Link>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              {' '}
+              Контакт{' '}
+            </Link>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              Блог{' '}
+            </Link>
+          </ul>
         </div>
         <div className={styles.buttonsContent}>
           <div>
