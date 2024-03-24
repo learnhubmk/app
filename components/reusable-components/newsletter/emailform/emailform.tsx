@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Notification from './notification/notification';
-import Style from './notification/notification.module.scss';
+import Notification from '../../notification/notification';
+import Style from '../newsletter.module.scss';
 
 interface EmailFormProps {
   inputClassName?: string;
