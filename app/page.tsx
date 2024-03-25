@@ -1,6 +1,7 @@
 import BlogList from '../components/module-components/blog-list/BlogList';
 import Hero from '../components/module-components/hero/Hero';
 import styles from './page.module.scss';
+import Newsletter from '../components/reusable-components/newsletter/Newsletter';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
           градите иднина."
       />
       <BlogList />
+      <Newsletter />
     </main>
   );
 };
