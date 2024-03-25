@@ -56,6 +56,7 @@
 .largeNavbar {
   background-color: var(--bg-color);
   padding: 40px;
+  padding-inline: 0;
 }
 
 @include respond-to('small') {
