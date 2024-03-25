@@ -17,7 +17,7 @@
   .titleMessage {
     position: absolute;
 
-    $animation-duration: 5s;
+    $animation-duration: 6s;
     $animation-type: linear infinite;
     animation: rightToLeftAnimation $animation-duration $animation-type;
 
