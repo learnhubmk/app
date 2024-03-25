@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useState, useContext, ReactNode } from 'react';
+// eslint-disable-next-line import/no-unresolved
 
 interface ThemeContextType {
   theme: 'day' | 'night';

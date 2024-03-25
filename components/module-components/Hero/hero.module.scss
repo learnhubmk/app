@@ -20,4 +20,24 @@
 
 .heroText {
   width: 667px;
+} 
+
+.animate {
+  transition: transform 1.5s ease; 
+}
+
+.moveRight {
+  transform: translateX(30px); 
+}
+.BKG{
+  width: 50px;
+  height:25px;
+  border-radius: 100px;
+  
+}
+.BKGLight{  background-color: #423F3F;
+}
+.BKGDark{
+background-color: #FFFF;
+
 }
