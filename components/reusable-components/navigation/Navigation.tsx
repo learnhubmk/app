@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './navigation.module.scss';
 import Button from '../button/Button';
 
@@ -10,7 +11,7 @@ const Navigation = () => {
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <Link className={`display-s ${styles.navigationLogo}`} href="/">
-          LearnHub.mk
+          <Image src="/logo/logo.svg" alt="LearnHub Logo" width={250} height={55} />
         </Link>
         <div id="navbarNav">
           <ul className={styles.menuElementsNav}>
@@ -52,7 +53,7 @@ const Navigation = () => {
             <Link href="/signin" passHref>
               <Button
                 style={{
-                  backgroundColor: '#ea713e',
+                  backgroundColor: '#f9664b',
                   padding: '10px',
                   fontSize: '20px',
                   paddingInline: '25px',
