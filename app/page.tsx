@@ -1,6 +1,6 @@
 import BlogList from '../components/module-components/blog-list/BlogList';
 import Hero from '../components/module-components/hero/Hero';
-import LearnhubAnimation from '../components/module-components/learnhubAnimation/LearnhubAnimation';
+import LearnhubAnimation from '../components/module-components/learnhub-animation/LearnhubAnimation';
 import styles from './page.module.scss';
 import Newsletter from '../components/reusable-components/newsletter/Newsletter';
 
