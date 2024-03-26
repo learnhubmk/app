@@ -124,3 +124,22 @@
     left: 10.41em;
   }
 }
+.animate {
+  transition: transform 1.5s ease; 
+}
+
+.moveRight {
+  transform: translateX(20px); 
+}
+.BKG{
+  width: 40px;
+  height:25px;
+  border-radius: 100px;
+  
+}
+.BKGLight{  background-color: #423F3F;
+}
+.BKGDark{
+background-color: #FFFF;
+
+}

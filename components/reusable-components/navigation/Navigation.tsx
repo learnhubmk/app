@@ -1,11 +1,33 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+
+// eslint-disable-next-line import/no-duplicates
 import Link from 'next/link';
 import styles from './navigation.module.scss';
 import Button from '../button/Button';
+import { useTheme } from '../../context/ThemeContext';
+// eslint-disable-next-line import/no-unresolved
+import solImage from '../../../public/sol.png';
+// eslint-disable-next-line import/no-unresolved
+import moonImage from '../../../public/lune.png';
 
 const Navigation = () => {
+  const { theme, toggleTheme } = useTheme();
+  const [isSun, setIsSun] = useState(true); // State to track whether it's sun or moon
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
+  const handleClick = () => {
+    toggleTheme(); // Toggle the theme
+    setIsSun((prevIsSun) => !prevIsSun); // Toggle between sun and moon
+  };
+
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
@@ -63,6 +85,19 @@ const Navigation = () => {
                 Sign In
               </Button>
             </Link>
+          </div>
+        </div>
+        <div className={`${styles.BKG} ${!isSun ? styles.BKGLight : styles.BKGDark}`}>
+          <div
+            className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}
+            onClick={handleClick}
+          >
+            {' '}
+            {isSun ? (
+              <Image src={solImage} alt="Sun" width={35} height={35} />
+            ) : (
+              <Image src={moonImage} alt="Moon" width={35} height={35} />
+            )}
           </div>
         </div>
       </div>

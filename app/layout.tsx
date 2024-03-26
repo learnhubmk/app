@@ -5,12 +5,11 @@ import { Roboto } from 'next/font/google';
 import { Suspense } from 'react';
 import './styles/main.scss';
 import Loading from './loading';
-<<<<<<< HEAD
+
 import { ThemeProvider } from '../components/context/ThemeContext';
-=======
+
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
->>>>>>> main
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
