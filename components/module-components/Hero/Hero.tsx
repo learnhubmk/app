@@ -42,9 +42,9 @@ const Hero = ({ title, headline, text }: HeroProps) => {
           >
             {' '}
             {isSun ? (
-              <Image src={solImage} alt="Sun" width={30} height={30} />
+              <Image src={solImage} alt="Sun" width={35} height={35} />
             ) : (
-              <Image src={moonImage} alt="Moon" width={30} height={30} />
+              <Image src={moonImage} alt="Moon" width={35} height={35} />
             )}
           </div>
         </div>
