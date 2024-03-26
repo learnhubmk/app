@@ -8,6 +8,10 @@
   border-radius: 50%; /* Make it a circle */
   z-index: 9999;
   pointer-events: none;
+  mix-blend-mode: difference;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease;
 }
 
 .large {

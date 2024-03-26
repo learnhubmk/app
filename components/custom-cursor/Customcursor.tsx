@@ -1,14 +1,10 @@
 'use client';
 
-// CustomCursor.tsx
-
-// CustomCursor.tsx
-
 import React, { useEffect, useState } from 'react';
-import styles from './customcursor.module.scss'; // Import CSS module
+import styles from './customcursor.module.scss';
 
 interface CustomCursorProps {
-  isLarge?: boolean; // Prop to determine if cursor should be large
+  isLarge?: boolean;
 }
 
 const CustomCursor: React.FC<CustomCursorProps> = ({ isLarge }) => {
