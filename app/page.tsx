@@ -15,7 +15,7 @@ const Home = () => {
           градите иднина."
       />
       <LearnhubAnimation />
-      <BlogList />
+      <BlogList pageTitle="home" gridLayout="grid__1x3" />
       <Newsletter />
     </main>
   );
