@@ -1,5 +1,5 @@
-// import BlogList from '../components/module-components/BlogList/BlogList';
-import Hero from '../components/module-components/Hero/Hero';
+import BlogList from '../components/module-components/blog-list/BlogList';
+import Hero from '../components/module-components/hero/Hero';
 import styles from './page.module.scss';
 
 const Home = () => {
