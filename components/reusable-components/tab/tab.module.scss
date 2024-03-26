@@ -1,20 +1,29 @@
-.tab {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid white;
-  padding-bottom: 4px;
-  gap: 4px;
+.tabContainer {
+  position: sticky;
+  top: 0;
+  padding: 12px 0px;
+  background-color: var(--bg-color);
 
-  .dividerVertical {
-    width: 1px;
-    height: 20px;
-    background-color: white;
-  }
+  .tab {
+    display: flex;
+    align-items: center;
 
-  .tabLinks {
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
+    width: 200px;
+    border-bottom: 1px solid white;
+    padding-bottom: 4px;
+    gap: 4px;
+
+    .dividerVertical {
+      width: 1px;
+      height: 20px;
+      background-color: white;
+    }
+
+    .tabLinks {
+      background-color: transparent;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   }
 }
