@@ -10,9 +10,13 @@ interface BlogListProps {
 }
 
 const getPosts = async () => {
-  const res = await fetch('https://dummyjson.com/posts');
+  try {
+    const res = await fetch('https://dummyjson.com/posts');
 
-  return res.json();
+    return res.json();
+  } catch (error: any) {
+    throw new Error(error);
+  }
 };
 
 const BlogList = async ({ pageTitle, gridLayout }: BlogListProps) => {
