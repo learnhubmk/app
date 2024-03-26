@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  gap: 150px;
+  align-items: center;
+  margin-top: 100px;
+
+  .title {
+    font-size: 25px;
+    text-transform: uppercase;
+  }
+
+  .content {
+    background-color: dark;
+    border: 1px solid white;
+    margin: 10px;
+  }
+
+  button {
+    color: black;
+    display: block;
+    text-align: center;
+    background-color: dark;
+    padding: 10px 200px;
+    margin-top: rem-calc(30);
+  }
+}
+
+.contactForm {
+  background-color: #1c1c1c !important;
+  color: white;
+  border: 1px solid white;
+  padding: 10px;
+  width: 100%;
+}
+
+.contactError {
+  margin: 10px;
+}

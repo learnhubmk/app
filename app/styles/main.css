@@ -1,0 +1,131 @@
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  line-height: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.grid {
+  display: grid;
+}
+.grid__1x3 {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+}
+
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
+}
+
+.display-l {
+  font-size: 57px;
+  line-height: 64px;
+  letter-spacing: -0.25px;
+}
+
+.display-m {
+  font-size: 45px;
+  line-height: 52px;
+}
+
+.display-s {
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.headline-l {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.headline-m {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.headline-s {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.title-l {
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.title-m {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+.title-s,
+.label-l {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.label-m {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.label-m {
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.body-m {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.body-s {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+}
+
+:root {
+  --black-color: hsl(0, 0%, 0%);
+  --bg-color: hsl(0, 0%, 11%);
+  --text-color: hsl(0, 0%, 100%);
+  --error-light: hsla(3, 71%, 41%, 1);
+  --error-light-text: hsl(0, 0%, 100%);
+  --error-dark: hsla(3, 70%, 83%, 1);
+  --error-dark-text: hsla(3, 71%, 22%, 1);
+  --blog-card-bg: hsla(0, 0%, 85%, 1);
+  --primary-btn-color: hsl(14, 82%, 58%);
+} /*# sourceMappingURL=main.css.map */

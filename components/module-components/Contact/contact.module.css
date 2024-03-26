@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: space-around; 
+  align-items: center; 
+  height: 100%; 
+}
+.container .content {
+  padding: 20px;
+  background-color: lightblue;
+  border: 1px solid blue;
+  margin: 10px;
+} 

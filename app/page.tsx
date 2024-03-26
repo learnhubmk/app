@@ -1,4 +1,7 @@
+'use client';
+
 import BlogList from '../components/module-components/BlogList/BlogList';
+import Contact from '../components/module-components/Contact/Contact';
 import Hero from '../components/module-components/Hero/Hero';
 import styles from './page.module.scss';
 
@@ -13,6 +16,8 @@ const Home = () => {
           градите иднина."
       />
       <BlogList />
+
+      <Contact />
     </main>
   );
 };
