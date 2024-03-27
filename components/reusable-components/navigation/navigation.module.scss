@@ -1,0 +1,120 @@
+@mixin respond-to($size) {
+  @if $size == 'small' {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $size == 'medium' {
+    @media (min-width: 769px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $size == 'large' {
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      @content;
+    }
+  } @else if $size == 'extra-large' {
+    @media (min-width: 1441px) {
+      @content;
+    }
+  }
+}
+
+.navbar {
+  background-color: var(--bg-color);
+}
+
+.navigationLogo {
+  color: var(--text-color);
+  width: 6.3em;
+  height: 1.22em;
+  top: 1.56em;
+  left: 2.36em;
+}
+
+.menuElements {
+  align-items: center;
+  display: flex;
+  color: var(--text-color);
+}
+
+.menuElementsNav {
+  margin-right: 70px;
+  display: flex;
+  list-style: none;
+  padding: 0px;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonsContent {
+  display: flex;
+  align-items: center;
+}
+
+.largeNavbar {
+  background-color: var(--bg-color);
+  padding: 40px;
+  padding-inline: 0;
+}
+
+@include respond-to('small') {
+  .NavigationLogo {
+    margin-left: 0.25em;
+    width: 4em;
+    height: 1em;
+    top: 1.5em;
+    left: 1.5em;
+  }
+
+  .menuElements {
+    margin-left: 2em;
+    left: 5em;
+  }
+}
+
+@include respond-to('medium') {
+  .NavigationLogo {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .menuElements {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}
+
+@include respond-to('large') {
+  .NavigationLogo {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .menuElements {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}
+
+@include respond-to('extra-large') {
+  .NavigationLogo {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .menuElements {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}

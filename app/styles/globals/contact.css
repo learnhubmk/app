@@ -1,9 +1,0 @@
-.container {
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  height: 100vh; /* Set height to full viewport height */
-}
-.container .content {
-  /* Styles for the content divs */
-} /*# sourceMappingURL=contact.css.map */

@@ -1,8 +1,10 @@
 'use client';
 
-import BlogList from '../components/module-components/BlogList/BlogList';
-import Contact from '../components/module-components/Contact/Contact';
-import Hero from '../components/module-components/Hero/Hero';
+// import BlogList from '../components/module-components/blog-list/BlogList';
+import Contact from '../components/module-components/contact/Contact';
+import Hero from '../components/module-components/hero/Hero';
+import LearnhubAnimation from '../components/module-components/learnhub-animation/LearnhubAnimation';
+import Newsletter from '../components/reusable-components/newsletter/Newsletter';
 import styles from './page.module.scss';
 
 const Home = () => {
@@ -15,7 +17,9 @@ const Home = () => {
           заедница од ентузијасти и професионалци. Со LearnHub, вие не сте само дел од заедница; вие
           градите иднина."
       />
-      <BlogList />
+      <LearnhubAnimation />
+      {/* <BlogList pageTitle="home" gridLayout="grid__1x3" /> */}
+      <Newsletter />
 
       <Contact />
     </main>

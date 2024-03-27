@@ -35,11 +35,20 @@
     "react/function-component-definition": [
       2,
       { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
-    ]
+    ],
+    "react/require-default-props": "off"
   },
   "settings": {
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "react/require-default-props": "off"
+      }
+    }
+  ]
 }
