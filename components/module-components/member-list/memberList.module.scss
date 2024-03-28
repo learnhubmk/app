@@ -1,0 +1,21 @@
+.memberSectionContainer {
+  display: flex;
+  align-items: center;
+  max-width: 100vw;
+
+  .headlineContainer {
+    margin: 0 120px;
+  }
+
+  .carouselContainer {
+    overflow: hidden;
+
+    .carouselCardsContainer {
+      backface-visibility: hidden;
+      display: flex;
+      touch-action: pan-y;
+      gap: 20px;
+      padding: 40px;
+    }
+  }
+}
