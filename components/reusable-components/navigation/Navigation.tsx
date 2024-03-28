@@ -18,15 +18,15 @@ import moonImage from '../../../public/lune.png';
 
 const Navigation = () => {
   const { theme, toggleTheme } = useTheme();
-  const [isSun, setIsSun] = useState(true); // State to track whether it's sun or moon
+  const [isSun, setIsSun] = useState(true);
 
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
 
   const handleClick = () => {
-    toggleTheme(); // Toggle the theme
-    setIsSun((prevIsSun) => !prevIsSun); // Toggle between sun and moon
+    toggleTheme();
+    setIsSun((prevIsSun) => !prevIsSun);
   };
 
   return (
@@ -88,7 +88,7 @@ const Navigation = () => {
             </Link>
           </div>
         </div>
-        <div className={`${styles.BKG} ${!isSun ? styles.BKGLight : styles.BKGDark}`}>
+        <div className={`${styles.BKG}  ${!isSun ? styles.BKGLight : styles.BKGDark}`}>
           <div
             className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}
             onClick={handleClick}
