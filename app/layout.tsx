@@ -19,17 +19,17 @@ const RootLayout = ({
   // eslint-disable-next-line no-undef
   children: React.ReactNode;
 }>) => (
-  <html lang="en">
-    <body className={roboto.className}>
-      <Navigation />
-      <main>
-        <Suspense fallback={<Loading />}>
-          <ThemeProvider>{children}</ThemeProvider>
-        </Suspense>
-      </main>
-      <Footer />
-    </body>
-  </html>
+  <ThemeProvider>
+    <html lang="en">
+      <body className={roboto.className}>
+        <Navigation />
+        <main>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </main>
+        <Footer />
+      </body>
+    </html>
+  </ThemeProvider>
 );
 
 export const metadata: Metadata = {

@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import Link from 'next/link';
+// eslint-disable-next-line import/no-unresolved
 import { FaLinkedin, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import styles from './footer.module.scss';
 
