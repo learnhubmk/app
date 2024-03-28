@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { HiArrowLongRight } from 'react-icons/hi2';
-import CustomCursor from '../../custom-cursor/Customcursor';
+import CustomCursor from '../../custom-cursor/CustomCursor';
 import BlogCard from '../../reusable-components/blog-card/BlogCard';
 import style from './blogList.module.scss';
 import { CursorProvider, useCursor } from '../../context/CursorContext';
