@@ -138,7 +138,8 @@
   height:25px;
   border-radius: 100px;
 }
-.BKGLight{  background-color: #423F3F;
+.BKGLight{    background-color: var(--bg-color);
+
 }
 .BKGDark{
 background-color: #FFFF;
