@@ -88,7 +88,9 @@ const Navigation = () => {
             </Link>
           </div>
         </div>
-        <div className={`${styles.BKG}  ${!isSun ? styles.BKGLight : styles.BKGDark}`}>
+        <div
+          className={`${styles.ThemeBackgroundSize} ${!isSun ? styles.ThemeDark && styles.ThemeBackgroundLight : styles.ThemeLight && styles.ThemeBackgroundDark}`}
+        >
           <div
             className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}
             onClick={handleClick}

@@ -17,10 +17,10 @@
     }
   }
 }
-
+/*
 .navbar {
   background-color: var(--bg-color);
-}
+}*/
 
 .navigationLogo {
   color: var(--text-color);
@@ -36,18 +36,20 @@
   color: var(--text-color);
   position: relative;
   margin-left: 4.16em;
-  left: 10.41em;
+  //left: 10.41em;
 }
 
 .menuElementsNav {
   display: flex;
   list-style: none;
   padding: 10px;
+
 }
 
 .navContainer {
-  display: flex;
-  justify-content: space-between;
+ display: flex;
+justify-content: space-between;
+  align-items: center;
 }
 
 .leftContent {
@@ -61,7 +63,7 @@
 }
 
 .largeNavbar {
-  background-color: var(--bg-color);
+  //background-color: var(--bg-color);
   padding: 40px;
 }
 
@@ -91,7 +93,7 @@
 
   .menuElements {
     margin-left: 4.16em;
-    left: 10.41em;
+   // left: 10.41em;
   }
 }
 
@@ -106,7 +108,7 @@
 
   .menuElements {
     margin-left: 4.16em;
-    left: 10.41em;
+   // left: 10.41em;
   }
 }
 
@@ -121,7 +123,7 @@
 
   .menuElements {
     margin-left: 4.16em;
-    left: 10.41em;
+   // left: 10.41em;
   }
 }
 .animate {
@@ -133,15 +135,23 @@
 .moveRight {
   transform: translateX(20px); 
 }
-.BKG{
+
+.ThemeBackgroundSize{
   width: 40px;
   height:25px;
   border-radius: 100px;
+  border: 1px solid var(--bg-color);
 }
-.BKGLight{    background-color: var(--bg-color);
-
+.ThemeBackgroundDark{
+  background-color: #2a2a2d;}
+  .ThemeBackgroundLight{
+  background-color: #FFFF;
+  }
+.ThemeLight{    
+  background-color: var(--bg-color);
+color:var(--text-color);
 }
-.BKGDark{
+.ThemeDark{
 background-color: #FFFF;
-
+color:var(--bg-color) ;
 }
