@@ -23,7 +23,7 @@
 }*/
 
 .navigationLogo {
-  color: var(--text-color);
+  //color: var(--text-color);
   margin-left: 0.55em;
   width: 6.3em;
   height: 1.22em;
@@ -33,7 +33,7 @@
 
 .menuElements {
   display: flex;
-  color: var(--text-color);
+  //color: var(--text-color);
   position: relative;
   margin-left: 4.16em;
   //left: 10.41em;
@@ -140,7 +140,7 @@ justify-content: space-between;
   width: 40px;
   height:25px;
   border-radius: 100px;
-  border: 1px solid var(--bg-color);
+  //border: 1px solid var(--bg-color);
 }
 .ThemeBackgroundDark{
   background-color: #2a2a2d;}
@@ -149,9 +149,17 @@ justify-content: space-between;
   }
 .ThemeLight{    
   background-color: var(--bg-color);
-color:var(--text-color);
+color:var(--text-color) !important;
+.navigationLogo ,.menuElements{
+  color:var(--text-color) !important;
+
+}
 }
 .ThemeDark{
 background-color: #FFFF;
-color:var(--bg-color) ;
+color:var(--bg-color) !important;
+.navigationLogo,.menuElements {
+  color:var(--bg-color) !important;
+
+}
 }

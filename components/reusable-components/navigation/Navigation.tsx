@@ -32,7 +32,7 @@ const Navigation = () => {
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
-        <div className={styles.leftContent}>
+        <div className={`${styles.leftContent} ${!isSun ? styles.ThemeDark : styles.ThemeLight}`}>
           <Link className={`display-s ${styles.navigationLogo}`} href="/">
             LearnHub.mk
           </Link>
