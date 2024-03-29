@@ -4,17 +4,17 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 // eslint-disable-next-line import/no-unresolved
 
 interface ThemeContextType {
-  theme: 'day' | 'night';
+  theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<'day' | 'night'>('day');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'day' ? 'night' : 'day'));
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
