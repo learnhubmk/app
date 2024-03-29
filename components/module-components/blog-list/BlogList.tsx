@@ -59,7 +59,7 @@ const BlogList: React.FC = () => {
         <Link href="/blog" className={style.blogBtn}>
           Види повеќе <HiArrowLongRight fontSize={22} />
         </Link>
-        {isHovered && <CustomCursor isLarge />}
+        {isHovered && <CustomCursor isLargeCursor />}
       </>
     </CursorProvider>
   );

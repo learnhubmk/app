@@ -5,27 +5,26 @@ import { useCursor } from '../context/CursorContext';
 import styles from './customcursor.module.scss';
 
 interface CustomCursorProps {
-  isLarge?: boolean;
+  isLargeCursor?: boolean;
   cursorText?: string;
 }
 
-const CustomCursor: React.FC<CustomCursorProps> = ({ isLarge, cursorText }) => {
+const CustomCursor: React.FC<CustomCursorProps> = ({ isLargeCursor, cursorText }) => {
   const { position, hideCursor } = useCursor();
-  const largeCursorOffset = isLarge ? { x: -20, y: -20 } : { x: 0, y: 0 };
+  const largeCursorOffset = isLargeCursor ? { x: -20, y: -20 } : { x: 0, y: 0 };
 
   return (
     !hideCursor && (
       <div
-        className={`${styles.customCursor} ${isLarge ? styles.large : ''}`}
+        className={`${styles.customCursor} ${isLargeCursor ? styles.largeCursor : ''}`}
         style={{
           left: `${position.x + largeCursorOffset.x}px`,
           top: `${position.y + largeCursorOffset.y}px`,
         }}
       >
-        {isLarge && !cursorText && (
+        {isLargeCursor && !cursorText && (
           <div className={styles.cursorContent}>
-            <span className={styles.cursorText}>Next</span>
-            <span className={styles.cursorArrow}>→</span>
+            <span className={styles.cursorArrow}>🡒</span>
           </div>
         )}
       </div>
