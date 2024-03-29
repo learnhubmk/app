@@ -90,11 +90,9 @@ const Navigation = () => {
         </div>
         <div
           className={`${styles.ThemeBackgroundSize} ${!isSun ? styles.ThemeDark && styles.ThemeBackgroundLight : styles.ThemeLight && styles.ThemeBackgroundDark}`}
+          onClick={handleClick}
         >
-          <div
-            className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}
-            onClick={handleClick}
-          >
+          <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
             {' '}
             {isSun ? (
               <Image src={solImage} alt="Sun" width={35} height={35} />
