@@ -12,6 +12,7 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "embla-carousel": "^8.0.0",
     "embla-carousel-react": "^8.0.0",
     "formik": "^2.4.5",
     "install": "^0.13.0",

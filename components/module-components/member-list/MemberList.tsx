@@ -3,49 +3,15 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import MemberCard from '../../reusable-components/member-card/MemberCard';
 import style from './memberList.module.scss';
-
-const FakeMemberData = {
-  members: [
-    {
-      memberName: 'Kire',
-      memberInfo:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['HTML', 'CSS', 'JavaScript', 'PR1', 'PR2', 'PR3'],
-      memberProjects: ['LearnHub', '', ''],
-    },
-    {
-      memberName: 'Nino',
-      memberInfo:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['NextJS', 'SCSS', 'TypeScript', 'PR1', 'PR2', 'PR3'],
-      memberProjects: ['AxM', '', ''],
-    },
-    {
-      memberName: 'Pero',
-      memberInfo:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['PhP', 'NodeJS', 'JavaScript', 'PR1', 'PR3', 'PR4'],
-      memberProjects: ['Pero.mk', '', ''],
-    },
-    {
-      memberName: 'Pero',
-      memberInfo:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['PhP', 'NodeJS', 'JavaScript', 'PR1', 'PR3', 'PR4'],
-      memberProjects: ['Pero.mk', '', ''],
-    },
-    {
-      memberName: 'Pero',
-      memberInfo:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['PhP', 'NodeJS', 'JavaScript', 'PR1', 'PR3', 'PR4'],
-      memberProjects: ['Pero.mk', '', ''],
-    },
-  ],
-};
+import {
+  DotButton,
+  useDotButton,
+} from '../../reusable-components/embla-carousel-dot-button/EmblaCarouselDotButton';
+import FakeMemberData from './memberData';
 
 const MemberList = () => {
-  const [emblaRef] = useEmblaCarousel();
+  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
   return (
     <section className={style.memberSectionContainer}>
@@ -54,13 +20,24 @@ const MemberList = () => {
       </div>
       <div className={style.carouselContainer} ref={emblaRef}>
         <div className={style.carouselCardsContainer}>
-          {FakeMemberData.members.map((member) => (
+          {FakeMemberData.members?.map((member) => (
             <MemberCard
               key={member.memberName}
               memberName={member.memberName}
+              memberImage={member.memberImage}
               memberInfo={member.memberInfo}
               memberSkills={member.memberSkills}
               memberProjects={member.memberProjects}
+            />
+          ))}
+        </div>
+        <div className={style.emblaDots}>
+          {scrollSnaps.map((_, index) => (
+            <DotButton
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              onClick={() => onDotButtonClick(index)}
+              className={index === selectedIndex ? style.emblaDotSelected : style.emblaDot}
             />
           ))}
         </div>

@@ -3,17 +3,24 @@ import style from './memberCard.module.scss';
 
 interface MemberProps {
   memberName: string;
+  memberImage: string;
   memberInfo: string;
   memberSkills: string[];
   memberProjects: string[];
 }
 
-const MemberCard = ({ memberName, memberInfo, memberSkills, memberProjects }: MemberProps) => {
+const MemberCard = ({
+  memberName,
+  memberImage,
+  memberInfo,
+  memberSkills,
+  memberProjects,
+}: MemberProps) => {
   return (
     <div className={style.memberCardContainer}>
       <div className={style.memberCardHeaderContainer}>
         <p className={`display-m ${style.firstLater}`}>{memberName.charAt(0)}</p>
-        <Image src="/member-photo.png" alt="Member Photo" width={100} height={100} />
+        <Image src={memberImage} alt="Member Photo" width={100} height={100} />
       </div>
       <div>
         <h2 className={`headline-s ${style.memberName}`}>{memberName}</h2>

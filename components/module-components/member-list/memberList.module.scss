@@ -18,4 +18,25 @@
       padding: 40px;
     }
   }
+
+  .emblaDots {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 40px;
+    gap: 12px;
+  }
+
+  .emblaDot {
+    box-shadow: inset 0 0 0 0.2rem gray;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+
+  .emblaDotSelected {
+    box-shadow: inset 0 0 0 0.2rem white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
 }

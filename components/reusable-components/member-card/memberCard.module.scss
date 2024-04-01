@@ -2,7 +2,7 @@
   flex: 0 0 calc(100% / 4);
   min-width: 357px;
   height: 517px;
-  background: #1e1e1e;
+  background: var(--member-card-bg);
   padding: 28px;
 
   .memberCardHeaderContainer {
@@ -30,16 +30,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-top: 0.5px solid #423f3f;
-        border-right: 0.5px solid #423f3f;
+        border-top: 0.5px solid #535050;
+        border-right: 0.5px solid #535050;
 
         &:first-child,
         &:nth-child(3n + 1) {
-          border-left: 0.5px solid #423f3f;
+          border-left: 0.5px solid #535050;
         }
 
         &:nth-last-child(-n + 3) {
-          border-bottom: 0.5px solid #423f3f;
+          border-bottom: 0.5px solid #535050;
         }
       }
     }
