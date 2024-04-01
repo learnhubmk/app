@@ -24,7 +24,7 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ isLargeCursor, cursorText }
       >
         {isLargeCursor && !cursorText && (
           <div className={styles.cursorContent}>
-            <span className={styles.cursorArrow}>🡒</span>
+            <span className={styles.cursorArrow} />
           </div>
         )}
       </div>

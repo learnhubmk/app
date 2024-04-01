@@ -33,3 +33,7 @@
   font-size: 56px;
   margin-top: 23px;
 }
+
+.cursorArrow::after {
+  content: '\2794';
+}
