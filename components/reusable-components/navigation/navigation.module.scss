@@ -135,19 +135,19 @@
   transform: translateX(20px);
 }
 
-.ThemeBackgroundSize {
+.themeBackgroundSize {
   width: 40px;
   height: 25px;
   border-radius: 100px;
   //border: 1px solid var(--bg-color);
 }
-.ThemeBackgroundDark {
+.themeBackgroundDark {
   background-color: #2a2a2d;
 }
-.ThemeBackgroundLight {
+.themeBackgroundLight {
   background-color: #ffff;
 }
-.ThemeLight {
+.themeLight {
   background-color: var(--bg-color);
   color: var(--text-color) !important;
   .navigationLogo,
@@ -155,7 +155,7 @@
     color: var(--text-color) !important;
   }
 }
-.ThemeDark {
+.themeDark {
   background-color: #ffff;
   color: var(--bg-color) !important;
   .navigationLogo,
