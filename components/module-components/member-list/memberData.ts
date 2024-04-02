@@ -2,48 +2,48 @@ const FakeMemberData = {
   members: [
     {
       id: '01',
-      memberName: 'Kire',
+      memberName: 'John',
       memberImage: '/member-photo.png',
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['HTML', 'CSS', 'JavaScript', 'PR1', 'PR2', 'PR3'],
-      memberProjects: ['LearnHub', '', ''],
+      memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
+      memberProjects: ['John.com', '', ''],
     },
     {
       id: '02',
-      memberName: 'Nino',
+      memberName: 'Nick',
       memberImage: '/member-photo.png',
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['NextJS', 'SCSS', 'TypeScript', 'PR1', 'PR2', 'PR3'],
-      memberProjects: ['AxM', '', ''],
+      memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
+      memberProjects: ['Nick.com', '', ''],
     },
     {
       id: '03',
-      memberName: 'Pero',
+      memberName: 'Sarah',
       memberImage: '/member-photo.png',
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['PhP', 'NodeJS', 'JavaScript', 'PR1', 'PR3', 'PR4'],
-      memberProjects: ['Pero.mk', '', ''],
+      memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
+      memberProjects: ['Sarah.com', '', ''],
     },
     {
       id: '04',
-      memberName: 'Pero',
+      memberName: 'Ricky',
       memberImage: '/member-photo.png',
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['PhP', 'NodeJS', 'JavaScript', 'PR1', 'PR3', 'PR4'],
-      memberProjects: ['Pero.mk', '', ''],
+      memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
+      memberProjects: ['Ricky.com', '', ''],
     },
     {
       id: '05',
-      memberName: 'Pero',
+      memberName: 'Mike',
       memberImage: '/member-photo.png',
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
-      memberSkills: ['PhP', 'NodeJS', 'JavaScript', 'PR1', 'PR3', 'PR4'],
-      memberProjects: ['Pero.mk', '', ''],
+      memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
+      memberProjects: ['Mike.com', '', ''],
     },
   ],
 };

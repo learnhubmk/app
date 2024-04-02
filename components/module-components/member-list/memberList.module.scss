@@ -19,10 +19,15 @@
     }
   }
 
+  button {
+    outline: none;
+    border: none;
+    background: transparent;
+  }
+
   .emblaDots {
     display: flex;
     justify-content: flex-start;
-    padding-left: 40px;
     gap: 12px;
   }
 

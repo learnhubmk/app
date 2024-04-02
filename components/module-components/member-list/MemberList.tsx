@@ -1,6 +1,7 @@
 'use client';
 
 import useEmblaCarousel from 'embla-carousel-react';
+import { EmblaOptionsType } from 'embla-carousel';
 import MemberCard from '../../reusable-components/member-card/MemberCard';
 import style from './memberList.module.scss';
 import {
@@ -9,8 +10,10 @@ import {
 } from '../../reusable-components/embla-carousel-dot-button/EmblaCarouselDotButton';
 import FakeMemberData from './memberData';
 
+const options: EmblaOptionsType = { loop: true };
+
 const MemberList = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
   return (

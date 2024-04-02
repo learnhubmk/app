@@ -36,6 +36,12 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): UseDotBut
     emblaApi.on('reInit', onInit);
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
+
+    // eslint-disable-next-line consistent-return
+    return () => {
+      emblaApi.off('reInit', onInit);
+      emblaApi.off('reInit', onSelect);
+    };
   }, [emblaApi, onInit, onSelect]);
 
   return {
@@ -49,8 +55,8 @@ export const DotButton = (props: any) => {
   const { children, ...restProps } = props;
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <div type="button" {...restProps}>
+    <button type="button" {...restProps}>
       {children}
-    </div>
+    </button>
   );
 };
