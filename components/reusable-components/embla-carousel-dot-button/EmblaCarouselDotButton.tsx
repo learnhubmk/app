@@ -41,7 +41,6 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): UseDotBut
     return () => {
       emblaApi.off('reInit', onInit);
       emblaApi.off('reInit', onSelect);
-      emblaApi.off('select', onSelect);
     };
   }, [emblaApi, onInit, onSelect]);
 
