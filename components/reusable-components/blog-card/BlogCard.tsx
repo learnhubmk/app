@@ -5,15 +5,16 @@ import { BsSave, BsFillShareFill } from 'react-icons/bs';
 import style from './blogCard.module.scss';
 import shortenString from '../../../utils/shortenString';
 
-interface BlogCardProps {
+export interface BlogCardProps {
+  id: string;
   title: string;
   body: string;
   pageTitle: string;
 }
 
-const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
+const BlogCard = ({ id, title, body, pageTitle }: BlogCardProps) => {
   return (
-    <div className={style.blogCardContainer}>
+    <div key={id} className={style.blogCardContainer}>
       <div>
         <h2 className={`headline-s ${style.blogCardTitle}`}>{shortenString(title, 34)}</h2>
         <div className={style.blogCardDivider} />
