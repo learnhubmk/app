@@ -23,16 +23,25 @@ const Navigation = () => {
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
-
+  useEffect(() => {
+    const storedIsSun = localStorage.getItem('isSun');
+    if (storedIsSun !== null) {
+      setIsSun(storedIsSun === 'true');
+    }
+  }, []);
   const handleClick = () => {
     toggleTheme();
-    setIsSun((prevIsSun) => !prevIsSun);
+    setIsSun((prevIsSun) => {
+      const newIsSun = !prevIsSun;
+      localStorage.setItem('isSun', String(newIsSun));
+      return newIsSun;
+    });
   };
 
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
-        <div className={`${styles.leftContent} ${!isSun ? styles.ThemeDark : styles.ThemeLight}`}>
+        <div className={`${styles.leftContent} ${!isSun ? styles.themeDark : styles.themeLight}`}>
           <Link className={`display-s ${styles.navigationLogo}`} href="/">
             LearnHub.mk
           </Link>
@@ -89,7 +98,7 @@ const Navigation = () => {
           </div>
         </div>
         <div
-          className={`${styles.ThemeBackgroundSize} ${!isSun ? styles.ThemeDark && styles.ThemeBackgroundLight : styles.ThemeLight && styles.ThemeBackgroundDark}`}
+          className={`${styles.themeBackgroundSize} ${!isSun ? styles.themeDark && styles.themeBackgroundLight : styles.themeLight && styles.themeBackgroundDark}`}
           onClick={handleClick}
         >
           <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>

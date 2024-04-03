@@ -142,24 +142,27 @@
   //border: 1px solid var(--bg-color);
 }
 .themeBackgroundDark {
-  background-color: #2a2a2d;
+  background-color: #ffff;
 }
 .themeBackgroundLight {
-  background-color: #ffff;
+  background-color: #2a2a2d;
 }
 .themeLight {
-  background-color: var(--bg-color);
-  color: var(--text-color) !important;
-  .navigationLogo,
-  .menuElements {
-    color: var(--text-color) !important;
-  }
-}
-.themeDark {
-  background-color: #ffff;
+  background-color: #ffff !important;
   color: var(--bg-color) !important;
+
   .navigationLogo,
   .menuElements {
     color: var(--bg-color) !important;
+  }
+}
+.themeDark {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+
+  .navigationLogo,
+  .menuElements {
+        color: var(--text-color) !important;
+
   }
 }
