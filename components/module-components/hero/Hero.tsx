@@ -7,7 +7,7 @@ interface HeroProps {
   text: string;
 }
 
-function Hero({ title, headline, text }: HeroProps) {
+const Hero = ({ title, headline, text }: HeroProps) => {
   return (
     <div className={style.hero}>
       <div className={style.heroLeftContainer}>
@@ -20,6 +20,6 @@ function Hero({ title, headline, text }: HeroProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Hero;
