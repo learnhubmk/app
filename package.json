@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "build-dev": "next build && next dev",
     "lint": "next lint",
     "prepare": "husky",
     "lint-staged": "lint-staged",
