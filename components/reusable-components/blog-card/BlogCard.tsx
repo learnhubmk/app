@@ -13,7 +13,7 @@ interface BlogCardProps {
 
 const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
   return (
-    <div className={style.blogCardContainer}>
+    <Link href={`/blog/${title}`} className={style.blogCardContainer}>
       <div>
         <h2 className={`headline-s ${style.blogCardTitle}`}>{shortenString(title, 34)}</h2>
         <div className={style.blogCardDivider} />
@@ -44,7 +44,7 @@ const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
           </Link>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

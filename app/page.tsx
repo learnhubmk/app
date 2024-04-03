@@ -5,6 +5,7 @@ import Contact from '../components/module-components/contact/Contact';
 import Hero from '../components/module-components/hero/Hero';
 import LearnhubAnimation from '../components/module-components/learnhub-animation/LearnhubAnimation';
 import Newsletter from '../components/reusable-components/newsletter/Newsletter';
+import MemberList from '../components/module-components/member-list/MemberList';
 import styles from './page.module.scss';
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
       <LearnhubAnimation />
       {/* <BlogList pageTitle="home" gridLayout="grid__1x3" /> */}
       <Newsletter />
+      <MemberList />
 
       <Contact />
     </main>
