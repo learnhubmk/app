@@ -3,7 +3,7 @@ import { HiArrowLongRight } from 'react-icons/hi2';
 
 import style from './blogList.module.scss';
 import fetchBlogPosts from '../../../app/action';
-import InfinitieScroll from '../../reusable-components/infinite-scroll/InfiniteScroll';
+import InfiniteScroll from '../../reusable-components/infinite-scroll/InfiniteScroll';
 
 interface BlogListProps {
   pageTitle: string;
@@ -29,7 +29,7 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
       )}
 
       {pageTitle === 'blog' && (
-        <InfinitieScroll gridLayout={gridLayout} pageTitle={pageTitle} blogCardsNumber={8} />
+        <InfiniteScroll gridLayout={gridLayout} pageTitle={pageTitle} blogCardsNumber={8} />
       )}
     </>
   );
