@@ -21,6 +21,7 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
   return (
     <>
       <div className={`grid ${gridLayout} ${style.blogListContainer}`}>{data}</div>
+
       {pageTitle === 'home' && (
         <Link href="/blog" className={style.blogBtn}>
           Види повеќе <HiArrowLongRight fontSize={22} />

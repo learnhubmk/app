@@ -12,7 +12,7 @@ html {
 
 body {
   margin: 0;
-  padding: 0 60px;
+  padding: 0;
   background-color: var(--bg-color);
   color: var(--text-color);
 }
@@ -22,7 +22,6 @@ body {
 
   &__1x3 {
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 60px;
   }
 
   &__1x2 {
