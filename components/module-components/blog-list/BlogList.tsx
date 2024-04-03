@@ -3,7 +3,7 @@ import { HiArrowLongRight } from 'react-icons/hi2';
 
 import style from './blogList.module.scss';
 import fetchBlogPosts from '../../../app/action';
-import InfinitieScroll from '../../reusable-components/infinite-scroll/InfinitieScroll';
+import InfinitieScroll from '../../reusable-components/infinite-scroll/InfiniteScroll';
 
 interface BlogListProps {
   pageTitle: string;

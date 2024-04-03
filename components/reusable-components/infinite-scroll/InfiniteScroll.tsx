@@ -5,13 +5,13 @@ import { useInView } from 'react-intersection-observer';
 
 import fetchBlogPosts from '../../../app/action';
 
-import style from './infinitieScroll.module.scss';
+import style from './infiniteScroll.module.scss';
 
 let nextPosts = 8;
 
 export type BlogCard = React.JSX.Element;
 
-const InfinitieScroll = ({
+const InfiniteScroll = ({
   gridLayout,
   pageTitle,
   blogCardsNumber,
@@ -28,16 +28,18 @@ const InfinitieScroll = ({
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (inView) {
-      setIsLoading(true);
-      const delay = 100;
+      const delay = 500;
 
       const timeoutId = setTimeout(() => {
         fetchBlogPosts(nextPosts, pageTitle, blogCardsNumber).then((res) => {
-          setData([...data, ...res]);
-          nextPosts += 8;
+          if (res.length === 0) {
+            setIsLoading(false);
+          } else {
+            setData([...data, ...res]);
+            nextPosts += 8;
+            setIsLoading(true);
+          }
         });
-
-        setIsLoading(false);
       }, delay);
 
       return () => clearTimeout(timeoutId);
@@ -47,13 +49,11 @@ const InfinitieScroll = ({
   return (
     <>
       <section className={`grid ${gridLayout} ${style.blogListContainer}`}>{data}</section>
-      <section>
-        <div ref={ref}>
-          <p>Loading...</p>
-        </div>
+      <section className={style.loadingContainer}>
+        <div ref={ref}>{inView && isLoading ? <p>Loading...</p> : <p>No more posts</p>}</div>
       </section>
     </>
   );
 };
 
-export default InfinitieScroll;
+export default InfiniteScroll;
