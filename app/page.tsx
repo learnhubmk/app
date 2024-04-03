@@ -1,5 +1,5 @@
 import FAQ from '../components/module-components/FAQ/FAQ';
-import Hero from '../components/module-components/Hero/Hero';
+import Hero from '../components/module-components/hero/Hero';
 import BlogList from '../components/module-components/blog-list/BlogList';
 import LearnhubAnimation from '../components/module-components/learnhub-animation/LearnhubAnimation';
 import styles from './page.module.scss';

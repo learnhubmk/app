@@ -7,8 +7,8 @@ interface ExpandCollapseButtonProps {
 const ExpandCollapseButton = ({ trigger }: ExpandCollapseButtonProps) => {
   return (
     <div className={classes.buttonMorph}>
-      <span className={`${classes.default} ${trigger && classes.active}`}></span>
-      <span className={`${classes.default} ${trigger && classes.active}`}></span>
+      <span className={`${classes.default} ${trigger && classes.active}`} />
+      <span className={`${classes.default} ${trigger && classes.active}`} />
     </div>
   );
 };

@@ -1,19 +1,20 @@
 'use client';
+
 import { useState } from 'react';
 import { motion as m, AnimatePresence } from 'framer-motion';
 
-import ExpandCollapseButton from '../../reusable-components/ExpandCollapseButton';
+import ExpandCollapseButton from '../../reusable-components/expand-button/ExpandCollapseButton';
 
 import classes from './FAQ.module.scss';
-
-interface FAQProps {
-  data: Topic[];
-}
 
 interface Topic {
   id: number;
   title: string;
   content: string;
+}
+
+interface FAQProps {
+  data: Topic[];
 }
 
 const topicStyles = {
@@ -64,25 +65,23 @@ const FAQ = ({ data }: FAQProps) => {
       <ul>
         {data.map(({ id, title, content }) => {
           return (
-            <li
-              key={id}
-              onClick={() => {
-                handleClickedTopic(id);
-              }}
-            >
-              <div>
-                <h3 className="title-l">{title}</h3>
-                <ExpandCollapseButton trigger={clickedTopic[id]} />
+            <li key={id}>
+              <div onClick={() => handleClickedTopic(id)} role="presentation">
+                <div>
+                  <h3 className="title-l">{title}</h3>
+                  <ExpandCollapseButton trigger={clickedTopic[id]} />
+                </div>
+                <AnimatePresence>
+                  {clickedTopic[id] && (
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    <m.div {...topicStyles}>
+                      <div>
+                        <p className="label-s">{content}</p>
+                      </div>
+                    </m.div>
+                  )}
+                </AnimatePresence>
               </div>
-              <AnimatePresence>
-                {clickedTopic[id] && (
-                  <m.div {...topicStyles}>
-                    <div>
-                      <p className="label-s">{content}</p>
-                    </div>
-                  </m.div>
-                )}
-              </AnimatePresence>
             </li>
           );
         })}
