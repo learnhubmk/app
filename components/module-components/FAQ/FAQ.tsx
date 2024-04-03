@@ -59,7 +59,7 @@ const FAQ = ({ data }: FAQProps) => {
   };
 
   return (
-    <section className={classes.container}>
+    <section className={classes.faqContainer}>
       <h1 className="display-l">Често поставувани прашања</h1>
       <ul>
         {data.map(({ id, title, content }) => {
