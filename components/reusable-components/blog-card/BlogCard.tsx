@@ -9,7 +9,9 @@ import CustomCursor from '../../custom-cursor/CustomCursor';
 import style from './blogCard.module.scss';
 import shortenString from '../../../utils/shortenString';
 
-interface BlogCardProps {
+export interface BlogCardProps {
+  // eslint-disable-next-line react/no-unused-prop-types
+  id: number;
   title: string;
   body: string;
   pageTitle: string;
