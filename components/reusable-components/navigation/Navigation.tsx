@@ -4,10 +4,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 
 // eslint-disable-next-line import/no-duplicates
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './navigation.module.scss';
 import Button from '../button/Button';
 import { useTheme } from '../../context/ThemeContext';
@@ -41,28 +41,32 @@ const Navigation = () => {
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
-        <div className={`${styles.leftContent} ${!isSun ? styles.themeDark : styles.themeLight}`}>
-          <Link className={`display-s ${styles.navigationLogo}`} href="/">
-            LearnHub.mk
-          </Link>
-          <div id="navbarNav">
-            <ul className={styles.menuElementsNav}>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                Визија{' '}
-              </Link>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                {' '}
-                Цели{' '}
-              </Link>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                {' '}
-                Контакт{' '}
-              </Link>
-              <Link className={`headline-s ${styles.menuElements}`} href="/">
-                Блог{' '}
-              </Link>
-            </ul>
-          </div>
+        <Link className={`display-s ${styles.navigationLogo}`} href="/">
+          <Image
+            src="/logo/logo.svg"
+            className={`${styles.navigationLogo}`}
+            alt="LearnHub Logo"
+            width={250}
+            height={55}
+          />
+        </Link>
+        <div id="navbarNav">
+          <ul className={styles.menuElementsNav}>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              Визија{' '}
+            </Link>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              {' '}
+              Цели{' '}
+            </Link>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              {' '}
+              Контакт{' '}
+            </Link>
+            <Link className={`headline-s ${styles.menuElements}`} href="/">
+              Блог{' '}
+            </Link>
+          </ul>
         </div>
         <div className={styles.buttonsContent}>
           <div>
@@ -86,7 +90,7 @@ const Navigation = () => {
             <Link href="/signin" passHref>
               <Button
                 style={{
-                  backgroundColor: '#ea713e',
+                  backgroundColor: '#f9664b',
                   padding: '10px',
                   fontSize: '20px',
                   paddingInline: '25px',

@@ -27,11 +27,12 @@
   margin-left: 0.55em;
   width: 6.3em;
   height: 1.22em;
-  top: 1.86em;
+  top: 1.56em;
   left: 2.36em;
 }
 
 .menuElements {
+  align-items: center;
   display: flex;
   //color: var(--text-color);
   position: relative;
@@ -40,15 +41,15 @@
 }
 
 .menuElementsNav {
+  margin-right: 70px;
   display: flex;
   list-style: none;
-  padding: 10px;
+  padding: 0px;
 }
 
 .navContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .leftContent {
@@ -64,10 +65,11 @@
 .largeNavbar {
   //background-color: var(--bg-color);
   padding: 40px;
+  padding-inline: 0;
 }
 
 @include respond-to('small') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.25em;
     width: 4em;
     height: 1em;
@@ -82,7 +84,7 @@
 }
 
 @include respond-to('medium') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.55em;
     width: 6.3em;
     height: 1.22em;
@@ -97,7 +99,7 @@
 }
 
 @include respond-to('large') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.55em;
     width: 6.3em;
     height: 1.22em;
@@ -112,7 +114,7 @@
 }
 
 @include respond-to('extra-large') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.55em;
     width: 6.3em;
     height: 1.22em;
@@ -162,7 +164,5 @@
 
   .navigationLogo,
   .menuElements {
-        color: var(--text-color) !important;
-
-  }
+    color: var(--text-color) !important; }
 }
