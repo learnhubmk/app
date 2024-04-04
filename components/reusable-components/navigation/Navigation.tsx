@@ -102,7 +102,7 @@ const Navigation = () => {
           </div>
         </div>
         <div
-          className={`${styles.themeBackgroundSize} ${!isSun ? styles.themeDark && styles.themeBackgroundDark : styles.themeLight && styles.themeBackgroundLight}`}
+          className={`${styles.themeBackgroundSize} ${!isSun ? styles.themeLight && styles.themeBackgroundLight : styles.themeDark && styles.themeBackgroundDark} `}
           onClick={handleClick}
         >
           <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
