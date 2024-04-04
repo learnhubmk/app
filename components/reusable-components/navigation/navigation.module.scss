@@ -34,8 +34,7 @@
 .menuElements {
   align-items: center;
   display: flex;
-  //color: var(--text-color);
-  position: relative;
+color: inherit;  position: relative;
   margin-left: 4.16em;
   //left: 10.41em;
 }
@@ -50,6 +49,7 @@
 .navContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .leftContent {
@@ -153,16 +153,16 @@
   background-color: #ffff !important;
   color: var(--bg-color) !important;
 
-  .navigationLogo,
   .menuElements {
     color: var(--bg-color) !important;
+    
   }
 }
 .themeDark {
   background-color: var(--bg-color) !important;
   color: var(--text-color) !important;
 
-  .navigationLogo,
   .menuElements {
-    color: var(--text-color) !important; }
+    color: var(--text-color) !important; 
+  }
 }

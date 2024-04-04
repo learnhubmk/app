@@ -10,8 +10,10 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const storedTheme = localStorage.getItem('theme');
-  const [theme, setTheme] = useState<'dark' | 'light'>(storedTheme === 'light' ? 'light' : 'dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const storedTheme = localStorage.getItem('theme');
+    return storedTheme === 'light' ? 'light' : 'dark';
+  });
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
