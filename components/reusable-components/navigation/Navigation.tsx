@@ -11,7 +11,8 @@ const Navigation = () => {
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <Link className={`display-s ${styles.navigationLogo}`} href="/">
-          <Image src="/logo/logo.svg" alt="LearnHub Logo" width={250} height={55} />
+          <Image src="/logo/logoAnimated.svg" alt="LearnHub Logo" width={250} height={55} />
+          <Image src="/logo/logomarkAnimated.svg" alt="LearnHub Logo" width={55} height={55} />
         </Link>
         <div id="navbarNav">
           <ul className={styles.menuElementsNav}>
