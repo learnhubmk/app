@@ -26,7 +26,7 @@ const Navigation = () => {
               {' '}
               Контакт{' '}
             </Link>
-            <Link className={`headline-s ${styles.menuElements}`} href="/">
+            <Link className={`headline-s ${styles.menuElements}`} href="/blog">
               Блог{' '}
             </Link>
           </ul>
