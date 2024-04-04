@@ -34,7 +34,8 @@
 .menuElements {
   align-items: center;
   display: flex;
-color: inherit;  position: relative;
+  color: inherit;
+  position: relative;
   margin-left: 4.16em;
   //left: 10.41em;
 }
@@ -50,7 +51,6 @@ color: inherit;  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
 }
 
 .leftContent {
@@ -156,7 +156,6 @@ color: inherit;  position: relative;
 
   .menuElements {
     color: var(--bg-color) !important;
-    
   }
 }
 .themeDark {
@@ -164,6 +163,6 @@ color: inherit;  position: relative;
   color: var(--text-color) !important;
 
   .menuElements {
-    color: var(--text-color) !important; 
+    color: var(--text-color) !important;
   }
 }
