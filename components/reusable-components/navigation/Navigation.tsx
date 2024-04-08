@@ -43,7 +43,7 @@ const Navigation = () => {
       <div className={styles.navContainer}>
         <Link className={`display-s ${styles.navigationLogo}`} href="/">
           <Image
-            src="/logo/Horizontal-Logo_Full-Color.svg"
+            src={isSun ? '/logo/logo-white.svg' : '/logo/logo-black.svg'}
             className={`${styles.navigationLogo}`}
             alt="LearnHub Logo"
             width={250}
