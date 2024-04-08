@@ -3,7 +3,7 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line import/no-duplicates
 import Link from 'next/link';
@@ -17,26 +17,7 @@ import solImage from '../../../public/sol.png';
 import moonImage from '../../../public/lune.png';
 
 const Navigation = () => {
-  const { theme, toggleTheme } = useTheme();
-  const [isSun, setIsSun] = useState(true);
-
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-  useEffect(() => {
-    const storedIsSun = localStorage.getItem('isSun');
-    if (storedIsSun !== null) {
-      setIsSun(storedIsSun === 'true');
-    }
-  }, []);
-  const handleClick = () => {
-    toggleTheme();
-    setIsSun((prevIsSun) => {
-      const newIsSun = !prevIsSun;
-      localStorage.setItem('isSun', String(newIsSun));
-      return newIsSun;
-    });
-  };
+  const { handleClick, isSun } = useTheme();
 
   return (
     <nav className={styles.largeNavbar}>
