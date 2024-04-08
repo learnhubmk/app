@@ -19,39 +19,16 @@
     }
   }
 
-  .emblaControls {
+  button {
+    outline: none;
+    border: none;
+    background: transparent;
+  }
+
+  .emblaButtons {
     display: flex;
-    justify-content: space-between;
-
-    button {
-      outline: none;
-      border: none;
-      background: transparent;
-    }
-
-    .emblaButtons {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .emblaDots {
-      display: flex;
-      gap: 12px;
-      margin-right: 40px;
-    }
-
-    .emblaDot {
-      box-shadow: inset 0 0 0 0.2rem gray;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-    }
-
-    .emblaDotSelected {
-      box-shadow: inset 0 0 0 0.2rem white;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-    }
+    justify-content: flex-end;
+    margin-right: 40px;
+    gap: 0.5rem;
   }
 }
