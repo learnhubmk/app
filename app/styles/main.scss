@@ -1,15 +1,1 @@
 @forward 'globals';
-
-body {
-  cursor: none;
-}
-
-/* Apply custom cursor to all elements */
-* {
-  cursor: none;
-}
-
-/* Set pointer-events to none for custom cursor */
-.customCursor {
-  pointer-events: none;
-}
