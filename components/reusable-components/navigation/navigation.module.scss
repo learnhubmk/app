@@ -131,11 +131,11 @@
 .animate {
   transition: transform 0.2s ease;
   display: flex;
-  align-content: center;
+  align-items: center;
 }
 
 .moveRight {
-  transform: translateX(20px);
+  transform: translateX(10px);
 }
 
 .themeBackgroundSize {
@@ -143,6 +143,8 @@
   height: 25px;
   border-radius: 100px;
   //border: 1px solid var(--bg-color);
+  display: flex;
+  align-items: center;
 }
 .themeBackgroundDark {
   background-color: #ffff;
