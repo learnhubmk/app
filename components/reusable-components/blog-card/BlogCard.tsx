@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { HiArrowLongRight } from 'react-icons/hi2';
 import { BsSave, BsFillShareFill } from 'react-icons/bs';
@@ -5,7 +6,9 @@ import { BsSave, BsFillShareFill } from 'react-icons/bs';
 import style from './blogCard.module.scss';
 import shortenString from '../../../utils/shortenString';
 
-interface BlogCardProps {
+export interface BlogCardProps {
+  // eslint-disable-next-line react/no-unused-prop-types
+  id: number;
   title: string;
   body: string;
   pageTitle: string;
