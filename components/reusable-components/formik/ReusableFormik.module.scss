@@ -1,0 +1,17 @@
+.formContainer {
+  border: 2px solid white;
+  max-width: 600px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1.7rem;
+
+    button {
+      background-color: white;
+      height: 2rem;
+      font-weight: 600;
+    }
+  }
+}

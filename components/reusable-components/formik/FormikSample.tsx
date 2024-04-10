@@ -1,7 +1,9 @@
 'use client';
 
-import { Formik, Form, ErrorMessage, Field, FormikHelpers } from 'formik';
+import { ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
+
+import ReusableForm from './ReusableFormik';
 
 import classes from './FormikSample.module.scss';
 
@@ -19,19 +21,6 @@ const SampleForm = () => {
     password: '',
   };
 
-  // Form submission handler
-  const handleSubmit = (
-    values: FormValues,
-    { setSubmitting, resetForm }: FormikHelpers<FormValues>
-  ) => {
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitting(false);
-      resetForm(); // Reset the form values
-      console.log('onSubmit', values);
-    }, 400);
-  };
-
   // Define validation schema using Yup
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is required').email('Invalid email address'),
@@ -44,37 +33,26 @@ const SampleForm = () => {
 
   return (
     <div className={classes.formContainer}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        {({ isSubmitting }) => (
-          <Form className={classes.form}>
-            <div className={classes.field}>
-              <Field name="email" placeholder="Email" />
-              <div className={classes.error}>
-                <ErrorMessage name="email" component="span" />
-              </div>
-            </div>
-            <div className={classes.field}>
-              <Field name="username" placeholder="Username" />
-              <div className={classes.error}>
-                <ErrorMessage name="username" component="span" />
-              </div>
-            </div>
-            <div className={classes.field}>
-              <Field name="password" placeholder="Password" />
-              <div className={classes.error}>
-                <ErrorMessage name="password" component="span" />
-              </div>
-            </div>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
+      <ReusableForm initialValues={initialValues} validationSchema={validationSchema}>
+        <div className={classes.field}>
+          <Field name="email" placeholder="Email" />
+          <div className={classes.error}>
+            <ErrorMessage name="email" component="span" />
+          </div>
+        </div>
+        <div className={classes.field}>
+          <Field name="username" placeholder="Username" />
+          <div className={classes.error}>
+            <ErrorMessage name="username" component="span" />
+          </div>
+        </div>
+        <div className={classes.field}>
+          <Field name="password" placeholder="Password" />
+          <div className={classes.error}>
+            <ErrorMessage name="password" component="span" />
+          </div>
+        </div>
+      </ReusableForm>
     </div>
   );
 };
