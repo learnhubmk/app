@@ -16,20 +16,15 @@ import { CursorProvider } from '../components/context/CursorContext';
 const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
-  <CursorProvider>
-    <html lang="en">
-      <body className={roboto.className}>
-        <ThemeProvider>
-          <CustomCursor />
-          <Navigation />
-          <main>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </main>
-          <Footer />
-        </ThemeProvider>
-      </body>
-    </html>
-  </CursorProvider>
+  <html lang="en">
+    <body className={roboto.className}>
+      <Navigation />
+      <main>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
+      </main>
+      <Footer />
+    </body>
+  </html>
 );
 
 export const metadata: Metadata = {
