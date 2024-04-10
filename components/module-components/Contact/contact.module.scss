@@ -20,7 +20,6 @@
     letter-spacing: 0.1px;
     text-align: left;
     text-transform: uppercase;
-    
   }
 
   .contactSection input {
@@ -71,21 +70,21 @@
     text-align: center;
   }
 
-    .contentContainer {
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .contactText {
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .contactSection input {
-      margin-left: 0;
-      width: 100%;
-    }
+  .contentContainer {
+    flex-direction: row;
+    align-items: center;
   }
+
+  .contactText {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .contactSection input {
+    margin-left: 0;
+    width: 100%;
+  }
+}
 
 .contactError {
   background-color: var(--bg-color);
@@ -111,7 +110,6 @@
   position: relative;
   margin-left: 30%;
   margin-top: -50px;
-
 }
 
 .innerCircle {
