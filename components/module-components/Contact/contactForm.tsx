@@ -1,0 +1,117 @@
+import React, { useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import style from './contact.module.scss';
+import Notification from '../../reusable-components/notification/notification';
+
+interface ContactFormProps {
+  inputClassName?: string;
+  textareaClassName?: string;
+  buttonClassName?: string;
+}
+const ContactForm: React.FC<ContactFormProps> = ({
+  inputClassName,
+  buttonClassName,
+  textareaClassName,
+}) => {
+  const [notification, setNotification] = useState(false);
+  const [infoMessage, setInfoMessage] = useState('');
+  const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
+
+  const contactEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const formik = useFormik({
+    initialValues: { username: '', email: '', message: '' },
+    validationSchema: Yup.object({
+      username: Yup.string().required('Username is required!'),
+      email: Yup.string()
+        .email('Invalid email address!')
+        .required('Email is required!')
+        .matches(contactEmail, 'Invalid email format'),
+      message: Yup.string().required('Messages is required'),
+    }),
+    onSubmit: (values) => {
+      if (values.email.match(contactEmail)) {
+        setInfoMessage('Submission successful');
+        setNotificationType('success');
+        setNotification(true);
+      } else {
+        setInfoMessage('Please enter a valid email adress');
+        setNotificationType('error');
+        setNotification(true);
+      }
+    },
+  });
+  return (
+    <div>
+      <div>
+        {notification && (
+          <Notification
+            message={infoMessage}
+            type={notificationType}
+            onClose={() => setNotification(false)}
+          />
+        )}
+      </div>
+      <form onSubmit={formik.handleSubmit}>
+        <input
+          type="text"
+          placeholder="Внеси го твоето име"
+          className={inputClassName}
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          name="username"
+        />
+
+        <input
+          type="email"
+          placeholder="Внеси ја твојата емаил адреса"
+          className={inputClassName}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          name="email"
+        />
+
+        <textarea
+          placeholder="Порака"
+          className={textareaClassName}
+          value={formik.values.message}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          name="message"
+        />
+
+        <button type="submit" className={buttonClassName}>
+          Испрати{' '}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="13"
+            viewBox="0 0 15 13"
+            fill="none"
+          >
+            <path
+              d="M14.6015 7.25735C14.5981 7.34463 14.5692 7.429 14.5183 7.49998C14.4674 7.57096 14.3968 7.62543 14.3152 7.65661L1.27898 12.6724C1.16415 12.7165 1.03937 12.7282 0.918377 12.706C0.797382 12.6838 0.68486 12.6286 0.593196 12.5466C0.501532 12.4646 0.434278 12.3588 0.398837 12.241C0.363397 12.1232 0.361143 11.998 0.392324 11.8789L1.73101 6.77367L0.78057 1.58236C0.758223 1.46122 0.769777 1.33627 0.813956 1.22127C0.858134 1.10628 0.93322 1.00573 1.03093 0.930704C1.12864 0.85568 1.24517 0.809104 1.36767 0.796116C1.49016 0.783127 1.61386 0.804232 1.72512 0.8571L14.3454 6.83833C14.4244 6.87555 14.4908 6.93517 14.5362 7.00977C14.5816 7.08437 14.6041 7.17067 14.6008 7.25796L14.6015 7.25735ZM2.52683 7.24892L1.36484 11.6834L11.968 7.60373L2.52683 7.24892ZM12.0016 6.71303L1.73565 1.84913L2.56168 6.35827L12.0016 6.71303Z"
+              fill="black"
+            />
+          </svg>
+        </button>
+
+        {formik.touched.username && formik.errors.username && (
+          <div className={style.contactError}>{formik.errors.username}</div>
+        )}
+
+        {formik.touched.email && formik.errors.email && (
+          <div className={style.contactError}>{formik.errors.email}</div>
+        )}
+
+        {formik.touched.message && formik.errors.message && (
+          <div className={style.contactError}>{formik.errors.message}</div>
+        )}
+      </form>
+    </div>
+  );
+};
+export default ContactForm;

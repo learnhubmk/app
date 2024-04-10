@@ -1,66 +1,131 @@
-.container {
+.contactContainer {
+  background-color: var(--bg-color);
+  color: var(--text-color);
   display: flex;
-  gap: 150px;
+  justify-content: space-between;
   align-items: center;
-  margin: 200px 0 200px 0;
+  width: 100%;
+  max-width: 1320px;
+  padding: 1rem 0;
+  margin-top: 7rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  gap: 200px;
 
-  .title {
-    font-size: 40px;
+  .contactTitle {
+    display: inline-block;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 72px;
+    font-weight: 500;
+    line-height: 80.64px;
+    letter-spacing: 0.1px;
+    text-align: left;
     text-transform: uppercase;
-    margin-bottom: 130px;
+    
   }
 
-  .content {
-    background-color: dark;
-    border: 1px solid white;
-    margin: 10px;
+  .contactSection input {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    background-color: var(--bg-color);
+    border: 1px solid var(--text-color);
+    padding: 1em;
+    padding-right: 50px;
+    cursor: text;
+    width: 620px;
+    height: 60px;
+    color: var(--text-color);
 
-    button {
-      color: black;
-      display: block;
-      text-align: center;
-      background-color: dark;
-      padding: 10px 200px;
-      margin-top: rem-calc(30);
+    &::placeholder {
+      color: var(--text-color);
     }
   }
-}
 
-.contactForm {
-  background-color: #1c1c1c !important;
-  color: white;
-  border: 1px solid white;
-  padding: 10px;
-  width: 100%;
-}
+  .contactSection textarea {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border: 1px solid var(--text-color);
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    padding: 1em;
+    padding-right: 50px;
+    width: 620px;
+    height: 120px;
+
+    &::placeholder {
+      color: var(--text-color);
+    }
+  }
+
+  .contactSection button {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: 1px solid var(--text-color);
+    cursor: pointer;
+    width: 623px;
+    height: 43px;
+    margin-top: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    text-align: center;
+  }
+
+    .contentContainer {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .contactText {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .contactSection input {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
 
 .contactError {
-  margin: 10px;
+  background-color: var(--bg-color);
+  padding-top: 9px;
+  padding-right: 170px;
+  padding-left: 15px;
+  padding-bottom: 9px;
+  color: var(--error-dark);
+  position: absolute;
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  animation: appear 1s ease forwards;
+  text-transform: capitalize;
 }
 
 .circle {
   background-color: #ea713e;
-  width: 120px;
-  height: 120px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   border: 4px solid black;
   position: relative;
-  margin-top: 60px;
+  margin-left: 30%;
+  margin-top: -50px;
+
 }
 
 .innerCircle {
-  width: 90px;
-  height: 90px;
+  width: 104px;
+  height: 104px;
+  gap: 0px;
+  border: 2px 0px 0px 0px;
+  opacity: 0px;
   border-radius: 50%;
   border: 2px solid black;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.collaboratePrimary {
-  position: relative;
 }
 
 .collabInside {
@@ -71,8 +136,13 @@
 }
 
 .svgRotate {
-  transform: rotate(-30deg);
-  margin-top: 60px;
+  transform: rotate(-44.79deg);
+  width: 31.23px;
+  height: 31.23px;
+  top: 5851px;
+  left: 312px;
+  gap: 0px;
+  opacity: 0px;
 }
 .svg {
   fill: currentColor;
@@ -80,4 +150,12 @@
   max-width: 66vmin;
   transform-origin: center;
   width: 100%;
+
+  text {
+    font-size: 11px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 500;
+    line-height: 11.72px;
+    letter-spacing: 3px;
+  }
 }
