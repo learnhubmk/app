@@ -23,10 +23,10 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const formik = useFormik({
     initialValues: { username: '', email: '', message: '' },
     validationSchema: Yup.object({
-      username: Yup.string().required('Username is required!'),
+      username: Yup.string().required('Задолжително внесете име!'),
       email: Yup.string()
-        .email('Invalid email address!')
-        .required('Email is required!')
+        .email('Невалидна емаил адреса!')
+        .required('Задолжително внесете Емаил!')
         .matches(contactEmail, 'Invalid email format'),
       message: Yup.string().required('Messages is required'),
     }),
