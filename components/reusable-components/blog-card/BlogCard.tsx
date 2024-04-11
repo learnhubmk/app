@@ -33,18 +33,16 @@ const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
       <div>
         {pageTitle === 'blog' ? (
           <div className={style.btnsContainer}>
-            <Link href={`/blog/${title}`} className={style.blogCardBtn}>
-              Learn More
-            </Link>
+            <div className={style.blogCardBtn}>Learn More</div>
             <div>
               <BsSave className={style.saveIcon} />
               <BsFillShareFill className={style.shareIcon} />
             </div>
           </div>
         ) : (
-          <Link href={`/blog/${title}`} className={style.blogCardHomeBtn}>
+          <div className={style.blogCardHomeBtn}>
             <HiArrowLongRight className={style.arrowIcon} />
-          </Link>
+          </div>
         )}
       </div>
     </Link>
