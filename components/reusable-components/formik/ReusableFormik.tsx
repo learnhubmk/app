@@ -15,7 +15,7 @@ interface Props<T extends FormValues> {
   validationSchema: Yup.ObjectSchema<T>;
 }
 
-const ReusableForm = <T extends FormValues>({
+const ReusableFormik = <T extends FormValues>({
   initialValues,
   validationSchema,
   children,
@@ -24,12 +24,9 @@ const ReusableForm = <T extends FormValues>({
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitting(false);
-      resetForm(); // Reset the form values
-      console.log('values', values);
-    }, 400);
+    setSubmitting(false);
+    resetForm(); // Reset the form values
+    // console.log('values', values);
   };
 
   return (
@@ -57,4 +54,4 @@ const ReusableForm = <T extends FormValues>({
   );
 };
 
-export default ReusableForm;
+export default ReusableFormik;
