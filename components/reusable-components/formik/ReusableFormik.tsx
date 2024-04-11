@@ -26,7 +26,6 @@ const ReusableFormik = <T extends FormValues>({
   ) => {
     setSubmitting(false);
     resetForm(); // Reset the form values
-    // console.log('values', values);
   };
 
   return (
