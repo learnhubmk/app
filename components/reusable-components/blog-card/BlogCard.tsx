@@ -27,26 +27,25 @@ const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
           <p>Date</p>
         </div>
       )}
-        <div>
-          <p>{shortenString(body, 75)}</p>
-        </div>
-        <div>
-          {pageTitle === 'blog' ? (
-            <div className={style.btnsContainer}>
-              <div className={style.blogCardBtn}>Learn More</div>
-              <div>
-                <BsSave className={style.saveIcon} />
-                <BsFillShareFill className={style.shareIcon} />
-              </div>
+      <div>
+        <p>{shortenString(body, 75)}</p>
+      </div>
+      <div>
+        {pageTitle === 'blog' ? (
+          <div className={style.btnsContainer}>
+            <div className={style.blogCardBtn}>Learn More</div>
+            <div>
+              <BsSave className={style.saveIcon} />
+              <BsFillShareFill className={style.shareIcon} />
             </div>
-          ) : (
-            <div className={style.blogCardHomeBtn}>
-              <HiArrowLongRight className={style.arrowIcon} />
-            </div>
-          )}
-        </div>
-      </Link>
-      {isHovered && <CustomCursor isLargeCursor />}
+          </div>
+        ) : (
+          <div className={style.blogCardHomeBtn}>
+            <HiArrowLongRight className={style.arrowIcon} />
+          </div>
+        )}
+      </div>
+    </Link>
   );
 };
 
