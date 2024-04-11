@@ -7,7 +7,7 @@ const FakeMemberData = {
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
       memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
-      memberProjects: ['John.com', '', ''],
+      memberProjects: ['John.com', 'John.dev', 'John.co'],
     },
     {
       id: '02',
@@ -16,7 +16,7 @@ const FakeMemberData = {
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
       memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
-      memberProjects: ['Nick.com', '', ''],
+      memberProjects: ['Nick.com', 'Nick.dev', 'Nick.co'],
     },
     {
       id: '03',
@@ -25,7 +25,7 @@ const FakeMemberData = {
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
       memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
-      memberProjects: ['Sarah.com', '', ''],
+      memberProjects: ['Sarah.com', 'Sarah.dev', 'Sarah.co'],
     },
     {
       id: '04',
@@ -34,7 +34,7 @@ const FakeMemberData = {
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
       memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
-      memberProjects: ['Ricky.com', '', ''],
+      memberProjects: ['Ricky.com', 'Ricky.dev', 'Ricky.co'],
     },
     {
       id: '05',
@@ -43,7 +43,7 @@ const FakeMemberData = {
       memberInfo:
         'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt quas repudianda delectus dolorum tempora.',
       memberSkills: ['HTML', 'CSS', 'JavaScript', 'NextJs', 'NodeJs', 'TypeScript'],
-      memberProjects: ['Mike.com', '', ''],
+      memberProjects: ['Mike.com', 'Mike.dev', 'Mike.co'],
     },
   ],
 };
