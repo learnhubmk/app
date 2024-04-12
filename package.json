@@ -13,6 +13,7 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.29.2",
     "embla-carousel": "^8.0.0",
     "embla-carousel-react": "^8.0.0",
     "formik": "^2.4.5",
