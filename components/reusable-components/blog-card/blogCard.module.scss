@@ -1,0 +1,85 @@
+.customCursor {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  background-image: url('https://i.ibb.co/vmCz08X/curosr-removebg-preview.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.blogCardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--blog-card-bg);
+  color: var(--black-color);
+  width: 357px;
+  height: 361px;
+  padding: 60px 30px 30px 30px;
+
+  .blogCardTitle {
+    font-weight: 500;
+    line-height: 30px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .blogCardDivider {
+    width: 280px;
+    height: 1px;
+    margin: 0 auto;
+    background-color: var(--bg-color);
+  }
+
+  .blogCardInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+
+  .btnsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & a {
+      color: var(--black-color);
+    }
+
+    .blogCardBtn {
+      border: 1px solid var(--black-color);
+      padding: 8px 10px;
+      margin-top: 12px;
+    }
+
+    .saveIcon {
+      font-size: 20px;
+      margin-right: 12px;
+      transform: translateY(8px);
+      cursor: pointer;
+    }
+
+    .shareIcon {
+      font-size: 20px;
+      transform: translateY(8px);
+      cursor: pointer;
+    }
+  }
+
+  .blogCardHomeBtn {
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--black-color);
+    padding: 8px 10px;
+    margin-top: 12px;
+
+    .arrowIcon {
+      font-size: 23px;
+      color: var(--black-color);
+    }
+  }
+}
