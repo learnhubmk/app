@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 interface CaptchaProps {
   onSuccess?: () => void;
-  onError?: () => void; // Removed the unused 'error' parameter
+  onError?: () => void;
   onExpired?: () => void;
   siteKey?: string;
   cData?: string;
@@ -77,7 +77,7 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
           className="text-red-500 bg-white shadow-lg"
           onClick={() => {
             isErrorRef.current = false;
-          }} // Assign value before returning
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               isErrorRef.current = false;

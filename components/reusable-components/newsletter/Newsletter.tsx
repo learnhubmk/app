@@ -3,7 +3,7 @@
 import React from 'react';
 import styles from './newsletter.module.scss';
 import EmailForm from './emailform/emailform';
-import CaptchaWidget from '../turnstile-captcha/CaptchaWidget'; // Adjust the import path accordingly
+import CaptchaWidget from '../turnstile-captcha/CaptchaWidget';
 
 const handleCaptchaSuccess = () => {};
 
