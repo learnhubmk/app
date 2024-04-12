@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { HiArrowLongRight } from 'react-icons/hi2';
-import { BsSave, BsFillShareFill } from 'react-icons/bs';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import style from './blogCard.module.scss';
 import shortenString from '../../../utils/shortenString';
@@ -35,13 +34,13 @@ const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
           <div className={style.btnsContainer}>
             <div className={style.blogCardBtn}>Learn More</div>
             <div>
-              <BsSave className={style.saveIcon} />
-              <BsFillShareFill className={style.shareIcon} />
+              <i className={`bi bi-save ${style.saveIcon}`} />
+              <i className={`bi bi-share-fill ${style.shareIcon}`} />
             </div>
           </div>
         ) : (
           <div className={style.blogCardHomeBtn}>
-            <HiArrowLongRight className={style.arrowIcon} />
+            <i className={`bi bi-arrow-right ${style.arrowIcon}`} />
           </div>
         )}
       </div>
