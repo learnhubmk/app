@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { HiArrowLongRight } from 'react-icons/hi2';
-import { useEffect, useState } from 'react';
+
 import style from './blogList.module.scss';
 import fetchBlogPosts from '../../../app/action';
 import InfiniteScroll from '../../reusable-components/infinite-scroll/InfiniteScroll';
@@ -12,14 +12,7 @@ interface BlogListProps {
 }
 
 const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProps) => {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetchBlogPosts(0, pageTitle, blogCardsNumber);
-      setData(result);
-    };
-    fetchData();
-  }, [pageTitle, blogCardsNumber]);
+  const data = await fetchBlogPosts(0, pageTitle, blogCardsNumber);
 
   if (!data) {
     return <div className="headline-m">Нема блог постови во моментов</div>;
