@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaLinkedin, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import styles from './footer.module.scss';
 import EmailForm from '../newsletter/emailform/emailform';
 
@@ -19,16 +20,16 @@ const Footer = () => {
       <div className={` title-l ${styles.socialMediaSection}`}>
         <p>SOCIAL MEDIA</p>
         <Link href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-          <FaLinkedin /> Linkedin
+          <i className="bi bi-linkedin" /> Linkedin
         </Link>
         <Link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-          <FaFacebook /> Facebook
+          <i className="bi bi-facebook" /> Facebook
         </Link>
         <Link href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-          <FaInstagram /> Instagram
+          <i className="bi bi-instagram" /> Instagram
         </Link>
         <Link href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-          <FaYoutube /> Youtube
+          <i className="bi bi-youtube" /> Youtube
         </Link>
       </div>
 
