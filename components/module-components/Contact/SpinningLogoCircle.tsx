@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './contact.module.scss';
 
-const Circle: React.FC = () => {
+const SpinningLogoCircle: React.FC = () => {
   return (
     <div>
       <div className={style.circle}>
@@ -64,4 +64,4 @@ const Circle: React.FC = () => {
   );
 };
 
-export default Circle;
+export default SpinningLogoCircle;

@@ -1,14 +1,14 @@
 import React from 'react';
+import ContactForm from './ContactForm';
+import SpinningLogoCircle from './SpinningLogoCircle';
 import style from './contact.module.scss';
-import Circle from './circle';
-import ContactForm from './contactForm';
 
 const Contact: React.FC = () => {
   return (
     <div className={style.contactContainer}>
       <div>
         <p className={style.contactTitle}>Контактирај нé</p>
-        <Circle />
+        <SpinningLogoCircle />
       </div>
       <div className={style.contactSection}>
         <ContactForm
