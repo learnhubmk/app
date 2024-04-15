@@ -3,7 +3,7 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './navigation.module.scss';
@@ -15,32 +15,18 @@ import solImage from '../../../public/sol.png';
 import moonImage from '../../../public/lune.png';
 
 const Navigation = () => {
-  const { theme, toggleTheme } = useTheme();
-  const [isSun, setIsSun] = useState(true);
-
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-  useEffect(() => {
-    const storedIsSun = localStorage.getItem('isSun');
-    if (storedIsSun !== null) {
-      setIsSun(storedIsSun === 'true');
-    }
-  }, []);
-  const handleClick = () => {
-    toggleTheme();
-    setIsSun((prevIsSun) => {
-      const newIsSun = !prevIsSun;
-      localStorage.setItem('isSun', String(newIsSun));
-      return newIsSun;
-    });
-  };
-
+  const { isSun, handleClick } = useTheme();
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <Link className={`display-s ${styles.navigationLogo}`} href="/">
-          <Image src="/logo/logo.svg" alt="LearnHub Logo" width={250} height={55} />
+          <Image
+            src={isSun ? '/logo/logo-white.svg' : '/logo/logo-black.svg'}
+            className={`${styles.navigationLogo}`}
+            alt="LearnHub Logo"
+            width={250}
+            height={55}
+          />
         </Link>
         <div id="navbarNav">
           <ul className={styles.menuElementsNav}>
