@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import getUsers from '../../../app/getUsers';
+import Loading from '../../../app/loading';
 
 const Users = () => {
   const { data, isLoading, isError } = useQuery({
@@ -10,7 +11,7 @@ const Users = () => {
     queryKey: ['users'],
   });
 
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading) return <Loading />;
   if (isError) return <div>Sorry, There was an Error</div>;
   return (
     <div>
