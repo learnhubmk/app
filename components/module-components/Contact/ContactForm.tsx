@@ -94,7 +94,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         <button
           type="submit"
           className={`${buttonClassName} ${style.contactButton}`}
-          disabled={!isFormValid}
+          disabled={isFormValid}
         >
           Испрати{' '}
           <svg
