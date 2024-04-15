@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 interface CaptchaProps {
-  onSuccess?: () => void;
+  onSuccess?: (token: string) => void;
   onError?: () => void;
   onExpired?: () => void;
   siteKey?: string;
@@ -35,7 +35,11 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
           language,
           tabindex: tabIndex,
           cData,
-          callback: onSuccess,
+          callback: (token: string) => {
+            if (onSuccess) {
+              onSuccess(token);
+            }
+          },
         });
         if (!id) {
           throw new Error('Failed to render Captcha widget');
