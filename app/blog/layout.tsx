@@ -1,4 +1,3 @@
-import { IoIosSearch } from 'react-icons/io';
 import Input from '../../components/reusable-components/input/Input';
 import style from './layout.module.scss';
 
@@ -12,7 +11,7 @@ const LayoutBlogPage = ({
     <div className={style.mainContainer}>
       <div>{children}</div>
       <div className={style.layoutContainer}>
-        <Input type="text" placeholder="Пребарај" icon={<IoIosSearch />} />
+        <Input type="text" placeholder="Пребарај" icon={<i className="bi bi-search" />} />
         <div className={style.suggestArticleContainer}>
           <h2 className="title-l">Предлог Блог Статии</h2>
         </div>
