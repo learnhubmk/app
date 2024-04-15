@@ -27,27 +27,29 @@
   margin-left: 0.55em;
   width: 6.3em;
   height: 1.22em;
-  top: 1.86em;
+  top: 1.56em;
   left: 2.36em;
 }
 
 .menuElements {
+  align-items: center;
   display: flex;
-  //color: var(--text-color);
+  color: inherit;
   position: relative;
   margin-left: 4.16em;
   //left: 10.41em;
 }
 
 .menuElementsNav {
+  margin-right: 70px;
   display: flex;
   list-style: none;
-  padding: 10px;
+  padding: 0px;
 }
 
 .navContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -64,10 +66,11 @@
 .largeNavbar {
   //background-color: var(--bg-color);
   padding: 40px;
+  padding-inline: 0;
 }
 
 @include respond-to('small') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.25em;
     width: 4em;
     height: 1em;
@@ -82,7 +85,7 @@
 }
 
 @include respond-to('medium') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.55em;
     width: 6.3em;
     height: 1.22em;
@@ -97,7 +100,7 @@
 }
 
 @include respond-to('large') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.55em;
     width: 6.3em;
     height: 1.22em;
@@ -112,7 +115,7 @@
 }
 
 @include respond-to('extra-large') {
-  .NavigationLogo {
+  .navigationLogo {
     margin-left: 0.55em;
     width: 6.3em;
     height: 1.22em;
@@ -126,13 +129,13 @@
   }
 }
 .animate {
-  transition: transform 1.5s ease;
+  transition: transform 0.2s ease;
   display: flex;
-  align-content: center;
+  align-items: center;
 }
 
 .moveRight {
-  transform: translateX(20px);
+  transform: translateX(10px);
 }
 
 .themeBackgroundSize {
@@ -140,6 +143,8 @@
   height: 25px;
   border-radius: 100px;
   //border: 1px solid var(--bg-color);
+  display: flex;
+  align-items: center;
 }
 .themeBackgroundDark {
   background-color: #ffff;
@@ -151,7 +156,6 @@
   background-color: #ffff !important;
   color: var(--bg-color) !important;
 
-  .navigationLogo,
   .menuElements {
     color: var(--bg-color) !important;
   }
@@ -160,9 +164,7 @@
   background-color: var(--bg-color) !important;
   color: var(--text-color) !important;
 
-  .navigationLogo,
   .menuElements {
-        color: var(--text-color) !important;
-
+    color: var(--text-color) !important;
   }
 }
