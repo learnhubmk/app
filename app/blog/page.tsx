@@ -7,7 +7,7 @@ const Blog = () => {
   return (
     <div className={style.blogContainer}>
       <Tab leftTabText="За тебе" rightTabText="Најново" />
-      <BlogList pageTitle="blog" gridLayout="grid__1x2" blogCardsNumber={8} />
+      <BlogList pageTitle="blog" gridLayout="grid__1x2" />
     </div>
   );
 };

@@ -4,20 +4,17 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { EmblaOptionsType } from 'embla-carousel';
 import MemberCard from '../../reusable-components/member-card/MemberCard';
 import style from './memberList.module.scss';
-import FakeMemberData from './memberData';
 import {
-  NextButton,
-  PrevButton,
-  usePrevNextButtons,
-} from '../../reusable-components/embla-carousel-arrow-button/EmblaCarouselArrowButton';
+  DotButton,
+  useDotButton,
+} from '../../reusable-components/embla-carousel-dot-button/EmblaCarouselDotButton';
+import FakeMemberData from './memberData';
 
 const options: EmblaOptionsType = { loop: true };
 
 const MemberList = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
-
-  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
-    usePrevNextButtons(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
   return (
     <section className={style.memberSectionContainer}>
@@ -37,9 +34,15 @@ const MemberList = () => {
             />
           ))}
         </div>
-        <div className={style.emblaButtons}>
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        <div className={style.emblaDots}>
+          {scrollSnaps.map((_, index) => (
+            <DotButton
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              onClick={() => onDotButtonClick(index)}
+              className={index === selectedIndex ? style.emblaDotSelected : style.emblaDot}
+            />
+          ))}
         </div>
       </div>
     </section>
