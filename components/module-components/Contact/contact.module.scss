@@ -1,7 +1,6 @@
 .contactContainer {
   font-family: 'Roboto Condensed', sans-serif;
   background-color: var(--bg-color);
-  color: var(--text-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,10 +11,8 @@
   gap: 200px;
 
   .contactTitle {
-    display: inline-block;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 72px;
-    font-weight: 500;
     line-height: 80.64px;
     letter-spacing: 0.1px;
     text-align: left;
@@ -111,14 +108,13 @@
 .innerCircle {
   width: 104px;
   height: 104px;
-  border: 2px 0px 0px 0px;
-  opacity: 0px;
   border-radius: 50%;
   border: 2px solid black;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: none;
 }
 
 .collabInside {
@@ -134,13 +130,15 @@
   height: 31.23px;
   top: 5851px;
   left: 312px;
+  background-color: none;
+  
 }
 .svg {
-  fill: currentColor;
   height: auto;
-  max-width: 66vmin;
+  max-width: 100%;
   transform-origin: center;
   width: 100%;
+  fill: white !important;
 
   text {
     font-size: 11px;
@@ -148,5 +146,5 @@
     font-weight: 500;
     line-height: 11.72px;
     letter-spacing: 3px;
-  }
+}
 }

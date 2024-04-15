@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import style from './contact.module.scss';
 
 interface ContactFormProps {
@@ -94,7 +94,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         <button
           type="submit"
           className={`${buttonClassName} ${style.contactButton}`}
-          disabled={isFormValid}
+          disabled={!isFormValid}
         >
           Испрати{' '}
           <svg
