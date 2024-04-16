@@ -42,9 +42,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
     },
   });
 
-  const isFormValid =
-    Object.keys(formik.errors).length === 0 && Object.keys(formik.touched).length > 0;
-
   return (
     <div>
       <ToastContainer />
@@ -57,7 +54,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
           }`}
           value={formik.values.username}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           name="username"
         />
         {formik.touched.username && formik.errors.username && (
@@ -71,7 +67,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
           }`}
           value={formik.values.email}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           name="email"
         />
         {formik.touched.email && formik.errors.email && (
@@ -84,18 +79,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
           }`}
           value={formik.values.message}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           name="message"
         />
         {formik.touched.message && formik.errors.message && (
           <div className={style.contactError}>{formik.errors.message}</div>
         )}
 
-        <button
-          type="submit"
-          className={`${buttonClassName} ${style.contactButton}`}
-          disabled={!isFormValid}
-        >
+        <button type="submit" className={`${buttonClassName} ${style.contactButton}`}>
           Испрати{' '}
           <svg
             xmlns="http://www.w3.org/2000/svg"
