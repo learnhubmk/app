@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { HiArrowLongRight } from 'react-icons/hi2';
-import CustomCursor from '../../custom-cursor/CustomCursor';
 import BlogCard from '../../reusable-components/blog-card/BlogCard';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import style from './blogList.module.scss';
 import { CursorProvider, useCursor } from '../../context/CursorContext';
 
@@ -62,10 +62,9 @@ const BlogList = ({ pageTitle, gridLayout }: BlogListProps) => {
       </div>
       {pageTitle === 'home' && (
         <Link href="/blog" className={style.blogBtn}>
-          Види повеќе <HiArrowLongRight fontSize={22} />
+          Види повеќе <i className="bi bi-arrow-right" />
         </Link>
       )}
-      {isHovered && <CustomCursor isLargeCursor />}
     </CursorProvider>
   );
 };

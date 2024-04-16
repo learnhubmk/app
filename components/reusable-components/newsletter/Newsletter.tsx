@@ -11,9 +11,9 @@ const Newsletter: React.FC = () => {
       <div className={styles.newsletterText}>
         <p>Newsletter</p>
         <span className={`${styles.ellipse} ${styles.ellipsePosition}`} />
-        <span className={`${styles.newsletterSection} ${styles.inputContainer}`}>
+        <div className={`${styles.newsletterSection} ${styles.inputContainer}`}>
           <EmailForm inputClassName={styles.newsletterSection} buttonClassName={styles.button} />
-        </span>
+        </div>
       </div>
     </div>
   );
