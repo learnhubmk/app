@@ -15,11 +15,11 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
   onSuccess,
   onError,
   onExpired,
-  siteKey = '0x4AAAAAAAWq36_j09RgOKQR',
+  siteKey = process.env.REACT_APP_SITE_KEY || '0x4AAAAAAAWq36_j09RgOKQR',
   cData,
-  theme = 'auto',
-  language = 'auto',
-  tabIndex = 0,
+  theme = process.env.REACT_APP_THEME || 'auto',
+  language = process.env.REACT_APP_LANGUAGE || 'auto',
+  tabIndex = parseInt(process.env.REACT_APP_TAB_INDEX || '0', 10),
 }) => {
   const widgetIDRef = useRef<string | undefined>();
   const isErrorRef = useRef(false);
@@ -35,7 +35,11 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
           language,
           tabindex: tabIndex,
           cData,
-          callback: onSuccess,
+          callback: () => {
+            if (onSuccess) {
+              onSuccess();
+            }
+          },
         });
         if (!id) {
           throw new Error('Failed to render Captcha widget');
@@ -49,7 +53,9 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
 
     const loadCaptchaScript = () => {
       const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.src =
+        process.env.REACT_APP_CAPTCHA_SCRIPT_URL ||
+        'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
       script.async = true;
       script.onload = renderWidget;
       document.body.appendChild(script);
