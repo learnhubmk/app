@@ -1,12 +1,12 @@
 import React from 'react';
-import style from './contact.module.scss';
+import style from './spinningLogo.module.scss';
 
 const SpinningLogoCircle: React.FC = () => {
   return (
     <div>
       <div className={style.circle}>
         <div className={style.innerCircle}>
-          <svg className={style.svg} viewBox="0 0 100 100" width="100" height="100">
+          <svg className={style.spinningText} viewBox="0 0 100 100" width="100" height="100">
             <animateTransform
               attributeType="xml"
               attributeName="transform"
@@ -31,7 +31,7 @@ const SpinningLogoCircle: React.FC = () => {
               <textPath xlinkHref="#circle">Let's Collaborate Let's talk</textPath>
             </text>
           </svg>
-          <div className={style.collabInside}>
+          <div className={style.svgPosition}>
             <svg
               viewBox="0 0 64 64"
               width="30"
