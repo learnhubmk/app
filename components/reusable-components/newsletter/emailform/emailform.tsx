@@ -16,7 +16,6 @@ const EmailForm: React.FC<EmailFormProps> = ({ inputClassName, buttonClassName }
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
 
-  // Regular expression for basic email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const formik = useFormik({
@@ -29,7 +28,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ inputClassName, buttonClassName }
     }),
     onSubmit: (values) => {
       if (values.email.match(emailRegex)) {
-        setNotificationMessage('Subscription successful!');
+        setNotificationMessage('✅ Subscription successful!');
         setNotificationType('success');
         setShowNotification(true);
       } else {
@@ -47,6 +46,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ inputClassName, buttonClassName }
           message={notificationMessage}
           type={notificationType}
           onClose={() => setShowNotification(false)}
+          duration={5000}
         />
       )}
       <form onSubmit={formik.handleSubmit}>
