@@ -20,17 +20,40 @@ const Footer = () => {
 
         <div className={` title-l ${styles.socialMediaSection}`}>
           <p>SOCIAL MEDIA</p>
-          <Link href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://www.linkedin.com/company/102600044/admin/feed/posts/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i className="bi bi-linkedin" /> Linkedin
           </Link>
-          <Link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://www.facebook.com/profile.php?id=61556614894387"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i className="bi bi-facebook" /> Facebook
           </Link>
-          <Link href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://www.instagram.com/learnhub.mk?fbclid=IwAR3bWgALMMaxnp4a9hbUvjXLBOdkWGHcopCsFpp6WyKRRFoMSOyWqVHLNdk_aem_AUc6U-6f2fR5ErfT3g8nroxbZOsFEXjSAh6n06NlfDHWJxvbc-R-DNQ5hJhYnOLCuIWEVpD017qq83l-VqU5y43A"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i className="bi bi-instagram" /> Instagram
           </Link>
-          <Link href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://www.youtube.com/channel/UCDDywMbRvBXuUFTPBORc-BQ"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i className="bi bi-youtube" /> Youtube
+          </Link>
+          <Link
+            href="https://discord.com/invite/nUEKUWVveW"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="bi bi-discord" /> Discord
           </Link>
         </div>
 
