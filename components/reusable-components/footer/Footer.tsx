@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Image from 'next/image';
-import { FaLinkedin, FaFacebook, FaInstagram, FaYoutube, FaDiscord } from 'react-icons/fa';
 import styles from './footer.module.scss';
 import EmailForm from '../newsletter/emailform/emailform';
 
@@ -20,40 +20,17 @@ const Footer = () => {
 
         <div className={` title-l ${styles.socialMediaSection}`}>
           <p>SOCIAL MEDIA</p>
-          <Link
-            href="https://www.linkedin.com/company/learnhubmk/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaLinkedin /> Linkedin
+          <Link href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+            <i className="bi bi-linkedin" /> Linkedin
           </Link>
-          <Link
-            href="https://www.facebook.com/people/LearnHubmk/61556614894387/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaFacebook /> Facebook
+          <Link href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+            <i className="bi bi-facebook" /> Facebook
           </Link>
-          <Link
-            href="https://www.instagram.com/learnhub.mk/?fbclid=IwAR3bWgALMMaxnp4a9hbUvjXLBOdkWGHcopCsFpp6WyKRRFoMSOyWqVHLNdk_aem_AUc6U-6f2fR5ErfT3g8nroxbZOsFEXjSAh6n06NlfDHWJxvbc-R-DNQ5hJhYnOLCuIWEVpD017qq83l-VqU5y43A"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaInstagram /> Instagram
+          <Link href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+            <i className="bi bi-instagram" /> Instagram
           </Link>
-          <Link
-            href="https://www.youtube.com/channel/UCDDywMbRvBXuUFTPBORc-BQ"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaYoutube /> Youtube
-          </Link>
-          <Link
-            href="https://discord.com/invite/nUEKUWVveW"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaDiscord /> Discord
+          <Link href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+            <i className="bi bi-youtube" /> Youtube
           </Link>
         </div>
 
