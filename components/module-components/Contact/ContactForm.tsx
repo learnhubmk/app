@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import style from './contact.module.scss';
+import { ContactFormData, submitContactForm } from './SubmitContactForm';
 
 interface ContactFormProps {
   inputClassName?: string;
@@ -32,16 +33,31 @@ const ContactForm: React.FC<ContactFormProps> = ({
         .matches(contactEmail, 'Погрешен емаил формат'),
       message: Yup.string().required('Пораката е задолжителна'),
     }),
-    onSubmit: (values, { resetForm }) => {
-      if (values.email.match(contactEmail)) {
-        toast.success('Успешно испратено');
-      } else {
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const formData: ContactFormData = {
+          first_name: values.username,
+          last_name: '',
+          email: values.email,
+          subject: '',
+          message: values.message,
+          'cf-turnstile-response': '',
+        };
+
+        const response = await submitContactForm(formData);
+
+        if (response.status === 200) {
+          toast.success('Успешно испратено');
+        } else {
+          toast.error('Грешка');
+        }
+      } catch (error) {
         toast.error('Грешка');
       }
+
       resetForm();
     },
   });
-
   return (
     <div>
       <ToastContainer />
@@ -86,7 +102,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         )}
 
         <button type="submit" className={`${buttonClassName} ${style.contactButton}`}>
-          Испрати{' '}
+          <span> Испрати </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
