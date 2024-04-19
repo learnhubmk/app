@@ -20,7 +20,9 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
 
   return (
     <>
-      <div className={`grid ${gridLayout} ${style.blogListContainer}`}>{data}</div>
+      <div className={`grid ${gridLayout} ${pageTitle === 'home' && style.blogListContainer}`}>
+        {data}
+      </div>
 
       {pageTitle === 'home' && (
         <Link href="/blog" className={style.blogBtn}>
@@ -29,7 +31,7 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
       )}
 
       {pageTitle === 'blog' && (
-        <InfiniteScroll gridLayout={gridLayout} pageTitle={pageTitle} blogCardsNumber={8} />
+        <InfiniteScroll gridLayout={gridLayout} pageTitle={pageTitle} blogCardsNumber={6} />
       )}
     </>
   );
