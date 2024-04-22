@@ -1,0 +1,25 @@
+.tagButton {
+  cursor: pointer;
+  margin: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--text-color);
+  background: transparent;
+  color: var(--text-color);
+  text-transform: capitalize;
+
+  &:hover {
+    border: 1px solid var(--primary-btn-color);
+  }
+}
+
+.active {
+  cursor: pointer;
+  margin: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--primary-btn-color);
+  background: var(--text-color);
+  text-transform: capitalize;
+  font-weight: 500;
+}
