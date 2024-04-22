@@ -1,7 +1,9 @@
 :root {
+  --white-color: hsl(0, 0%, 100%);
   --black-color: hsl(0, 0%, 0%);
   --bg-color: hsl(240, 4%, 13%);
-  --text-color: hsl(0, 0%, 100%);
+  --text-color-dark: hsl(215, 19%, 35%);
+  --title-color-dark: hsl(222, 50%, 14%);
   --error-light: hsla(3, 71%, 41%, 1);
   --error-light-text: hsl(0, 0%, 100%);
   --error-dark: hsla(3, 70%, 83%, 1);

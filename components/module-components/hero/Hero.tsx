@@ -3,20 +3,18 @@ import style from './hero.module.scss';
 
 interface HeroProps {
   title: string;
-  headline: string;
   text: string;
 }
 
-const Hero = ({ title, headline, text }: HeroProps) => {
+const Hero = ({ title, text }: HeroProps) => {
   return (
     <div className={style.hero}>
       <div className={style.heroLeftContainer}>
-        <p className={`title-m ${style.heroTitle}`}>{title}</p>
-        <h1 className={`display-m ${style.heroHeadline}`}>{headline}</h1>
-        <p className={`headline-s ${style.heroText}`}>{text}</p>
+        <h1 className={`display-l ${style.heroTitle}`}>{title}</h1>
+        <p className={`headline-m ${style.heroText}`}>{text}</p>
       </div>
       <div>
-        <Image width={452} height={364} src="/hero-img.png" alt="hero image" priority />
+        <Image width={620} height={450} src="/hero-picture.png" alt="hero picture" priority />
       </div>
     </div>
   );
