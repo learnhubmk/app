@@ -2,10 +2,8 @@ import Link from 'next/link';
 
 import styles from './button.module.scss';
 import setClass from '../../../utils/setClass';
-// import setClass from '../../../utils/setClass';
 
 interface ButtonProps {
-  // children: React.ReactNode;
   onClick?: () => void;
   type: string;
   buttonText: string;
@@ -15,16 +13,7 @@ interface ButtonProps {
   buttonClass: string[];
 }
 
-const Button = ({
-  // children,
-  onClick = () => {},
-  type,
-  buttonText,
-  href,
-  icon,
-  buttonClass,
-}: ButtonProps) => {
-  // const combinedClasses = buttonClass.map((className) => styles[className]).join(' ');
+const Button = ({ onClick = () => {}, type, buttonText, href, icon, buttonClass }: ButtonProps) => {
   return (
     (type === 'button' && (
       <button type="button" className={setClass(buttonClass, styles)} onClick={onClick}>
