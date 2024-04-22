@@ -3,6 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import styles from './navigation.module.scss';
 import Button from '../button/Button';
 
@@ -31,38 +33,21 @@ const Navigation = () => {
             </Link>
           </ul>
         </div>
-        <div className={styles.buttonsContent}>
-          <div>
-            <Link href="/signup" passHref>
-              <Button
-                style={{
-                  backgroundColor: 'var(--bg-color)',
-                  padding: '10px',
-                  marginRight: '10px',
-                  color: '#ea713e',
-                  border: '1px solid #ea713e',
-                  fontSize: '20px',
-                  paddingInline: '25px',
-                }}
-              >
-                Sign Up
-              </Button>
-            </Link>
-          </div>
-          <div>
-            <Link href="/signin" passHref>
-              <Button
-                style={{
-                  backgroundColor: '#f9664b',
-                  padding: '10px',
-                  fontSize: '20px',
-                  paddingInline: '25px',
-                }}
-              >
-                Sign In
-              </Button>
-            </Link>
-          </div>
+        <div className={styles.buttonsContainer}>
+          <Button
+            type="link"
+            buttonText="Регистрирај се"
+            href="/signup"
+            buttonClass="primaryButton"
+          />
+
+          <Button
+            type="link"
+            buttonText="Најави се"
+            href="/login"
+            icon={<i className="bi bi-arrow-right" />}
+            buttonClass="secondaryButton"
+          />
         </div>
       </div>
     </nav>

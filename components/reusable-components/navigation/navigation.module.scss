@@ -49,10 +49,11 @@
   justify-content: space-between;
 }
 
-.buttonsContent {
-  margin-right: 50px;
+.buttonsContainer {
+  margin-right: 80px;
   display: flex;
   align-items: center;
+  gap: 24px;
 }
 
 .largeNavbar {

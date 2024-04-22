@@ -1,23 +1,45 @@
-import React from 'react';
+import Link from 'next/link';
+
 import styles from './button.module.scss';
 
 interface ButtonProps {
-  children: React.ReactNode;
+  // children: React.ReactNode;
   onClick?: () => void;
-  className?: string;
-  style?: React.CSSProperties;
+  type: string;
+  buttonText: string;
+  href: string;
+  // eslint-disable-next-line no-undef
+  icon?: JSX.Element;
+  buttonClass: string;
 }
 
-const Button = ({ children, onClick = () => {}, className = '', style = {} }: ButtonProps) => {
+const Button = ({
+  // children,
+  onClick = () => {},
+  type,
+  buttonText,
+  href,
+  icon,
+  buttonClass,
+}: ButtonProps) => {
   return (
-    <button
-      type="button"
-      className={`${styles.button} ${className}`}
-      style={style}
-      onClick={onClick}
-    >
-      {children}
-    </button>
+    (type === 'button' && (
+      <button
+        type="button"
+        className={`${buttonClass === 'primaryButton' ? styles.primaryButton : styles.secondaryButton}`}
+        onClick={onClick}
+      >
+        {buttonText} {icon && <div>{icon}</div>}
+      </button>
+    )) ||
+    (type === 'link' && (
+      <Link
+        href={href}
+        className={`${buttonClass === 'primaryButton' ? styles.primaryButton : styles.secondaryButton}`}
+      >
+        {buttonText} {icon && <div>{icon}</div>}
+      </Link>
+    ))
   );
 };
 
