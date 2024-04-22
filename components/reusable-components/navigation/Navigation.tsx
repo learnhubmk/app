@@ -38,15 +38,14 @@ const Navigation = () => {
             type="link"
             buttonText="Регистрирај се"
             href="/signup"
-            buttonClass="primaryButton"
+            buttonClass={['primaryButton']}
           />
 
           <Button
             type="link"
             buttonText="Најави се"
             href="/login"
-            icon={<i className="bi bi-arrow-right" />}
-            buttonClass="secondaryButton"
+            buttonClass={['secondaryButton']}
           />
         </div>
       </div>

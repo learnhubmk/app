@@ -27,7 +27,7 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
           type="link"
           href="/blog"
           buttonText="Види повеќе"
-          buttonClass="primaryButton"
+          buttonClass={['primaryButton', 'buttonWithIcon']}
           icon={<i className="bi bi-arrow-right" />}
         />
       )}

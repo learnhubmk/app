@@ -11,10 +11,6 @@
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 
-  // .buttonWithIcon {
-  //   padding: 8px 16px 8px 24px;
-  // }
-
   &:hover {
     background-color: var(--primary-btn-hover-color);
   }
@@ -35,7 +31,7 @@
   color: var(--text-color);
   border: 1px solid var(--primary-btn-color);
   border-radius: 8px;
-  padding: 8px 16px 8px 24px;
+  padding: 8px 24px 8px 24px;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
@@ -53,4 +49,8 @@
   &:focus {
     outline: none;
   }
+}
+
+.buttonWithIcon {
+  padding: 8px 20px 8px 24px;
 }

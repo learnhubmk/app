@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 import styles from './button.module.scss';
+import setClass from '../../../utils/setClass';
+// import setClass from '../../../utils/setClass';
 
 interface ButtonProps {
   // children: React.ReactNode;
@@ -10,7 +12,7 @@ interface ButtonProps {
   href: string;
   // eslint-disable-next-line no-undef
   icon?: JSX.Element;
-  buttonClass: string;
+  buttonClass: string[];
 }
 
 const Button = ({
@@ -22,21 +24,15 @@ const Button = ({
   icon,
   buttonClass,
 }: ButtonProps) => {
+  // const combinedClasses = buttonClass.map((className) => styles[className]).join(' ');
   return (
     (type === 'button' && (
-      <button
-        type="button"
-        className={`${buttonClass === 'primaryButton' ? styles.primaryButton : styles.secondaryButton}`}
-        onClick={onClick}
-      >
+      <button type="button" className={setClass(buttonClass, styles)} onClick={onClick}>
         {buttonText} {icon && <div>{icon}</div>}
       </button>
     )) ||
     (type === 'link' && (
-      <Link
-        href={href}
-        className={`${buttonClass === 'primaryButton' ? styles.primaryButton : styles.secondaryButton}`}
-      >
+      <Link href={href} className={setClass(buttonClass, styles)}>
         {buttonText} {icon && <div>{icon}</div>}
       </Link>
     ))
