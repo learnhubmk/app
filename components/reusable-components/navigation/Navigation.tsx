@@ -29,24 +29,7 @@ const Navigation = () => {
             height={55}
           />
         </Link>
-        <div id="navbarNav">
-          <ul className={styles.menuElementsNav}>
-            <Link className={`headline-s ${styles.menuElements}`} href="/">
-              Визија{' '}
-            </Link>
-            <Link className={`headline-s ${styles.menuElements}`} href="/">
-              {' '}
-              Цели{' '}
-            </Link>
-            <Link className={`headline-s ${styles.menuElements}`} href="/">
-              {' '}
-              Контакт{' '}
-            </Link>
-            <Link className={`headline-s ${styles.menuElements}`} href="/blog">
-              Блог{' '}
-            </Link>
-          </ul>
-        </div>
+
         <div className={styles.buttonsContent}>
           <div>
             <Link href="/signup" passHref>
@@ -87,9 +70,21 @@ const Navigation = () => {
           <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
             {' '}
             {isSun ? (
-              <Image src={solImage} alt="Sun" width={35} height={35} />
+              <Image
+                className={`${styles.theme_icon}`}
+                src={solImage}
+                alt="Sun"
+                width={25}
+                height={25}
+              />
             ) : (
-              <Image src={moonImage} alt="Moon" width={35} height={35} />
+              <Image
+                className={`${styles.theme_icon}`}
+                src={moonImage}
+                alt="Moon"
+                width={25}
+                height={25}
+              />
             )}
           </div>
         </div>

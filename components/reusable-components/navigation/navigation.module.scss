@@ -43,6 +43,7 @@
 .navContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .buttonsContent {
@@ -123,7 +124,7 @@
 }
 
 .moveRight {
-  transform: translateX(10px);
+  transform: translateX(18px);
 }
 
 .themeBackgroundSize {
@@ -133,6 +134,7 @@
   //border: 1px solid var(--bg-color);
   display: flex;
   align-items: center;
+  margin-right: 3rem;
 }
 .themeBackgroundDark {
   background-color: #ffff;
@@ -155,4 +157,7 @@
   .menuElements {
     color: var(--text-color) !important;
   }
+}
+.theme_icon {
+  margin-top: 4px;
 }
