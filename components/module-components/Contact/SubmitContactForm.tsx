@@ -1,26 +1,30 @@
-import axios, { AxiosResponse } from 'axios';
-
 export interface ContactFormData {
-  first_name: string;
-  last_name?: string;
+  name: string;
   email: string;
-  subject?: string;
   message: string;
-  'cf-turnstile-response'?: string;
+  cfTurnstileResponse: string;
 }
 
-type ContactFormResponse = AxiosResponse<any>;
+type ContactFormResponse = any;
 
 export const submitContactForm = async (
   formData: ContactFormData
 ): Promise<ContactFormResponse> => {
-  try {
-    const response = await axios.post('https://api.learnhub.mk/contact', formData);
-    return response;
-  } catch (error) {
-    console.error('Error submitting contact form:', error);
-    throw error;
-  }
-};
+  const url = new URL('https://staging-api.learnhub.mk/contact');
 
+  const headers = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  };
+  const response = await fetch(url.toString(), {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(formData),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response;
+};
 export default submitContactForm;

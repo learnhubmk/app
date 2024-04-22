@@ -9,15 +9,17 @@ import style from './contact.module.scss';
 import { ContactFormData, submitContactForm } from './SubmitContactForm';
 
 interface ContactFormProps {
-  inputClassName?: string;
-  textareaClassName?: string;
-  buttonClassName?: string;
+  inputClassName: string;
+  textareaClassName: string;
+  buttonClassName: string;
+  cfTurnstileResponse: string;
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
   inputClassName,
   buttonClassName,
   textareaClassName,
+  cfTurnstileResponse,
 }) => {
   const contactEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -36,26 +38,22 @@ const ContactForm: React.FC<ContactFormProps> = ({
     onSubmit: async (values, { resetForm }) => {
       try {
         const formData: ContactFormData = {
-          first_name: values.username,
-          last_name: '',
+          name: values.username,
           email: values.email,
-          subject: '',
           message: values.message,
-          'cf-turnstile-response': '',
+          cfTurnstileResponse,
         };
 
         const response = await submitContactForm(formData);
-
-        if (response.status === 200) {
+        if (response.status) {
           toast.success('Успешно испратено');
+          resetForm();
         } else {
           toast.error('Грешка');
         }
       } catch (error) {
         toast.error('Грешка');
       }
-
-      resetForm();
     },
   });
   return (
