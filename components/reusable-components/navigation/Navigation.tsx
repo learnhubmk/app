@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 'use client';
 
 import React from 'react';
@@ -5,13 +8,26 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './navigation.module.scss';
 import Button from '../button/Button';
+// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import/no-unresolved
+import solImage from '../../../public/theme/sol.png';
+// eslint-disable-next-line import/no-unresolved
+import moonImage from '../../../public/theme/lune.png';
+import { useTheme } from '../../../app/context/themeContext';
 
 const Navigation = () => {
+  const { isSun, handleClick } = useTheme();
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <Link className={`display-s ${styles.navigationLogo}`} href="/">
-          <Image src="/logo/logo.svg" alt="LearnHub Logo" width={250} height={55} />
+          <Image
+            src={isSun ? '/logo/logo-white.svg' : '/logo/logo-black.svg'}
+            className={`${styles.navigationLogo}`}
+            alt="LearnHub Logo"
+            width={250}
+            height={55}
+          />
         </Link>
         <div id="navbarNav">
           <ul className={styles.menuElementsNav}>
@@ -62,6 +78,19 @@ const Navigation = () => {
                 Sign In
               </Button>
             </Link>
+          </div>
+        </div>
+        <div
+          className={`${styles.themeBackgroundSize} ${!isSun ? styles.themeDark && styles.themeBackgroundLight : styles.themeLight && styles.themeBackgroundDark}`}
+          onClick={handleClick}
+        >
+          <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
+            {' '}
+            {isSun ? (
+              <Image src={solImage} alt="Sun" width={35} height={35} />
+            ) : (
+              <Image src={moonImage} alt="Moon" width={35} height={35} />
+            )}
           </div>
         </div>
       </div>

@@ -6,19 +6,22 @@ import Loading from './loading';
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
+import { ThemeProvider } from './context/themeContext';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en">
     <body className={montserrat.className}>
-      <ReactQueryProvider>
-        <Navigation />
-        <main>
-          <Suspense fallback={<Loading />}>{children}</Suspense>
-        </main>
-        <Footer />
-      </ReactQueryProvider>
+      <ThemeProvider>
+        <ReactQueryProvider>
+          <Navigation />
+          <main>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+          </main>
+          <Footer />
+        </ReactQueryProvider>
+      </ThemeProvider>
     </body>
   </html>
 );
