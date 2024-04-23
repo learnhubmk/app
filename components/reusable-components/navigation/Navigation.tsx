@@ -6,6 +6,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import styles from './navigation.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import solImage from '../../../public/theme/sun.png';
