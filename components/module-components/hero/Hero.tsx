@@ -1,22 +1,41 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import style from './hero.module.scss';
+
+import HeroImage from '../../../public/hero-picture.png';
+import Button from '../../reusable-components/button/Button';
 
 interface HeroProps {
   title: string;
-  headline: string;
   text: string;
 }
 
-const Hero = ({ title, headline, text }: HeroProps) => {
+const Hero = ({ title, text }: HeroProps) => {
   return (
     <div className={style.hero}>
       <div className={style.heroLeftContainer}>
-        <p className={`title-m ${style.heroTitle}`}>{title}</p>
-        <h1 className={`display-m ${style.heroHeadline}`}>{headline}</h1>
-        <p className={`headline-s ${style.heroText}`}>{text}</p>
+        <h1 className={style.heroTitle}>{title}</h1>
+        <p className={style.heroText}>{text}</p>
+        <Link href="https://discord.com/invite/nUEKUWVveW" target="_blank">
+          <Button
+            href=""
+            type="button"
+            buttonText="Придружи ни се"
+            buttonClass={['primaryButton', 'buttonWithIcon']}
+            icon={<i className="bi bi-arrow-right" />}
+          />
+        </Link>
       </div>
       <div>
-        <Image width={452} height={364} src="/hero-img.png" alt="hero image" priority />
+        <Image
+          width={620}
+          height={450}
+          src={HeroImage}
+          className={style.heroImage}
+          alt="hero picture"
+          priority
+        />
       </div>
     </div>
   );

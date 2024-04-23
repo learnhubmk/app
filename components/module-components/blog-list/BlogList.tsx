@@ -1,9 +1,10 @@
-import Link from 'next/link';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Link from 'next/link';
 
 import style from './blogList.module.scss';
 import fetchBlogPosts from '../../../app/action';
 import InfiniteScroll from '../../reusable-components/infinite-scroll/InfiniteScroll';
+import Button from '../../reusable-components/button/Button';
 
 interface BlogListProps {
   pageTitle: string;
@@ -25,8 +26,14 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
       </div>
 
       {pageTitle === 'home' && (
-        <Link href="/blog" className={style.blogBtn}>
-          Види повеќе <i className="bi bi-arrow-right" />
+        <Link href="/blog">
+          <Button
+            type="button"
+            href="/blog"
+            buttonText="Види повеќе"
+            buttonClass={['primaryButton', 'buttonWithIcon']}
+            icon={<i className="bi bi-arrow-right" />}
+          />
         </Link>
       )}
 
