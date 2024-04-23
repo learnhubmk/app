@@ -2,10 +2,10 @@
   flex: 0 0 calc(100% / 4);
   min-width: 357px;
   height: fit-content;
-  background: var(--member-card-bg);
+  background:inherit;
   padding: 28px;
   border: 1px solid #535050;
-
+  
   .memberCardHeaderContainer {
     display: flex;
     justify-content: space-between;
@@ -13,6 +13,12 @@
 
     .firstLater {
       transform: translateY(-10px);
+    }
+    .membercard-light {
+      color: #535050;
+    }
+    .membercard-dark {
+      color: #fff;
     }
   }
 

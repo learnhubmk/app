@@ -20,7 +20,7 @@ const MemberCard = ({
   const { theme } = useTheme();
 
   return (
-    <div className={`${style.memberCardContainer} ${theme}`}>
+    <div className={`${style.memberCardContainer} ${style[`membercard-${theme}`]}`}>
       <div className={style.memberCardHeaderContainer}>
         <p className={`display-m ${style.firstLater}`}>{memberName.charAt(0)}</p>
         <Image src={memberImage} alt="Member Photo" width={100} height={100} />
