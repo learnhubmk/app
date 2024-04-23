@@ -42,7 +42,6 @@
   padding-left: 3rem;
 
   & a {
-    font-family: 'Roboto', sans-serif;
     font-weight: 300;
     text-decoration: underline;
     color: inherit;
@@ -51,14 +50,12 @@
 
 .contactSection p:first-child {
   flex: 1;
-  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   margin-bottom: 1.3em;
 }
 
 .socialMediaSection {
   flex: 1 1;
-  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   width: 25%;
@@ -76,7 +73,7 @@
     margin-bottom: 12px;
     color: var(--text-color);
     text-decoration: none;
-    font-family: 'Roboto', sans-serif;
+
     font-weight: 300;
     gap: 10px;
   }
@@ -84,7 +81,6 @@
 
 .newsletterSection {
   flex: 2 1;
-  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   padding-left: 3rem;
   width: 25%;
