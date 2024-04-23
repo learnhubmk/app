@@ -1,4 +1,5 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Link from 'next/link';
 
 import style from './blogList.module.scss';
 import fetchBlogPosts from '../../../app/action';
@@ -23,13 +24,15 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
       <div className={`grid ${gridLayout} ${style.blogListContainer}`}>{data}</div>
 
       {pageTitle === 'home' && (
-        <Button
-          type="link"
-          href="/blog"
-          buttonText="Види повеќе"
-          buttonClass={['primaryButton', 'buttonWithIcon']}
-          icon={<i className="bi bi-arrow-right" />}
-        />
+        <Link href="/blog">
+          <Button
+            type="button"
+            href="/blog"
+            buttonText="Види повеќе"
+            buttonClass={['primaryButton', 'buttonWithIcon']}
+            icon={<i className="bi bi-arrow-right" />}
+          />
+        </Link>
       )}
 
       {pageTitle === 'blog' && (

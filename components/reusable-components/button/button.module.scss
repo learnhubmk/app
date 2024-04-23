@@ -1,14 +1,30 @@
-.primaryButton {
+.button {
   display: flex;
   gap: 8px;
-  background-color: var(--primary-btn-color);
-  color: var(--text-color);
+  border: none;
   border-radius: 8px;
-  padding: 8px 24px 8px 24px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
   cursor: pointer;
+}
+
+.linkButton {
+  display: flex;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--black-color);
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--primary-btn-color);
+  }
+}
+
+.primaryButton {
+  background-color: var(--primary-btn-color);
+  color: var(--text-color);
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
@@ -25,17 +41,9 @@
 }
 
 .secondaryButton {
-  display: flex;
-  gap: 8px;
   background-color: transparent;
   color: var(--text-color);
   border: 1px solid var(--primary-btn-color);
-  border-radius: 8px;
-  padding: 8px 24px 8px 24px;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
-  cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
@@ -51,6 +59,27 @@
   }
 }
 
+.tertiaryButton {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  text-decoration: underline;
+}
+
+.motionButton {
+  font-size: 24px;
+  font-weight: 24px;
+  line-height: 24px;
+}
+
 .buttonWithIcon {
-  padding: 8px 20px 8px 24px;
+  padding: 12px 20px 12px 24px;
+}
+
+.rotateIcon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.linkButton:hover .rotateIcon {
+  transform: rotate(45deg);
 }

@@ -11,19 +11,37 @@ interface ButtonProps {
   // eslint-disable-next-line no-undef
   icon?: JSX.Element;
   buttonClass: string[];
+  rotateIcon?: boolean;
 }
 
-const Button = ({ onClick = () => {}, type, buttonText, href, icon, buttonClass }: ButtonProps) => {
+const Button = ({
+  onClick,
+  type,
+  buttonText,
+  href,
+  icon,
+  buttonClass,
+  rotateIcon,
+}: ButtonProps) => {
   return (
     (type === 'button' && (
-      <button type="button" className={setClass(buttonClass, styles)} onClick={onClick}>
+      <button
+        type="button"
+        className={`${styles.button} ${setClass(buttonClass, styles)}`}
+        onClick={onClick}
+      >
         {buttonText} {icon && <div>{icon}</div>}
       </button>
     )) ||
     (type === 'link' && (
-      <Link href={href} className={setClass(buttonClass, styles)}>
-        {buttonText} {icon && <div>{icon}</div>}
+      <Link href={href} className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}>
+        {icon && <div className={`${rotateIcon && styles.rotateIcon}`}>{icon}</div>} {buttonText}
       </Link>
+    )) ||
+    (type === 'cardButton' && (
+      <div className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}>
+        {icon && <div className={`${rotateIcon && styles.rotateIcon}`}>{icon}</div>} {buttonText}
+      </div>
     ))
   );
 };

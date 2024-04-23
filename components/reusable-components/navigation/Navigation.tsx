@@ -34,19 +34,22 @@ const Navigation = () => {
           </ul>
         </div>
         <div className={styles.buttonsContainer}>
-          <Button
-            type="link"
-            buttonText="Регистрирај се"
-            href="/signup"
-            buttonClass={['primaryButton']}
-          />
-
-          <Button
-            type="link"
-            buttonText="Најави се"
-            href="/login"
-            buttonClass={['secondaryButton']}
-          />
+          <Link href="/signup">
+            <Button
+              type="button"
+              buttonText="Регистрирај се"
+              href=""
+              buttonClass={['primaryButton']}
+            />
+          </Link>
+          <Link href="/login">
+            <Button
+              type="button"
+              buttonText="Најави се"
+              href=""
+              buttonClass={['secondaryButton']}
+            />
+          </Link>
         </div>
       </div>
     </nav>
