@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { HiArrowLongRight } from 'react-icons/hi2';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import style from './blogList.module.scss';
 import fetchBlogPosts from '../../../app/action';
@@ -20,16 +20,18 @@ const BlogList = async ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProp
 
   return (
     <>
-      <div className={`grid ${gridLayout} ${style.blogListContainer}`}>{data}</div>
+      <div className={`grid ${gridLayout} ${pageTitle === 'home' && style.blogListContainer}`}>
+        {data}
+      </div>
 
       {pageTitle === 'home' && (
         <Link href="/blog" className={style.blogBtn}>
-          Види повеќе <HiArrowLongRight fontSize={22} />
+          Види повеќе <i className="bi bi-arrow-right" />
         </Link>
       )}
 
       {pageTitle === 'blog' && (
-        <InfiniteScroll gridLayout={gridLayout} pageTitle={pageTitle} blogCardsNumber={8} />
+        <InfiniteScroll gridLayout={gridLayout} pageTitle={pageTitle} blogCardsNumber={6} />
       )}
     </>
   );
