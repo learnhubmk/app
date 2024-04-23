@@ -1,14 +1,17 @@
 :root {
   --black-color: hsl(0, 0%, 0%);
   --bg-color: hsl(240, 4%, 13%);
-  --text-color: hsl(0, 0%, 100%);
+  --text-color: hsl(210, 40%, 98%);
   --error-light: hsla(3, 71%, 41%, 1);
   --error-light-text: hsl(0, 0%, 100%);
   --error-dark: hsla(3, 70%, 83%, 1);
   --error-dark-text: hsla(3, 71%, 22%, 1);
   --blog-card-bg: hsla(0, 0%, 85%, 1);
   --member-card-bg: hsl(0, 0%, 20%);
-  --primary-btn-color: hsl(14, 82%, 58%);
+  --primary-btn-color: hsl(10, 94%, 63%);
+  --primary-btn-hover-color: hsl(23, 93%, 59%);
+  --primary-btn-active-color: hsl(32, 93%, 54%);
+  --secondary-btn-hover-color: hsla(222, 50%, 14%, 21%);
   --input-border-color: hsl(241, 91%, 45%);
   --input-text-color: hsl(240, 0.7%, 70%);
 }
