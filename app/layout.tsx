@@ -8,7 +8,7 @@ import Navigation from '../components/reusable-components/navigation/Navigation'
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en" className={montserrat.className}>

@@ -6,6 +6,7 @@ p {
 a,
 a:visited,
 a:active {
+  color: var(--white-color);
   text-decoration: none;
 }
 
@@ -13,14 +14,15 @@ h1,
 h2,
 h3,
 h4 {
-  font-weight: 400;
+  color: var(--title-color-dark);
+  font-weight: 700;
   margin: 0px;
   padding: 0px;
 }
 
 .display-l {
-  font-size: 57px;
-  line-height: 64px;
+  font-size: 56px;
+  line-height: 70px;
   letter-spacing: -0.25px;
 }
 
@@ -40,8 +42,9 @@ h4 {
 }
 
 .headline-m {
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 24px;
+  line-height: 38px;
+  letter-spacing: 0.1px;
 }
 
 .headline-s {
