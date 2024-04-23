@@ -20,6 +20,7 @@
     margin-inline: 24px;
 
     @include u.breakpoint(medium) {
+      align-items: flex-start;
       width: 848px;
     }
 
