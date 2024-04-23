@@ -1,3 +1,23 @@
+:root {
+  --fs-h1: clamp(1.75rem, 1.32531rem + 1.812vw, 3.5rem); // font-size: min 28px, max 56px
+  --fs-h2: clamp(1.5rem, 1.25719rem + 1.036vw, 2.5rem); // font-size: min 24px, max 40px
+  --fs-body: clamp(1rem, 0.87859rem + 0.518vw, 1.5rem); // font-size: min 16px, max 24px
+  --fs-title: clamp(1rem, 0.9393rem + 0.259vw, 1.25rem); // font-size: min 16px, max 20px
+  --fs-card-text: clamp(1rem, 0.96977rem + 0.129vw, 1.125rem); // font-size: min 18px, max 18px
+  --fs-button: clamp(1rem, 1rem + 0vw, 1rem); // font-size: min 16px, max 16px
+  --fs-placeholder: clamp(1rem, 1rem + 0vw, 1rem); // font-size: min 16px, max 16px
+  --fs-tag: clamp(0.875rem, 0.875rem + 0vw, 0.875rem); // font-size: min 14px, max 14px
+
+  --lh-h1: clamp(2.25rem, 1.70391rem + 2.33vw, 4.5rem); // line-height: min 36px, max 72px
+  --lh-h2: clamp(2rem, 1.57531rem + 1.812vw, 3.75rem); // line-height: min 32px, max 60px
+  --lh-body: clamp(1.5rem, 1.28766rem + 0.906vw, 2.375rem); // line-height: min 24px, max 38px
+  --lh-title: clamp(1.5rem, 1.40906rem + 0.388vw, 1.875rem); // line-height: min 24px, max 30px
+  --lh-card-text: clamp(1.5rem, 1.5rem + 0vw, 1.5rem); // line-height: min 24px, max 24px
+  --lh-button: clamp(1.25rem, 1.1893rem + 0.259vw, 1.5rem); // line-height: min 20px, max 24px
+  --lh-placeholder: clamp(1.5rem, 1.5rem + 0vw, 1.5rem); // line-height: min 24px, max 24px
+  --lh-tag: clamp(1rem, 1rem + 0vw, 1rem); // line-height: min 16px, max 16px
+}
+
 p {
   margin: 0px;
   padding: 0px;
@@ -9,87 +29,26 @@ a:active {
   text-decoration: none;
 }
 
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: -0.25px;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+}
+
 h1,
 h2,
 h3,
 h4 {
-  font-weight: 400;
+  font-weight: 700;
   margin: 0px;
   padding: 0px;
 }
 
-.display-l {
-  font-size: 57px;
-  line-height: 64px;
-  letter-spacing: -0.25px;
-}
-
-.display-m {
-  font-size: 45px;
-  line-height: 52px;
-}
-
-.display-s {
-  font-size: 36px;
-  line-height: 44px;
-}
-
-.headline-l {
-  font-size: 32px;
-  line-height: 40px;
-}
-
-.headline-m {
-  font-size: 28px;
-  line-height: 36px;
-}
-
-.headline-s {
-  font-size: 24px;
-  line-height: 32px;
-}
-
-.title-l {
-  font-size: 22px;
-  line-height: 28px;
-}
-
-.title-m {
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.15px;
-}
-
-.title-s,
-.label-l {
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.1px;
-}
-
-.label-m {
-  font-size: 12px;
-  line-height: 16px;
-  letter-spacing: 0.5px;
-}
-
-.label-m {
-  font-size: 11px;
-  line-height: 16px;
-  letter-spacing: 0.5px;
-}
-
-.body-m {
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.25px;
-}
-
-.body-s {
-  font-size: 12px;
-  line-height: 16px;
-  letter-spacing: 0.4px;
-}
 .light {
   background-color: #fff !important;
   background-color: #d9d9d9 !important;
