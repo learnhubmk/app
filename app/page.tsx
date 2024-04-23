@@ -7,6 +7,7 @@ import Newsletter from '../components/reusable-components/newsletter/Newsletter'
 import MemberList from '../components/module-components/member-list/MemberList';
 
 import FAQ_DUMMY_DATA from '../data/FAQ';
+import Contact from '../components/module-components/Contact/Contact';
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <Newsletter />
       <MemberList />
       <FAQ data={FAQ_DUMMY_DATA} />
+      <Contact />
     </main>
   );
 };

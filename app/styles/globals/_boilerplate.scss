@@ -16,16 +16,3 @@ body {
   background-color: var(--white-color);
   color: var(--text-color-dark);
 }
-
-.grid {
-  display: grid;
-
-  &__1x3 {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  &__1x2 {
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-  }
-}

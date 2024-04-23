@@ -7,7 +7,7 @@ import fetchBlogPosts from '../../../app/action';
 
 import style from './infiniteScroll.module.scss';
 
-let nextPosts = 8;
+let nextPosts = 6;
 
 export type BlogCard = React.JSX.Element;
 
@@ -36,7 +36,7 @@ const InfiniteScroll = ({
             setIsLoading(false);
           } else {
             setData([...data, ...res]);
-            nextPosts += 8;
+            nextPosts += 6;
             setIsLoading(true);
           }
         });
