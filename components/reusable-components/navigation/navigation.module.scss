@@ -45,10 +45,11 @@
   align-items: center;
 }
 
-.buttonsContent {
-  margin-right: 50px;
+.buttonsContainer {
+  margin-right: 80px;
   display: flex;
   align-items: center;
+  gap: 24px;
 }
 
 .largeNavbar {
@@ -132,6 +133,7 @@
   display: flex;
   align-items: center;
   margin-right: 3rem;
+  margin-left: 1rem;
 }
 .themeBackgroundDark {
   background-color: #ffff;

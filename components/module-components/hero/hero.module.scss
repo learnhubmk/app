@@ -14,6 +14,9 @@
   }
 
   .heroLeftContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-inline: 24px;
 
     @include u.breakpoint(medium) {
@@ -37,6 +40,9 @@
       margin-bottom: 32px;
 
       @include u.breakpoint(medium) {
+        font-size: 24px;
+        line-height: 38px;
+        letter-spacing: 0.1px;
         margin-top: 32px;
         margin-bottom: 84px;
       }

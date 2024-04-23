@@ -11,8 +11,8 @@ import { ThemeProvider } from './context/themeContext';
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
-  <html lang="en">
-    <body className={montserrat.className}>
+  <html lang="en" className={montserrat.className}>
+    <body>
       <ThemeProvider>
         <ReactQueryProvider>
           <Navigation />
