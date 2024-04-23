@@ -7,21 +7,24 @@ import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
+import { TagFilterProvider } from './context/tagFilterContext';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en" className={montserrat.className}>
     <body>
-      <ThemeProvider>
-        <ReactQueryProvider>
-          <Navigation />
-          <main>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </main>
-          <Footer />
-        </ReactQueryProvider>
-      </ThemeProvider>
+      <TagFilterProvider>
+        <ThemeProvider>
+          <ReactQueryProvider>
+            <Navigation />
+            <main>
+              <Suspense fallback={<Loading />}>{children}</Suspense>
+            </main>
+            <Footer />
+          </ReactQueryProvider>
+        </ThemeProvider>
+      </TagFilterProvider>
     </body>
   </html>
 );

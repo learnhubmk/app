@@ -1,8 +1,13 @@
+// 'use client';
+
 import BlogList from '../../components/module-components/blog-list/BlogList';
 import Tab from '../../components/reusable-components/tab/Tab';
+// import { useTagFilterContext } from '../context/tagFilterContext';
 // import AddNewPost from '../addNewPost';
 
 const Blog = () => {
+  // const { selectedTags } = useTagFilterContext();
+  // console.log(selectedTags);
   return (
     <div>
       {/* <AddNewPost /> */}
