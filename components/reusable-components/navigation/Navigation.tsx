@@ -8,21 +8,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './navigation.module.scss';
 import Button from '../button/Button';
-// eslint-disable-next-line import/extensions
-// eslint-disable-next-line import/no-unresolved
 import solImage from '../../../public/theme/sol.png';
-// eslint-disable-next-line import/no-unresolved
 import moonImage from '../../../public/theme/lune.png';
 import { useTheme } from '../../../app/context/themeContext';
 
 const Navigation = () => {
-  const { isSun, handleClick } = useTheme();
+  const { theme, toggleTheme } = useTheme();
+  const isLightTheme = theme === 'light';
+
   return (
     <nav className={styles.largeNavbar}>
       <div className={styles.navContainer}>
         <Link className={`display-s ${styles.navigationLogo}`} href="/">
           <Image
-            src={isSun ? '/logo/logo-white.svg' : '/logo/logo-black.svg'}
+            src={isLightTheme ? '/logo/logo-white.svg' : '/logo/logo-black.svg'}
             className={`${styles.navigationLogo}`}
             alt="LearnHub Logo"
             width={250}
@@ -47,8 +46,7 @@ const Navigation = () => {
                 Sign Up
               </Button>
             </Link>
-          </div>
-          <div>
+
             <Link href="/signin" passHref>
               <Button
                 style={{
@@ -62,30 +60,30 @@ const Navigation = () => {
               </Button>
             </Link>
           </div>
-        </div>
-        <div
-          className={`${styles.themeBackgroundSize} ${!isSun ? styles.themeDark && styles.themeBackgroundLight : styles.themeLight && styles.themeBackgroundDark}`}
-          onClick={handleClick}
-        >
-          <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
-            {' '}
-            {isSun ? (
-              <Image
-                className={`${styles.theme_icon}`}
-                src={solImage}
-                alt="Sun"
-                width={25}
-                height={25}
-              />
-            ) : (
-              <Image
-                className={`${styles.theme_icon}`}
-                src={moonImage}
-                alt="Moon"
-                width={25}
-                height={25}
-              />
-            )}
+
+          <div
+            className={`${styles.themeBackgroundSize} ${!isLightTheme ? styles.themeDark && styles.themeBackgroundLight : styles.themeLight && styles.themeBackgroundDark}`}
+            onClick={toggleTheme}
+          >
+            <div className={`${styles.animate} ${!isLightTheme ? styles.moveRight : ''}`}>
+              {isLightTheme ? (
+                <Image
+                  className={`${styles.theme_icon}`}
+                  src={solImage}
+                  alt="Sun"
+                  width={25}
+                  height={25}
+                />
+              ) : (
+                <Image
+                  className={`${styles.theme_icon}`}
+                  src={moonImage}
+                  alt="Moon"
+                  width={25}
+                  height={25}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
