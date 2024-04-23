@@ -48,7 +48,7 @@
   }
 
   .newsletterSection input {
-    background-color: var(--bg-color);
+    background-color: #bbbbbb;
     border: 1px solid var(--text-color);
     padding: 1em;
     padding-right: 50px;
@@ -61,7 +61,7 @@
   }
 
   .newsletterSection input::placeholder {
-    color: var(--text-color);
+    color: var(--member-card-bg);
   }
 
   .newsletterSection button {

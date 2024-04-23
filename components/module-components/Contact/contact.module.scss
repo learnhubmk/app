@@ -21,8 +21,8 @@
 
   .contactSection input {
     font-family: 'Roboto Condensed', sans-serif;
-    color: var(--input-text-color);
-    background-color: var(--bg-color);
+    color: var(--member-card-bg);
+    background-color: #bbbbbb;
     border: 1px solid var(--text-color);
     padding: 1em;
     padding-right: 50px;
@@ -31,7 +31,7 @@
     height: 60px;
 
     &::placeholder {
-      color: var(--input-text-color);
+      color: var(--member-card-bg);
     }
   }
 
@@ -40,8 +40,8 @@
   }
 
   .contactSection textarea {
-    color: var(--input-text-color);
-    background-color: var(--bg-color);
+    color: var(--member-card-bg);
+    background-color: #bbbbbb;
     border: 1px solid var(--text-color);
     font-family: 'Roboto Condensed', sans-serif;
     padding: 1em;
@@ -51,7 +51,7 @@
     margin-top: 45px;
 
     &::placeholder {
-      color: var(--input-text-color);
+      color: var(--member-card-bg);
     }
   }
 
@@ -96,4 +96,3 @@
   font-size: 14px;
   animation: appear 1s ease forwards;
 }
-

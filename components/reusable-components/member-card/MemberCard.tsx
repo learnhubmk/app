@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import style from './memberCard.module.scss';
+import { useTheme } from '../../../app/context/themeContext';
 
 interface MemberProps {
   memberName: string;
@@ -16,8 +17,10 @@ const MemberCard = ({
   memberSkills,
   memberProjects,
 }: MemberProps) => {
+  const { theme } = useTheme();
+
   return (
-    <div className={style.memberCardContainer}>
+    <div className={`${style.memberCardContainer} ${theme}`}>
       <div className={style.memberCardHeaderContainer}>
         <p className={`display-m ${style.firstLater}`}>{memberName.charAt(0)}</p>
         <Image src={memberImage} alt="Member Photo" width={100} height={100} />
