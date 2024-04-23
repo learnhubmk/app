@@ -1,0 +1,35 @@
+.input {
+  background: transparent;
+  border: 1px solid var(--text-color);
+  outline: none;
+  color: var(--text-color);
+  padding: 20px 40px;
+
+  height: 48px;
+
+  &::placeholder {
+    color: var(--text-color);
+  }
+}
+
+.inputWrapp {
+  display: flex;
+  width: 100%;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+
+  .inputIcon {
+    position: absolute;
+    font-size: 16px;
+    height: 20px;
+    transform: translateY(2px);
+    padding-left: 20px;
+  }
+
+  .inputIcon:focus {
+    display: none;
+  }
+}

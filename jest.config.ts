@@ -3,12 +3,17 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type {Config} from 'jest';
+// eslint-disable-next-line import/no-import-module-exports
+import type { Config } from 'jest';
 
 const config: Config = {
-
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  globals: {
+    'ts-jest': {
+      diagnostics: true,
+    },
+  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -28,7 +33,7 @@ const config: Config = {
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [

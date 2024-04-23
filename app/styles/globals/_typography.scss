@@ -1,0 +1,102 @@
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
+}
+
+.display-l {
+  font-size: 57px;
+  line-height: 64px;
+  letter-spacing: -0.25px;
+}
+
+.display-m {
+  font-size: 45px;
+  line-height: 52px;
+}
+
+.display-s {
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.headline-l {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.headline-m {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.headline-s {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.title-l {
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.title-m {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+.title-s,
+.label-l {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.label-m {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.label-m {
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.body-m {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.body-s {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+}
+.light {
+  background-color: #fff !important;
+  background-color: #d9d9d9 !important;
+  color: #000 !important;
+}
+
+.dark {
+  background-color: var(--bg-color);
+  color: #fff !important;
+}

@@ -1,4 +1,4 @@
-1. **File Naming**: Test files should have the same name as the component they are testing, suffixed with `.test.ts`.
+1. **File Naming**: Test files should have the same name as the component they are testing, suffixed with `.test.tsx`.
 
 2. **Test Structure**: Follow the Arrange-Act-Assert pattern. Set up the component, perform actions, and assert expected outcomes.
 
