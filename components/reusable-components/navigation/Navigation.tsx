@@ -47,7 +47,6 @@ const Navigation = () => {
               buttonClass={['secondaryButton']}
             />
           </Link>
-
           <div
             className={`${styles.themeBackgroundSize} ${!isLightTheme ? styles.themeDark && styles.themeBackgroundLight : styles.themeLight && styles.themeBackgroundDark}`}
             onClick={toggleTheme}
