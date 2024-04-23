@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import Image from 'next/image';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import styles from './footer.module.scss';
 import EmailForm from '../newsletter/emailform/emailform';
 
