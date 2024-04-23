@@ -20,7 +20,7 @@ const Home = () => {
           градите иднина."
       />
       <LearnhubAnimation />
-      <BlogList pageTitle="home" gridLayout="grid__1x3" blogCardsNumber={6} />
+      <BlogList pageTitle="home" gridLayout="grid" blogCardsNumber={6} />
       <Newsletter />
       <MemberList />
       <FAQ data={FAQ_DUMMY_DATA} />
