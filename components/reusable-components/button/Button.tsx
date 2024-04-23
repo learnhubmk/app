@@ -1,23 +1,48 @@
-import React from 'react';
+import Link from 'next/link';
+
 import styles from './button.module.scss';
+import setClass from '../../../utils/setClass';
 
 interface ButtonProps {
-  children: React.ReactNode;
   onClick?: () => void;
-  className?: string;
-  style?: React.CSSProperties;
+  type: string;
+  buttonText: string;
+  href: string;
+  // eslint-disable-next-line no-undef
+  icon?: JSX.Element;
+  buttonClass: string[];
+  rotateIcon?: boolean;
 }
 
-const Button = ({ children, onClick = () => {}, className = '', style = {} }: ButtonProps) => {
+const Button = ({
+  onClick,
+  type,
+  buttonText,
+  href,
+  icon,
+  buttonClass,
+  rotateIcon,
+}: ButtonProps) => {
   return (
-    <button
-      type="button"
-      className={`${styles.button} ${className}`}
-      style={style}
-      onClick={onClick}
-    >
-      {children}
-    </button>
+    (type === 'button' && (
+      <button
+        type="button"
+        className={`${styles.button} ${setClass(buttonClass, styles)}`}
+        onClick={onClick}
+      >
+        {buttonText} {icon && <div>{icon}</div>}
+      </button>
+    )) ||
+    (type === 'link' && (
+      <Link href={href} className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}>
+        {icon && <div className={`${rotateIcon && styles.rotateIcon}`}>{icon}</div>} {buttonText}
+      </Link>
+    )) ||
+    (type === 'cardButton' && (
+      <div className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}>
+        {icon && <div className={`${rotateIcon && styles.rotateIcon}`}>{icon}</div>} {buttonText}
+      </div>
+    ))
   );
 };
 
