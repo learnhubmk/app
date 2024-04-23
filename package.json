@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.29.2",
+    "axios": "^1.6.8",
     "bootstrap-icons": "^1.11.3",
     "embla-carousel": "^8.0.0",
     "embla-carousel-react": "^8.0.0",
@@ -26,6 +27,7 @@
     "react-dom": "^18",
     "react-intersection-observer": "^9.8.1",
     "react-query": "^3.39.3",
+    "react-toastify": "^10.0.5",
     "sharp": "^0.33.2",
     "yup": "^1.4.0"
   },
