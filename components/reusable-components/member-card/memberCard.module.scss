@@ -1,9 +1,10 @@
 .memberCardContainer {
   flex: 0 0 calc(100% / 4);
   min-width: 357px;
-  height: 517px;
-  background: var(--member-card-bg);
+  height: fit-content;
+  background: inherit;
   padding: 28px;
+  border: 1px solid #535050;
 
   .memberCardHeaderContainer {
     display: flex;
@@ -12,6 +13,12 @@
 
     .firstLater {
       transform: translateY(-10px);
+    }
+    .membercard-light {
+      color: #535050;
+    }
+    .membercard-dark {
+      color: #fff;
     }
   }
 
@@ -32,13 +39,21 @@
         align-items: center;
         border-top: 0.5px solid #535050;
         border-right: 0.5px solid #535050;
+        border-left: 0.5px solid #535050;
+        border-bottom: 0.5px solid #535050;
 
         &:first-child,
         &:nth-child(3n + 1) {
+          border-top: 0.5px solid #535050;
+          border-right: 0.5px solid #535050;
           border-left: 0.5px solid #535050;
+          border-bottom: 0.5px solid #535050;
         }
 
         &:nth-last-child(-n + 3) {
+          border-top: 0.5px solid #535050;
+          border-right: 0.5px solid #535050;
+          border-left: 0.5px solid #535050;
           border-bottom: 0.5px solid #535050;
         }
       }

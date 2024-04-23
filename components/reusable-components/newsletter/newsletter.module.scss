@@ -1,5 +1,6 @@
 .newsletterContainer {
   color: var(--text-color);
+  background: inherit;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +61,7 @@
   }
 
   .newsletterSection input::placeholder {
-    color: var(--text-color);
+    color: var(--member-card-bg);
   }
 
   .newsletterSection button {
