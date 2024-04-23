@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import style from './hero.module.scss';
 
+import HeroImage from '../../../public/hero-picture.png';
+
 interface HeroProps {
   title: string;
   text: string;
@@ -14,7 +16,14 @@ const Hero = ({ title, text }: HeroProps) => {
         <p className={`headline-m ${style.heroText}`}>{text}</p>
       </div>
       <div>
-        <Image width={620} height={450} src="/hero-picture.png" alt="hero picture" priority />
+        <Image
+          width={620}
+          height={450}
+          src={HeroImage}
+          className={style.heroImage}
+          alt="hero picture"
+          priority
+        />
       </div>
     </div>
   );
