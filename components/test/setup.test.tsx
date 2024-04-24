@@ -1,4 +1,4 @@
 /* eslint-disable no-undef */
-test('jest setup pass', () => {
+test('Jest setup pass', () => {
   expect(true).toBe(true);
 });
