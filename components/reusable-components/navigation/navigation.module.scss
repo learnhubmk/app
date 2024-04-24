@@ -25,11 +25,6 @@
   height: 1.22em;
   top: 1.56em;
   left: 2.36em;
-
-  @include respond-to('small') {
-    margin-right: auto;
-    margin-left: auto;
-  }
 }
 
 .menuElements {
@@ -50,11 +45,77 @@
   align-items: center;
 }
 
+.buttonsContainer {
+  margin-right: 80px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
 .largeNavbar {
   padding: 40px;
   padding-inline: 0;
 }
 
+@include respond-to('small') {
+  .NavigationLogo {
+    margin-left: 0.25em;
+    width: 4em;
+    height: 1em;
+    top: 1.5em;
+    left: 1.5em;
+  }
+
+  .menuElements {
+    margin-left: 2em;
+    left: 5em;
+  }
+}
+
+@include respond-to('medium') {
+  .NavigationLogo {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .menuElements {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}
+
+@include respond-to('large') {
+  .NavigationLogo {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .menuElements {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}
+
+@include respond-to('extra-large') {
+  .NavigationLogo {
+    margin-left: 0.55em;
+    width: 6.3em;
+    height: 1.22em;
+    top: 1.86em;
+    left: 2.36em;
+  }
+
+  .menuElements {
+    margin-left: 4.16em;
+    left: 10.41em;
+  }
+}
 .animate {
   transition: transform 0.2s ease;
   display: flex;
@@ -62,49 +123,24 @@
 }
 
 .moveRight {
-  transform: translateX(35px);
+  transform: translateX(18px);
 }
 
 .themeBackgroundSize {
-  width: 64px;
-  height: 36px;
+  width: 40px;
+  height: 25px;
   border-radius: 100px;
   display: flex;
   align-items: center;
   margin-right: 3rem;
-
-  @include respond-to('small') {
-    width: 4rem;
-    height: 2rem;
-    margin-right: auto;
-    margin-left: 30px;
-  }
+  margin-left: 1rem;
 }
-
 .themeBackgroundDark {
   background-color: #ffff;
-  box-shadow: inset 0px 0px 3px 1px rgb(161, 161, 161);
-  & .ellipse1 {
-    margin-left: 5px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: #000000;
-  }
 }
-
 .themeBackgroundLight {
   background-color: #2a2a2d;
-  box-shadow: inset 0px 0px 3px 1px rgb(180, 180, 129);
-
-  & .ellipse {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: #ffff;
-  }
 }
-
 .themeLight {
   background-color: #ffff !important;
   color: var(--bg-color) !important;
@@ -113,7 +149,6 @@
     color: var(--bg-color) !important;
   }
 }
-
 .themeDark {
   background-color: var(--bg-color) !important;
   color: var(--text-color) !important;
@@ -122,11 +157,6 @@
     color: var(--text-color) !important;
   }
 }
-
-.customImageClass {
-  margin-left: 8px;
-}
-
-.customImageClass1 {
-  transform: translateX(-15px);
+.theme_icon {
+  margin-top: 4px;
 }
