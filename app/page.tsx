@@ -8,6 +8,7 @@ import MemberList from '../components/module-components/member-list/MemberList';
 
 import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/Contact/Contact';
+import MissionVision from '../components/module-components/Mission&Vision/MissionVision';
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
       />
       <LearnhubAnimation />
       <BlogList pageTitle="home" gridLayout="grid__1x3" blogCardsNumber={6} />
+      <MissionVision />
       <Newsletter />
       <MemberList />
       <FAQ data={FAQ_DUMMY_DATA} />
