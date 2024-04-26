@@ -9,39 +9,59 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
   placeholder: string;
   label: string;
   name: string;
+  type: string;
+  field: string;
 }
 
-const TextInput: FC<InputProps> = ({ placeholder, label, name }) => {
+const TextInput: FC<InputProps> = ({ placeholder, label, name, type, field }) => {
   const inputRegex = /^[\u0400-\u04FFа-џA-Za-z-]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const numberRegex = /^\d+$/;
 
   const formik = useFormik({
-    initialValues: { [name]: '' },
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .required('Полето е задолжително')
-        .matches(
-          inputRegex,
-          '*Дозволени се следните карактери.... името може да биде на кирилица и латиница'
-        ),
+    initialValues: {
+      [field]: '',
+    },
+    validationSchema: Yup.object().shape({
+      name:
+        field === 'name'
+          ? Yup.string()
+              .required('Полето е задолжително')
+              .matches(
+                inputRegex,
+                '*Дозволени се следните карактери.... името може да биде на кирилица и латиница'
+              )
+          : Yup.string(),
+      email:
+        field === 'email'
+          ? Yup.string()
+              .required('Полето е задолжително')
+              .matches(emailRegex, '*Внесете правилен маил')
+          : Yup.string(),
+      numberField:
+        field === 'number'
+          ? Yup.string().required('Полето е задолжително').matches(numberRegex)
+          : Yup.string(),
     }),
     onSubmit: () => {},
   });
-  const isError = formik.touched[name] && formik.errors[name];
-  const isValid = !isError && formik.touched[name];
+
+  const isError = formik.touched[field] && formik.errors[field];
+  const isValid = !isError && formik.touched[field];
   return (
     <div className={style.inputContainer}>
       <label htmlFor={name}>{label}</label>
       <div className={style.inputWrapper}>
         <input
-          type="text"
+          type={type}
           className={`${style.input} ${isError ? style.error : style.valid}`}
           placeholder={placeholder}
-          value={formik.values[name]}
+          value={formik.values[field]}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           name={name}
         />
-        {formik.values[name] && isError && (
+        {formik.values[field] && isError && (
           <div className={style.errorIcon}>
             {' '}
             <i className="bi bi-x-circle-fill" />
@@ -55,7 +75,7 @@ const TextInput: FC<InputProps> = ({ placeholder, label, name }) => {
         )}
       </div>
 
-      {isError && <div className={style.errorMessage}>{formik.errors[name]}</div>}
+      {isError && <div className={style.errorMessage}>{formik.errors[field]}</div>}
     </div>
   );
 };
