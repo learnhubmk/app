@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.mainMissionPage {
+  position: relative;
+}
+
+.MissionVisionMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1920px;
+  height: 888px;
+  gap: 0px;
+  position: relative;
+}
+
+.missionMainWhite {
+  background: rgba(204, 211, 221, 0.4);
+}
+
+.missionMainDark {
+  background: rgba(89, 104, 133, 1);
+}
+
+.missionVisionImg {
+  width: 1239px;
+  height: 888px;
+  gap: 0px;
+}
+
+.missionPattern {
+  width: 457px;
+  height: 743px;
+  top: 72px;
+  left: 1466px;
+  gap: 0px;
+}
+
+.missionTitle {
+  width: 854px;
+  height: 811px;
+  top: 40px;
+  left: 944px;
+  padding: 42px 64px 42px 64px;
+  gap: 24px;
+  border-radius: 8px;
+  border: 1px;
+  border: 1px solid rgba(148, 163, 184, 1);
+  position: absolute;
+
+  h2 {
+    font-family: 'Montserrat';
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 60px;
+    text-align: left;
+    margin: 20px 0;
+  }
+
+  p {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0.1px;
+    text-align: left;
+  }
+}
+.missionTitleWhite {
+  background: var(--Elevated-elements, rgba(248, 250, 252, 1));
+
+  h2 {
+    color: rgba(18, 29, 54, 1) !important;
+  }
+
+  p {
+    color: rgba(71, 85, 105, 1) !important;
+  }
+}
+
+.missionTitleDark {
+  background: var(--Elevated-elements, rgba(54, 67, 98, 1));
+
+  h2 {
+    color: rgba(255, 255, 255, 1) !important;
+    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
+  }
+
+  p {
+    color: rgba(212, 212, 212, 1) !important;
+    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
+  }
+}
