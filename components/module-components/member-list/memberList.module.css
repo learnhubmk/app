@@ -1,0 +1,29 @@
+.memberSectionContainer {
+  display: flex;
+  align-items: center;
+  max-width: 100vw;
+}
+.memberSectionContainer .headlineContainer {
+  margin: 0 120px;
+}
+.memberSectionContainer .carouselContainer {
+  overflow: hidden;
+}
+.memberSectionContainer .carouselContainer .carouselCardsContainer {
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y;
+  gap: 20px;
+  padding: 20px;
+}
+.memberSectionContainer button {
+  outline: none;
+  border: none;
+  background: transparent;
+}
+.memberSectionContainer .emblaButtons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+  gap: 0.5rem;
+} /*# sourceMappingURL=memberList.module.css.map */

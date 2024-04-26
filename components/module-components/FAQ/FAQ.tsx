@@ -5,7 +5,7 @@ import { motion as m, AnimatePresence } from 'framer-motion';
 
 import ExpandCollapseButton from '../../reusable-components/expand-button/ExpandCollapseButton';
 
-import classes from './FAQ.module.scss';
+import style from './FAQ.module.scss';
 
 interface Topic {
   id: number;
@@ -60,15 +60,21 @@ const FAQ = ({ data }: FAQProps) => {
   };
 
   return (
-    <section className={classes.faqContainer}>
-      <h1 className="display-l">Често поставувани прашања</h1>
+    <section className={style.faqContainer}>
+      <div className={style.faqText}>
+        <h1 className={style.faqTitle}>Често поставувани прашања</h1>
+        <p className={style.faqDesc}>
+          We tried to answer the most common questions, if you have any additional, please get in
+          touch with our friendly team
+        </p>
+      </div>
       <ul>
         {data.map(({ id, title, content }) => {
           return (
-            <li key={id}>
+            <li className={style.faqSection} key={id}>
               <div onClick={() => handleClickedTopic(id)} role="presentation">
                 <div>
-                  <h3 className="title-l">{title}</h3>
+                  <h3 className={style.faqStext}>{title}</h3>
                   <ExpandCollapseButton trigger={clickedTopic[id]} />
                 </div>
                 <AnimatePresence>
