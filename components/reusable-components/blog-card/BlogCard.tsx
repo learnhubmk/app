@@ -4,6 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import style from './blogCard.module.scss';
 import shortenString from '../../../utils/shortenString';
+import Button from '../button/Button';
 
 export interface BlogCardProps {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -39,9 +40,12 @@ const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
             </div>
           </div>
         ) : (
-          <div className={style.blogCardHomeBtn}>
-            <i className={`bi bi-arrow-right ${style.arrowIcon}`} />
-          </div>
+          <Button
+            href=""
+            type="cardButton"
+            buttonText="Прочитај повеќе"
+            buttonClass={['tertiaryButton']}
+          />
         )}
       </div>
     </Link>

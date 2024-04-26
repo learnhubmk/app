@@ -1,0 +1,20 @@
+@use '../utils' as u;
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 30px;
+
+  @include u.breakpoint(medium) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include u.breakpoint(large) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @include u.breakpoint(xxlarge) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
