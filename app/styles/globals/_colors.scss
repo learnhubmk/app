@@ -15,4 +15,25 @@
   --secondary-btn-hover-color: hsla(222, 50%, 14%, 21%);
   --input-border-color: hsl(241, 91%, 45%);
   --input-text-color: hsl(240, 0.7%, 70%);
+
+  //Light Mode
+  --primary: hsl(0, 0%, 100%);
+  --secondary: hsl(31, 94%, 86%);
+  --tertiary: hsl(222, 50%, 14%);
+  --text: hsl(215, 19%, 35%);
+  --elevated-elements: hsl(210, 40%, 98%);
+  --titles: hsl(222, 50%, 14%);
+  --tertiary-button: hsl(0, 0%, 0%);
+  --color-main-button: hsl(10, 94%, 63%);
+  --color-error-state: hsl(0, 75%, 42%);
+
+  //Dark Mode
+  --primary-dark-mode: hsl(220, 50%, 14%);
+  --secondary-dark-mode: hsl(220, 20%, 44%);
+  --tertiary-dark-mode: hsl(223, 50%, 5%);
+  --text-dark-mode: hsl(0, 0%, 83%);
+  --elevated-elements-dark-mode: hsl(222, 29%, 30%);
+  --titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
+  --main-button-dark-mode: hsl(10, 94%, 63%);
+  --error-state-dark-mode: hsl(0, 75%, 42%);
 }
