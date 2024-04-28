@@ -92,3 +92,24 @@
     background: var(--Elevated-elements, rgba(54, 67, 98, 1));
   }
 }
+
+.circlePattern {
+  width: 448px;
+  height: 674px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+}
+
+.circleRow {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+}
+
+.circle {
+  width: 4.73px;
+  height: 4.73px;
+  border-radius: 50%;
+  background-color: red;
+}

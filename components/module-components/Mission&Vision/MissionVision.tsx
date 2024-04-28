@@ -2,12 +2,16 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { v4 as uuidv4 } from 'uuid';
 import style from './missionVision.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 
 const MissionVision = () => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
+
+  const numCirclesPerRow = 94;
+  const numRows = 142;
 
   return (
     <div className={style.mainMissionPage}>
@@ -20,13 +24,6 @@ const MissionVision = () => {
           alt="Our mission & vision"
           width={1239}
           height={888}
-        />
-        <Image
-          className={style.missionPattern}
-          src="/pattern.png"
-          alt="pattern"
-          width={457}
-          height={743}
         />
 
         <div
@@ -48,6 +45,16 @@ const MissionVision = () => {
             многу нови производи и услуги ќе бидат резултат на заеднички напори и спој на различни
             вештини од повеќе области во технолошкиот свет.
           </p>
+        </div>
+
+        <div className={style.circlePattern}>
+          {Array.from({ length: numRows }, () => uuidv4()).map((rowId) => (
+            <div key={rowId} className={style.circleRow}>
+              {Array.from({ length: numCirclesPerRow }, () => uuidv4()).map((circleId) => (
+                <div key={circleId} className={style.circle} />
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
