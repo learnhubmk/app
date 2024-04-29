@@ -16,24 +16,29 @@
   --input-border-color: hsl(241, 91%, 45%);
   --input-text-color: hsl(240, 0.7%, 70%);
 
-  //Light Mode
-  --primary-light-mode: hsl(0, 0%, 100%);
-  --secondary-light-mode: hsl(31, 94%, 86%);
-  --tertiary-light-mode: hsl(222, 50%, 14%);
-  --text-light-mode: hsl(215, 19%, 35%);
-  --elevated-elements-light-mode: hsl(210, 40%, 98%);
-  --titles-light-mode: hsl(222, 50%, 14%);
-  --tertiary-button-light-mode: hsl(0, 0%, 0%);
-  --color-main-button-light-mode: hsl(10, 94%, 63%);
-  --color-error-state-light-mode: hsl(0, 75%, 42%);
+  $clr-primary-light-mode: hsl(0, 0%, 100%);
+  $clr-secondary-light-mode: hsl(31, 94%, 86%);
+  $clr-tertiary-light-mode: hsl(222, 50%, 14%);
+  $clr-text-light-mode: hsl(215, 19%, 35%);
+  $clr-elevated-elements-light-mode: hsl(210, 40%, 98%);
+  $clr-titles-light-mode: hsl(222, 50%, 14%);
+  $clr-tertiary-button-light-mode: hsl(0, 0%, 0%);
 
-  //Dark Mode
-  --primary-dark-mode: hsl(220, 50%, 14%);
-  --secondary-dark-mode: hsl(220, 20%, 44%);
-  --tertiary-dark-mode: hsl(223, 50%, 5%);
-  --text-dark-mode: hsl(0, 0%, 83%);
-  --elevated-elements-dark-mode: hsl(222, 29%, 30%);
-  --titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
-  --main-button-dark-mode: hsl(10, 94%, 63%);
-  --error-state-dark-mode: hsl(0, 75%, 42%);
+  $clr-primary-dark-mode: hsl(220, 50%, 14%);
+  $clr-secondary-dark-mode: hsl(220, 20%, 44%);
+  $clr-tertiary-dark-mode: hsl(223, 50%, 5%);
+  $clr-text-dark-mode: hsl(0, 0%, 83%);
+  $clr-elevated-elements-dark-mode: hsl(222, 29%, 30%);
+  $clr-titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
+
+  $clr-main-button: hsl(10, 94%, 63%);
+  $clr-error-state: hsl(0, 75%, 42%);
 }
+
+$scheme-light-mode: $clr-primary-light-mode, $clr-secondary-light-mode, $clr-tertiary-light-mode,
+  $clr-text-light-mode, $clr-elevated-elements-light-mode, $clr-titles-light-mode,
+  $clr-tertiary-button-light-mode, $clr-main-button, $clr-error-state;
+
+$scheme-dark-mode: $clr-primary-dark-mode, $clr-secondary-dark-mode, $clr-tertiary-dark-mode,
+  $clr-text-dark-mode, $clr-elevated-elements-dark-mode, $clr-titles-tertiary-button-dark-mode,
+  $clr-main-button, $clr-error-state;
