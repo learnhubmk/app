@@ -1,3 +1,5 @@
+@import '../../../app/styles/globals/_typography.scss';
+
 .faqContainer {
   display: flex;
   flex-direction: column;
@@ -6,8 +8,10 @@
   max-width: 78.125rem;
   padding: 1rem 0;
   margin-top: 7rem;
-  background-color: var(--white-color);
   height: 53.75rem;
+  background-color: var(light);
+
+ 
 
   @media (max-width: 430px) {
     width: 26.875rem;
@@ -91,7 +95,6 @@
 }
 
 .faqSection {
-  height: 6.5rem;
   border-radius: 1.25rem;
   padding: 2rem 1.5rem 2rem 1.5rem;
   background-color: #f8fafc;
@@ -111,4 +114,9 @@
     size: 1rem;
     line-height: 1.5rem;
   }
+}
+
+
+.faqContent{
+  size: 18px;
 }
