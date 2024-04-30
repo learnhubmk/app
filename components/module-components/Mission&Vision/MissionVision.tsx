@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { v4 as uuidv4 } from 'uuid';
 import style from './missionVision.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 
@@ -10,20 +9,19 @@ const MissionVision = () => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
 
-  const numCirclesPerRow = 94;
-  const numRows = 142;
-
   return (
     <div className={style.mainMissionPage}>
       <div
         className={`${style.MissionVisionMain} ${isLightTheme ? style.missionMainWhite : style.missionMainDark}`}
       >
+        <Image src="/mission_vision.png" alt="Our mission & vision" width={1239} height={1031} />
+
         <Image
-          className={style.missionVisionImg}
-          src="/mission_vision.png"
-          alt="Our mission & vision"
-          width={1239}
-          height={888}
+          className={style.missionPattern}
+          src="/pattern.svg"
+          alt="pattern"
+          width={457}
+          height={895}
         />
 
         <div
@@ -45,16 +43,6 @@ const MissionVision = () => {
             многу нови производи и услуги ќе бидат резултат на заеднички напори и спој на различни
             вештини од повеќе области во технолошкиот свет.
           </p>
-        </div>
-
-        <div className={style.circlePattern}>
-          {Array.from({ length: numRows }, () => uuidv4()).map((rowId) => (
-            <div key={rowId} className={style.circleRow}>
-              {Array.from({ length: numCirclesPerRow }, () => uuidv4()).map((circleId) => (
-                <div key={circleId} className={style.circle} />
-              ))}
-            </div>
-          ))}
         </div>
       </div>
     </div>

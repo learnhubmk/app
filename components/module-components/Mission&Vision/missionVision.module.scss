@@ -9,37 +9,23 @@
   justify-content: space-between;
   align-items: center;
   width: 1920px;
-  height: 888px;
+  height: 1031px;
   gap: 0px;
   position: relative;
 }
 
 .missionMainWhite {
-  background: rgba(204, 211, 221, 0.4);
+  background: rgba(235, 237, 241, 1);
 }
 
 .missionMainDark {
   background: rgba(89, 104, 133, 1);
 }
 
-.missionVisionImg {
-  width: 1239px;
-  height: 888px;
-  gap: 0px;
-}
-
-.missionPattern {
-  width: 457px;
-  height: 743px;
-  top: 72px;
-  left: 1466px;
-  gap: 0px;
-}
-
 .missionTitle {
   width: 854px;
   height: 811px;
-  top: 40px;
+  top: 110px;
   left: 944px;
   padding: 42px 64px 42px 64px;
   gap: 24px;
@@ -93,23 +79,11 @@
   }
 }
 
-.circlePattern {
-  width: 448px;
-  height: 674px;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: start;
-}
-
-.circleRow {
-  display: flex;
-  width: 100%;
-  justify-content: start;
-}
-
-.circle {
-  width: 4.73px;
-  height: 4.73px;
-  border-radius: 50%;
-  background-color: red;
+.missionPattern {
+  width: 457px;
+  height: 895px;
+  top: 72px;
+  left: 1466px;
+  gap: 0px;
+  opacity: 0px;
 }
