@@ -2,6 +2,11 @@
 
 .mainMissionPage {
   position: relative;
+
+  @media (max-width: 480px) {
+    background: none;
+    padding: 0;
+  }
 }
 
 .MissionVisionMain {
@@ -12,14 +17,36 @@
   height: 1031px;
   gap: 0px;
   position: relative;
+
+  @media (max-width: 480px) {
+    width: 430px;
+    height: 846px;
+    // top: 1937px;
+    padding: 40px 20px 80px 20px;
+    gap: 60px;
+    // opacity: 0;
+  }
 }
 
 .missionMainWhite {
   background: rgba(235, 237, 241, 1);
+  @media (max-width: 480px) {
+    background: none;
+  }
 }
 
 .missionMainDark {
   background: rgba(89, 104, 133, 1);
+
+  @media (max-width: 480px) {
+    background: none;
+  }
+}
+
+.imgMission {
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
 
 .missionTitle {
@@ -34,6 +61,18 @@
   border: 1px solid rgba(148, 163, 184, 1);
   position: absolute;
 
+  @media (max-width: 480px) {
+    width: 430px;
+    height: 846px;
+    gap: 20px;
+    padding: 20px, 20px, 800px, 20px;
+    top: 0;
+    left: 0;
+    // opacity: 0px;
+    border: none;
+    border-radius: 0;
+  }
+
   h2 {
     font-family: 'Montserrat';
     font-size: 40px;
@@ -41,6 +80,17 @@
     line-height: 60px;
     text-align: left;
     margin: 20px 0;
+
+    @media (max-width: 480px) {
+      width: 318px;
+      height: 37px;
+      // gap: 0px;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 36.57px;
+      letter-spacing: -0.25px;
+      text-align: left;
+    }
   }
 
   p {
@@ -51,6 +101,15 @@
     line-height: 38px;
     letter-spacing: 0.1px;
     text-align: left;
+
+    @media (max-width: 480px) {
+      width: 318px;
+      height: 288px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      text-align: left;
+    }
   }
 }
 .missionTitleWhite {
@@ -79,11 +138,38 @@
   }
 }
 
+.cardMission {
+  @media (max-width: 480px) {
+    width: 390px;
+    height: 345px;
+    gap: 20px;
+
+    &:nth-child(2) {
+      margin-top: 50px;
+    }
+  }
+}
+
 .missionPattern {
   width: 457px;
   height: 895px;
   top: 72px;
   left: 1466px;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+.mobilePattern {
+  display: block;
+  width: 108.74px;
+  height: 108.74px;
   gap: 0px;
   opacity: 0px;
+  rotate: -90;
+
+  @media (min-width: 481px) {
+    display: none;
+  }
 }
