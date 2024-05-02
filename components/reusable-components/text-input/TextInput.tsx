@@ -1,7 +1,5 @@
 'use client';
 
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import React, { FC, HTMLProps } from 'react';
 import style from './textInput.module.scss';
 
@@ -11,43 +9,13 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
   name: string;
   type: string;
   field: string;
+  formik: any;
 }
 
-const TextInput: FC<InputProps> = ({ placeholder, label, name, type, field }) => {
-  const inputRegex = /^[\u0400-\u04FFа-џA-Za-z-]+$/;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const numberRegex = /^\d+$/;
-
-  const formik = useFormik({
-    initialValues: {
-      [field]: '',
-    },
-    validationSchema: Yup.object().shape({
-      name:
-        field === 'name'
-          ? Yup.string()
-              .required('Полето е задолжително')
-              .matches(
-                inputRegex,
-                '*Дозволени се следните карактери.... името може да биде на кирилица и латиница'
-              )
-          : Yup.string(),
-      email:
-        field === 'email'
-          ? Yup.string()
-              .required('Полето е задолжително')
-              .matches(emailRegex, '*Внесете правилен маил')
-          : Yup.string(),
-      numberField:
-        field === 'number'
-          ? Yup.string().required('Полето е задолжително').matches(numberRegex)
-          : Yup.string(),
-    }),
-    onSubmit: () => {},
-  });
-
+const TextInput: FC<InputProps> = ({ placeholder, label, name, type, field, formik }) => {
   const isError = formik.touched[field] && formik.errors[field];
   const isValid = !isError && formik.touched[field];
+
   return (
     <div className={style.inputContainer}>
       <label htmlFor={name}>{label}</label>

@@ -22,9 +22,13 @@
     .errorIcon,
     .validIcon {
       position: absolute;
-      top: 30%;
+      top: 50%;
+      transform: translateY(-50%);
       right: 10px;
       font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .errorIcon {
@@ -34,8 +38,8 @@
     }
 
     .validIcon {
-      width: 16px;
-      height: 16px;
+      width: 19px;
+      height: 19px;
       color: #00b107;
     }
 
