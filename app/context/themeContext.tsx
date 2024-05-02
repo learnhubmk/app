@@ -1,6 +1,14 @@
 'use client';
 
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+  useMemo,
+  useCallback,
+} from 'react';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
@@ -10,23 +18,35 @@ interface ThemeContextType {
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const storedTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') : 'dark';
-    return storedTheme === 'light' ? 'light' : 'dark';
-  });
+  const [themeLoaded, setThemeLoaded] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    document.body.className = theme;
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme as 'dark' | 'light');
+    }
+    setThemeLoaded(true);
+  }, []);
 
-  const toggleTheme = () => {
-    const updatedTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(updatedTheme);
-  };
+  useEffect(() => {
+    if (themeLoaded) {
+      document.body.className = theme;
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme, themeLoaded]);
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+  const toggleTheme = useCallback(() => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  }, []);
+
+  const memoizedValue = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
+
+  return (
+    <ThemeContext.Provider value={memoizedValue}>
+      {themeLoaded ? children : null}
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => {
