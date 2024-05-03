@@ -3,7 +3,7 @@
 .mainMissionPage {
   position: relative;
 
-  @media (max-width: 480px) {
+  @media (max-width: 430px) {
     background: none;
     padding: 0;
   }
@@ -18,7 +18,7 @@
   gap: 0px;
   position: relative;
 
-  @media (max-width: 480px) {
+  @media (max-width: 430px) {
     width: 430px;
     height: 846px;
     // top: 1937px;
@@ -61,12 +61,12 @@
   border: 1px solid rgba(148, 163, 184, 1);
   position: absolute;
 
-  @media (max-width: 480px) {
+  @media (max-width: 430px) {
     width: 430px;
     height: 846px;
     gap: 20px;
-    padding: 20px, 20px, 800px, 20px;
     top: 0;
+    padding: 0;
     left: 0;
     // opacity: 0px;
     border: none;
@@ -140,6 +140,8 @@
 
 .cardMission {
   @media (max-width: 480px) {
+    display: flex;
+
     width: 390px;
     height: 345px;
     gap: 20px;
@@ -171,5 +173,17 @@
 
   @media (min-width: 481px) {
     display: none;
+  }
+}
+
+.patternHorizontally {
+  display: none;
+  @media (max-width: 430px) {
+    width: 67px;
+    height: 104px;
+    top: 2734px;
+    left: 429px;
+    position: sticky;
+
   }
 }
