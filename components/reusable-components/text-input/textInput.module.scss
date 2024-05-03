@@ -1,0 +1,62 @@
+.inputContainer {
+  margin-bottom: 10px;
+
+  .inputWrapper {
+    position: relative;
+    margin: 20px 0;
+
+    .input {
+      width: 560px;
+      height: 48px;
+      padding: 14px 16px 14px 16px;
+      gap: 10px;
+      border: 1px solid #94a3b8;
+      border-radius: 8px;
+      opacity: 0px;
+      outline: none;
+      background: #f8fafc;
+      transition: border-color 0.3s ease;
+      position: relative;
+    }
+
+    .errorIcon,
+    .validIcon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 10px;
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .errorIcon {
+      color: #ba1a1a;
+      width: 19px;
+      height: 19px;
+    }
+
+    .validIcon {
+      width: 19px;
+      height: 19px;
+      color: #00b107;
+    }
+
+    .error {
+      border: 1px solid #ba1a1a;
+    }
+    .valid {
+      border-color: green;
+    }
+  }
+
+  .errorMessage {
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 300;
+    line-height: 14.63px;
+    text-align: left;
+    color: #ba1a1a;
+  }
+}

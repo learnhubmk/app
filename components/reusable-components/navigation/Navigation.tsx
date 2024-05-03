@@ -25,8 +25,8 @@ const Navigation = () => {
             src={isSun ? '/logo/logo-white.svg' : '/logo/logo-black.svg'}
             className={`${styles.navigationLogo}`}
             alt="LearnHub Logo"
-            width={250}
-            height={55}
+            width={208}
+            height={48}
           />
         </Link>
 
