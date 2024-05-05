@@ -9,7 +9,8 @@
     "next/core-web-vitals",
     "airbnb",
     "airbnb/hooks",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:storybook/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -20,7 +21,21 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.stories.ts", "**/*.stories.tsx"] }
+    ],
+    "react/no-unknown-property": ["error", { "ignore": ["jsx"] }],
+
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".jsx", ".tsx"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": 0,
     "import/extensions": [
@@ -35,7 +50,10 @@
     ],
     "react/function-component-definition": [
       2,
-      { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
     ],
     "react/require-default-props": "off"
   },
@@ -51,5 +69,7 @@
         "react/require-default-props": "off"
       }
     }
-  ]
+  ],
+
+  "ignorePatterns": ["!**/.storybook/*"]
 }
