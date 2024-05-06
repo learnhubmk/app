@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import '../../../app/styles/globals/colors';
 
 .mainMissionPage {
   position: relative;
@@ -38,14 +39,14 @@
 }
 
 .missionMainWhite {
-  background: rgba(235, 237, 241, 1);
+  background: $clr-elevated-elements-light-mode;
   @media (max-width: 430px) {
     background: none;
   }
 }
 
 .missionMainDark {
-  background: rgba(89, 104, 133, 1);
+  background: $clr-elevated-elements-dark-mode;
 
   @media (max-width: 430px) {
     background: none;
@@ -134,28 +135,28 @@
 }
 
 .missionTitleWhite {
-  background: var(--Elevated-elements, rgba(248, 250, 252, 1));
+  background: $clr-elevated-elements-light-mode;
 
   h2 {
-    color: rgba(18, 29, 54, 1) !important;
+    color: $clr-titles-light-mode !important;
   }
 
   p {
-    color: rgba(71, 85, 105, 1) !important;
+    color: $clr-text-light-mode !important;
   }
 }
 
 .missionTitleDark {
-  background: var(--Elevated-elements, rgba(54, 67, 98, 1));
+  background: $clr-elevated-elements-dark-mode;
 
   h2 {
-    color: rgba(255, 255, 255, 1) !important;
-    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
+    color: $clr-text-dark-mode !important;
+    background: $clr-elevated-elements-dark-mode;
   }
 
   p {
-    color: rgba(212, 212, 212, 1) !important;
-    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
+    color: $clr-text-dark-mode !important;
+    background: $clr-elevated-elements-dark-mode;
   }
 }
 
