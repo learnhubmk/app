@@ -1,0 +1,73 @@
+.popup {
+  position: fixed;
+  top: 20px;
+  left: 50px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification {
+  background-color: var(--blog-card-bg);
+  border: 1px solid var(--blog-card-bg);
+  color: var(--bg-color);
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.success {
+  color: var(--bg-color);
+  text-transform: capitalize;
+  text-align: center;
+  font-weight: 200;
+  display: block;
+  height: 53px;
+  font-size: 20px;
+  animation: appear 0.5s ease forwards;
+  position: fixed;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  padding-inline: 24px;
+  padding-top: 12px;
+  bottom: 20px;
+  right: 20px;
+}
+
+.error {
+  background-color: var(--bg-color);
+  padding-top: 9px;
+  padding-right: 170px;
+  padding-left: 15px;
+  padding-bottom: 9px;
+  color: var(--error-dark);
+  position: absolute;
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  margin-left: 0px;
+  animation: appear 1s ease forwards;
+  text-transform: capitalize;
+}
+
+.timerBar {
+  height: 5px;
+  background-color: rgb(54, 170, 31);
+  padding-bottom: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: width 1s linear;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+} /*# sourceMappingURL=notification.module.css.map */

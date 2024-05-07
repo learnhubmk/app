@@ -1,0 +1,60 @@
+.memberCardContainer {
+  flex: 0 0 25%;
+  min-width: 357px;
+  height: -moz-fit-content;
+  height: fit-content;
+  background: inherit;
+  padding: 28px;
+  border: 1px solid #535050;
+}
+.memberCardContainer .memberCardHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.memberCardContainer .memberCardHeaderContainer .firstLater {
+  transform: translateY(-10px);
+}
+.memberCardContainer .memberCardHeaderContainer .membercard-light {
+  color: #535050;
+}
+.memberCardContainer .memberCardHeaderContainer .membercard-dark {
+  color: #fff;
+}
+.memberCardContainer .memberName {
+  margin-bottom: 12px;
+}
+.memberCardContainer .skillContainer,
+.memberCardContainer .projectsContainer {
+  margin-top: 28px;
+}
+.memberCardContainer .skillContainer .tableContainer,
+.memberCardContainer .projectsContainer .tableContainer {
+  margin-top: 12px;
+}
+.memberCardContainer .skillContainer .tableContainer div,
+.memberCardContainer .projectsContainer .tableContainer div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 0.5px solid #535050;
+  border-right: 0.5px solid #535050;
+  border-left: 0.5px solid #535050;
+  border-bottom: 0.5px solid #535050;
+}
+.memberCardContainer .skillContainer .tableContainer div:first-child,
+.memberCardContainer .skillContainer .tableContainer div:nth-child(3n + 1),
+.memberCardContainer .projectsContainer .tableContainer div:first-child,
+.memberCardContainer .projectsContainer .tableContainer div:nth-child(3n + 1) {
+  border-top: 0.5px solid #535050;
+  border-right: 0.5px solid #535050;
+  border-left: 0.5px solid #535050;
+  border-bottom: 0.5px solid #535050;
+}
+.memberCardContainer .skillContainer .tableContainer div:nth-last-child(-n + 3),
+.memberCardContainer .projectsContainer .tableContainer div:nth-last-child(-n + 3) {
+  border-top: 0.5px solid #535050;
+  border-right: 0.5px solid #535050;
+  border-left: 0.5px solid #535050;
+  border-bottom: 0.5px solid #535050;
+} /*# sourceMappingURL=memberCard.module.css.map */

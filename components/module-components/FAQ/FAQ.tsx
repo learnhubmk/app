@@ -5,7 +5,9 @@ import { motion as m, AnimatePresence } from 'framer-motion';
 
 import ExpandCollapseButton from '../../reusable-components/expand-button/ExpandCollapseButton';
 
-import classes from './FAQ.module.scss';
+import style from './FAQ.module.scss';
+
+import { useTheme } from '../../../app/context/themeContext';
 
 interface Topic {
   id: number;
@@ -50,6 +52,9 @@ const topicStyles = {
 };
 
 const FAQ = ({ data }: FAQProps) => {
+  const { theme } = useTheme();
+  const lightTheme = theme === 'light';
+
   const [clickedTopic, setClickedTopic] = useState<{ [id: number]: boolean }>({});
 
   const handleClickedTopic = (id: number) => {
@@ -60,32 +65,60 @@ const FAQ = ({ data }: FAQProps) => {
   };
 
   return (
-    <section className={classes.faqContainer}>
-      <h1 className="display-l">Често поставувани прашања</h1>
-      <ul>
-        {data.map(({ id, title, content }) => {
-          return (
-            <li key={id}>
-              <div onClick={() => handleClickedTopic(id)} role="presentation">
-                <div>
-                  <h3 className="title-l">{title}</h3>
-                  <ExpandCollapseButton trigger={clickedTopic[id]} />
+    <section className={`${style.faqSection} ${lightTheme ? style.faqLight : style.faqDark}`}>
+      <div className={style.faqContainer}>
+        <div className={style.faqText}>
+          <h1
+            className={`${style.faqTitle} ${lightTheme ? style.faqDarkTitle : style.faqLightTitle}`}
+          >
+            Често поставувани прашања
+          </h1>
+
+          <div>
+            <p
+              className={`${style.faqDesc} ${lightTheme ? style.faqDarkDesc : style.faqLightDesc}`}
+            >
+              We tried to answer the most common questions, if you have any additional, please get
+              in touch with our friendly team
+            </p>
+          </div>
+        </div>
+        <ul>
+          {data.map(({ id, title, content }) => {
+            return (
+              <li
+                className={`${style.faqLiElement} ${lightTheme ? style.faqLiLight : style.faqLiDark}`}
+                key={id}
+              >
+                <div onClick={() => handleClickedTopic(id)} role="presentation">
+                  <div>
+                    <h3
+                      className={`${style.faqStext} ${lightTheme ? style.faqTextDark : style.faqTextLight}`}
+                    >
+                      {title}
+                    </h3>
+                    <ExpandCollapseButton trigger={clickedTopic[id]} />
+                  </div>
+                  <AnimatePresence>
+                    {clickedTopic[id] && (
+                      // eslint-disable-next-line react/jsx-props-no-spreading
+                      <m.div {...topicStyles}>
+                        <div>
+                          <p
+                            className={`${style.faqContent} ${lightTheme ? style.faqTextDark : style.faqTextLight}`}
+                          >
+                            {content}
+                          </p>
+                        </div>
+                      </m.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <AnimatePresence>
-                  {clickedTopic[id] && (
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    <m.div {...topicStyles}>
-                      <div>
-                        <p className="label-s">{content}</p>
-                      </div>
-                    </m.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </section>
   );
 };
