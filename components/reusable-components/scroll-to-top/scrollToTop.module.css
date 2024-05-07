@@ -1,0 +1,30 @@
+.scrollToTopBtn {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--text-color);
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+.scrollToTopBtn:hover {
+  background-color: var(--primary-btn-color);
+  color: var(--text-color);
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.arrowIcon {
+  font-size: 28px;
+} /*# sourceMappingURL=scrollToTop.module.css.map */

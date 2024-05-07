@@ -9,6 +9,8 @@ import MemberList from '../components/module-components/member-list/MemberList';
 import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/Contact/Contact';
 import MissionVision from '../components/module-components/Mission&Vision/MissionVision';
+import PerkCards from '../components/module-components/Perk-Cards/PerkCards';
+import PerkCardsData from '../components/module-components/Perk-Cards/PerkCardsData';
 
 const Home = () => {
   return (
@@ -19,6 +21,7 @@ const Home = () => {
         од заедница; вие градите иднина."
       />
       <LearnhubAnimation />
+      <PerkCards data={PerkCardsData} />
       <BlogList pageTitle="home" gridLayout="grid__1x3" blogCardsNumber={6} />
       <MissionVision />
       <Newsletter />

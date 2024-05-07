@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-@import '../../../app/styles/globals/colors';
 
 .mainMissionPage {
   position: relative;
@@ -7,6 +6,7 @@
   @media (max-width: 430px) {
     background: none;
     padding: 0;
+    width: 100%;
   }
 }
 
@@ -21,8 +21,6 @@
   @media (max-width: 430px) {
     width: 430px;
     height: 846px;
-    padding: 40px 20px 80px 20px;
-    gap: 60px;
   }
 
   @media (min-width: 431px) and (max-width: 1024px) {
@@ -39,14 +37,14 @@
 }
 
 .missionMainWhite {
-  background: $clr-elevated-elements-light-mode;
+  background: rgba(235, 237, 241, 1);
   @media (max-width: 430px) {
     background: none;
   }
 }
 
 .missionMainDark {
-  background: $clr-elevated-elements-dark-mode;
+  background: rgba(89, 104, 133, 1);
 
   @media (max-width: 430px) {
     background: none;
@@ -72,10 +70,10 @@
   position: absolute;
 
   @media (max-width: 430px) {
-    width: 430px;
+    width: 100%;
     height: 846px;
     gap: 20px;
-    top: 0;
+    top: -44px;
     padding: 0;
     left: 0;
     border: none;
@@ -83,12 +81,10 @@
   }
 
   @media (min-width: 431px) and (max-width: 1024px) {
-    width: 854px;
-    height: 935px;
-    top: 0;
-    left: 0px;
-    padding: 0px 64px 42px 64px; //
-    gap: 24px;
+    width: 100%;
+    height: 100vh;
+    top: auto;
+    left: auto;
     border-radius: 8px;
     border: 1px;
     border: none;
@@ -135,28 +131,28 @@
 }
 
 .missionTitleWhite {
-  background: $clr-elevated-elements-light-mode;
+  background: var(--Elevated-elements, rgba(248, 250, 252, 1));
 
   h2 {
-    color: $clr-titles-light-mode !important;
+    color: rgba(18, 29, 54, 1) !important;
   }
 
   p {
-    color: $clr-text-light-mode !important;
+    color: rgba(71, 85, 105, 1) !important;
   }
 }
 
 .missionTitleDark {
-  background: $clr-elevated-elements-dark-mode;
+  background: var(--Elevated-elements, rgba(54, 67, 98, 1));
 
   h2 {
-    color: $clr-text-dark-mode !important;
-    background: $clr-elevated-elements-dark-mode;
+    color: rgba(255, 255, 255, 1) !important;
+    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
   }
 
   p {
-    color: $clr-text-dark-mode !important;
-    background: $clr-elevated-elements-dark-mode;
+    color: rgba(255, 255, 255, 1) !important;
+    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
   }
 }
 

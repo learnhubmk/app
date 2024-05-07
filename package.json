@@ -30,7 +30,6 @@
     "react-query": "^3.39.3",
     "react-toastify": "^10.0.5",
     "sharp": "^0.33.2",
-    "uuid": "^9.0.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {
