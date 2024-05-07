@@ -1,6 +1,6 @@
 @use '../../../app/styles/utils' as u;
 
-.cardWrapper {
+.perkCardWrapper {
   width: 33.333%;
   padding: 8px;
   @include u.breakpoint-down(large) {
@@ -10,7 +10,7 @@
     width: 100%;
   }
 
-  .card {
+  .perkCardInner {
     border: 1px solid #94a3b8;
     height: 120px;
     background-color: #f8fafc;
@@ -21,7 +21,7 @@
     justify-content: space-between;
   }
 }
-.text {
+.perkCardTextContent {
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
@@ -32,7 +32,7 @@
     width: 75%;
   }
 }
-.icon {
+.perkCardIcon {
   width: 20%;
   color: #f9674a;
 

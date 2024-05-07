@@ -2,15 +2,17 @@ import React from 'react';
 import style from './PerkCard.module.scss';
 
 interface Props {
-  text: string;
-  icon: any;
+  perkCardText: string;
+  perkCardIcon: any;
 }
-const PerkCard = ({ text, icon }: Props) => {
+const PerkCard = ({ perkCardText, perkCardIcon }: Props) => {
   return (
-    <div className={style.cardWrapper}>
-      <div className={style.card}>
-        <div className={style.icon}>{icon}</div>
-        <p className={style.text}>{text}</p>
+    <div className={style.perkCardWrapper}>
+      <div className={style.perkCardInner}>
+        <div className={style.perkCardIcon}>
+          <img src={perkCardIcon} alt="icon" />
+        </div>
+        <p className={style.perkCardTextContent}>{perkCardText}</p>
       </div>
     </div>
   );
