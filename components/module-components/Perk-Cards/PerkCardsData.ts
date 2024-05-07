@@ -5,27 +5,27 @@ const PerkCardsData = [
     perkCardIcon: 'perk-cards-icons/team.svg',
   },
   {
-    id: 0,
+    id: 1,
     perkCardText: 'Испробај ги твоите вештини со учество во кратки предизвици',
     perkCardIcon: 'perk-cards-icons/award.svg',
   },
   {
-    id: 0,
+    id: 2,
     perkCardText: 'Дознај повеќе за состојбата на пазарот на труд и за компаниите',
     perkCardIcon: 'perk-cards-icons/career.svg',
   },
   {
-    id: 0,
+    id: 3,
     perkCardText: 'Надгради го твоето знаење преку проверени содржини',
     perkCardIcon: 'perk-cards-icons/award.svg',
   },
   {
-    id: 0,
+    id: 4,
     perkCardText: 'Зголеми ја твојата мрежа од контакти со запознавање нови луѓе',
     perkCardIcon: 'perk-cards-icons/team.svg',
   },
   {
-    id: 0,
+    id: 5,
     perkCardText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
     perkCardIcon: 'perk-cards-icons/team.svg',
   },
