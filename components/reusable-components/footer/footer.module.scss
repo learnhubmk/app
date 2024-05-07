@@ -29,6 +29,9 @@
   align-items: flex-start;
   color: var(--text-color);
   gap: 5rem;
+  @include respond-to('small') {
+    flex-direction: column;
+  }
 }
 
 .footerLogo {

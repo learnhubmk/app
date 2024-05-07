@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import React from 'react';
 import style from './hero.module.scss';
 
 import HeroImage from '../../../public/hero-picture.png';
@@ -27,7 +28,7 @@ const Hero = ({ title, text }: HeroProps) => {
           />
         </Link>
       </div>
-      <div>
+      <div className={style.heroImage}>
         <Image
           width={620}
           height={450}
