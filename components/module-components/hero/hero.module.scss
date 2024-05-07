@@ -5,7 +5,7 @@
   flex-direction: column;
   margin: 80px 0px;
   text-align: center;
-  max-width: 100%;
+  max-width: 90%;
   @include u.breakpoint(medium) {
     flex-direction: row;
     margin: 140px 200px;
