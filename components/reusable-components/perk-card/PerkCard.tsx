@@ -3,7 +3,7 @@ import style from './PerkCard.module.scss';
 
 interface Props {
   perkCardText: string;
-  perkCardIcon: any;
+  perkCardIcon: string;
 }
 const PerkCard = ({ perkCardText, perkCardIcon }: Props) => {
   return (
