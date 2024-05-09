@@ -28,15 +28,8 @@ const Hero = ({ title, text }: HeroProps) => {
           />
         </Link>
       </div>
-      <div className={style.heroImage}>
-        <Image
-          width={620}
-          height={450}
-          src={HeroImage}
-          className={style.heroImage}
-          alt="hero picture"
-          priority
-        />
+      <div className={style.heroPictureContainer}>
+        <Image src={HeroImage} className={style.heroImage} alt="hero picture" priority />
       </div>
     </div>
   );
