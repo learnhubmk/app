@@ -27,6 +27,7 @@
   @include respond-to('small') {
     width: 100px;
     margin-left: 0;
+    height: 25px;
   }
 }
 
