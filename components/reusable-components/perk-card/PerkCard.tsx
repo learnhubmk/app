@@ -9,8 +9,8 @@ export interface PerkCardsData {
 }
 const PerkCard = ({ perkCardText, perkCardIcon, id }: PerkCardsData) => {
   return (
-    <div className={style.perkCardWrapper}>
-      <div className={style.perkCardInner} key={id}>
+    <div className={style.perkCardWrapper} key={id}>
+      <div className={style.perkCardInner}>
         <div className={style.perkCardIcon}>
           <Image src={perkCardIcon} alt="icon" width={56} height={56} />
         </div>
