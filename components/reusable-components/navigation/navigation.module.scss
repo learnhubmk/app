@@ -19,14 +19,14 @@
 }
 
 .navigationLogo {
-  margin-left: 50px;
   color: var(--text-color);
   top: 1.56em;
   left: 2.36em;
 
   @include respond-to('small') {
-    margin-right: auto;
-    margin-left: auto;
+    width: 100px;
+    margin-left: 0;
+    height: 25px;
   }
 }
 
@@ -36,7 +36,6 @@
 }
 
 .menuElementsNav {
-  margin-right: 70px;
   display: flex;
   list-style: none;
   padding: 0px;
@@ -46,6 +45,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-inline: 5rem;
+
+  @include respond-to('small') {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+  }
 }
 
 .largeNavbar {
@@ -69,13 +75,11 @@
   border-radius: 100px;
   display: flex;
   align-items: center;
-  margin-right: 3rem;
 
   @include respond-to('small') {
     width: 4rem;
     height: 2rem;
-    margin-right: auto;
-    margin-left: 30px;
+    margin-right: 0;
   }
 }
 
