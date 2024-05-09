@@ -9,6 +9,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import useThemeDetector from '../../utils/themeDetector';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
@@ -18,8 +19,15 @@ interface ThemeContextType {
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const isDarkTheme = useThemeDetector();
   const [themeLoaded, setThemeLoaded] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    if (themeLoaded) {
+      setTheme(isDarkTheme ? 'dark' : 'light');
+    }
+  }, [isDarkTheme, themeLoaded]);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
