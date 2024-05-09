@@ -33,6 +33,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: ['https://learnhub.mk/logo/logo.png'],
   },
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default RootLayout;
