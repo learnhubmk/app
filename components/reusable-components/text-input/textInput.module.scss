@@ -1,62 +1,72 @@
 .inputContainer {
   margin-bottom: 10px;
+  position: relative;
+}
+.inputWrapper {
+  gap: 20px 0;
+}
 
-  .inputWrapper {
-    position: relative;
-    margin: 20px 0;
+.input {
+  background-color: #bbbbbb;
+  border: 1px solid var(--text-color);
+  border-radius: 10px;
+  color: var(--text-color);
+  padding: 20px;
+  min-width: 380px;
+  margin-bottom: 5px;
+  margin-top: 9px;
+  height: 54px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
 
-    .input {
-      width: 560px;
-      height: 48px;
-      padding: 14px 16px 14px 16px;
-      gap: 10px;
-      border: 1px solid #94a3b8;
-      border-radius: 8px;
-      opacity: 0px;
-      outline: none;
-      background: #f8fafc;
-      transition: border-color 0.3s ease;
-      position: relative;
-    }
-
-    .errorIcon,
-    .validIcon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 10px;
-      font-size: 1.2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .errorIcon {
-      color: #ba1a1a;
-      width: 19px;
-      height: 19px;
-    }
-
-    .validIcon {
-      width: 19px;
-      height: 19px;
-      color: #00b107;
-    }
-
-    .error {
-      border: 1px solid #ba1a1a;
-    }
-    .valid {
-      border-color: green;
-    }
+  &:focus {
+    outline: none;
   }
 
-  .errorMessage {
-    font-size: 12px;
-    margin-top: 4px;
-    font-weight: 300;
-    line-height: 14.63px;
-    text-align: left;
-    color: #ba1a1a;
+  &::placeholder {
+    color: var(--text-color);
   }
+}
+
+.errorIcon,
+.validIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 43%;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.errorIcon {
+  color: #ba1a1a;
+  width: 19px;
+  height: 19px;
+}
+
+.validIcon {
+  width: 19px;
+  height: 19px;
+  color: #00b107;
+}
+
+.error {
+  border: 2px solid #ba1a1a;
+}
+.valid {
+  border-color: green;
+}
+
+.errorMessage {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 14.63px;
+  text-align: left;
+  color: #ba1a1a;
 }
