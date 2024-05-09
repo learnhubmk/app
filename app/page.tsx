@@ -8,6 +8,8 @@ import Newsletter from '../components/reusable-components/newsletter/Newsletter'
 
 import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/Contact/Contact';
+import PerkCards from '../components/module-components/Perk-Cards/PerkCards';
+import PerkCardsData from '../components/module-components/Perk-Cards/PerkCardsData';
 
 const Home = () => {
   return (
@@ -18,7 +20,7 @@ const Home = () => {
         од заедница; вие градите иднина."
       />
       <LearnhubAnimation />
-      {/* <BlogList pageTitle="home" gridLayout="grid__1x3" blogCardsNumber={6} /> */}
+      <PerkCards data={PerkCardsData} />
       <Newsletter />
       {/* <MemberList /> */}
       <FAQ data={FAQ_DUMMY_DATA} />

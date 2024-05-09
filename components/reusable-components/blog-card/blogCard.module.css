@@ -1,0 +1,63 @@
+.blogCardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--blog-card-bg);
+  color: var(--black-color);
+  padding: 30px;
+  border: 1px solid #535050;
+}
+.blogCardContainer .blogCardTitle {
+  font-weight: 500;
+  line-height: 30px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.blogCardContainer .blogCardDivider {
+  width: 100%;
+  height: 1px;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+}
+.blogCardContainer .blogCardInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.blogCardContainer .btnsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.blogCardContainer .btnsContainer a {
+  color: var(--black-color);
+}
+.blogCardContainer .btnsContainer .blogCardBtn {
+  border: 1px solid var(--black-color);
+  padding: 8px 10px;
+  margin-top: 12px;
+}
+.blogCardContainer .btnsContainer .saveIcon {
+  font-size: 20px;
+  margin-right: 12px;
+  transform: translateY(8px);
+  cursor: pointer;
+}
+.blogCardContainer .btnsContainer .shareIcon {
+  font-size: 20px;
+  transform: translateY(8px);
+  cursor: pointer;
+}
+.blogCardContainer .blogCardHomeBtn {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--black-color);
+  padding: 8px 10px;
+  margin-top: 12px;
+}
+.blogCardContainer .blogCardHomeBtn .arrowIcon {
+  font-size: 16px;
+  color: var(--black-color);
+} /*# sourceMappingURL=blogCard.module.css.map */
