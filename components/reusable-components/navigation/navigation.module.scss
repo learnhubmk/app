@@ -19,7 +19,6 @@
 }
 
 .navigationLogo {
-  margin-left: 50px;
   color: var(--text-color);
   top: 1.56em;
   left: 2.36em;
@@ -37,7 +36,6 @@
 }
 
 .menuElementsNav {
-  margin-right: 70px;
   display: flex;
   list-style: none;
   padding: 0px;
@@ -47,6 +45,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-inline: 5rem;
+
   @include respond-to('small') {
     display: flex;
     justify-content: space-between;
