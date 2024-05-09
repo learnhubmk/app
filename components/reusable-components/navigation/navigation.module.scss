@@ -75,7 +75,6 @@
   border-radius: 100px;
   display: flex;
   align-items: center;
-  margin-right: 3rem;
 
   @include respond-to('small') {
     width: 4rem;
