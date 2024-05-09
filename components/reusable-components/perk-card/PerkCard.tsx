@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import style from './PerkCard.module.scss';
 
 export interface PerkCardsData {
@@ -11,7 +12,7 @@ const PerkCard = ({ perkCardText, perkCardIcon, id }: PerkCardsData) => {
     <div className={style.perkCardWrapper}>
       <div className={style.perkCardInner} key={id}>
         <div className={style.perkCardIcon}>
-          <img src={perkCardIcon} alt="icon" />
+          <Image src={perkCardIcon} alt="icon" width={56} height={56} />
         </div>
         <p className={style.perkCardTextContent}>{perkCardText}</p>
       </div>
