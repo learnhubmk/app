@@ -10,15 +10,15 @@ const useThemeDetector = () => {
 
   const [isDarkTheme, setIsDarkTheme] = useState(getCurrentTheme());
 
-  const mListener = (e: any) => {
-    setIsDarkTheme(e.matches);
+  const themeChangeListener = (event: any) => {
+    setIsDarkTheme(event.matches);
   };
 
   useEffect(() => {
     const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQueryList.addEventListener('change', mListener);
+    mediaQueryList.addEventListener('change', themeChangeListener);
     return () => {
-      mediaQueryList.removeEventListener('change', mListener);
+      mediaQueryList.removeEventListener('change', themeChangeListener);
     };
   }, []);
 
