@@ -19,15 +19,19 @@ $animationSpeed: 35s;
 // Styling
 .slider {
   background: var(--titles-color);
-  height: 104px;
+  height: 67px;
   overflow: hidden;
   position: relative;
   width: 100vw;
 
+  @include u.breakpoint(medium) {
+    height: 104px;
+  }
+
   &::before,
   &::after {
     content: '';
-    height: 104px;
+    height: 67px;
     position: absolute;
     width: 300px;
     z-index: 2;
@@ -37,6 +41,7 @@ $animationSpeed: 35s;
     &::before,
     &::after {
       @include white-gradient;
+      height: 104px;
     }
   }
 
@@ -54,7 +59,7 @@ $animationSpeed: 35s;
   .slideTrack {
     animation: scroll $animationSpeed linear infinite;
     display: flex;
-    width: calc(300px * 21);
+    width: calc(300px * 28);
   }
 
   .slide {
@@ -62,7 +67,11 @@ $animationSpeed: 35s;
     align-items: center;
     color: var(--white-color);
     font-size: var(--fs-body);
-    height: 104px;
+    height: 67px;
     margin: 0 14px;
+
+    @include u.breakpoint(medium) {
+      height: 104px;
+    }
   }
 }
