@@ -14,7 +14,7 @@ import styles from './page.module.scss';
 
 const Home = () => {
   return (
-    <main className={styles.main}>
+    <>
       <Hero
         title="Развијте го вашиот потенцијал"
         text="Овозможете си да достигнете нови височини, развивајќи и споделувајќи вештини cо заедница од ентузијасти и професионалци. Со LearnHub, вие не сте само дел  
@@ -22,12 +22,11 @@ const Home = () => {
       />
       <InfiniteCarousel />
       <PerkCards data={PerkCardsData} />
-      <BlogList pageTitle="home" gridLayout="grid__1x3" blogCardsNumber={6} />
       <Newsletter />
-      <MemberList />
+      {/* <MemberList /> */}
       <FAQ data={FAQ_DUMMY_DATA} />
       <Contact />
-    </main>
+    </>
   );
 };
 export default Home;
