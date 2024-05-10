@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from '../../../app/context/themeContext';
 import styles from './footer.module.scss';
 import TextInput from '../text-input/TextInput';
 import discord from '../../../public/icons-footer/discord.svg';
@@ -15,19 +16,22 @@ import github from '../../../public/icons-footer/github.svg';
 import facebook from '../../../public/icons-footer/facebook.svg';
 import instagram from '../../../public/icons-footer/instagram.svg';
 import youtube from '../../../public/icons-footer/youtube.svg';
+import logolight from '../../../public/logo/logo-white.svg';
+import logodark from '../../../public/logo/logo-black.svg';
 
 const Footer: React.FC = () => {
+  const { theme } = useTheme();
   const initialValues = { name: '', email: '' };
   const validationSchema = Yup.object({
     name: Yup.string()
-      .matches(/^[a-zA-Z .'-]+$/, 'Name cannot contain special characters!')
-      .min(2, 'Name too Short!')
-      .max(50, 'Name too Long!')
-      .required('Name is required'),
+      .matches(/^[a-zA-Z .'-]+$/, 'Невалидно име!')
+      .min(2, 'Вашето име е премногу кратко!')
+      .max(50, 'Вашето име е премногу долго!')
+      .required('Задолжително внесете име'),
     email: Yup.string()
       // eslint-disable-next-line no-unused-vars
-      .email('Invalid email address')
-      .required('Email is required'),
+      .email('Невалидна емаил адреса')
+      .required('Задолжително внесете емаил адреса'),
   });
   // eslint-disable-next-line no-unused-vars
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
@@ -55,10 +59,10 @@ const Footer: React.FC = () => {
       */
       // Simulating success
       setSuccessMessage(true);
-      toast.success('Form submitted successfully!');
+      toast.success('Успешно испратено!');
     } catch (error) {
       setErrorMessage(true);
-      toast.error('Failed to submit form');
+      toast.error('Грешка');
     }
   };
 
@@ -69,11 +73,16 @@ const Footer: React.FC = () => {
   });
 
   return (
-    <footer className={`${styles.footerWrapper}`}>
-      <div className={`${styles.footer}`}>
+    <footer className={`${styles.footerWrapper} `}>
+      <div className={`${styles.footer} ${theme}`}>
         <form onSubmit={formik.handleSubmit}>
           <div className={`display-s ${styles.footerLogo}`}>
-            <Image src="/logo/logo.svg" alt="LearnHub Logo" width={208} height={48} />
+            <Image
+              src={theme === 'light' ? logolight : logodark}
+              alt="LearnHub Logo"
+              width={208}
+              height={48}
+            />
           </div>
 
           <div className={`${styles.middleSection}`}>

@@ -3,6 +3,7 @@
   position: relative;
 }
 .inputWrapper {
+  width:380px;
   gap: 20px 0;
 }
 
@@ -12,7 +13,6 @@
   border-radius: 10px;
   color: var(--text-color);
   padding: 20px;
-  min-width: 380px;
   margin-bottom: 5px;
   margin-top: 9px;
   height: 54px;
@@ -32,27 +32,23 @@
 
 .errorIcon,
 .validIcon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 43%;
+  position: relative;
   font-size: 1.2rem;
   display: flex;
-  justify-content: center;
   align-items: center;
   z-index: 1;
+  transform: translateY(-180%);
+  margin-left: calc(100% - 19px - 20px); 
 }
 
 .errorIcon {
   color: #ba1a1a;
-  width: 19px;
-  height: 19px;
+  margin-left: calc(100% - 19px - 20px); 
 }
 
 .validIcon {
-  width: 19px;
-  height: 19px;
   color: #00b107;
+  margin-left: calc(100% - 19px - 20px); 
 }
 
 .error {
