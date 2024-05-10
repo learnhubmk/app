@@ -9,7 +9,7 @@ const InfiniteCarousel = () => {
       <div className={style.slideTrack}>
         {multipliedArray.map((item) => (
           <div className={style.slide} key={Math.floor(Math.random() * 1000)}>
-            {item.text}
+            {item}
           </div>
         ))}
       </div>
