@@ -10,7 +10,7 @@ import FAQ_DUMMY_DATA from '../data/FAQ';
 
 const Home = () => {
   return (
-    <main>
+    <>
       <Hero
         title="Развијте го вашиот потенцијал"
         text="Овозможете си да достигнете нови височини, развивајќи и споделувајќи вештини cо заедница од ентузијасти и професионалци. Со LearnHub, вие не сте само дел  
@@ -19,9 +19,10 @@ const Home = () => {
       <InfiniteCarousel />
       <PerkCards data={PerkCardsData} />
       <Newsletter />
+      {/* <MemberList /> */}
       <FAQ data={FAQ_DUMMY_DATA} />
       <Contact />
-    </main>
+    </>
   );
 };
 export default Home;
