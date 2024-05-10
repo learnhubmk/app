@@ -30,64 +30,71 @@
   .hero {
     display: flex;
     flex-direction: column;
-    margin: 80px 0px;
+    margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
     text-align: center;
     max-width: 100%;
 
     @include u.breakpoint(medium) {
       flex-direction: row;
-      margin: 140px 200px;
-      gap: 52px;
+      gap: 3.25rem;
       text-align: left;
     }
 
     .heroLeftContainer {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      margin-inline: 24px;
+      margin-inline: 1.5rem;
+
+      @include u.breakpoint(small) {
+        align-items: center;
+      }
 
       @include u.breakpoint(medium) {
         align-items: flex-start;
-        width: 848px;
-      }
-
-      .heroTitle {
-        font-size: 28px;
-        line-height: 32px;
-
-        @include u.breakpoint(medium) {
-          font-size: 56px;
-          line-height: 72px;
-        }
+        width: 54%;
+        margin-inline: 0;
       }
 
       .heroText {
-        font-size: 16px;
-        line-height: 24px;
-        margin-top: 20px;
-        margin-bottom: 32px;
+        font-size: var(--fs-body);
+        line-height: var(--lh-body);
+        margin-top: 1.25rem;
+        margin-bottom: 2rem;
+
         @include u.breakpoint(medium) {
-          font-size: 24px;
-          line-height: 38px;
           letter-spacing: 0.1px;
-          margin-top: 32px;
-          margin-bottom: 84px;
+          margin-top: 2rem;
+          margin-bottom: 5.25rem;
         }
       }
     }
   }
 
   .heroPictureContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    @include u.breakpoint(medium) {
+      display: block;
+      width: 44%;
+    }
+
+    @include u.breakpoint(xlarge) {
+      display: flex;
+    }
+
     .heroImage {
       width: 100%;
+      max-width: 27rem;
       height: auto;
-      margin-top: 56px;
+      margin-top: 3.5rem;
 
       @include u.breakpoint(medium) {
-        width: 620px;
-        height: 450px;
-        margin-top: 0px;
+        width: 100%;
+        max-width: 38.75rem;
+        height: auto;
+        margin-top: 0;
       }
     }
 
