@@ -3,7 +3,7 @@
   position: relative;
 }
 .inputWrapper {
-  width:380px;
+  width: 380px;
   gap: 20px 0;
 }
 
@@ -38,17 +38,17 @@
   align-items: center;
   z-index: 1;
   transform: translateY(-180%);
-  margin-left: calc(100% - 19px - 20px); 
+  margin-left: calc(100% - 19px - 20px);
 }
 
 .errorIcon {
   color: #ba1a1a;
-  margin-left: calc(100% - 19px - 20px); 
+  margin-left: calc(100% - 19px - 20px);
 }
 
 .validIcon {
   color: #00b107;
-  margin-left: calc(100% - 19px - 20px); 
+  margin-left: calc(100% - 19px - 20px);
 }
 
 .error {
