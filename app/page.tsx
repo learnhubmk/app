@@ -5,11 +5,9 @@ import LearnhubAnimation from '../components/module-components/learnhub-animatio
 import styles from './page.module.scss';
 import Newsletter from '../components/reusable-components/newsletter/Newsletter';
 import MemberList from '../components/module-components/member-list/MemberList';
-
 import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/Contact/Contact';
 import PerkCards from '../components/module-components/Perk-Cards/PerkCards';
-import PerkCardsData from '../components/module-components/Perk-Cards/PerkCardsData';
 
 const Home = () => {
   return (
@@ -20,7 +18,7 @@ const Home = () => {
         од заедница; вие градите иднина."
       />
       <LearnhubAnimation />
-      <PerkCards data={PerkCardsData} />
+      <PerkCards />
       <BlogList pageTitle="home" gridLayout="grid__1x3" blogCardsNumber={6} />
       <Newsletter />
       <MemberList />

@@ -1,19 +1,17 @@
 import React from 'react';
-import PerkCard, { PerkCardsData } from '../../reusable-components/perk-card/PerkCard';
 import style from './PerkCards.module.scss';
+import PerkCardsData from './PerkCardsData';
+import PerkCard from '../../reusable-components/perk-card/PerkCard';
 
-interface PerkCardsProps {
-  data: PerkCardsData[];
-}
-const PerkCards = ({ data }: PerkCardsProps) => {
+const PerkCards = () => {
   return (
     <div className={style.perkCardsWrapper}>
       <div className={style.perkCardsInner}>
-        {data.map((perkCardData) => (
+        {PerkCardsData.map((perkCardDataItem) => (
           <PerkCard
-            id={perkCardData.id}
-            perkCardText={perkCardData.perkCardText}
-            perkCardIcon={perkCardData.perkCardIcon}
+            key={perkCardDataItem.id}
+            perkCardText={perkCardDataItem.perkCardText}
+            perkCardIcon={perkCardDataItem.perkCardIcon}
           />
         ))}
       </div>
