@@ -7,6 +7,7 @@ import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
+import styles from './page.module.scss';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -16,7 +17,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       <ThemeProvider>
         <ReactQueryProvider>
           <Navigation />
-          <main>
+          <main className={styles.main}>
             <Suspense fallback={<Loading />}>{children}</Suspense>
           </main>
           <Footer />
@@ -31,6 +32,9 @@ export const metadata: Metadata = {
   description: 'Развијте Го Вашиот Потенцијал Со LearnHub',
   openGraph: {
     images: ['https://learnhub.mk/logo/logo.png'],
+  },
+  icons: {
+    icon: '/favicon.png',
   },
 };
 
