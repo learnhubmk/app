@@ -1,11 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import style from './PerkCard.module.scss';
-
-export interface PerkCardsDataProps {
-  perkCardText: string;
-  perkCardIcon: string;
-}
+import { PerkCardsDataProps } from '../../module-components/Perk-Cards/PerkCards';
 
 const PerkCard = ({ perkCardText, perkCardIcon }: PerkCardsDataProps) => {
   return (
