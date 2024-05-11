@@ -29,6 +29,9 @@
   align-items: flex-start;
   color: var(--text-color);
   gap: 5rem;
+  @include respond-to('small') {
+    flex-direction: column;
+  }
 }
 
 .footerLogo {
@@ -60,7 +63,6 @@
   text-transform: uppercase;
   width: 25%;
   padding-left: 3rem;
-
   & p {
     flex: 1;
     padding-bottom: 1.3em;
