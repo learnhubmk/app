@@ -16,7 +16,6 @@ const Home = () => {
       />
       <PerkCards />
       <InfiniteCarousel />
-      <PerkCards />
       <Newsletter />
       {/* <MemberList /> */}
       <FAQ data={FAQ_DUMMY_DATA} />
