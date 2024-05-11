@@ -1,33 +1,17 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import style from './projectsSection.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
-// import Slider from 'react-slick';
-// import projectImg from './Bgphoto.jpg'
+import ProjectCard, { ProjectCardProps } from '../../reusable-components/ProjectCard/ProjectCard';
 
-const ProjectsSection = () => {
+interface Props {
+  cards: ProjectCardProps[];
+}
+
+const ProjectsSection = ({ cards }: Props) => {
   const { theme } = useTheme();
   const lightTheme = theme === 'light';
-
-  const cards = [
-    {
-      id: 0,
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      title: 'LearnHub платформа',
-      description:
-        'Project description consectetur adipscing elit, sed do eiusmod tempor incididunt ut labore et ddolore magna aliqua',
-    },
-    {
-      id: 1,
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      title: 'LinkMe',
-      description:
-        'Project description consectetur adipscing elit, sed do eiusmod tempor incididunt ut labore et ddolore magna aliqua.',
-    },
-    // Add more cards as needed
-  ];
 
   // const settings = {
   //   dots: true,
@@ -72,39 +56,14 @@ const ProjectsSection = () => {
       {/* Render individual cards on laptops */}
       <div className={style.projectContainer}>
         {cards.map((card) => (
-          <div
-            className={`${style.projectCard} ${lightTheme ? style.lightProjectCard : style.darkProjectCard}`}
+          <ProjectCard
+            id={card.id}
             key={card.id}
-          >
-            <Image src={card.imageUrl} alt={card.title} width={452} height={185} />
-            <div className={style.cardCont}>
-              <div className={style.cardContent}>
-                <h2
-                  className={`${style.cardTitle} ${lightTheme ? style.darkProjectTitle : style.lightProjectTitle}`}
-                >
-                  {card.title}
-                </h2>
-                <p
-                  className={`${style.cardDesc} ${lightTheme ? style.darkProjectDesc : style.lightProjectDesc}`}
-                >
-                  {card.description}
-                </p>
-                <div className={style.cardTags}>
-                  <p className={style.cardTag}>UX/UI</p>
-                  <p className={style.cardTag}>Front End</p>
-                  <p className={style.cardNum}>+3</p>
-                </div>
-              </div>
-              <div className={style.cardParticipants}>
-                <div />
-                <div>
-                  <button type="button">Види проект</button>
-                </div>
-              </div>
-            </div>
-          </div>
+            imageUrl={card.imageUrl}
+            title={card.title}
+            description={card.description}
+          />
         ))}
-        ;
       </div>
 
       <div className={style.projectContainer}>

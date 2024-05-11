@@ -8,6 +8,7 @@ import MemberList from '../components/module-components/member-list/MemberList';
 import ProjectsSection from '../components/module-components/ProjectsSection/projectsSection';
 import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/Contact/Contact';
+import ProjectCardData from '../components/module-components/ProjectsSection/ProjectCardData';
 
 const Home = () => {
   return (
@@ -21,7 +22,7 @@ const Home = () => {
       <BlogList pageTitle="home" gridLayout="grid__1x3" blogCardsNumber={6} />
       <Newsletter />
       <MemberList />
-      <ProjectsSection />
+      <ProjectsSection cards={ProjectCardData} />
       <FAQ data={FAQ_DUMMY_DATA} />
       <Contact />
     </main>

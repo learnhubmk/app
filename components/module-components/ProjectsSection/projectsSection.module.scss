@@ -1,8 +1,6 @@
 .projectSection {
-  width: 120rem;
-  height: 60.938rem;
-  padding: 8.75rem 12.5rem 8.75rem 12.5rem;
-  gap: 5rem;
+  width: 100%;
+  padding: 3rem 0;
 }
 
 .lightPrSection {
@@ -46,92 +44,91 @@
 }
 
 .projectContainer {
-  width: 986px;
-  height: 455px;
-  gap: 82px;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin: 0 auto;
 }
 
-.projectCard {
-  width: 452px;
-  height: 455px;
-  border-radius: 12px;
-  padding: 0px 0px 24px 0px;
-  gap: 24px;
-  background-color: green;
-}
+// .projectCard {
+//   width: 452px;
+//   height: 455px;
+//   border-radius: 12px;
+//   padding: 0px 0px 24px 0px;
+//   gap: 24px;
+//   background-color: green;
+// }
 
-.lightProjectCard {
-  background-color: var(--text-color);
-  box-shadow: hsla(0, 0%, 0%, 0.15);
-}
-.darkProjectCard {
-  background-color: var(--clr-elevated-elements-dark-mode);
-}
+// .lightProjectCard {
+//   background-color: var(--text-color);
+//   box-shadow: hsla(0, 0%, 0%, 0.15);
+// }
+// .darkProjectCard {
+//   background-color: var(--clr-elevated-elements-dark-mode);
+// }
 
-.projectCard img {
-  width: 100%;
-  height: 185px;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-}
+// .projectCard img {
+//   width: 100%;
+//   height: 185px;
+//   border-top-left-radius: 12px;
+//   border-top-right-radius: 12px;
+// }
 
-.cardCont {
-  padding: 0px 24px 0px 24px;
-  height: 222px;
-  gap: 32px;
-}
+// .cardCont {
+//   padding: 0px 24px 0px 24px;
+//   height: 222px;
+//   gap: 32px;
+// }
 
-.cardContent {
-  height: 166px;
-  gap: 16px;
-}
+// .cardContent {
+//   height: 166px;
+//   gap: 16px;
+// }
 
-.cardTitle {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  margin-bottom: 10px;
-}
+// .cardTitle {
+//   font-weight: 500;
+//   font-size: 20px;
+//   line-height: 30px;
+//   margin-bottom: 10px;
+// }
 
-.cardDesc {
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: 0.15px;
-  margin-bottom: 10px;
-}
+// .cardDesc {
+//   font-weight: 400;
+//   font-size: 18px;
+//   line-height: 24px;
+//   letter-spacing: 0.15px;
+//   margin-bottom: 10px;
+// }
 
-.cardTags {
-  display: flex;
-  gap: 8px;
-}
-.cardTag {
-  border-radius: 20px;
-  border: 1px solid hsla(215, 20%, 65%, 1);
-  padding: 8px 16px 8px 16px;
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
+// .cardTags {
+//   display: flex;
+//   gap: 8px;
+// }
+// .cardTag {
+//   border-radius: 20px;
+//   border: 1px solid hsla(215, 20%, 65%, 1);
+//   padding: 8px 16px 8px 16px;
+//   font-weight: 400;
+//   font-size: 14px;
+//   letter-spacing: 0.5px;
+// }
 
-.cardNum {
-  padding: 8px 3px 8px 3px;
-  font-weight: 400;
-  font-size: 14px;
-  color: hsla(0, 0%, 56%, 1);
-  letter-spacing: 0.25px;
-}
-.cardParticipants {
-  display: flex;
-  justify-content: space-between;
-}
+// .cardNum {
+//   padding: 8px 3px 8px 3px;
+//   font-weight: 400;
+//   font-size: 14px;
+//   color: hsla(0, 0%, 56%, 1);
+//   letter-spacing: 0.25px;
+// }
+// .cardParticipants {
+//   display: flex;
+//   justify-content: space-between;
+// }
 
-.cardParticipants button {
-  text-decoration: underline;
-}
+// .cardParticipants button {
+//   text-decoration: underline;
+// }
 // .cardContent button {
 //   margin-right: 10px;
 //   padding: 5px 10px;
