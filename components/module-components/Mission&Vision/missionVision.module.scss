@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15rem; //look into the gap
   width: 100%;
   height: 100vh;
   margin-top: 50px;
@@ -36,10 +37,12 @@
 }
 
 .mvImgContainer {
-  display: flex;
-  flex-direction: row;
-  // margin-inline: 1.5rem;
-  width: 100%;
+  // display: flex;
+  // flex-direction: row;
+  // // margin-inline: 1.5rem;
+  // width: 100%;
+  position: relative;
+  height: 100%;
 }
 
 .imgMission {
@@ -56,18 +59,14 @@
 }
 
 .missionTitle {
-  // width: 854px;
-  // height: 811px;
-  // top: 110px;
-  // left: 944px;
   padding: 0 64px 42px 64px;
   gap: 24px;
   border-radius: 8px;
   border: 1px solid rgba(148, 163, 184, 1);
   position: absolute;
   left: 45%;
-  width: fit-content;
-  max-width: 858px;
+  width: 600px;
+
   // height: 70%;
 
   // @media (max-width: 430px) {
@@ -98,7 +97,6 @@
     margin: 30px 0;
 
     @include u.breakpoint(small) {
-      width: 318px;
       height: 37px;
       font-size: 30px;
       font-weight: 700;
@@ -116,7 +114,6 @@
     letter-spacing: 0.1px;
 
     @include u.breakpoint(small) {
-      width: 318px;
       height: 288px;
       font-size: 16px;
       font-weight: 500;
@@ -158,8 +155,10 @@
 }
 
 .cardMission {
+  height: 100%;
+  width: 100%;
   @include u.breakpoint(small) {
-    display: flex;
+    // display: flex;
     width: 390px;
     height: 345px;
     gap: 20px;
@@ -168,8 +167,9 @@
       margin-top: 50px;
     }
   }
+
   @include u.breakpoint(medium) {
-    display: flex;
+    // display: flex;
     width: 660px;
     height: 425px;
     gap: 20px;
@@ -180,11 +180,11 @@
   }
 }
 
-.mvRightSide {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
+// .mvRightSide {
+//   display: flex;
+//   justify-content: end;
+//   align-items: center;
+// }
 
 .missionPattern {
   // width: 457px;
