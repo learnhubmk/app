@@ -67,7 +67,7 @@
   border-radius: 8px;
   border: 1px solid rgba(148, 163, 184, 1);
   position: absolute;
-  // left: 45%;
+  left: 45%;
   width: 600px;
   height: auto;
   min-height: 400px;
@@ -81,6 +81,8 @@
     left: 0;
     border: none;
     border-radius: 0;
+    // position: relative !important;
+    // height: auto !important;
   }
 
   @media (min-width: 431px) and (max-width: 1024px) {
