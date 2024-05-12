@@ -14,46 +14,48 @@
 .missionMainWhite {
   background: rgba(235, 237, 241, 1);
 
-  @include u.breakpoint(small) {
-    background: none;
-  }
+  // @include u.breakpoint(small) {
+  //   background: none;
+  // }
 }
 
 .missionMainDark {
   background: rgba(89, 104, 133, 1);
 
-  @include u.breakpoint(small) {
-    background: none;
-  }
+  // @include u.breakpoint(small) {
+  //   background: none;
+  // }
 }
 
 .mvInner {
   display: flex;
   justify-content: space-between;
-  // flex-direction: column;
-  // margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
   max-width: 100%;
   position: relative;
 }
 
 .mvImgContainer {
-  // display: flex;
-  // flex-direction: row;
-  // // margin-inline: 1.5rem;
-  // width: 100%;
   position: relative;
   height: 100%;
 }
 
-.imgMission {
-  // width: fit-content;
-  // max-width: 80%;
-  // width: 100%;
-  // max-width: 1239px;
-  // height: auto;
-  // margin-top: 3.5rem;
+.mvLeftSide {
+  flex: 0 0 65%;
+  object-fit: 'cover';
+}
 
-  @include u.breakpoint(small) {
+.mvRightSide {
+  flex: 0 0 35%;
+}
+
+.imgMission {
+  object-fit: cover;
+
+  @media (max-width: 1025px) {
+    display: none;
+  }
+
+  @media(max-width:425px) {
     background: none;
   }
 }
@@ -63,32 +65,31 @@
   gap: 24px;
   border-radius: 8px;
   border: 1px solid rgba(148, 163, 184, 1);
-  position: absolute;
-  left: 45%;
+  // position: absolute;
+  // left: 45%;
   width: 600px;
+  height: auto;
 
-  // height: 70%;
+  @media (max-width: 430px) {
+    width: 100%;
+    height: 846px;
+    gap: 20px;
+    // top: -44px;
+    padding-inline: 2rem;
+    left: 0;
+    border: none;
+    border-radius: 0;
+  }
 
-  // @media (max-width: 430px) {
-  //   width: 100%;
-  //   height: 846px;
-  //   gap: 20px;
-  //   top: -44px;
-  //   padding: 0;
-  //   left: 0;
-  //   border: none;
-  //   border-radius: 0;
-  // }
-
-  // @media (min-width: 431px) and (max-width: 1024px) {
-  //   width: 100%;
-  //   height: 100vh;
-  //   top: auto;
-  //   left: auto;
-  //   border-radius: 8px;
-  //   border: 1px;
-  //   border: none;
-  // }
+  @media (min-width: 431px) and (max-width: 1024px) {
+    width: 100%;
+    height: 100vh;
+    top: auto;
+    left: auto;
+    border-radius: 8px;
+    border: 1px;
+    border: none;
+  }
 
   h2 {
     font-size: 40px;
@@ -96,7 +97,7 @@
     line-height: 60px;
     margin: 30px 0;
 
-    @include u.breakpoint(small) {
+    @media(max-width:425px) {
       height: 37px;
       font-size: 30px;
       font-weight: 700;
@@ -112,8 +113,9 @@
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.1px;
+    height: fit-content !important;
 
-    @include u.breakpoint(small) {
+    @media(max-width:425px) {
       height: 288px;
       font-size: 16px;
       font-weight: 500;
@@ -155,10 +157,10 @@
 }
 
 .cardMission {
-  height: 100%;
-  width: 100%;
-  @include u.breakpoint(small) {
-    // display: flex;
+  height: 100% !important;
+  width: 100% !important;
+
+  @media(max-width:425px) {
     width: 390px;
     height: 345px;
     gap: 20px;
@@ -168,8 +170,7 @@
     }
   }
 
-  @include u.breakpoint(medium) {
-    // display: flex;
+  @media (min-width: 431px) and (max-width: 1024px) {
     width: 660px;
     height: 425px;
     gap: 20px;
@@ -180,17 +181,10 @@
   }
 }
 
-// .mvRightSide {
-//   display: flex;
-//   justify-content: end;
-//   align-items: center;
-// }
-
 .missionPattern {
-  // width: 457px;
-  // height: 895px;
-  // top: 72px;
   left: 100%;
+  object-fit: 'cover';
+  padding-block: 1.2rem;
 
   @media (max-width: 1025px) {
     display: none;
@@ -201,6 +195,7 @@
   display: block;
   width: 108.74px;
   height: 108.74px;
+  position: absolute;
 
   @media (min-width: 1025px) {
     display: none;
@@ -208,18 +203,18 @@
 }
 
 .patternHorizontally {
-  @include u.breakpoint(large) {
+  @media (min-width: 1025px) {
     display: none;
   }
 
-  @include u.breakpoint(small) {
+  @media(max-width:425px) {
     width: 108px;
     height: 175px;
     left: 429px;
     position: sticky;
   }
 
-  @include u.breakpoint(medium) {
+  @media (min-width: 431px) and (max-width: 1024px) {
     display: block;
     width: 108px;
     height: 69px;
