@@ -5,6 +5,7 @@ const ProjectCardData = [
     title: 'LearnHub платформа',
     description:
       'Project description consectetur adipscing elit, sed do eiusmod tempor incididunt ut labore et ddolore magna aliqua',
+    department: ['Ux/Ui', 'Front-end', 'Marketing', 'Back-end', 'QA'],
   },
   {
     id: 1,
@@ -12,6 +13,7 @@ const ProjectCardData = [
     title: 'LinkMe',
     description:
       'Project description consectetur adipscing elit, sed do eiusmod tempor incididunt ut labore et ddolore magna aliqua.',
+    department: ['Ux/Ui', 'Front-end', 'Marketing'],
   },
   {
     id: 2,
@@ -19,6 +21,7 @@ const ProjectCardData = [
     title: 'LinkMe',
     description:
       'Project description consectetur adipscing elit, sed do eiusmod tempor incididunt ut labore et ddolore magna aliqua.',
+    department: ['Ux/Ui', 'Front-end', 'Marketing', 'Back-end'],
   },
 ];
 

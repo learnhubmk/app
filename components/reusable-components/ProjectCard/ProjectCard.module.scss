@@ -2,21 +2,18 @@
 
 .projectCard {
   width: 33.333%;
-  border-radius: 12px;
   height: 100%;
   padding: 10px;
 
-  // @include u.breakpoint-down(medium) {
-  //   width: 50%;
-  // }
   @include u.breakpoint-down(medium) {
+    width: 50%;
+  }
+  @include u.breakpoint-down(small) {
     flex: 0 0 auto;
     min-width: 362px;
     margin: 10px;
     padding: 10px;
-    box-shadow: 0px 5px 16px rgba(0, 0, 0, 0.26);
     height: auto;
-    border-radius: 12px;
   }
 }
 .lightPrSection {
@@ -59,6 +56,7 @@
 
 .cardInnerContent {
   box-shadow: 0px 5px 16px 0px #00000026;
+  border-radius: 12px;
 }
 
 .lightProjectCard {
@@ -84,8 +82,6 @@
 }
 
 .cardCont {
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
   padding: 16px;
 }
 
@@ -116,8 +112,7 @@
   font-size: 14px;
   letter-spacing: 0.5px;
 }
-
-.cardNum {
+.cardTagHidden {
   padding: 8px 3px 8px 3px;
   font-weight: 400;
   font-size: 14px;
@@ -127,6 +122,7 @@
 .cardParticipants {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .cardParticipants button {

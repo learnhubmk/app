@@ -51,6 +51,7 @@ const ProjectsSection = ({ cards }: Props) => {
                 imageUrl={card.imageUrl}
                 title={card.title}
                 description={card.description}
+                department={card.department}
               />
             ))}
           </div>
