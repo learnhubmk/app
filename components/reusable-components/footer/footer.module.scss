@@ -76,7 +76,6 @@
 
 .newsletterSection {
   flex: 1.3;
-  height: 94px;
   font-size: 12px;
   align-items: center;
   position: relative;
@@ -100,7 +99,8 @@
   border-radius: 10px;
   color: var(--text-color);
   padding: 20px;
-  min-width: 380px;
+  width: 380px;
+  max-width: 380px;
   height: 54px;
   font-size: 16px;
   font-weight: 400;
@@ -128,59 +128,6 @@
   height: 48px;
 }
 
-.notification {
-  background-color: var(--blog-card-bg);
-  border: 1px solid var(--blog-card-bg);
-  color: var(--bg-color);
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-.timerBar {
-  height: 5px;
-  background-color: rgb(54, 170, 31);
-  padding-bottom: 2px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  transition: width 1s linear;
-}
-.successMessage {
-  color: var(--bg-color);
-  text-transform: capitalize;
-  text-align: center;
-  font-weight: 200;
-  display: block;
-  height: 53px;
-  font-size: 20px;
-  animation: appear 1s ease forwards;
-  position: fixed;
-  margin-bottom: 5px;
-  margin-right: 20px;
-  padding-inline: 24px;
-  padding-top: 12px;
-  bottom: 20px;
-  right: 20px;
-}
-.errorMessage {
-  color: var(--bg-color);
-  text-transform: capitalize;
-  text-align: center;
-  font-weight: 200;
-  display: block;
-  height: 53px;
-  font-size: 20px;
-  animation: appear 0.5s ease forwards;
-  position: fixed;
-  margin-bottom: 5px;
-  margin-right: 20px;
-  padding-inline: 24px;
-  padding-top: 12px;
-  bottom: 20px;
-  right: 20px;
-}
 
 @media (max-width: 1440px) {
   .footerLogo {
@@ -362,5 +309,8 @@
     & p {
       margin-bottom: 20px;
     }
+  }
+  .newsletterSection input {
+    width: 320px;
   }
 }
