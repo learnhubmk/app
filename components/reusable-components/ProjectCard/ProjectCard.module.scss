@@ -6,14 +6,19 @@
   height: 100%;
   padding: 10px;
 
+  // @include u.breakpoint-down(medium) {
+  //   width: 50%;
+  // }
   @include u.breakpoint-down(medium) {
-    width: 50%;
-  }
-  @include u.breakpoint-down(small) {
-    max-width: 100%;
+    flex: 0 0 auto;
+    min-width: 362px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0px 5px 16px rgba(0, 0, 0, 0.26);
+    height: auto;
+    border-radius: 12px;
   }
 }
-
 .lightPrSection {
   background-color: var(--white-color);
 }

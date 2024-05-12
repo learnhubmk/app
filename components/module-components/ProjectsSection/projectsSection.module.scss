@@ -12,8 +12,14 @@
   margin: 0 auto;
 }
 .carouselContainer {
-  backface-visibility: hidden;
-  touch-action: pan-y;
+  // backface-visibility: hidden;
+  // touch-action: pan-y;
+  @include u.breakpoint-down(medium) {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .projectContainer {
   width: 100%;
@@ -21,8 +27,11 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto;
-  @include u.breakpoint-down(small) {
+
+  @include u.breakpoint-down(medium) {
     flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 20px;
   }
 }
 
