@@ -43,10 +43,11 @@ const ProjectsSection = ({ cards }: Props) => {
 
         <div className={style.carouselContainer} ref={emblaRef}>
           <div className={style.projectContainer}>
-            {cards.map((card) => (
+            {cards.map((card, index) => (
               <ProjectCard
                 id={card.id}
-                key={card.id}
+                // eslint-disable-next-line react/no-array-index-key
+                key={`${card.id}-${index}`}
                 imageUrl={card.imageUrl}
                 title={card.title}
                 description={card.description}
