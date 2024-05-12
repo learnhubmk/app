@@ -19,7 +19,17 @@ const ProjectCard = ({ id, imageUrl, title, description }: ProjectCardProps) => 
       key={id}
     >
       <div className={style.cardInnerContent}>
-        <Image src={imageUrl} alt={title} width={452} height={185} />
+        <div className={style.imageWrapper}>
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            sizes="300px"
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        </div>
         <div className={style.cardCont}>
           <div className={style.cardContent}>
             <h2
