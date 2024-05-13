@@ -14,18 +14,10 @@
 
 .missionMainWhite {
   background: rgba(235, 237, 241, 1);
-
-  // @include u.breakpoint(small) {
-  //   background: none;
-  // }
 }
 
 .missionMainDark {
-  background: rgba(89, 104, 133, 1);
-
-  // @include u.breakpoint(small) {
-  //   background: none;
-  // }
+  background: rgba(235, 237, 241, 1);
 }
 
 .mvInner {
@@ -76,13 +68,11 @@
     width: 100%;
     height: 846px;
     gap: 20px;
-    // top: -44px;
+
     padding-inline: 3rem;
     left: 0;
     border: none;
     border-radius: 0;
-    // position: relative !important;
-    // height: auto !important;
   }
 
   @media (min-width: 431px) and (max-width: 1024px) {
@@ -93,6 +83,8 @@
     border-radius: 8px;
     border: 1px;
     border: none;
+    margin-top: 50%;
+    margin-bottom: 0;
   }
 
   h2 {
@@ -101,13 +93,17 @@
     line-height: 60px;
     margin: 30px 0;
 
-    @media (max-width: 425px) {
+    @media (max-width: 430px) {
       height: 37px;
       font-size: 30px;
       font-weight: 700;
       line-height: 36.57px;
       letter-spacing: -0.25px;
       text-align: left;
+    }
+
+    @media (min-width: 431px) and (max-width: 1024px) {
+      margin-top: 20%;
     }
   }
 
@@ -135,7 +131,7 @@
 }
 
 .missionTitleWhite {
-  background: var(--Elevated-elements, rgba(248, 250, 252, 1));
+  background: rgba(235, 237, 241, 1);
 
   h2 {
     color: rgba(18, 29, 54, 1) !important;
@@ -147,7 +143,7 @@
 }
 
 .missionTitleDark {
-  background: var(--Elevated-elements, rgba(54, 67, 98, 1));
+  background: rgba(54, 67, 98, 1);
 
   h2 {
     color: rgba(255, 255, 255, 1) !important;
@@ -164,23 +160,13 @@
   height: 100% !important;
   width: 100% !important;
 
-  @media (max-width: 425px) {
+  @media (max-width: 430px) {
     width: 390px;
     height: 345px;
     gap: 20px;
 
     &:nth-child(5) {
       margin-top: 50px;
-    }
-  }
-
-  @media (min-width: 431px) and (max-width: 1024px) {
-    width: 660px;
-    height: 425px;
-    gap: 20px;
-
-    &:nth-child(2) {
-      margin-top: 60px;
     }
   }
 }
@@ -209,6 +195,10 @@
   @media (min-width: 1025px) {
     display: none;
   }
+
+  @media (min-width: 431px) and (max-width: 1024px) {
+    margin-top: 20% !important;
+  }
 }
 
 .patternHorizontally {
@@ -226,8 +216,8 @@
   @media (min-width: 431px) and (max-width: 1024px) {
     display: block;
     width: 108px;
-    height: 69px;
-    left: 570px;
-    position: sticky;
+    height: 50vw;
+    left: 75vw;
+    position: relative;
   }
 }
