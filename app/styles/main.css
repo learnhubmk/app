@@ -1,0 +1,123 @@
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  line-height: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: inherit;
+}
+
+:root {
+  --fs-h1: clamp(1.75rem, 1.32531rem + 1.812vw, 3.5rem);
+  --fs-h2: clamp(1.5rem, 1.25719rem + 1.036vw, 2.5rem);
+  --fs-body: clamp(1rem, 0.87859rem + 0.518vw, 1.5rem);
+  --fs-title: clamp(1rem, 0.9393rem + 0.259vw, 1.25rem);
+  --fs-card-text: clamp(1rem, 0.96977rem + 0.129vw, 1.125rem);
+  --fs-button: clamp(1rem, 1rem + 0vw, 1rem);
+  --fs-placeholder: clamp(1rem, 1rem + 0vw, 1rem);
+  --fs-tag: clamp(0.875rem, 0.875rem + 0vw, 0.875rem);
+  --lh-h1: clamp(2.25rem, 1.70391rem + 2.33vw, 4.5rem);
+  --lh-h2: clamp(2rem, 1.57531rem + 1.812vw, 3.75rem);
+  --lh-body: clamp(1.5rem, 1.28766rem + 0.906vw, 2.375rem);
+  --lh-title: clamp(1.5rem, 1.40906rem + 0.388vw, 1.875rem);
+  --lh-card-text: clamp(1.5rem, 1.5rem + 0vw, 1.5rem);
+  --lh-button: clamp(1.25rem, 1.1893rem + 0.259vw, 1.5rem);
+  --lh-placeholder: clamp(1.5rem, 1.5rem + 0vw, 1.5rem);
+  --lh-tag: clamp(1rem, 1rem + 0vw, 1rem);
+}
+
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:visited,
+a:active {
+  color: var(--white-color);
+  text-decoration: none;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: -0.25px;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--title-color-dark);
+  font-weight: 700;
+  margin: 0px;
+  padding: 0px;
+}
+
+.light {
+  background-color: #fff !important;
+  background-color: #d9d9d9 !important;
+  color: #000 !important;
+}
+
+.dark {
+  background-color: var(--bg-color);
+  color: #fff !important;
+}
+
+:root {
+  --white-color: hsl(0, 0%, 100%);
+  --black-color: hsl(0, 0%, 0%);
+  --bg-color: hsl(240, 4%, 13%);
+  --text-color: hsl(210, 40%, 98%);
+  --error-light: hsla(3, 71%, 41%, 1);
+  --error-light-text: hsl(0, 0%, 100%);
+  --error-dark: hsla(3, 70%, 83%, 1);
+  --error-dark-text: hsla(3, 71%, 22%, 1);
+  --blog-card-bg: hsla(0, 0%, 85%, 1);
+  --member-card-bg: hsl(0, 0%, 20%);
+  --primary-btn-color: hsl(10, 94%, 63%);
+  --primary-btn-hover-color: hsl(23, 93%, 59%);
+  --primary-btn-active-color: hsl(32, 93%, 54%);
+  --secondary-btn-hover-color: hsla(222, 50%, 14%, 21%);
+  --input-border-color: hsl(241, 91%, 45%);
+  --input-text-color: hsl(240, 0.7%, 70%);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 30px;
+}
+@media (min-width: 56.25em) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 90em) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (min-width: 144em) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+} /*# sourceMappingURL=main.css.map */

@@ -1,8 +1,5 @@
 .button {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
   gap: 8px;
   border: none;
   border-radius: 8px;
@@ -20,28 +17,24 @@
   color: var(--black-color);
   transition: color 0.3s ease-in-out;
   font-family: inherit;
-
-  &:hover {
-    color: var(--primary-btn-color);
-  }
+}
+.linkButton:hover {
+  color: var(--primary-btn-color);
 }
 
 .primaryButton {
   background-color: var(--primary-btn-color);
   color: var(--text-color);
   transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: var(--primary-btn-hover-color);
-  }
-
-  &:active {
-    background-color: var(--primary-btn-active-color);
-  }
-
-  &:focus {
-    outline: none;
-  }
+}
+.primaryButton:hover {
+  background-color: var(--primary-btn-hover-color);
+}
+.primaryButton:active {
+  background-color: var(--primary-btn-active-color);
+}
+.primaryButton:focus {
+  outline: none;
 }
 
 .secondaryButton {
@@ -49,18 +42,15 @@
   color: var(--text-color);
   border: 1px solid var(--primary-btn-color);
   transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: var(--secondary-btn-hover-color);
-  }
-
-  &:active {
-    background-color: var(--primary-btn-color);
-  }
-
-  &:focus {
-    outline: none;
-  }
+}
+.secondaryButton:hover {
+  background-color: var(--secondary-btn-hover-color);
+}
+.secondaryButton:active {
+  background-color: var(--primary-btn-color);
+}
+.secondaryButton:focus {
+  outline: none;
 }
 
 .tertiaryButton {
@@ -86,4 +76,4 @@
 
 .linkButton:hover .rotateIcon {
   transform: rotate(45deg);
-}
+} /*# sourceMappingURL=button.module.css.map */
