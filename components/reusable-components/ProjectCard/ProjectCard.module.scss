@@ -16,6 +16,31 @@
     height: auto;
   }
 }
+
+.cardInner {
+  box-shadow: 0px 5px 16px 0px #00000026;
+  border-radius: 12px;
+}
+
+.cardContent {
+  padding: 16px;
+}
+
+.imageWrapper {
+  width: 100%;
+  position: relative;
+  height: 185px;
+
+  @include u.breakpoint-down(small) {
+    height: 150px;
+  }
+
+  img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+}
+
 .lightPrSection {
   background-color: var(--white-color);
 }
@@ -54,35 +79,12 @@
   color: var(--clr-text-dark-mode);
 }
 
-.cardInnerContent {
-  box-shadow: 0px 5px 16px 0px #00000026;
-  border-radius: 12px;
-}
-
 .lightProjectCard {
   background-color: var(--text-color);
   box-shadow: hsla(0, 0%, 0%, 0.15);
 }
 .darkProjectCard {
   background-color: var(--clr-elevated-elements-dark-mode);
-}
-.imageWrapper {
-  width: 100%;
-  position: relative;
-  height: 185px;
-
-  @include u.breakpoint-down(small) {
-    height: 150px;
-  }
-
-  img {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-  }
-}
-
-.cardCont {
-  padding: 16px;
 }
 
 .cardTitle {
@@ -103,28 +105,25 @@
 .cardTags {
   display: flex;
   gap: 8px;
-}
-.cardTag {
-  border-radius: 20px;
-  border: 1px solid hsla(215, 20%, 65%, 1);
-  padding: 8px 16px 8px 16px;
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
-.cardTagHidden {
-  padding: 8px 3px 8px 3px;
-  font-weight: 400;
-  font-size: 14px;
-  color: hsla(0, 0%, 56%, 1);
-  letter-spacing: 0.25px;
+
+  .cardTag {
+    border-radius: 20px;
+    border: 1px solid hsla(215, 20%, 65%, 1);
+    padding: 8px 16px 8px 16px;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+  .cardTagHidden {
+    padding: 8px 3px 8px 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: hsla(0, 0%, 56%, 1);
+    letter-spacing: 0.25px;
+  }
 }
 .cardParticipants {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-}
-
-.cardParticipants button {
-  text-decoration: underline;
 }
