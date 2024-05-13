@@ -1,68 +1,117 @@
 @use '../../../app/styles/utils' as u;
 
-.hero {
-  display: flex;
-  flex-direction: column;
-  margin: 80px 0px;
-  text-align: center;
-  max-width: 100%;
-  @include u.breakpoint(medium) {
-    flex-direction: row;
-    margin: 140px 200px;
-    gap: 52px;
-    text-align: left;
-  }
+.darkHeroSection {
+  background: linear-gradient(180deg, rgba(40, 62, 81, 1) 0%, rgba(18, 29, 54, 1) 100%);
 
-  .heroLeftContainer {
+  @include u.breakpoint(medium) {
+    background: linear-gradient(
+      90deg,
+      rgba(40, 62, 81, 1) 0%,
+      rgba(40, 62, 81, 1) 50%,
+      rgba(18, 29, 54, 1) 100%
+    );
+  }
+}
+
+.lightHeroSection {
+  background: linear-gradient(
+    90deg,
+    rgba(164, 202, 241, 1) 0%,
+    rgba(222, 186, 211, 1) 50%,
+    rgba(251, 222, 192, 1) 100%
+  );
+}
+
+.heroSection {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+
+  .hero {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-inline: 24px;
+    margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
+    text-align: center;
+    max-width: 100%;
 
     @include u.breakpoint(medium) {
-      align-items: flex-start;
-      width: 848px;
+      flex-direction: row;
+      gap: 3.25rem;
+      text-align: left;
     }
 
-    .heroTitle {
-      font-size: 28px;
-      line-height: 32px;
+    .heroLeftContainer {
+      display: flex;
+      flex-direction: column;
+      margin-inline: 1.5rem;
+
+      @include u.breakpoint(small) {
+        align-items: center;
+      }
 
       @include u.breakpoint(medium) {
-        font-size: 56px;
-        line-height: 72px;
+        align-items: flex-start;
+        width: 54%;
+        margin-inline: 0;
+      }
+
+      .heroText {
+        font-size: var(--fs-body);
+        line-height: var(--lh-body);
+        margin-top: 1.25rem;
+        margin-bottom: 2rem;
+
+        @include u.breakpoint(medium) {
+          letter-spacing: 0.1px;
+          margin-top: 2rem;
+          margin-bottom: 5.25rem;
+        }
       }
     }
+  }
 
-    .heroText {
-      font-size: 16px;
-      line-height: 24px;
-      margin-top: 20px;
-      margin-bottom: 32px;
-      @include u.breakpoint(medium) {
-        font-size: 24px;
-        line-height: 38px;
-        letter-spacing: 0.1px;
-        margin-top: 32px;
-        margin-bottom: 84px;
-      }
+  .heroPictureContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    @include u.breakpoint(medium) {
+      display: block;
+      width: 44%;
+    }
+
+    @include u.breakpoint(xlarge) {
+      display: flex;
     }
 
     .heroImage {
-      max-width: 100%;
-      margin-top: 44px;
-    }
-  }
-}
-.heroPictureContainer {
-  margin: auto;
-  .heroImage {
-    width: 620px;
-    height: 450px;
-
-    @media (max-width: 450px) {
       width: 100%;
-      height: 100%;
+      max-width: 27rem;
+      height: auto;
+      margin-top: 3.5rem;
+
+      @include u.breakpoint(medium) {
+        width: 100%;
+        max-width: 38.75rem;
+        height: auto;
+        margin-top: 0;
+      }
+    }
+
+    .mobile {
+      display: block;
+
+      @include u.breakpoint(medium) {
+        display: none;
+      }
+    }
+
+    .desktop {
+      display: none;
+
+      @include u.breakpoint(medium) {
+        display: block;
+      }
     }
   }
 }
