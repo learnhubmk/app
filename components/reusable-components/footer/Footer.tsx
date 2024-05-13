@@ -11,7 +11,6 @@ import { useTheme } from '../../../app/context/themeContext';
 import SubmitNewsletterForm, { submitNewsletterForm } from './SubmitNewsletterForm';
 import styles from './footer.module.scss';
 import TextInput from '../text-input/TextInput';
-import logolight from '../../../public/logo/logo-white.svg';
 import logodark from '../../../public/logo/logo-black.svg';
 import SocialMediaLinks from './SocialMediaIcons';
 
@@ -57,16 +56,15 @@ const Footer: React.FC = () => {
   });
 
   return (
-    <footer className={`${styles.footerWrapper} `}>
-      <div className={`${styles.footer} ${theme}`}>
+    <footer
+      className={`${styles.footerWrapper} ${theme === 'light' ? styles.lightBackground : styles.darkBackground}`}
+    >
+      <div
+        className={`${styles.footer} ${theme === 'light' ? styles.lightBackground : styles.darkBackground}`}
+      >
         <form onSubmit={formik.handleSubmit}>
           <div className={`display-s ${styles.footerLogo}`}>
-            <Image
-              src={theme === 'light' ? logolight : logodark}
-              alt="LearnHub Logo"
-              width={208}
-              height={48}
-            />
+            <Image src={logodark} alt="LearnHub Logo" width={208} height={48} />
           </div>
 
           <div className={`${styles.middleSection}`}>
