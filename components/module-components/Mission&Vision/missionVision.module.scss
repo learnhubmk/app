@@ -202,6 +202,10 @@
   position: absolute;
   left: -35px;
 
+  &:nth-child(1) {
+    top: 0;
+  }
+
   @media (min-width: 1025px) {
     display: none;
   }
@@ -212,11 +216,11 @@
     display: none;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 430px) {
     width: 108px;
-    height: 50px;
-    left: 429px;
-    position: sticky;
+    bottom: 0%;
+    left: 80%;
+    position: relative;
   }
 
   @media (min-width: 431px) and (max-width: 1024px) {
