@@ -14,8 +14,8 @@ const Home = () => {
         text="Овозможете си да достигнете нови височини, развивајќи и споделувајќи вештини cо заедница од ентузијасти и професионалци. Со LearnHub, вие не сте само дел  
         од заедница; вие градите иднина."
       />
-      <PerkCards />
       <InfiniteCarousel />
+      <PerkCards />
       <Newsletter />
       {/* <MemberList /> */}
       <FAQ data={FAQ_DUMMY_DATA} />
