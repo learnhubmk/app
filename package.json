@@ -21,7 +21,7 @@
     "bootstrap-icons": "^1.11.3",
     "embla-carousel": "^8.0.0",
     "embla-carousel-react": "^8.0.0",
-    "formik": "^2.4.5",
+    "formik": "^2.4.6",
     "framer-motion": "^11.0.22",
     "next": "14.1.1",
     "npm": "^10.5.0",

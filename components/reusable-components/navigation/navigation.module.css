@@ -1,0 +1,111 @@
+.navigationLogo {
+  margin-left: 50px;
+  color: var(--text-color);
+  width: 6.3em;
+  height: 1.22em;
+  top: 1.56em;
+  left: 2.36em;
+}
+@media (max-width: 768px) {
+  .navigationLogo {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.menuElements {
+  align-items: center;
+  display: flex;
+}
+
+.menuElementsNav {
+  margin-right: 70px;
+  display: flex;
+  list-style: none;
+  padding: 0px;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.largeNavbar {
+  padding: 40px;
+  padding-inline: 0;
+}
+
+.animate {
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.moveRight {
+  transform: translateX(35px);
+}
+
+.themeBackgroundSize {
+  width: 64px;
+  height: 36px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  margin-right: 3rem;
+}
+@media (max-width: 768px) {
+  .themeBackgroundSize {
+    width: 4rem;
+    height: 2rem;
+    margin-right: auto;
+    margin-left: 30px;
+  }
+}
+
+.themeBackgroundDark {
+  background-color: white;
+  box-shadow: inset 0px 0px 3px 1px rgb(161, 161, 161);
+}
+.themeBackgroundDark .ellipse1 {
+  margin-left: 5px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #000000;
+}
+
+.themeBackgroundLight {
+  background-color: #2a2a2d;
+  box-shadow: inset 0px 0px 3px 1px rgb(180, 180, 129);
+}
+.themeBackgroundLight .ellipse {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.themeLight {
+  background-color: white !important;
+  color: var(--bg-color) !important;
+}
+.themeLight .menuElements {
+  color: var(--bg-color) !important;
+}
+
+.themeDark {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+.themeDark .menuElements {
+  color: var(--text-color) !important;
+}
+
+.customImageClass {
+  margin-left: 8px;
+}
+
+.customImageClass1 {
+  transform: translateX(-15px);
+} /*# sourceMappingURL=navigation.module.css.map */
