@@ -114,7 +114,7 @@
   border-radius: 10px;
   color: var(--text-color);
   padding: 20px;
-  width: 380px;
+  width: 100%;
   max-width: 380px;
   height: 54px;
   font-size: 16px;
@@ -142,6 +142,10 @@
   top: 10px;
   width: 131px;
   height: 48px;
+}
+
+.inputContainer{
+  width: 100%;
 }
 
 @media (max-width: 1440px) {
@@ -183,9 +187,8 @@
       margin-bottom: 20px;
     }
   }
-
   .newsletterSection input {
-    max-width: auto;
+    width: 100%;
   }
 }
 
@@ -238,6 +241,9 @@
       margin-bottom: 20px;
     }
   }
+  .newsletterSection input {
+    width: 100%;
+  }
 }
 
 @media (max-width: 680px) {
@@ -263,6 +269,9 @@
     & p {
       margin-bottom: 0px;
     }
+    .newsletterSection input {
+      width: 100%;
+    }
   }
 
   .socialMediaSection {
@@ -286,6 +295,9 @@
     & p {
       margin-bottom: 20px;
     }
+  }
+  .newsletterSection input {
+    width: 100%;
   }
 }
 
@@ -324,6 +336,9 @@
     & p {
       margin-bottom: 1em;
     }
+    .newsletterSection input {
+      width: 100%;
+    }
   }
 
   .newsletterSection {
@@ -337,7 +352,7 @@
     }
   }
   .newsletterSection input {
-    width: 320px;
+    width: 100%;
   }
 }
 
@@ -391,6 +406,6 @@
     }
   }
   .newsletterSection input {
-    width: 320px;
+    width: 100%;
   }
 }
