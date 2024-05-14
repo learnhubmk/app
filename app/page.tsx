@@ -2,10 +2,8 @@ import Hero from '../components/module-components/hero/Hero';
 import InfiniteCarousel from '../components/module-components/infinitie-carousel/InfiniteCarousel';
 import PerkCards from '../components/module-components/Perk-Cards/PerkCards';
 import FAQ from '../components/module-components/FAQ/FAQ';
-import Contact from '../components/module-components/Contact/Contact';
-
-import PerkCardsData from '../components/module-components/Perk-Cards/PerkCardsData';
 import FAQ_DUMMY_DATA from '../data/FAQ';
+import Contact from '../components/module-components/Contact/Contact';
 
 const Home = () => {
   return (
@@ -16,7 +14,7 @@ const Home = () => {
         од заедница; вие градите иднина."
       />
       <InfiniteCarousel />
-      <PerkCards data={PerkCardsData} />
+      <PerkCards />
       {/* <MemberList /> */}
       <FAQ data={FAQ_DUMMY_DATA} />
       <Contact />

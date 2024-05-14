@@ -37,7 +37,8 @@
       2,
       { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
     ],
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "import/no-cycle": "off"
   },
   "settings": {
     "react": {
