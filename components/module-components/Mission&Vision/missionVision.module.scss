@@ -7,8 +7,8 @@
   gap: 15rem;
   width: 100%;
   height: 100vh;
-  margin-top: 50px;
-  min-height: 600px !important;
+  margin-top: 3.125rem;
+  min-height: 37.5rem !important;
 }
 
 .missionMainWhite {
@@ -17,6 +17,10 @@
 
 .missionMainDark {
   background: rgba(235, 237, 241, 1);
+
+  @media (max-width: 1025px) {
+    background: rgba(54, 67, 98, 1);
+  }
 }
 
 .mvInner {
@@ -33,7 +37,7 @@
 
 .mvLeftSide {
   flex: 0 0 65%;
-  object-fit: 'cover';
+  object-fit: cover;
 }
 
 .mvRightSide {
@@ -53,21 +57,21 @@
 }
 
 .missionTitle {
-  padding: 0 64px 42px 64px;
-  gap: 24px;
-  border-radius: 8px;
-  border: 1px solid rgba(148, 163, 184, 1);
+  padding: 0 4rem 2.625rem 4rem;
+  border-radius: 0.5rem;
+  border: 0.063rem solid rgba(148, 163, 184, 1);
   position: absolute;
-  left: 45%;
-  width: 600px;
-  height: auto;
-  min-height: 400px;
+  left: 50%;
+  width: 45vw;
+  height: 50vw;
+  min-height: 25rem;
+  max-width: 100%;
+  overflow: hidden;
 
   @media (max-width: 430px) {
     width: 100%;
-    height: 846px;
-    gap: 20px;
-
+    height: 53.25rem;
+    gap: 1.25rem;
     padding-inline: 3rem;
     left: 0;
     border: none;
@@ -79,7 +83,7 @@
     height: 100vh;
     top: auto;
     left: auto;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     border: 1px;
     border: none;
     margin-top: 50%;
@@ -87,18 +91,19 @@
   }
 
   h2 {
-    font-size: 40px;
+    font-size: 2.25rem;
     font-weight: 700;
-    line-height: 60px;
-    margin: 30px 0;
+    line-height: var(--lh-body);
+    margin: 2rem 0;
 
     @media (max-width: 430px) {
-      height: 37px;
-      font-size: 30px;
+      height: 2.313rem;
+      font-size: 1.875rem;
       font-weight: 700;
-      line-height: 36.57px;
-      letter-spacing: -0.25px;
+      line-height: 2.285rem;
+      letter-spacing: -0.015625rem;
       text-align: left;
+      
     }
 
     @media (min-width: 431px) and (max-width: 1024px) {
@@ -108,17 +113,17 @@
 
   p {
     font-style: normal;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.1px;
+    line-height: var(-lh-card-text);
+    letter-spacing: 0.00625rem;
     height: fit-content !important;
 
     @media (max-width: 425px) {
-      height: 288px;
-      font-size: 16px;
+      height: 18rem;
+      font-size: 1rem;
       font-weight: 500;
-      line-height: 24px;
+      line-height: 1.5rem;
     }
   }
 }
@@ -133,11 +138,11 @@
   background: rgba(235, 237, 241, 1);
 
   h2 {
-    color: rgba(18, 29, 54, 1) !important;
+    color: rgba(18, 29, 54, 1);
   }
 
   p {
-    color: rgba(71, 85, 105, 1) !important;
+    color: rgba(71, 85, 105, 1);
   }
 }
 
@@ -145,12 +150,12 @@
   background: rgba(54, 67, 98, 1);
 
   h2 {
-    color: rgba(255, 255, 255, 1) !important;
+    color: rgba(255, 255, 255, 1);
     background: var(--Elevated-elements, rgba(54, 67, 98, 1));
   }
 
   p {
-    color: rgba(255, 255, 255, 1) !important;
+    color: rgba(255, 255, 255, 1);
     background: var(--Elevated-elements, rgba(54, 67, 98, 1));
   }
 }
@@ -160,20 +165,16 @@
   width: 100% !important;
 
   @media (max-width: 430px) {
-    width: 390px;
-    height: 345px;
-    gap: 20px;
-
-    &:nth-child(5) {
-      margin-top: 50px;
-    }
+    width: 24.375rem;
+    height: 21.563rem;
+    gap: 1.25rem;
   }
 }
 
 .missionPattern {
   left: 100%;
-  object-fit: 'cover';
-  padding-block: 1.2rem;
+  object-fit: cover;
+  padding-block: 2.5rem;
 
   @media (max-width: 1025px) {
     display: none;
@@ -182,10 +183,10 @@
 
 .mobilePattern {
   display: block;
-  width: 108.74px;
-  height: 108.74px;
+  width: 6.79688rem;
+  height: 6.79688rem;
   position: absolute;
-  left: -35px;
+  left: -2.1875rem;
 
   &:nth-child(1) {
     top: 0;
@@ -206,7 +207,7 @@
   }
 
   @media (max-width: 430px) {
-    width: 108px;
+    width: 6.75rem;
     bottom: 0%;
     left: 80%;
     position: relative;
@@ -214,7 +215,7 @@
 
   @media (min-width: 431px) and (max-width: 1024px) {
     display: block;
-    width: 108px;
+    width: 6.75rem;
     height: 50vw;
     left: 75vw;
     position: relative;
