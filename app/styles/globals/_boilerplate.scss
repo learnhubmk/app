@@ -17,3 +17,13 @@ body {
   color: var(--text-color);
   font-family: inherit;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffff !important;
+  -webkit-text-color: #ffff !important;
+  transition-delay: 9999s;
+  transition-property: background-color, color;
+}
