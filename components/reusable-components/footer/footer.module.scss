@@ -192,7 +192,7 @@
 }
 @media (max-width: 1200px) {
   .footer {
-    width: 40%;
+    width: 35%;
   }
 
   .footerLogo {
@@ -246,7 +246,7 @@
 
 @media (max-width: 1024px) {
   .footer {
-    width: 60%;
+    width: 40%;
   }
   .footerLogo {
     width: 50%;
@@ -330,7 +330,7 @@
 
 @media (max-width: 580px) {
   .footer {
-    width: 85%;
+    width: 70%;
   }
   .footerLogo {
     width: 50%;
@@ -426,7 +426,6 @@
     order: 2;
     margin-bottom: 130px;
     position: relative;
-    right: 15px;
 
     & p {
       margin-bottom: 20px;
