@@ -36,8 +36,8 @@ const ProjectsSection = ({ cards }: Props) => {
           <p
             className={`${style.projectDesc} ${lightTheme ? style.darkProjectDesc : style.lightProjectDesc}`}
           >
-            Project description consectetur adipscing elit, sed do eiusmod tempor incididunt ut
-            labore et ddolore magna aliqua.
+            Овозможете си да достигнете нови височини, развивајќи и споделувајќи вештини cо заедница
+            од ентузијасти и професионалци.
           </p>
         </div>
 

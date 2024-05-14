@@ -2,7 +2,7 @@
 
 .projectCard {
   width: 33.333%;
-  height: 100%;
+  height: auto;
   padding: 10px;
 
   @include u.breakpoint-down(medium) {
@@ -10,16 +10,17 @@
   }
   @include u.breakpoint-down(small) {
     flex: 0 0 auto;
-    min-width: 362px;
-    margin: 10px;
-    padding: 10px;
-    height: auto;
+    min-width: 300px;
   }
 }
 
 .cardInner {
   box-shadow: 0px 5px 16px 0px #00000026;
   border-radius: 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .cardContent {
@@ -100,6 +101,9 @@
   line-height: 24px;
   letter-spacing: 0.15px;
   margin-bottom: 10px;
+  @include u.breakpoint-down(small) {
+    font-size: 16px;
+  }
 }
 
 .cardTags {
@@ -125,5 +129,5 @@
 .cardParticipants {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  padding: 10px;
 }
