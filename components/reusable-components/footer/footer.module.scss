@@ -190,7 +190,6 @@
     width: 100%;
   }
 }
-
 @media (max-width: 1200px) {
   .footer {
     width: 40%;
@@ -242,6 +241,35 @@
   }
   .newsletterSection input {
     width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    width: 60%;
+  }
+  .footerLogo {
+    width: 50%;
+    align-self: flex-start;
+    margin-left: 0px;
+  }
+
+  .middleSection {
+    flex-direction: column;
+  }
+
+  .contactSection {
+    flex-wrap: wrap;
+    width: 70%;
+    margin-left: 0px;
+    order: 3;
+
+    & p {
+      margin-bottom: 0px;
+    }
+    .newsletterSection input {
+      width: 100%;
+    }
   }
 }
 
