@@ -1,8 +1,8 @@
 @use '../../../app/styles/utils' as u;
 
 .faqSection {
+  width: 100%;
   align-items: center;
-  width: 100vw;
   gap: 2rem;
 
   @include u.breakpoint(medium) {
@@ -20,7 +20,7 @@
 
 .faqContainer {
   max-width: 100%;
-  margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -0.28885rem + 7.532vw, 8.75rem);
+  margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
   gap: 1.839rem;
 
   > ul {
