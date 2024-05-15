@@ -16,7 +16,7 @@ const PerkCards = () => {
   const lightTheme = theme === 'light';
 
   return (
-    <div
+    <section
       className={`${style.perkCardsWrapper}  ${lightTheme ? style.perkContainerLight : style.perkContainerDark}`}
     >
       <div className={style.perkCardsInner}>
@@ -28,7 +28,7 @@ const PerkCards = () => {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
