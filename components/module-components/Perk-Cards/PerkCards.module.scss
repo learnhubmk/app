@@ -1,11 +1,10 @@
 .perkCardsWrapper {
   width: 100%;
   .perkCardsInner {
-    padding: 3rem 0;
+    margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
     display: flex;
     flex-wrap: wrap;
-    width: 95%;
-    margin: 0 auto;
+    gap: 1rem;
   }
 }
 
