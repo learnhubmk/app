@@ -63,7 +63,7 @@
   position: absolute;
   left: 50%;
   width: 45vw;
-  height: 50vw;
+  height: 77vh;
   min-height: 25rem;
   max-width: 100%;
   overflow: hidden;
@@ -109,7 +109,7 @@
     @media (min-width: 431px) and (max-width: 1024px) {
       margin-top: 20%;
     }
-  }
+}
 
   p {
     font-style: normal;
@@ -169,6 +169,10 @@
     height: 21.563rem;
     gap: 1.25rem;
   }
+
+  @media (min-width: 1800px) {
+   margin-top: 150px;  
+  }////////////////////////////////////////////////
 }
 
 .missionPattern {
