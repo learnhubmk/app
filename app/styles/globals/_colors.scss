@@ -3,7 +3,7 @@
   --black-color: hsl(0, 0%, 0%);
   --bg-color: hsl(240, 4%, 13%);
   --text-color: hsl(210, 40%, 98%);
-  --error-light: hsla(3, 71%, 41%, 1);
+  --error-light: hsl(3, 71%, 41%);
   --error-light-text: hsl(0, 0%, 100%);
   --error-dark: hsla(3, 70%, 83%, 1);
   --error-dark-text: hsla(3, 71%, 22%, 1);
@@ -16,6 +16,7 @@
   --input-border-color: hsl(241, 91%, 45%);
   --input-text-color: hsl(240, 0.7%, 70%);
   --titles-color: hsl(222, 50%, 14%);
+  --contact-section-bg-color: hsl(220, 20%, 44%);
 
   $clr-primary-light-mode: hsl(0, 0%, 100%);
   $clr-secondary-light-mode: hsl(31, 94%, 86%);
@@ -26,10 +27,10 @@
   $clr-tertiary-button-light-mode: hsl(0, 0%, 0%);
 
   $clr-primary-dark-mode: hsl(222, 50%, 14%);
-  $clr-secondary-dark-mode: hsl(221, 19%, 44%);
+  $clr-secondary-dark-mode: hsl(222, 19%, 44%);
   $clr-tertiary-dark-mode: hsl(222, 52%, 5%);
   $clr-text-dark-mode: hsl(0, 0%, 83%);
-  $clr-elevated-elements-dark-mode: hsl(222, 29%, 30%);
+  $clr-elevated-elements-dark-mode: hsl(221, 29%, 30%);
   $clr-titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
 
   $clr-main-button: hsl(10, 94%, 63%);

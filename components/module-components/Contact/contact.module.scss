@@ -1,93 +1,236 @@
-.contactContainer {
-  background-color: inherit;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1320px;
-  padding: 1rem 0;
-  margin-top: 7rem;
-  gap: 200px;
+@use '../../../app/styles/utils' as u;
 
-  .contactTitle {
-    font-size: 72px;
-    line-height: 80.64px;
-    letter-spacing: 0.1px;
-    text-align: left;
-    text-transform: uppercase;
+.lightContactSection {
+  background: var(--white-color);
+}
+
+.darkContactSection {
+  background: var(--contact-section-bg-color);
+}
+
+.contactSection {
+  background-image: url('../../../public/contact-section-image-mobile.png');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  width: 100vw;
+
+  @include u.breakpoint(small) {
+    background-image: url('../../../public/contact-section-image-desktop.png');
   }
 
-  .contactSection input {
-    color: var(--member-card-bg);
-    background-color: #bbbbbb;
-    border: 1px solid var(--text-color);
-    padding: 1em;
-    padding-right: 50px;
-    cursor: text;
-    width: 100%;
-    height: 60px;
-
-    &::placeholder {
-      color: var(--member-card-bg);
-    }
-  }
-
-  .contactSection input:not(:first-child) {
-    margin-top: 45px;
-  }
-
-  .contactSection textarea {
-    color: var(--member-card-bg);
-    background-color: #bbbbbb;
-    border: 1px solid var(--text-color);
-    padding: 1em;
-    padding-right: 50px;
-    width: 100%;
-    height: 120px;
-    margin-top: 45px;
-
-    &::placeholder {
-      color: var(--member-card-bg);
-    }
-  }
-
-  .focusableBorder:focus {
-    border-color: var(--input-text-color) !important;
-    outline: none;
-  }
-
-  .errorInput {
-    border-color: var(--error-light) !important;
-  }
-
-  .contactButton {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    border: 1px solid var(--text-color);
-    cursor: pointer;
-    width: 100%;
-    height: 43px;
-    margin-top: 45px;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.1px;
-    text-align: center;
+  .contact {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column-reverse;
+    margin-top: clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
+    margin-bottom: clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
+    margin-left: clamp(0rem, -2.48758rem + 9.365vw, 8.75rem);
+    margin-right: 0;
+    // margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
+    // text-align: center;
+    max-width: 100%;
+
+    @include u.breakpoint(medium) {
+      flex-direction: row;
+      gap: 10.5rem;
+    }
+
+    .contactLeftContainer {
+      // display: flex;
+      // flex-direction: column;
+      margin-inline: 1.5rem;
+      margin-bottom: clamp(25.875rem, 33.23069rem + -27.692vw, 0rem);
+
+      @include u.breakpoint(small) {
+        // align-items: center;
+      }
+
+      @include u.breakpoint(medium) {
+        // align-items: flex-start;
+        width: 37%;
+        margin-inline: 0;
+        margin-bottom: 0;
+      }
+
+      .leftTextContainer {
+        width: 96%;
+        margin-bottom: 2.5rem;
+
+        @include u.breakpoint(medium) {
+          margin-bottom: 4rem;
+        }
+
+        .leftText {
+          font-size: var(--fs-body);
+          line-height: var(--lh-body);
+          margin-top: 1.5rem;
+        }
+      }
+
+      .contactLightLabel {
+        color: var(--titles-color);
+      }
+
+      .contactDarkLabel {
+        color: var(--white-color);
+      }
+
+      .contactLabel {
+        font-size: var(--fs-title);
+        font-weight: 500;
+        line-height: var(--lh-title);
+
+        span {
+          color: var(--error-light);
+        }
+      }
+
+      .contactInput {
+        width: 100%;
+        height: 3rem;
+        background: #f8fafc;
+        border: 1px solid #94a3b8;
+        border-radius: 8px;
+        padding: 0.875rem 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        font-family: inherit;
+
+        &::placeholder {
+          color: #737373;
+          font-size: var(--fs-placeholder);
+          font-weight: 300;
+          line-height: var(--fs-placeholder);
+        }
+      }
+
+      .contactTextArea {
+        width: 100%;
+        height: 10.625rem;
+        background: #f8fafc;
+        border: 1px solid #94a3b8;
+        border-radius: 8px;
+        padding: 0.875rem 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        font-family: inherit;
+
+        &::placeholder {
+          color: #737373;
+          font-size: var(--fs-placeholder);
+          font-weight: 300;
+          line-height: var(--fs-placeholder);
+        }
+      }
+    }
+
+    .contactRightContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2.25rem;
+      padding: 1.5rem 0;
+      gap: 1.5rem;
+
+      @include u.breakpoint(medium) {
+        width: 63%;
+        padding: 0;
+        gap: 4rem;
+      }
+    }
   }
 }
 
-.contactError {
-  background-color: var(--bg-color);
-  padding-top: 8px;
-  padding-right: 100px;
-  padding-left: 1em;
-  padding-bottom: 0px;
-  color: var(--error-dark);
-  position: absolute;
-  text-align: center;
-  display: block;
-  font-size: 14px;
-  animation: appear 1s ease forwards;
-}
+// .contactContainer {
+//   background-color: inherit;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   width: 100%;
+//   max-width: 1320px;
+//   padding: 1rem 0;
+//   margin-top: 7rem;
+//   gap: 200px;
+
+//   .contactTitle {
+//     font-size: 72px;
+//     line-height: 80.64px;
+//     letter-spacing: 0.1px;
+//     text-align: left;
+//     text-transform: uppercase;
+//   }
+
+//   .contactSection input {
+// color: var(--member-card-bg);
+// background-color: #bbbbbb;
+// border: 1px solid var(--text-color);
+// padding: 1em;
+// padding-right: 50px;
+// cursor: text;
+// width: 100%;
+// height: 60px;
+
+//     &::placeholder {
+//       color: var(--member-card-bg);
+//     }
+//   }
+
+//   .contactSection input:not(:first-child) {
+//     margin-top: 45px;
+//   }
+
+//   .contactSection textarea {
+//     color: var(--member-card-bg);
+//     background-color: #bbbbbb;
+//     border: 1px solid var(--text-color);
+//     padding: 1em;
+//     padding-right: 50px;
+//     width: 100%;
+//     height: 120px;
+//     margin-top: 45px;
+
+//     &::placeholder {
+//       color: var(--member-card-bg);
+//     }
+//   }
+
+//   .focusableBorder:focus {
+//     border-color: var(--input-text-color) !important;
+//     outline: none;
+//   }
+
+//   .errorInput {
+//     border-color: var(--error-light) !important;
+//   }
+
+//   .contactButton {
+//     background-color: var(--text-color);
+//     color: var(--bg-color);
+//     border: 1px solid var(--text-color);
+//     cursor: pointer;
+//     width: 100%;
+//     height: 43px;
+//     margin-top: 45px;
+//     font-size: 16px;
+//     font-weight: 500;
+//     letter-spacing: 0.1px;
+//     text-align: center;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+// }
+
+// .contactError {
+//   background-color: var(--bg-color);
+//   padding-top: 8px;
+//   padding-right: 100px;
+//   padding-left: 1em;
+//   padding-bottom: 0px;
+//   color: var(--error-dark);
+//   position: absolute;
+//   text-align: center;
+//   display: block;
+//   font-size: 14px;
+//   animation: appear 1s ease forwards;
+// }

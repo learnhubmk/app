@@ -42,6 +42,15 @@ const Button = ({
       <div className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}>
         {icon && <div className={`${rotateIcon && styles.rotateIcon}`}>{icon}</div>} {buttonText}
       </div>
+    )) ||
+    (type === 'submit' && (
+      <button
+        type="submit"
+        className={`${styles.button} ${setClass(buttonClass, styles)}`}
+        // onClick={onClick}
+      >
+        {buttonText} {icon && <div>{icon}</div>}
+      </button>
     ))
   );
 };

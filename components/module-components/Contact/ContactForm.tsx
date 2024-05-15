@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,19 +9,22 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import style from './contact.module.scss';
 import { ContactFormData, submitContactForm } from './SubmitContactForm';
+import Button from '../../reusable-components/button/Button';
 
 interface ContactFormProps {
   inputClassName: string;
   textareaClassName: string;
-  buttonClassName: string;
+  // buttonClassName: string;
   cfTurnstileResponse: string;
+  labelClassName: string;
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
   inputClassName,
-  buttonClassName,
+  // buttonClassName,
   textareaClassName,
   cfTurnstileResponse,
+  labelClassName,
 }) => {
   const contactEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -60,7 +65,11 @@ const ContactForm: React.FC<ContactFormProps> = ({
     <div>
       <ToastContainer />
       <form onSubmit={formik.handleSubmit}>
+        <label htmlFor="fullName" className={labelClassName}>
+          Име и презиме <span>*</span>
+        </label>
         <input
+          id="fullName"
           type="text"
           placeholder="Внесете го Вашето име"
           className={`${inputClassName} ${style.focusableBorder} ${
@@ -73,7 +82,11 @@ const ContactForm: React.FC<ContactFormProps> = ({
         {formik.touched.username && formik.errors.username && (
           <div className={style.contactError}>{formik.errors.username}</div>
         )}
+        <label htmlFor="email" className={labelClassName}>
+          E-mail <span>*</span>
+        </label>
         <input
+          id="email"
           type="email"
           placeholder="Внесете ја Вашата емаил адреса"
           className={`${inputClassName} ${style.focusableBorder} ${
@@ -86,8 +99,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
         {formik.touched.email && formik.errors.email && (
           <div className={style.contactError}>{formik.errors.email}</div>
         )}
+        <label htmlFor="message" className={labelClassName}>
+          Твојата порака <span>*</span>
+        </label>
         <textarea
-          placeholder="Порака"
+          id="message"
+          placeholder="What tickles your brain?"
           className={`${textareaClassName} ${style.focusableBorder} ${
             formik.touched.message && formik.errors.message ? style.errorInput : ''
           }`}
@@ -98,8 +115,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
         {formik.touched.message && formik.errors.message && (
           <div className={style.contactError}>{formik.errors.message}</div>
         )}
-
-        <button type="submit" className={`${buttonClassName} ${style.contactButton}`}>
+        <Button href="" type="submit" buttonClass={['primaryButton']} buttonText="Испрати" />
+        {/* <button type="submit" className={`${buttonClassName} ${style.contactButton}`}>
           <span> Испрати </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +131,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
               fill="black"
             />
           </svg>
-        </button>
+        </button> */}
       </form>
     </div>
   );

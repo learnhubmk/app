@@ -1,3 +1,5 @@
+@use '../../../app/styles/utils' as u;
+
 .button {
   display: flex;
   justify-content: center;
@@ -11,19 +13,32 @@
   font-weight: 700;
   line-height: 20px;
   cursor: pointer;
+
+  @include u.breakpoint(medium) {
+    width: auto;
+  }
+}
+
+.lightLink {
+  color: var(--primary-btn-color);
+
+  &:hover {
+    color: var(--primary-btn-hover-color);
+  }
+
+  &:active {
+    color: var(--primary-btn-active-color);
+  }
 }
 
 .linkButton {
   display: flex;
   gap: 8px;
   text-decoration: none;
-  color: var(--black-color);
-  transition: color 0.3s ease-in-out;
+  font-size: var(--fs-body);
+  line-height: var(--lh-card-text);
   font-family: inherit;
-
-  &:hover {
-    color: var(--primary-btn-color);
-  }
+  transition: color 0.3s ease-in-out;
 }
 
 .primaryButton {
