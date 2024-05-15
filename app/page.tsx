@@ -7,7 +7,6 @@ import Newsletter from '../components/reusable-components/newsletter/Newsletter'
 import FAQ from '../components/module-components/FAQ/FAQ';
 import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/Contact/Contact';
-import { CaptchaTokenProvider } from './context/CaptchaTokenContext';
 
 const Home = () => {
   return (
@@ -22,9 +21,7 @@ const Home = () => {
       <Newsletter />
       {/* <MemberList /> */}
       <FAQ data={FAQ_DUMMY_DATA} />
-      <CaptchaTokenProvider>
-        <Contact />
-      </CaptchaTokenProvider>
+      <Contact />
     </>
   );
 };

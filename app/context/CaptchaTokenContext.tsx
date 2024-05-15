@@ -23,7 +23,10 @@ export const CaptchaTokenProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [hasRenderedWidget, setHasRenderedWidget] = useState<boolean>(false);
 
   const setToken = (token: string | null) => {
-    setCaptchaToken(token);
+    if (!hasRenderedWidget) {
+      console.log('Captcha work');
+      setCaptchaToken(token);
+    }
   };
 
   useEffect(() => {
