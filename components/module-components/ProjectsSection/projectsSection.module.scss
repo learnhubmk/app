@@ -30,11 +30,11 @@
 }
 
 .lightPrSection {
-  background-color: var(--white-color);
+  background: white;
 }
 
 .darkPrSection {
-  background-color: var(--clr-tertiary-light-mode);
+  background: #121d36;
 }
 
 .projectText {
@@ -59,11 +59,11 @@
 }
 
 .darkProjectTitle {
-  color: var(--clr-tertiary-light-mode);
+  color: white;
 }
 
 .lightProjectTitle {
-  color: var(--white-color);
+  color: #121d36;
 }
 
 .projectDesc {
@@ -82,9 +82,9 @@
 }
 
 .darkProjectDesc {
-  color: var(--clr-text-light-mode);
+  color: #d4d4d4;
 }
 
 .lightProjectDesc {
-  color: var(--clr-text-dark-mode);
+  color: #475569;
 }

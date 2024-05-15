@@ -42,50 +42,8 @@
   }
 }
 
-.lightPrSection {
-  background-color: var(--white-color);
-}
-.darkPrSection {
-  background-color: var(--clr-tertiary-light-mode);
-}
-
-.projectText {
-  width: 48.75rem;
-  gap: 1.5rem;
-}
-
-.projectTitle {
-  font-weight: 700;
-  size: 2.5rem;
-  line-height: 3.75rem;
-}
-.darkProjectTitle {
-  color: var(--clr-tertiary-light-mode);
-}
-
-.lightProjectTitle {
-  color: var(--white-color);
-}
-.projectDesc {
-  gap: 0.75rem;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 2.375rem;
-}
-.darkProjectDesc {
-  color: var(--clr-text-light-mode);
-}
-
-.lightProjectDesc {
-  color: var(--clr-text-dark-mode);
-}
-
-.lightProjectCard {
-  background-color: var(--text-color);
-  box-shadow: hsla(0, 0%, 0%, 0.15);
-}
 .darkProjectCard {
-  background-color: var(--clr-elevated-elements-dark-mode);
+  background: #364362;
 }
 
 .cardTitle {

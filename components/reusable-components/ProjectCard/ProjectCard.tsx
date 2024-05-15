@@ -13,13 +13,10 @@ export interface ProjectCardProps {
 
 const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCardProps) => {
   const { theme } = useTheme();
-  const lightTheme = theme === 'light';
+  const darkTheme = theme === 'dark';
   return (
-    <div
-      className={`${style.projectCard} ${lightTheme ? style.lightProjectCard : style.darkProjectCard}`}
-      key={id}
-    >
-      <div className={style.cardInner}>
+    <div className={style.projectCard} key={id}>
+      <div className={`${style.cardInner} ${darkTheme ? style.darkProjectCard : ''}`}>
         <div>
           <div className={style.imageWrapper}>
             <Image
@@ -33,16 +30,8 @@ const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCa
             />
           </div>
           <div className={style.cardContent}>
-            <h2
-              className={`${style.cardTitle} ${lightTheme ? style.darkProjectTitle : style.lightProjectTitle}`}
-            >
-              {title}
-            </h2>
-            <p
-              className={`${style.cardDesc} ${lightTheme ? style.darkProjectDesc : style.lightProjectDesc}`}
-            >
-              {description}
-            </p>
+            <h2 className={style.cardTitle}>{title}</h2>
+            <p className={style.cardDesc}>{description}</p>
             <div className={style.cardTags}>
               {department.slice(0, 2).map((item, index) => (
                 // eslint-disable-next-line react/no-array-index-key

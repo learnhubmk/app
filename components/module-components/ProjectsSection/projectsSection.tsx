@@ -29,12 +29,12 @@ const ProjectsSection = ({ cards }: Props) => {
       <div className={style.projectCardsWrapper}>
         <div className={style.projectText}>
           <h1
-            className={`${style.projectTitle} ${lightTheme ? style.darkProjectTitle : style.lightProjectTitle}`}
+            className={`${style.projectTitle} ${lightTheme ? style.lightProjectTitle : style.darkProjectTitle}`}
           >
             Проекти
           </h1>
           <p
-            className={`${style.projectDesc} ${lightTheme ? style.darkProjectDesc : style.lightProjectDesc}`}
+            className={`${style.projectDesc} ${lightTheme ? style.lightProjectDesc : style.darkProjectDesc}`}
           >
             Овозможете си да достигнете нови височини, развивајќи и споделувајќи вештини cо заедница
             од ентузијасти и професионалци.
