@@ -11,9 +11,7 @@
   }
 
   .perkCardInner {
-    border: 1px solid #94a3b8;
     height: 120px;
-    background-color: #f8fafc;
     padding: 16px;
     border-radius: 8px;
     display: flex;
@@ -25,7 +23,7 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
-  color: #121d36;
+
   width: 80%;
   @include u.breakpoint-down(medium) {
     font-size: 16px;
@@ -39,4 +37,15 @@
   @include u.breakpoint-down(medium) {
     width: 25%;
   }
+}
+
+.perkCardLight {
+  background-color: #f8fafc;
+  border: 1px solid #94a3b8;
+  color: #121d36;
+}
+
+.perkCardDark {
+  background: #364362;
+  color: white;
 }
