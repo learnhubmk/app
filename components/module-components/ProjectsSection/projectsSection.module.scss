@@ -2,14 +2,12 @@
 
 .projectSection {
   width: 100%;
-  padding: 3rem 0;
 }
 
 .projectCardsWrapper {
-  width: 90%;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
 }
 .carouselContainer {
   display: flex;
@@ -20,12 +18,10 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
+  gap: 1rem;
 
-  @include u.breakpoint-down(small) {
+  @include u.breakpoint-down(medium) {
     flex-wrap: nowrap;
-    gap: 20px;
   }
 }
 
@@ -49,13 +45,9 @@
 
 .projectTitle {
   font-weight: 700;
-  font-size: 2.5rem;
-  line-height: 3.75rem;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
   margin-bottom: 2rem;
-
-  @include u.breakpoint-down(small) {
-    font-size: 1.5rem;
-  }
 }
 
 .darkProjectTitle {
@@ -68,16 +60,14 @@
 
 .projectDesc {
   font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 2.375rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   width: 60%;
   @include u.breakpoint-down(large) {
     width: 80%;
   }
   @include u.breakpoint-down(medium) {
     width: 90%;
-    font-size: 1rem;
-    line-height: 1.5rem;
   }
 }
 

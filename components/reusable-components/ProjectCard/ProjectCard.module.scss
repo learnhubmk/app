@@ -1,14 +1,14 @@
 @use '../../../app/styles/utils' as u;
 
 .projectCard {
-  width: 33.333%;
+  width: calc(100% / 3 - calc(1rem / 3 * 2));
   height: auto;
   padding: 10px;
 
-  @include u.breakpoint-down(medium) {
-    width: 50%;
+  @include u.breakpoint-down(large) {
+    width: calc(100% / 2 - calc(1rem / 2 * 1));
   }
-  @include u.breakpoint-down(small) {
+  @include u.breakpoint-down(medium) {
     flex: 0 0 auto;
     min-width: 300px;
   }
@@ -24,7 +24,15 @@
 }
 
 .cardContent {
-  padding: 16px;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+
+  @include u.breakpoint-down(small) {
+    padding: 16px;
+  }
 }
 
 .imageWrapper {
@@ -49,7 +57,7 @@
 .cardTitle {
   font-weight: 500;
   font-size: 20px;
-  line-height: 30px;
+  line-height: var(--lh-title);
   margin-bottom: 10px;
 }
 
@@ -87,5 +95,5 @@
 .cardParticipants {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  margin-top: 24px;
 }

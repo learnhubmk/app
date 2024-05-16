@@ -17,7 +17,7 @@ const ProjectsSection = ({ cards }: Props) => {
   const options = {
     active: true,
     breakpoints: {
-      '(min-width: 700px)': { active: false },
+      '(min-width: 900px)': { active: false },
     },
   };
   const [emblaRef] = useEmblaCarousel(options);
