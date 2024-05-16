@@ -1,17 +1,19 @@
 import React from 'react';
+import Image from 'next/image';
 import style from './PerkCard.module.scss';
+import { PerkCardsDataProps } from '../../module-components/Perk-Cards/PerkCards';
+import { useTheme } from '../../../app/context/themeContext';
 
-export interface PerkCardsData {
-  id: number;
-  perkCardText: string;
-  perkCardIcon: string;
-}
-const PerkCard = ({ perkCardText, perkCardIcon, id }: PerkCardsData) => {
+const PerkCard = ({ perkCardText, perkCardIcon }: PerkCardsDataProps) => {
+  const { theme } = useTheme();
+  const lightTheme = theme === 'light';
   return (
     <div className={style.perkCardWrapper}>
-      <div className={style.perkCardInner} key={id}>
+      <div
+        className={`${style.perkCardInner} ${lightTheme ? style.perkCardLight : style.perkCardDark}`}
+      >
         <div className={style.perkCardIcon}>
-          <img src={perkCardIcon} alt="icon" />
+          <Image src={perkCardIcon} alt="icon" className={style.icon} width={56} height={56} />
         </div>
         <p className={style.perkCardTextContent}>{perkCardText}</p>
       </div>
