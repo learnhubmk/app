@@ -13,9 +13,15 @@ import styles from './footer.module.scss';
 import TextInput from '../text-input/TextInput';
 import logodark from '../../../public/logo/logo-black.svg';
 import SocialMediaLinks from './SocialMediaIcons';
+import CaptchaWidget from '../turnstile-captcha/CaptchaWidget';
+import { useCaptchaToken } from '../../../app/context/CaptchaTokenContext';
+
+const handleCaptchaSuccess = () => {};
+const handleCaptchaError = () => {};
 
 const Footer: React.FC = () => {
   const { theme } = useTheme();
+  const { captchaToken } = useCaptchaToken();
 
   const initialValues = { name: '', email: '' };
   const validationSchema = Yup.object({
@@ -63,6 +69,9 @@ const Footer: React.FC = () => {
         className={`${styles.footer} ${theme === 'light' ? styles.lightBackground : styles.darkBackground}`}
       >
         <form onSubmit={formik.handleSubmit}>
+          {captchaToken === null && (
+            <CaptchaWidget onSuccess={handleCaptchaSuccess} onError={handleCaptchaError} />
+          )}
           <div className={`display-s ${styles.footerLogo}`}>
             <Image src={logodark} alt="LearnHub Logo" width={208} height={48} />
           </div>

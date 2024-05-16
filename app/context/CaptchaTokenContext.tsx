@@ -24,7 +24,6 @@ export const CaptchaTokenProvider: React.FC<{ children: ReactNode }> = ({ childr
 
   const setToken = (token: string | null) => {
     if (!hasRenderedWidget) {
-      console.log('Captcha work');
       setCaptchaToken(token);
     }
   };
