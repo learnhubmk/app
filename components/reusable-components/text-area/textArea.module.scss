@@ -1,4 +1,4 @@
-.inputContainer {
+.textAreaContainer {
   margin-bottom: 2.5rem;
 
   .label {
@@ -6,20 +6,20 @@
     line-height: var(--lh-title);
   }
 
-  .inputWrapper {
+  .textAreaWrapper {
+    display: flex;
     position: relative;
     margin-top: 1rem;
 
-    .input {
+    .textArea {
       width: 100%;
-      height: 3rem;
+      min-height: 10.625rem;
       padding: 0.875rem 1rem 0.875rem 1rem;
       color: #737373;
       font-size: var(--fs-placeholder);
       line-height: var(--fs-placeholder);
       border: 1px solid #94a3b8;
       border-radius: 8px;
-      opacity: 0px;
       background: #f8fafc;
       transition: border-color 0.3s ease;
       font-family: inherit;
@@ -39,7 +39,7 @@
     .errorIcon,
     .validIcon {
       position: absolute;
-      top: 50%;
+      top: 12%;
       transform: translateY(-50%);
       right: 0.625rem;
       font-size: 1.2rem;
@@ -61,7 +61,7 @@
     }
 
     .error {
-      border-color: var(--error-color);
+      border: 1px solid var(--error-color);
     }
 
     .valid {
@@ -70,11 +70,11 @@
   }
 
   .errorMessage {
-    text-align: left;
     margin-top: 0.25rem;
     font-size: 0.75rem;
     font-weight: 300;
     line-height: var(--lh-tag);
+    text-align: left;
   }
 
   .errorColor {
