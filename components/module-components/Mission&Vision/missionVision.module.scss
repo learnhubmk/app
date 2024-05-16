@@ -18,7 +18,7 @@
 .missionMainDark {
   background: rgba(235, 237, 241, 1);
 
-  @media (max-width: 1025px) {
+  @media (max-width: 1023px) {
     background: rgba(54, 67, 98, 1);
   }
 }
@@ -47,7 +47,7 @@
 .imgMission {
   object-fit: cover;
 
-  @media (max-width: 1025px) {
+  @media (max-width: 1023px) {
     display: none;
   }
 
@@ -78,7 +78,7 @@
     border-radius: 0;
   }
 
-  @media (min-width: 431px) and (max-width: 1024px) {
+  @media (min-width: 431px) and (max-width: 1023px) {
     width: 100%;
     height: 100vh;
     top: auto;
@@ -86,7 +86,7 @@
     border-radius: 0.5rem;
     border: 1px;
     border: none;
-    margin-top: 50%;
+    // margin-top: 50%;
     margin-bottom: 0;
   }
 
@@ -103,17 +103,16 @@
       line-height: 2.285rem;
       letter-spacing: -0.015625rem;
       text-align: left;
-      
     }
 
-    @media (min-width: 431px) and (max-width: 1024px) {
-      margin-top: 20%;
+    @media (min-width: 431px) and (max-width: 1023px) {
+      // margin-top: 20%;
     }
-}
+  }
 
   p {
     font-style: normal;
-    font-size: 1rem;
+    font-size: var(--fs-placeholder);
     font-weight: 400;
     line-height: var(-lh-card-text);
     letter-spacing: 0.00625rem;
@@ -121,9 +120,9 @@
 
     @media (max-width: 425px) {
       height: 18rem;
-      font-size: 1rem;
+      font-size: var(--fs-placeholder);
       font-weight: 500;
-      line-height: 1.5rem;
+      line-height: var(-lh-card-text);
     }
   }
 }
@@ -171,8 +170,8 @@
   }
 
   @media (min-width: 1800px) {
-   margin-top: 150px;  
-  }////////////////////////////////////////////////
+    margin-top: 150px;
+  }
 }
 
 .missionPattern {
@@ -180,7 +179,7 @@
   object-fit: cover;
   padding-block: 2.5rem;
 
-  @media (max-width: 1025px) {
+  @media (max-width: 1023px) {
     display: none;
   }
 }
@@ -196,32 +195,35 @@
     top: 0;
   }
 
-  @media (min-width: 1025px) {
+  @media (min-width: 1023px) {
     display: none;
-  }
-
-  @media (min-width: 431px) and (max-width: 1024px) {
-    margin-top: 20% !important;
   }
 }
 
 .patternHorizontally {
-  @media (min-width: 1025px) {
+  @media (min-width: 1023px) {
     display: none;
   }
 
-  @media (max-width: 430px) {
-    width: 6.75rem;
-    bottom: 0%;
+  @media (max-width: 400px) {
+    width: 3.75rem;
+    bottom: 3%;
+    left: 90%;
+    position: relative;
+  }
+
+  @media (min-width: 401px) and (max-width: 429px) {
+    width: 5.75rem;
+    bottom: 4%;
     left: 80%;
     position: relative;
   }
 
-  @media (min-width: 431px) and (max-width: 1024px) {
+  @media (min-width: 430px) and (max-width: 1023px) {
     display: block;
     width: 6.75rem;
-    height: 50vw;
-    left: 75vw;
+    bottom: -7%;
+    left: 60vw;
     position: relative;
   }
 }
