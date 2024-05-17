@@ -16,7 +16,7 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
   onSuccess,
   onError,
   onExpired,
-  siteKey = '0x4AAAAAAAWq36_j09RgOKQR',
+  siteKey = process.env.NEXT_PUBLIC_TURNSTILE,
   cData,
   theme = 'auto',
   language = 'auto',
@@ -25,11 +25,10 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
   const widgetIDRef = useRef<string | undefined>();
   const isErrorRef = useRef(false);
   const { setToken } = useCaptchaToken();
-
   useEffect(() => {
     const renderWidget = () => {
       try {
-        const id = window.turnstile.render('#captcha-container', {
+        const id = window.turnstile.render(`#turnstile-captcha`, {
           sitekey: siteKey,
           'error-callback': onError,
           'expired-callback': onExpired,
@@ -54,18 +53,20 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
       }
     };
 
+    const scriptId = 'turnstile-loader';
     const loadCaptchaScript = () => {
       const script = document.createElement('script');
       script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
       script.async = true;
+      script.id = scriptId;
       script.onload = renderWidget;
       document.body.appendChild(script);
+      return script.id;
     };
 
-    if (!window.turnstile) {
+    const loadedScript = document.getElementById(scriptId);
+    if (loadedScript === null) {
       loadCaptchaScript();
-    } else {
-      renderWidget();
     }
 
     return () => {
@@ -78,7 +79,7 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
 
   return (
     <>
-      <div id="captcha-container" />
+      <div id="turnstile-captcha" />
       {isErrorRef.current && (
         <div
           className="text-red-500 bg-white shadow-lg"

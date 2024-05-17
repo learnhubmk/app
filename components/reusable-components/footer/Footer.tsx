@@ -8,21 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { useTheme } from '../../../app/context/themeContext';
 // eslint-disable-next-line no-unused-vars
-import SubmitNewsletterForm, { submitNewsletterForm } from './SubmitNewsletterForm';
+import { submitNewsletterForm } from './SubmitNewsletterForm';
 import styles from './footer.module.scss';
 import TextInput from '../text-input/TextInput';
 import logodark from '../../../public/logo/logo-black.svg';
 import SocialMediaLinks from './SocialMediaIcons';
-import CaptchaWidget from '../turnstile-captcha/CaptchaWidget';
-import { useCaptchaToken } from '../../../app/context/CaptchaTokenContext';
-
-const handleCaptchaSuccess = () => {};
-const handleCaptchaError = () => {};
 
 const Footer: React.FC = () => {
   const { theme } = useTheme();
-  const { captchaToken } = useCaptchaToken();
-
   const initialValues = { name: '', email: '' };
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -69,9 +62,6 @@ const Footer: React.FC = () => {
         className={`${styles.footer} ${theme === 'light' ? styles.lightBackground : styles.darkBackground}`}
       >
         <form onSubmit={formik.handleSubmit}>
-          {captchaToken === null && (
-            <CaptchaWidget onSuccess={handleCaptchaSuccess} onError={handleCaptchaError} />
-          )}
           <div className={`display-s ${styles.footerLogo}`}>
             <Image src={logodark} alt="LearnHub Logo" width={208} height={48} />
           </div>
