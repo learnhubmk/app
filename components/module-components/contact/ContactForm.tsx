@@ -9,25 +9,26 @@ import { ContactFormData, submitContactForm } from './SubmitContactForm';
 import Button from '../../reusable-components/button/Button';
 import TextInput from '../../reusable-components/text-input/TextInput';
 import TextArea from '../../reusable-components/text-area/TextArea';
+import { fullNameRegexValidation, emailRegexValidation } from './regexValidation';
 
 interface ContactFormProps {
   cfTurnstileResponse: string;
 }
 
 const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
-  const contactEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   const formik = useFormik({
     initialValues: { username: '', email: '', message: '' },
     validationSchema: Yup.object({
       username: Yup.string()
-        .matches(/^[\u0400-\u04FFа-џA-Za-z-]+$/, '*Невалидно име')
+        .matches(fullNameRegexValidation, '*Невалидно име')
         .required('*Задолжително внесете име'),
       email: Yup.string()
         .email('*Невалидна емаил адреса!')
         .required('*Задолжително внесете емаил адреса')
-        .matches(contactEmail, '*Погрешен емаил формат'),
-      message: Yup.string().required('*Пораката е задолжителна'),
+        .matches(emailRegexValidation, '*Погрешен емаил формат'),
+      message: Yup.string()
+        .matches(/^.{100,}$/, '*Минимум број на каратктери 100!')
+        .required('*Пораката е задолжителна'),
     }),
     onSubmit: async (values, { resetForm }) => {
       try {

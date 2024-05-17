@@ -9,13 +9,16 @@
 }
 
 .contactSection {
-  background-image: url('../../../public/contact-section-image-mobile.png');
-  background-repeat: no-repeat;
-  background-position: bottom right;
+  position: relative;
+  // background-image: url('../../../public/contact-section-image-mobile.png');
+  // background-position: bottom right;
+  // background-size: contain;
+  // background-repeat: no-repeat;
   width: 100%;
+  // height: auto;
 
   @include u.breakpoint(small) {
-    background-image: url('../../../public/contact-section-image-desktop.png');
+    // background-image: url('../../../public/contact-section-image-desktop.png');
   }
 
   .contact {
@@ -35,6 +38,7 @@
     }
 
     .contactLeftContainer {
+      z-index: 100;
       margin-inline: 1.5rem;
       margin-bottom: clamp(25.875rem, 33.23069rem + -27.692vw, 0rem);
 
@@ -64,6 +68,7 @@
     }
 
     .contactRightContainer {
+      z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -79,6 +84,35 @@
         margin-top: 0;
         gap: 4rem;
       }
+    }
+  }
+
+  .contactImage {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    max-width: 1256px;
+    height: auto;
+
+    @include u.breakpoint(large) {
+      right: -50px;
+    }
+  }
+
+  .mobile {
+    display: block;
+
+    @include u.breakpoint(xsmall) {
+      display: none;
+    }
+  }
+
+  .desktop {
+    display: none;
+
+    @include u.breakpoint(xsmall) {
+      display: block;
     }
   }
 }

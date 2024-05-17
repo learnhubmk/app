@@ -1,11 +1,16 @@
 'use client';
 
+import Image from 'next/image';
+
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import style from './contact.module.scss';
 import CaptchaWidget from '../../reusable-components/turnstile-captcha/CaptchaWidget';
 import { useTheme } from '../../../app/context/themeContext';
 import ContactForm from './ContactForm';
 import Button from '../../reusable-components/button/Button';
+
+import ContactImageDesktop from '../../../public/contact-section-image-desktop.png';
+import ContactImageMobile from '../../../public/contact-section-image-mobile.png';
 
 const handleCaptchaSuccess = () => {};
 
@@ -43,6 +48,20 @@ const Contact = () => {
           />
         </div>
       </div>
+
+      <Image
+        src={ContactImageDesktop}
+        className={`${style.contactImage} ${style.desktop}`}
+        alt="contact picture desktop"
+        priority
+      />
+
+      <Image
+        src={ContactImageMobile}
+        className={`${style.contactImage} ${style.mobile}`}
+        alt="contact picture mobile"
+        priority
+      />
     </section>
   );
 };
