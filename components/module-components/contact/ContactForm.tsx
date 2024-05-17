@@ -27,7 +27,7 @@ const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
         .required('*Задолжително внесете емаил адреса')
         .matches(emailRegexValidation, '*Погрешен емаил формат'),
       message: Yup.string()
-        .matches(/^.{100,}$/, '*Минимум број на каратктери 100!')
+        .matches(/^.{20,}$/, '*Минимум број на каратктери 20!')
         .required('*Пораката е задолжителна'),
     }),
     onSubmit: async (values, { resetForm }) => {

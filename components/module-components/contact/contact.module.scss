@@ -10,52 +10,42 @@
 
 .contactSection {
   position: relative;
-  // background-image: url('../../../public/contact-section-image-mobile.png');
-  // background-position: bottom right;
-  // background-size: contain;
-  // background-repeat: no-repeat;
   width: 100%;
-  // height: auto;
 
   @include u.breakpoint(small) {
-    // background-image: url('../../../public/contact-section-image-desktop.png');
   }
 
   .contact {
     display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    margin: 0;
+    flex-direction: column;
+    margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
     gap: clamp(0rem, -2.46763rem + 10.39vw, 10rem);
     max-width: 100%;
 
-    @include u.breakpoint(large) {
-      margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem)
-        clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
+    @include u.breakpoint(medium) {
+      text-align: left;
       margin-right: 0;
       align-items: flex-start;
       flex-direction: row;
     }
 
     .contactLeftContainer {
-      z-index: 100;
-      margin-inline: 1.5rem;
-      margin-bottom: clamp(25.875rem, 33.23069rem + -27.692vw, 0rem);
+      z-index: 10;
 
-      @include u.breakpoint(large) {
+      @include u.breakpoint(medium) {
         width: 50%;
-        margin-inline: 0;
-        margin-bottom: 0;
       }
 
       @include u.breakpoint(xlarge) {
-        width: 33.5%;
+        width: 40%;
       }
 
       .leftTextContainer {
+        text-align: center;
         margin-bottom: 2.5rem;
 
-        @include u.breakpoint(large) {
+        @include u.breakpoint(medium) {
+          text-align: left;
           margin-bottom: 4rem;
         }
 
@@ -72,14 +62,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      margin-top: 5rem;
-      margin-bottom: 2.25rem;
-      padding: 1.5rem 0;
+      margin-top: clamp(3.5rem, 6.06263rem + -10.79vw, 0rem);
+      margin-bottom: clamp(22.5rem, 25.86228rem + -12.658vw, 18.75rem);
       gap: 1.5rem;
 
+      @include u.breakpoint(medium) {
+        margin-top: 0;
+        width: 50%;
+      }
+
       @include u.breakpoint(large) {
-        width: 66.5%;
+        width: 60%;
         padding: 0;
         margin-top: 0;
         gap: 4rem;
@@ -96,7 +89,7 @@
     height: auto;
 
     @include u.breakpoint(large) {
-      right: -50px;
+      right: -3.125rem;
     }
   }
 
