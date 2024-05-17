@@ -27,3 +27,18 @@ input:-webkit-autofill:active {
   transition-delay: 9999s;
   transition-property: background-color, color;
 }
+
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(247, 140, 30, 1) 0%,
+    rgba(247, 146, 30, 1) 50%,
+    rgba(246, 132, 31, 1) 100%
+  );
+  border-radius: 100vw;
+  height: 20rem;
+}
