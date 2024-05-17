@@ -27,9 +27,8 @@
     max-width: 100%;
 
     @include u.breakpoint(large) {
-      margin-top: clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
-      margin-bottom: clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
-      margin-left: clamp(0rem, -2.48758rem + 9.365vw, 8.75rem);
+      margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem)
+        clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
       margin-right: 0;
       align-items: flex-start;
       flex-direction: row;
@@ -40,9 +39,13 @@
       margin-bottom: clamp(25.875rem, 33.23069rem + -27.692vw, 0rem);
 
       @include u.breakpoint(large) {
-        width: 33.5%;
+        width: 50%;
         margin-inline: 0;
         margin-bottom: 0;
+      }
+
+      @include u.breakpoint(xlarge) {
+        width: 33.5%;
       }
 
       .leftTextContainer {
@@ -71,7 +74,7 @@
       gap: 1.5rem;
 
       @include u.breakpoint(large) {
-        width: 63%;
+        width: 66.5%;
         padding: 0;
         margin-top: 0;
         gap: 4rem;

@@ -1,9 +1,9 @@
 import Hero from '../components/module-components/hero/Hero';
 import InfiniteCarousel from '../components/module-components/infinitie-carousel/InfiniteCarousel';
-import PerkCards from '../components/module-components/Perk-Cards/PerkCards';
-import FAQ from '../components/module-components/FAQ/FAQ';
+import PerkCards from '../components/module-components/perk-cards/PerkCards';
+import FAQ from '../components/module-components/faq/FAQ';
 import FAQ_DUMMY_DATA from '../data/FAQ';
-import Contact from '../components/module-components/Contact/Contact';
+import Contact from '../components/module-components/contact/Contact';
 
 const Home = () => {
   return (

@@ -7,12 +7,13 @@
   }
 
   .inputWrapper {
+    display: flex;
     position: relative;
     margin-top: 1rem;
 
     .input {
       width: 100%;
-      height: 3rem;
+      min-height: 3rem;
       padding: 0.875rem 1rem 0.875rem 1rem;
       font-size: var(--fs-placeholder);
       line-height: var(--fs-placeholder);
@@ -59,7 +60,7 @@
     }
 
     .error {
-      border-color: var(--error-color);
+      border: var(--error-color);
     }
 
     .valid {
@@ -68,11 +69,11 @@
   }
 
   .errorMessage {
-    text-align: left;
     margin-top: 0.25rem;
     font-size: 0.75rem;
     font-weight: 300;
     line-height: var(--lh-tag);
+    text-align: left;
   }
 
   .errorColor {
