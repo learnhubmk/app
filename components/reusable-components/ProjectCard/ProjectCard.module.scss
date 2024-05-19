@@ -21,6 +21,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .cardContent {
@@ -76,13 +77,23 @@
   display: flex;
   gap: 8px;
 
+  @include u.breakpoint-down(medium) {
+    display: none;
+  }
+
   .cardTag {
     border-radius: 20px;
     border: 1px solid hsla(215, 20%, 65%, 1);
     padding: 8px 16px 8px 16px;
+    background: hsla(210, 40%, 98%, 1);
+    color: hsla(222, 47%, 11%, 1);
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 0.5px;
+    line-height: 16px;
+    height: 32px;
+    padding: 8px 16px 8px 16px;
+    gap: 8px;
   }
   .cardTagHidden {
     padding: 8px 3px 8px 3px;
@@ -96,4 +107,25 @@
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
+
+  @include u.breakpoint-down(medium) {
+    display: none;
+  }
+}
+
+.inProgressTag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: hsla(144, 85%, 29%, 1);
+  z-index: 1;
+  padding: 6px 12px 4px 12px;
+  border-radius: 20px;
+  background: hsla(210, 40%, 98%, 1);
+  height: 26px;
+  width: 127px;
+  text-align: center;
+  line-height: 16px;
 }

@@ -17,6 +17,9 @@ const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCa
   return (
     <div className={style.projectCard} key={id}>
       <div className={`${style.cardInner} ${darkTheme ? style.darkProjectCard : ''}`}>
+        <div className={style.inProgressTag}>
+          <p>ВО ИЗРАБОТКА</p>
+        </div>
         <div className={style.imageWrapper}>
           <Image
             src={imageUrl}
