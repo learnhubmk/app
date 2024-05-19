@@ -16,7 +16,7 @@ const MissionVision = () => {
       <div className={`${style.mvImgContainer} ${style.mvLeftSide}`}>
         <Image
           className={style.imgMission}
-          src="\m&vPhoto.svg"
+          src="\Mission&Vision\m&vPhoto.svg"
           alt="Our mission & vision"
           width={0}
           height={0}
@@ -28,7 +28,7 @@ const MissionVision = () => {
       <div className={`${style.mvImgContainer} ${style.mvRightSide}`}>
         <Image
           className={style.missionPattern}
-          src="/pattern.svg"
+          src="\Mission&Vision\pattern.svg"
           alt="pattern"
           width={0}
           height={0}
@@ -43,7 +43,7 @@ const MissionVision = () => {
         <div className={style.cardMission}>
           <Image
             className={style.mobilePattern}
-            src="./frame6.svg"
+            src="\Mission&Vision\frame6.svg"
             alt="Mobile Pattern"
             width={109}
             height={109}
@@ -60,7 +60,7 @@ const MissionVision = () => {
 
           <Image
             className={style.mobilePattern}
-            src="./frame6.svg"
+            src="\Mission&Vision\frame6.svg"
             alt="Mobile Pattern"
             width={109}
             height={109}
@@ -74,7 +74,7 @@ const MissionVision = () => {
           </p>
           <Image
             className={style.patternHorizontally}
-            src="/frame5.svg"
+            src="\Mission&Vision\frame5.svg"
             alt="Mobile Pattern"
             width={67}
             height={104}
