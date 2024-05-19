@@ -1,7 +1,7 @@
 @use '../../../app/styles/utils' as u;
 
 @mixin white-gradient {
-  background: linear-gradient(to right, rgba(18, 29, 54, 1) 0%, rgba(18, 29, 54, 0) 100%);
+  background: linear-gradient(to right, rgba(7, 11, 21, 1) 0%, rgba(7, 11, 21, 0) 100%);
 }
 
 $animationSpeed: 35s;
@@ -16,9 +16,8 @@ $animationSpeed: 35s;
   }
 }
 
-// Styling
 .slider {
-  background: var(--titles-color);
+  background-color: var(--bg-color);
   height: 67px;
   overflow: hidden;
   position: relative;

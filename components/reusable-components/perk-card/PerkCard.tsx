@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import style from './PerkCard.module.scss';
-import { PerkCardsDataProps } from '../../module-components/Perk-Cards/PerkCards';
+import { PerkCardsDataProps } from '../../module-components/perk-cards/PerkCards';
 import { useTheme } from '../../../app/context/themeContext';
 
 const PerkCard = ({ perkCardText, perkCardIcon }: PerkCardsDataProps) => {
