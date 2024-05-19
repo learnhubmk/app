@@ -39,8 +39,9 @@ const Contact = () => {
         <div className={style.contactRightContainer}>
           <h2>Стани член на Discord</h2>
           <Button
-            href="/https://discord.com/invite/nUEKUWVveW"
             type="link"
+            href="https://discord.com/invite/nUEKUWVveW"
+            buttonTarget="_blank"
             buttonText="Придружи се"
             buttonClass={['motionButton', 'orangeLink']}
             icon={<i className="bi bi-arrow-up-right-circle-fill" />}

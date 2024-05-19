@@ -56,11 +56,7 @@ const TextInput: FC<InputProps> = ({
         )}
       </div>
 
-      {isError && (
-        <div className={`${style.errorMessage} ${isLightTheme && style.errorColor}`}>
-          {formik.errors[field]}
-        </div>
-      )}
+      {isError && <div className={style.errorMessage}>{formik.errors[field]}</div>}
     </div>
   );
 };

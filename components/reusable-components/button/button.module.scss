@@ -20,18 +20,6 @@
   }
 }
 
-.orangeLink {
-  color: var(--primary-btn-color);
-
-  &:hover {
-    color: var(--primary-btn-hover-color);
-  }
-
-  &:active {
-    color: var(--primary-btn-active-color);
-  }
-}
-
 .linkButton {
   display: flex;
   gap: 0.375rem;
@@ -111,4 +99,16 @@
 
 .linkButton:hover .rotateIcon {
   transform: rotate(45deg);
+}
+
+.orangeLink {
+  color: var(--primary-btn-color);
+
+  &:hover {
+    color: var(--primary-btn-hover-color);
+  }
+
+  &:active {
+    color: var(--primary-btn-active-color);
+  }
 }

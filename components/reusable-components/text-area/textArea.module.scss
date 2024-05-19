@@ -60,7 +60,7 @@
     }
 
     .error {
-      border: var(--error-color);
+      border-color: var(--error-color);
     }
 
     .valid {
@@ -69,14 +69,11 @@
   }
 
   .errorMessage {
+    color: var(--error-color);
     margin-top: 0.25rem;
     font-size: 0.75rem;
     font-weight: 300;
     line-height: var(--lh-tag);
     text-align: left;
-  }
-
-  .errorColor {
-    color: var(--error-color);
   }
 }

@@ -45,11 +45,7 @@ const TextArea = ({ placeholder, label, name, field, formik, isRequired }: Input
         )}
       </div>
 
-      {isError && (
-        <div className={`${style.errorMessage} ${isLightTheme && style.errorColor}`}>
-          {formik.errors[field]}
-        </div>
-      )}
+      {isError && <div className={style.errorMessage}>{formik.errors[field]}</div>}
     </div>
   );
 };
