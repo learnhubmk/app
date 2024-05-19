@@ -68,14 +68,19 @@
   line-height: 24px;
   letter-spacing: 0.15px;
   margin-bottom: 10px;
+  color: hsla(222, 6%, 46%, 1);
+
   @include u.breakpoint-down(small) {
     font-size: 16px;
   }
 }
-
+.darkDescription {
+  color: var(--Text, hsla(0, 0%, 83%, 1));
+}
 .cardTags {
   display: flex;
   gap: 8px;
+  align-items: center;
 
   @include u.breakpoint-down(medium) {
     display: none;
@@ -95,19 +100,19 @@
     padding: 8px 16px 8px 16px;
     gap: 8px;
   }
-  .cardTagHidden {
-    padding: 8px 3px 8px 3px;
-    font-weight: 400;
-    font-size: 14px;
-    color: hsla(0, 0%, 56%, 1);
-    letter-spacing: 0.25px;
-  }
+}
+.cardTagHidden {
+  padding: 8px 3px 8px 3px;
+  font-weight: 400;
+  font-size: 14px;
+  color: hsla(0, 0%, 56%, 1);
+  letter-spacing: 0.25px;
 }
 .cardParticipants {
   display: flex;
-  justify-content: space-between;
   margin-top: 24px;
-
+  gap: 8px;
+  align-items: center;
   @include u.breakpoint-down(medium) {
     display: none;
   }

@@ -34,7 +34,9 @@ const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCa
 
         <div className={style.cardContent}>
           <h2 className={style.cardTitle}>{title}</h2>
-          <p className={style.cardDesc}>{description}</p>
+          <p className={`${style.cardDesc}   ${darkTheme ? style.darkDescription : ''}`}>
+            {description}
+          </p>
 
           <div className={style.cardTags}>
             {department.slice(0, 2).map((item) => (
@@ -73,6 +75,7 @@ const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCa
                 fill="#41AD3E"
               />
             </svg>
+            <div className={style.cardTagHidden}>+3</div>
           </div>
         </div>
       </div>
