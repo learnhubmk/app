@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { useCaptchaToken } from '../../../app/context/CaptchaTokenContext';
 
 interface CaptchaProps {
   onSuccess?: () => void;
@@ -24,7 +23,7 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
 }) => {
   const widgetIDRef = useRef<string | undefined>();
   const isErrorRef = useRef(false);
-  const { setToken } = useCaptchaToken();
+
   useEffect(() => {
     const renderWidget = () => {
       try {
@@ -37,7 +36,7 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
           tabindex: tabIndex,
           cData,
           callback: (token: string | null) => {
-            setToken(token);
+            console.log('render widget callback', token);
             if (onSuccess) {
               onSuccess();
             }
@@ -75,7 +74,7 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
         widgetIDRef.current = undefined;
       }
     };
-  }, [siteKey, cData, language, onError, onExpired, onSuccess, tabIndex, theme, setToken]);
+  }, [siteKey, cData, language, onError, onExpired, onSuccess, tabIndex, theme]);
 
   return (
     <>
