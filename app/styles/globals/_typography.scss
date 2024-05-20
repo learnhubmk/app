@@ -23,13 +23,6 @@ p {
   padding: 0px;
 }
 
-a,
-a:visited,
-a:active {
-  color: var(--white-color);
-  text-decoration: none;
-}
-
 h1 {
   font-size: var(--fs-h1);
   line-height: var(--lh-h1);
@@ -39,6 +32,14 @@ h1 {
 h2 {
   font-size: var(--fs-h2);
   line-height: var(--lh-h2);
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 h1,

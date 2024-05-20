@@ -1,28 +1,37 @@
+@use '../../../app/styles/utils' as u;
+
 .button {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 8px;
+  gap: 0.5rem;
   border: none;
   border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--fs-button);
   font-weight: 700;
-  line-height: 20px;
+  line-height: var(--lh-button);
+  font-family: inherit;
   cursor: pointer;
+
+  @include u.breakpoint(medium) {
+    width: auto;
+  }
 }
 
 .linkButton {
   display: flex;
-  gap: 8px;
+  gap: 0.375rem;
   text-decoration: none;
-  color: var(--black-color);
-  transition: color 0.3s ease-in-out;
+  font-size: var(--fs-body);
+  line-height: var(--lh-card-text);
+  font-weight: 500;
   font-family: inherit;
+  transition: color 0.3s ease-in-out;
 
-  &:hover {
-    color: var(--primary-btn-color);
+  @include u.breakpoint(medium) {
+    gap: 0.5rem;
   }
 }
 
@@ -64,20 +73,24 @@
 }
 
 .tertiaryButton {
-  font-size: 14px;
+  font-size: var(--fs-tag);
   font-weight: 700;
-  line-height: 24px;
+  line-height: var(--lh-body);
   text-decoration: underline;
 }
 
 .motionButton {
-  font-size: 24px;
-  font-weight: 24px;
-  line-height: 24px;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  line-height: var(--fs-body);
+
+  @include u.breakpoint(medium) {
+    font-weight: 500;
+  }
 }
 
 .buttonWithIcon {
-  padding: 12px 20px 12px 24px;
+  padding: 0.75rem 1.5rem 0.75rem 1.5rem;
 }
 
 .rotateIcon {
@@ -86,4 +99,16 @@
 
 .linkButton:hover .rotateIcon {
   transform: rotate(45deg);
+}
+
+.orangeLink {
+  color: var(--primary-btn-color);
+
+  &:hover {
+    color: var(--primary-btn-hover-color);
+  }
+
+  &:active {
+    color: var(--primary-btn-active-color);
+  }
 }

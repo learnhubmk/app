@@ -18,11 +18,11 @@ const Navigation = () => {
   const isSun = theme === 'light';
 
   return (
-    <nav className={styles.largeNavbar}>
+    <nav className={`${styles.largeNavbar} ${isSun && styles.lightNavbar}`}>
       <div className={styles.navContainer}>
-        <Link className={`display-s ${styles.navigationLogo}`} href="/">
+        <Link className={styles.navigationLogo} href="/">
           <Image
-            src={isSun ? '/logo/logo-white.svg' : '/logo/logo-black.svg'}
+            src="/logo/logo-black.svg"
             className={`${styles.navigationLogo}`}
             alt="LearnHub Logo"
             width={208}
