@@ -17,7 +17,12 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<typeof Page> = (args) => <Page {...args} />;
-
-export const DefaultView = Template.bind({});
-DefaultView.args = {};
+export const Template: StoryFn<typeof Page> = (args) => <Page {...args} />;
+/*
+Template.loaders = [
+  async () => {
+    let data = await getServerSideProps();
+    return data.props;
+  },
+];
+*/
