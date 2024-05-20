@@ -1,4 +1,4 @@
-.inputContainer {
+.textAreaContainer {
   margin-bottom: 2.5rem;
 
   .label {
@@ -6,14 +6,14 @@
     line-height: var(--lh-title);
   }
 
-  .inputWrapper {
+  .textAreaWrapper {
     display: flex;
     position: relative;
     margin-top: 1rem;
 
-    .input {
+    .textArea {
       width: 100%;
-      min-height: 3rem;
+      min-height: 10.625rem;
       padding: 0.875rem 1rem 0.875rem 1rem;
       font-size: var(--fs-placeholder);
       line-height: var(--fs-placeholder);
@@ -38,7 +38,7 @@
     .errorIcon,
     .validIcon {
       position: absolute;
-      top: 50%;
+      top: 12%;
       transform: translateY(-50%);
       right: 0.625rem;
       font-size: 1.2rem;
@@ -75,9 +75,5 @@
     font-weight: 300;
     line-height: var(--lh-tag);
     text-align: left;
-  }
-
-  .footerErrorMessage {
-    color: var(--error-footer-color);
   }
 }

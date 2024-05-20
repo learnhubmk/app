@@ -12,6 +12,7 @@ interface ButtonProps {
   icon?: JSX.Element;
   buttonClass: string[];
   rotateIcon?: boolean;
+  buttonTarget?: string;
 }
 
 const Button = ({
@@ -22,6 +23,7 @@ const Button = ({
   icon,
   buttonClass,
   rotateIcon,
+  buttonTarget,
 }: ButtonProps) => {
   return (
     (type === 'button' && (
@@ -34,7 +36,11 @@ const Button = ({
       </button>
     )) ||
     (type === 'link' && (
-      <Link href={href} className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}>
+      <Link
+        href={href}
+        className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}
+        target={buttonTarget}
+      >
         {icon && <div className={`${rotateIcon && styles.rotateIcon}`}>{icon}</div>} {buttonText}
       </Link>
     )) ||
@@ -42,6 +48,11 @@ const Button = ({
       <div className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}>
         {icon && <div className={`${rotateIcon && styles.rotateIcon}`}>{icon}</div>} {buttonText}
       </div>
+    )) ||
+    (type === 'submit' && (
+      <button type="submit" className={`${styles.button} ${setClass(buttonClass, styles)}`}>
+        {buttonText} {icon && <div>{icon}</div>}
+      </button>
     ))
   );
 };

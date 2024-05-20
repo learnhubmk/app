@@ -1,0 +1,136 @@
+@use '../../../app/styles/utils' as u;
+
+.projectCard {
+  width: calc(100% / 3 - calc(1rem / 3 * 2));
+  height: auto;
+  padding: 10px;
+
+  @include u.breakpoint-down(large) {
+    width: calc(100% / 2 - calc(1rem / 2 * 1));
+  }
+  @include u.breakpoint-down(medium) {
+    flex: 0 0 auto;
+    min-width: 300px;
+  }
+}
+
+.cardInner {
+  box-shadow: 0px 5px 16px 0px #00000026;
+  border-radius: 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.cardContent {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+
+  @include u.breakpoint-down(small) {
+    padding: 16px;
+  }
+}
+
+.imageWrapper {
+  width: 100%;
+  position: relative;
+  height: 185px;
+
+  @include u.breakpoint-down(small) {
+    height: 150px;
+  }
+
+  img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+}
+
+.darkProjectCard {
+  background: #364362;
+}
+
+.cardTitle {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: var(--lh-title);
+  margin-bottom: 10px;
+}
+
+.cardDesc {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  margin-bottom: 10px;
+  color: hsla(222, 6%, 46%, 1);
+
+  @include u.breakpoint-down(small) {
+    font-size: 16px;
+  }
+}
+.darkDescription {
+  color: var(--Text, hsla(0, 0%, 83%, 1));
+}
+.cardTags {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  @include u.breakpoint-down(medium) {
+    display: none;
+  }
+
+  .cardTag {
+    border-radius: 20px;
+    border: 1px solid hsla(215, 20%, 65%, 1);
+    padding: 8px 16px 8px 16px;
+    background: hsla(210, 40%, 98%, 1);
+    color: hsla(222, 47%, 11%, 1);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    line-height: 16px;
+    height: 32px;
+    padding: 8px 16px 8px 16px;
+    gap: 8px;
+  }
+}
+.cardTagHidden {
+  padding: 8px 3px 8px 3px;
+  font-weight: 400;
+  font-size: 14px;
+  color: hsla(0, 0%, 56%, 1);
+  letter-spacing: 0.25px;
+}
+.cardParticipants {
+  display: flex;
+  margin-top: 24px;
+  gap: 8px;
+  align-items: center;
+  @include u.breakpoint-down(medium) {
+    display: none;
+  }
+}
+
+.inProgressTag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: hsla(144, 85%, 29%, 1);
+  z-index: 1;
+  padding: 6px 12px 4px 12px;
+  border-radius: 20px;
+  background: hsla(210, 40%, 98%, 1);
+  height: 26px;
+  width: 127px;
+  text-align: center;
+  line-height: 16px;
+}
