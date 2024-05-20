@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { useTheme } from '../../../app/context/themeContext';
 // eslint-disable-next-line no-unused-vars
-import SubmitNewsletterForm, { submitNewsletterForm } from './SubmitNewsletterForm';
+import { submitNewsletterForm } from './SubmitNewsletterForm';
 import styles from './footer.module.scss';
 import TextInput from '../text-input/TextInput';
 import logodark from '../../../public/logo/logo-black.svg';
@@ -16,7 +16,6 @@ import SocialMediaLinks from './SocialMediaIcons';
 
 const Footer: React.FC = () => {
   const { theme } = useTheme();
-
   const initialValues = { name: '', email: '' };
   const validationSchema = Yup.object({
     name: Yup.string()

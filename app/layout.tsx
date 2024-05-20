@@ -8,6 +8,7 @@ import Navigation from '../components/reusable-components/navigation/Navigation'
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 import styles from './page.module.scss';
+import { CaptchaTokenProvider } from './context/CaptchaTokenContext';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -15,13 +16,15 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en" className={montserrat.className}>
     <body>
       <ThemeProvider>
-        <ReactQueryProvider>
-          <Navigation />
-          <main className={styles.main}>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </main>
-          <Footer />
-        </ReactQueryProvider>
+        <CaptchaTokenProvider>
+          <ReactQueryProvider>
+            <Navigation />
+            <main className={styles.main}>
+              <Suspense fallback={<Loading />}>{children}</Suspense>
+            </main>
+            <Footer />
+          </ReactQueryProvider>
+        </CaptchaTokenProvider>
       </ThemeProvider>
     </body>
   </html>
