@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "msw:init": "msw init public/ --save",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -72,6 +73,7 @@
     "jest-css-modules-transform": "^4.4.2",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.2",
+    "msw": "^2.3.0",
     "prettier": "^3.2.5",
     "sass": "^1.71.1",
     "storybook": "^8.0.9",
@@ -81,5 +83,10 @@
   },
   "lint-staged": {
     "*.ts": "eslint --fix --ignore-pattern '!**/.storybook/*'"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
