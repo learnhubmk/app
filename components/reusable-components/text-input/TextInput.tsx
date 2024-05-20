@@ -12,6 +12,7 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
   field: string;
   formik: any;
   isRequired?: boolean;
+  isFooter?: boolean;
 }
 
 const TextInput: FC<InputProps> = ({
@@ -22,6 +23,7 @@ const TextInput: FC<InputProps> = ({
   field,
   formik,
   isRequired,
+  isFooter,
 }) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
@@ -56,7 +58,11 @@ const TextInput: FC<InputProps> = ({
         )}
       </div>
 
-      {isError && <div className={style.errorMessage}>{formik.errors[field]}</div>}
+      {isError && (
+        <div className={`${style.errorMessage} ${isFooter && style.footerErrorMessage}`}>
+          {formik.errors[field]}
+        </div>
+      )}
     </div>
   );
 };
