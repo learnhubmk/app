@@ -69,8 +69,10 @@
   }
 
   .errorMessage {
+    position: absolute;
     color: var(--error-color);
     margin-top: 0.25rem;
+    margin-bottom: -3.125rem;
     font-size: 0.75rem;
     font-weight: 300;
     line-height: var(--lh-tag);
