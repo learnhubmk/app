@@ -35,8 +35,7 @@ const CaptchaWidget: React.FC<CaptchaProps> = ({
           language,
           tabindex: tabIndex,
           cData,
-          callback: (token: string | null) => {
-            console.log('render widget callback', token);
+          callback: () => {
             if (onSuccess) {
               onSuccess();
             }
