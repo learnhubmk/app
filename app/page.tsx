@@ -4,6 +4,8 @@ import PerkCards from '../components/module-components/perk-cards/PerkCards';
 import FAQ from '../components/module-components/faq/FAQ';
 import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/contact/Contact';
+import ProjectsSection from '../components/module-components/ProjectsSection/projectsSection';
+import ProjectCardData from '../components/module-components/ProjectsSection/ProjectCardData';
 
 const Home = () => {
   return (
@@ -16,6 +18,7 @@ const Home = () => {
       <InfiniteCarousel />
       <PerkCards />
       {/* <MemberList /> */}
+      <ProjectsSection cards={ProjectCardData} />
       <FAQ data={FAQ_DUMMY_DATA} />
       <Contact />
     </>
