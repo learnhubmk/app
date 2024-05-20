@@ -20,6 +20,8 @@ const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
     initialValues: { username: '', email: '', message: '' },
     validationSchema: Yup.object({
       username: Yup.string()
+        .min(2, '*Минимум број на каратктери 2!')
+        .max(75, '*Максимум број на каратктери 75!')
         .matches(fullNameRegexValidation, '*Невалидно име')
         .required('*Задолжително внесете име'),
       email: Yup.string()
@@ -27,7 +29,8 @@ const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
         .required('*Задолжително внесете емаил адреса')
         .matches(emailRegexValidation, '*Погрешен емаил формат'),
       message: Yup.string()
-        .matches(/^.{20,}$/, '*Минимум број на каратктери 20!')
+        .min(20, '*Минимум број на каратктери 20!')
+        .max(500, '*Максимум број на каратктери 500!')
         .required('*Пораката е задолжителна'),
     }),
     onSubmit: async (values, { resetForm }) => {
