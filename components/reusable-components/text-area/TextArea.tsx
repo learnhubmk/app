@@ -1,44 +1,31 @@
 'use client';
 
-import React, { FC, HTMLProps } from 'react';
-import style from './textInput.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
+import style from './textArea.module.scss';
 
-interface InputProps extends HTMLProps<HTMLInputElement> {
+interface InputProps {
   placeholder: string;
   label: string;
   name: string;
-  type: string;
   field: string;
   formik: any;
   isRequired?: boolean;
-  isFooter?: boolean;
 }
 
-const TextInput: FC<InputProps> = ({
-  placeholder,
-  label,
-  name,
-  type,
-  field,
-  formik,
-  isRequired,
-  isFooter,
-}) => {
+const TextArea = ({ placeholder, label, name, field, formik, isRequired }: InputProps) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
   const isError = formik.touched[field] && formik.errors[field] !== undefined && 'error';
   const isValid = !isError && formik.touched[field] && 'valid';
 
   return (
-    <div className={style.inputContainer}>
+    <div className={style.textAreaContainer}>
       <label htmlFor={name} className={style.label}>
         {label} {isRequired && <span className={`${isLightTheme && style.errorColor}`}>*</span>}
       </label>
-      <div className={style.inputWrapper}>
-        <input
-          type={type}
-          className={`${style.input} ${style[`${isError}`]} ${style[`${isValid}`]}`}
+      <div className={style.textAreaWrapper}>
+        <textarea
+          className={`${style.textArea} ${style[`${isError}`]} ${style[`${isValid}`]}`}
           placeholder={placeholder}
           value={formik.values[field]}
           onChange={formik.handleChange}
@@ -58,13 +45,9 @@ const TextInput: FC<InputProps> = ({
         )}
       </div>
 
-      {isError && (
-        <div className={`${style.errorMessage} ${isFooter && style.footerErrorMessage}`}>
-          {formik.errors[field]}
-        </div>
-      )}
+      {isError && <div className={style.errorMessage}>{formik.errors[field]}</div>}
     </div>
   );
 };
 
-export default TextInput;
+export default TextArea;

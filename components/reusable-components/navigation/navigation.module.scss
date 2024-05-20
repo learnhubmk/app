@@ -18,27 +18,16 @@
   }
 }
 
-.navigationLogo {
-  color: var(--text-color);
-  top: 1.56em;
-  left: 2.36em;
+.largeNavbar {
+  padding: 1.25rem 0;
 
   @include respond-to('small') {
-    width: 100px;
-    margin-left: 0;
-    height: 25px;
+    padding: 0.875rem 0;
   }
 }
 
-.menuElements {
-  align-items: center;
-  display: flex;
-}
-
-.menuElementsNav {
-  display: flex;
-  list-style: none;
-  padding: 0px;
+.lightNavbar {
+  background-color: var(--section-bg-color);
 }
 
 .navContainer {
@@ -50,35 +39,31 @@
   @include respond-to('small') {
     display: flex;
     justify-content: space-between;
-    margin: 0 20px;
+    margin: 0 1.25rem;
   }
 }
 
-.largeNavbar {
-  padding: 20px;
-  padding-inline: 0;
-}
+.navigationLogo {
+  color: var(--text-color);
+  line-height: 0;
+  top: 1.56em;
+  left: 2.36em;
 
-.animate {
-  transition: transform 0.2s ease;
-  display: flex;
-  align-items: center;
-}
-
-.moveRight {
-  transform: translateX(35px);
+  @include respond-to('small') {
+    width: 6.5rem;
+    height: 1.5rem;
+    margin-left: 0;
+  }
 }
 
 .themeBackgroundSize {
-  width: 64px;
-  height: 36px;
+  width: 4rem;
+  height: 2.25rem;
   border-radius: 100px;
   display: flex;
   align-items: center;
 
   @include respond-to('small') {
-    width: 4rem;
-    height: 2rem;
     margin-right: 0;
   }
 }
@@ -86,10 +71,11 @@
 .themeBackgroundDark {
   background-color: #ffff;
   box-shadow: inset 0px 0px 3px 1px rgb(161, 161, 161);
+
   & .ellipse1 {
-    margin-left: 5px;
-    width: 24px;
-    height: 24px;
+    margin-left: 0.3125rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     background-color: #000000;
   }
@@ -100,10 +86,29 @@
   box-shadow: inset 0px 0px 3px 1px rgb(180, 180, 129);
 
   & .ellipse {
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     background-color: #ffff;
+  }
+}
+
+.animate {
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.moveRight {
+  transform: translateX(2.1875rem);
+}
+
+.themeDark {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+
+  .menuElements {
+    color: var(--text-color) !important;
   }
 }
 
@@ -116,19 +121,21 @@
   }
 }
 
-.themeDark {
-  background-color: var(--bg-color) !important;
-  color: var(--text-color) !important;
-
-  .menuElements {
-    color: var(--text-color) !important;
-  }
-}
-
 .customImageClass {
-  margin-left: 8px;
+  margin-left: 0.5rem;
 }
 
 .customImageClass1 {
-  transform: translateX(-15px);
+  transform: translateX(-0.9375rem);
+}
+
+.menuElementsNav {
+  display: flex;
+  list-style: none;
+  padding: 0px;
+}
+
+.menuElements {
+  align-items: center;
+  display: flex;
 }

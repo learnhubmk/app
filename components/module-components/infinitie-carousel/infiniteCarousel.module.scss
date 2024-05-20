@@ -1,6 +1,10 @@
 @use '../../../app/styles/utils' as u;
 
-@mixin white-gradient {
+@mixin dark-bg-gradient {
+  background: linear-gradient(to right, rgba(7, 11, 21, 1) 0%, rgba(7, 11, 21, 0) 100%);
+}
+
+@mixin light-bg-gradient {
   background: linear-gradient(to right, rgba(18, 29, 54, 1) 0%, rgba(18, 29, 54, 0) 100%);
 }
 
@@ -12,36 +16,34 @@ $animationSpeed: 35s;
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-300px * 7));
+    transform: translateX(calc(-18.75rem * 7));
   }
 }
 
-// Styling
 .slider {
-  background: var(--titles-color);
-  height: 67px;
+  height: 4.1875rem;
   overflow: hidden;
   position: relative;
-  width: 100vw;
+  width: 100%;
 
   @include u.breakpoint(medium) {
-    height: 104px;
+    height: 6.5rem;
   }
 
   &::before,
   &::after {
     content: '';
-    height: 67px;
+    height: 4.1875rem;
     position: absolute;
-    width: 300px;
+    width: 18.75rem;
     z-index: 2;
   }
 
   @include u.breakpoint(medium) {
     &::before,
     &::after {
-      @include white-gradient;
-      height: 104px;
+      @include dark-bg-gradient;
+      height: 6.5rem;
     }
   }
 
@@ -59,7 +61,7 @@ $animationSpeed: 35s;
   .slideTrack {
     animation: scroll $animationSpeed linear infinite;
     display: flex;
-    width: calc(300px * 28);
+    width: calc(18.75rem * 28);
   }
 
   .slide {
@@ -67,11 +69,23 @@ $animationSpeed: 35s;
     align-items: center;
     color: var(--white-color);
     font-size: var(--fs-body);
-    height: 67px;
-    margin: 0 14px;
+    height: 4.1875rem;
+    margin: 0 0.875rem;
 
     @include u.breakpoint(medium) {
-      height: 104px;
+      height: 6.5rem;
+    }
+  }
+}
+
+.sliderLight {
+  background-color: var(--section-bg-color);
+
+  @include u.breakpoint(medium) {
+    &::before,
+    &::after {
+      @include light-bg-gradient;
+      height: 6.5rem;
     }
   }
 }

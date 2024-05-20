@@ -67,21 +67,16 @@ const FAQ = ({ data }: FAQProps) => {
   return (
     <section className={`${style.faqSection} ${lightTheme ? style.faqLight : style.faqDark}`}>
       <div className={style.faqContainer}>
-        <div className={style.faqText}>
+        <div>
           <h1
             className={`${style.faqTitle} ${lightTheme ? style.faqDarkTitle : style.faqLightTitle}`}
           >
             Често поставувани прашања
           </h1>
-
-          <div>
-            <p
-              className={`${style.faqDesc} ${lightTheme ? style.faqDarkDesc : style.faqLightDesc}`}
-            >
-              We tried to answer the most common questions, if you have any additional, please get
-              in touch with our friendly team
-            </p>
-          </div>
+          <p className={`${style.faqDesc} ${lightTheme ? style.faqDarkDesc : style.faqLightDesc}`}>
+            We tried to answer the most common questions, if you have any additional, please get in
+            touch with our friendly team
+          </p>
         </div>
         <ul>
           {data.map(({ id, title, content }) => {
