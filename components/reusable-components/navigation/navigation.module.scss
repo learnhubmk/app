@@ -19,8 +19,11 @@
 }
 
 .largeNavbar {
-  padding: 1.25rem;
-  padding-inline: 0;
+  padding: 1.25rem 0;
+
+  @include respond-to('small') {
+    padding: 0.875rem 0;
+  }
 }
 
 .lightNavbar {
@@ -61,8 +64,6 @@
   align-items: center;
 
   @include respond-to('small') {
-    width: 4rem;
-    height: 2rem;
     margin-right: 0;
   }
 }
