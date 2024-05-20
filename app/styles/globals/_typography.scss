@@ -34,6 +34,14 @@ h2 {
   line-height: var(--lh-h2);
 }
 
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 h1,
 h2,
 h3,

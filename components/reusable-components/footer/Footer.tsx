@@ -78,6 +78,7 @@ const Footer: React.FC = () => {
                   name="name"
                   field="name"
                   formik={formik}
+                  isFooter
                 />
                 <TextInput
                   placeholder="Enter your Email"
@@ -86,6 +87,7 @@ const Footer: React.FC = () => {
                   name="email"
                   field="email"
                   formik={formik}
+                  isFooter
                 />
                 <button type="submit" className={`${styles.Button}`} disabled={formik.isSubmitting}>
                   Submit

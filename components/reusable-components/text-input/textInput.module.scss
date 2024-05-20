@@ -76,4 +76,8 @@
     line-height: var(--lh-tag);
     text-align: left;
   }
+
+  .footerErrorMessage {
+    color: var(--error-footer-color);
+  }
 }
