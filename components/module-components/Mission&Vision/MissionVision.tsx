@@ -40,15 +40,21 @@ const MissionVision = () => {
       <div
         className={`${style.missionTitle} ${isLightTheme ? style.missionTitleWhite : style.missionTitleDark}`}
       >
+        <Image
+          className={style.mobilePattern}
+          src="\Mission&Vision\frame6.svg"
+          alt="Mobile Pattern"
+          width={109}
+          height={109}
+        />
+        <Image
+          className={style.mobilePatternSecond}
+          src="\Mission&Vision\frame6.svg"
+          alt="Mobile Pattern"
+          width={109}
+          height={109}
+        />
         <div className={style.cardMission}>
-          <Image
-            className={style.mobilePattern}
-            src="\Mission&Vision\frame6.svg"
-            alt="Mobile Pattern"
-            width={109}
-            height={109}
-          />
-
           <h2>Мисија</h2>
           <p>
             Мисијата на LearnHub е негување на одржлива и инклузивна заедница од сите припадници на
@@ -58,13 +64,6 @@ const MissionVision = () => {
             од идеја до пазар и одржување.
           </p>
 
-          <Image
-            className={style.mobilePattern}
-            src="\Mission&Vision\frame6.svg"
-            alt="Mobile Pattern"
-            width={109}
-            height={109}
-          />
           <h2>Визија</h2>
           <p>
             Визијата на LearnHub е да биде препознатива заедница по соработката, едукацијата и
@@ -72,14 +71,14 @@ const MissionVision = () => {
             многу нови производи и услуги ќе бидат резултат на заеднички напори и спој на различни
             вештини од повеќе области во технолошкиот свет.
           </p>
-          <Image
-            className={style.patternHorizontally}
-            src="\Mission&Vision\frame5.svg"
-            alt="Mobile Pattern"
-            width={67}
-            height={104}
-          />
         </div>
+        <Image
+          className={style.patternHorizontally}
+          src="\Mission&Vision\frame5.svg"
+          alt="Mobile Pattern"
+          width={67}
+          height={104}
+        />
       </div>
     </section>
   );
