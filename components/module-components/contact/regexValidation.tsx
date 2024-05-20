@@ -1,4 +1,3 @@
-export const fullNameRegexValidation =
-  /^[a-zA-Zа-шА-Ша]+(([' -][a-zA-Zа-шА-Ша ])?[a-zA-Zа-шА-Ша]*)*$|^[a-zA-Zа-шА-аШ]+$/;
+export const fullNameRegexValidation = /^[a-z\u0402-\u0491 '-]+$|^$/i;
 
 export const emailRegexValidation = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
