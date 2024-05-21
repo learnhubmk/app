@@ -22,7 +22,7 @@ const SocialMediaLinks: React.FC = () => {
       >
         <Image src={linkedin} alt="Linkedin" width={48} height={48} />
       </Link>
-      <Link href="https://github.com/learnhubmkd" target="_blank" rel="noopener noreferrer">
+      <Link href="https://github.com/learnhubmk" target="_blank" rel="noopener noreferrer">
         <Image src={github} alt="Github" width={48} height={48} />
       </Link>
       <Link
