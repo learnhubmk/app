@@ -1,14 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import style from './contact.module.scss';
-
 import { useTheme } from '../../../app/context/themeContext';
 import ContactForm from './ContactForm';
 import Button from '../../reusable-components/button/Button';
-
 import ContactImageDesktop from '../../../public/contact-section-image-desktop.png';
 import ContactImageMobile from '../../../public/contact-section-image-mobile.png';
 
