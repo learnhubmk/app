@@ -58,6 +58,14 @@
         margin-inline: 0;
       }
 
+      .lightThemeHeroTitle {
+        color: var(--titles-color);
+      }
+
+      .darkThemeHeroTitle {
+        color: var(--white-color);
+      }
+
       .heroText {
         font-size: var(--fs-body);
         line-height: var(--lh-body);
@@ -69,6 +77,14 @@
           margin-top: 2rem;
           margin-bottom: 5.25rem;
         }
+      }
+
+      .lightThemeHeroText {
+        color: var(--hero-text-dark-color);
+      }
+
+      .darkThemeHeroText {
+        color: var(--hero-text-light-color);
       }
     }
   }

@@ -69,7 +69,7 @@
 }
 
 .themeBackgroundDark {
-  background-color: #ffff;
+  background-color: #000000;
   box-shadow: inset 0px 0px 3px 1px rgb(161, 161, 161);
 
   & .ellipse1 {
@@ -77,19 +77,19 @@
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background-color: #000000;
+    background-color: #ffffff;
   }
 }
 
 .themeBackgroundLight {
-  background-color: #2a2a2d;
+  background-color: #000000;
   box-shadow: inset 0px 0px 3px 1px rgb(180, 180, 129);
 
   & .ellipse {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background-color: #ffff;
+    background-color: #ffffff;
   }
 }
 
