@@ -7,6 +7,7 @@
   height: 100vh;
   min-height: 37.5rem !important;
   position: relative;
+  
 }
 
 .missionMainWhite {
@@ -17,15 +18,8 @@
   background: hsla(220, 20%, 43%, 1);
 
   @media (max-width: 1023px) {
-    background: rgba(54, 67, 98, 1);
+    background: linear-gradient(90deg, hsl(222, 50%, 14%) 0%, hsl(208, 34%, 24%) 100%);
   }
-}
-
-.mvInner {
-  display: flex;
-  justify-content: space-between;
-  max-width: 100%;
-  position: relative;
 }
 
 .mvImgContainer {
@@ -42,12 +36,17 @@
   flex: 0 0 35%;
 }
 
+.mvImgContainer,
+.mvLeftSide,
+.mvRightSide,
 .imgMission {
-  object-fit: cover;
-
-  @media (max-width: 1023px) {
+  @media (max-width: 1022px) {
     display: none;
   }
+}
+
+.imgMission {
+  object-fit: cover;
 
   @media (max-width: 425px) {
     background: none;
@@ -102,7 +101,7 @@
 
       &:nth-of-type(2) {
         position: absolute;
-        top: 45%;
+        top: 50%;
       }
     }
 
@@ -120,14 +119,9 @@
     height: fit-content !important;
 
     @media (max-width: 1023px) {
-      &:nth-last-of-type(2) {
+      &:nth-of-type(2) {
         position: absolute;
-        top: 57%;
-      }
-
-      @media (min-width: 768px) and (max-width: 1023px) {
-        font-size: 32px;
-        line-height: 1;
+        top: 60%;
       }
     }
   }
@@ -148,14 +142,16 @@
 .missionTitleDark {
   background: rgba(54, 67, 98, 1);
 
+  @media (max-width: 1023px) {
+    background: linear-gradient(90deg, hsl(222, 50%, 14%) 0%, hsl(208, 34%, 24%) 100%);
+  }
+
   h2 {
     color: rgba(255, 255, 255, 1);
-    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
   }
 
   p {
     color: rgba(255, 255, 255, 1);
-    background: var(--Elevated-elements, rgba(54, 67, 98, 1));
   }
 }
 
@@ -198,7 +194,7 @@
 
 .mobilePatternSecond {
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: -2.1875rem;
 
   @media (min-width: 1023px) {
@@ -211,15 +207,8 @@
     display: none;
   }
 
-  @media (max-width: 764px) {
+  @media (max-width: 1022px) {
     width: 4.188rem;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-  }
-
-  @media (min-width: 765px) and (max-width: 1023px) {
-    width: 7.188rem;
     bottom: 0;
     right: 0;
     position: absolute;
