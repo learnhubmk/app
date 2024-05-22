@@ -34,7 +34,6 @@ const ContactForm = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       if (!turnstileToken) {
-        toast.error('Please complete the captcha');
         return;
       }
 
@@ -92,7 +91,7 @@ const ContactForm = () => {
 
         <Button href="" type="submit" buttonClass={['primaryButton']} buttonText="Испрати" />
         <Turnstile
-          sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ''}
+          sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
           onVerify={(token) => setTurnstileToken(token)}
           theme="light"
           size="invisible"
