@@ -66,6 +66,7 @@ const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
           type="text"
           field="username"
           formik={formik}
+          inputClass={['']}
           isRequired
         />
         <TextInput
@@ -75,6 +76,7 @@ const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
           type="email"
           field="email"
           formik={formik}
+          inputClass={['']}
           isRequired
         />
         <TextArea

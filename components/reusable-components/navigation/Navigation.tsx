@@ -32,7 +32,7 @@ const Navigation = () => {
           {isSun ? (
             <Image
               src={moonImage}
-              alt="Sun Image"
+              alt="moon icon"
               width={18}
               height={18}
               className={styles.moonImage}
@@ -40,7 +40,7 @@ const Navigation = () => {
           ) : (
             <Image
               src={sunImage}
-              alt="Moon Image"
+              alt="sun icon"
               width={18}
               height={18}
               className={styles.sunImage}
