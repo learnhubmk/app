@@ -6,6 +6,7 @@ import { FormikHelpers, useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
+import Turnstile from 'react-turnstile';
 import { useTheme } from '../../../app/context/themeContext';
 // eslint-disable-next-line no-unused-vars
 import { submitNewsletterForm } from './SubmitNewsletterForm';
@@ -35,13 +36,24 @@ const Footer: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  // eslint-disable-next-line no-unused-vars
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
   const handleSubmit = async (
     values: { name: string; email: string },
     { resetForm }: FormikHelpers<{ name: string; email: string }>
   ) => {
+    if (!turnstileToken) {
+      toast.error('Please complete the captcha');
+      return;
+    }
+
+    const formValues = {
+      ...values,
+      turnstileToken,
+    };
+
     try {
-      await submitNewsletterForm(values);
+      await submitNewsletterForm(formValues);
       setSuccessMessage(true);
       toast.success('Успешно испратено!');
       resetForm();
@@ -99,9 +111,13 @@ const Footer: React.FC = () => {
                 buttonClass={['primaryButton', 'smallFooterButton']}
                 buttonText="Претплати се"
               />
+              <Turnstile
+                sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
+                onVerify={(token) => setTurnstileToken(token)}
+                size="invisible"
+              />
             </form>
           </div>
-
           <div className={styles.contactContainer}>
             <h2 className={styles.footerTitle}>Контактирај не</h2>
             <a className={styles.contactEmail} href="mailto:contact@learnhub.mk">
@@ -113,7 +129,6 @@ const Footer: React.FC = () => {
             <SocialMediaLinks />
           </div>
         </div>
-
         <div className={styles.copyrightContainer}>
           <p>&copy; 2024 Copyright by LearnHub. All rights reserved.</p>
         </div>
