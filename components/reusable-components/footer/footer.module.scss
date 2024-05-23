@@ -64,6 +64,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-align: center;
       color: #707a88;
       font-size: var(--fs-tag);
       line-height: 10px;
@@ -133,5 +134,9 @@
     .socialIconsContainer {
       justify-content: flex-start;
     }
+  }
+
+  .copyrightContainer {
+    line-height: 20px !important;
   }
 }
