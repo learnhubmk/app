@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import { useTheme } from '../../../app/context/themeContext';
 // eslint-disable-next-line no-unused-vars
-import SubmitNewsletterForm, { submitNewsletterForm } from './SubmitNewsletterForm';
+import { submitNewsletterForm } from './SubmitNewsletterForm';
 import styles from './footer.module.scss';
 import TextInput from '../text-input/TextInput';
 import LogoDark from '../../../public/logo/logo-black.svg';
@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
         <Image src={LogoDark} alt="LearnHub Logo" className={styles.footerLogo} />
         <div className={styles.footerSectionsContainer}>
           <div className={styles.newsletterContainer}>
-            <p className={styles.footerTitle}>Претплати се на нашиот...</p>
+            <h2 className={styles.footerTitle}>Претплати се на нашиот...</h2>
             <form className={styles.newsletterForm} onSubmit={formik.handleSubmit}>
               <TextInput
                 placeholder="Enter your Name"
@@ -96,20 +96,20 @@ const Footer: React.FC = () => {
               <Button
                 href=""
                 type="submit"
-                buttonClass={['primaryButton']}
+                buttonClass={['primaryButton', 'smallFooterButton']}
                 buttonText="Претплати се"
               />
             </form>
           </div>
 
-          <div>
-            <p className={styles.footerTitle}>Контактирај не</p>
+          <div className={styles.contactContainer}>
+            <h2 className={styles.footerTitle}>Контактирај не</h2>
             <a className={styles.contactEmail} href="mailto:contact@learnhub.mk">
               contact@learnhub.mk
             </a>
           </div>
-          <div>
-            <p className={`${styles.footerTitle} ${styles.socialMediaTitle}`}>Connect with us</p>
+          <div className={styles.socialMediaContainer}>
+            <h2 className={`${styles.footerTitle} ${styles.socialMediaTitle}`}>Connect with us</h2>
             <SocialMediaLinks />
           </div>
         </div>

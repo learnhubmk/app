@@ -10,13 +10,13 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  color: var(--text-color);
   padding-top: clamp(3.75rem, 7.60292rem + -3.211vw, 6.75rem);
-  padding-inline: clamp(1.5rem, -1.6272rem + 11.773vw, 12.5rem);
+  padding-inline: clamp(2.25rem, -5.6214rem + 15.101vw, 12.5rem);
   padding-bottom: clamp(1.25rem, 3.97903rem + -2.274vw, 3.375rem);
 
   .footerContainer {
     width: 100%;
-    color: var(--text-color);
 
     .footerTitle {
       font-size: var(--fs-title);
@@ -39,7 +39,6 @@
 
       .newsletterContainer {
         width: 22.5rem;
-        min-width: 22.5rem;
       }
 
       .contactEmail {
@@ -48,11 +47,15 @@
         font-weight: 500;
       }
 
-      .socialLinks {
-        font-size: clamp(2.25rem, 2.0367rem + 0.803vw, 3rem);
+      .socialIconsContainer {
         display: flex;
-        gap: clamp(0.75rem, 0.67881rem + 0.268vw, 1rem);
         flex-wrap: wrap;
+        width: 100%;
+        gap: clamp(0.75rem, 0.67881rem + 0.268vw, 1rem);
+
+        a {
+          line-height: 0;
+        }
       }
     }
 
@@ -67,6 +70,68 @@
       margin-top: clamp(4rem, 5.28422rem + -1.07vw, 5rem);
       padding: clamp(0.875rem, 0.76848rem + 0.401vw, 1.25rem) 0;
       border-top: 0.5px solid #fff;
+    }
+  }
+}
+
+@media only screen and (max-width: 1240px) {
+  .socialMediaContainer {
+    width: 12.6875rem;
+
+    .socialMediaTitle {
+      margin-left: 2.1875rem;
+    }
+
+    .socialIconsContainer {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .contactContainer {
+    margin-top: 3.75rem;
+    order: 1;
+  }
+
+  .socialMediaContainer {
+    margin-left: clamp(3.125rem, -22.5523rem + 49.261vw, 15.625rem);
+    order: 0;
+  }
+}
+
+@media only screen and (max-width: 834px) {
+  .socialIconsContainer {
+    img {
+      width: 100%;
+      max-width: clamp(2.25rem, 1.47066rem + 2.934vw, 3rem);
+      height: auto;
+    }
+  }
+}
+
+@media only screen and (max-width: 699px) {
+  .newsletterContainer {
+    width: 100% !important;
+  }
+
+  .contactContainer {
+    order: 0;
+  }
+
+  .socialMediaContainer {
+    margin-top: 3.75rem;
+    width: 100%;
+    order: 1;
+    margin-left: 0;
+
+    .socialMediaTitle {
+      margin-left: 0;
+    }
+
+    .socialIconsContainer {
+      justify-content: flex-start;
     }
   }
 }
