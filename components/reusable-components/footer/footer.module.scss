@@ -92,16 +92,24 @@
 
 @media only screen and (max-width: 1023px) {
   .contactContainer {
-    margin-top: 3.75rem;
+    margin-top: clamp(-5.25rem, -5.25rem + 0vw, -5.25rem);
     order: 1;
+    position: sticky;
+    left: 72%;
   }
 
   .socialMediaContainer {
     margin-left: clamp(3.125rem, -22.5523rem + 49.261vw, 15.625rem);
     order: 0;
+    position: sticky;
+    right: clamp(4.1875rem, -2.04294rem + 14.241vw, 7.0625rem);
   }
 }
-
+@media only screen and (max-width: 900px) {
+  .socialMediaContainer {
+    right: 9.5%;
+  }
+}
 @media only screen and (max-width: 834px) {
   .socialIconsContainer {
     img {
@@ -109,6 +117,9 @@
       max-width: clamp(2.25rem, 1.47066rem + 2.934vw, 3rem);
       height: auto;
     }
+  }
+  .socialMediaContainer {
+    right: 9%;
   }
 }
 
@@ -119,6 +130,8 @@
 
   .contactContainer {
     order: 0;
+    margin-right: 68%;
+    margin-top: 60px;
   }
 
   .socialMediaContainer {
