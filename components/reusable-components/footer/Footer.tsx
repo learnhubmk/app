@@ -41,18 +41,15 @@ const Footer: React.FC = () => {
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-  const handleSubmit = async (
-    values: { name: string; email: string },
-    { resetForm }: FormikHelpers<{ name: string; email: string }>
-  ) => {
+  const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (!turnstileToken) {
-      toast.error('Please complete the captcha');
       return;
     }
 
     const formValues = {
-      ...values,
-      turnstileToken,
+      first_name: values.name,
+      email: values.email,
+      'cf-turnstile-response': turnstileToken,
     };
 
     try {
