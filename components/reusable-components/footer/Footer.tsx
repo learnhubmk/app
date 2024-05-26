@@ -53,13 +53,17 @@ const Footer: React.FC = () => {
     };
 
     try {
-      await submitNewsletterForm(formValues);
+      const responseMessage = await submitNewsletterForm(formValues);
+      if (responseMessage === '') {
+        toast.info(responseMessage);
+      } else {
+        toast.success(responseMessage || '');
+      }
       setSuccessMessage(true);
-      toast.success('Успешно испратено!');
       resetForm();
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error.message || 'Грешка');
       setErrorMessage(true);
-      toast.error('Грешка');
     }
   };
 

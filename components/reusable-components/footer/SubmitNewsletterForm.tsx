@@ -4,11 +4,7 @@ export interface NewsletterFormData {
   'cf-turnstile-response': string;
 }
 
-type NewsletterFormResponse = any;
-
-export const submitNewsletterForm = async (
-  formData: NewsletterFormData
-): Promise<NewsletterFormResponse> => {
+export const submitNewsletterForm = async (formData: NewsletterFormData): Promise<string> => {
   const url = new URL('https://staging-api.learnhub.mk/newsletter-subscribers');
 
   const headers = {
@@ -22,9 +18,12 @@ export const submitNewsletterForm = async (
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const errorData = await response.json();
+    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
   }
-  return response;
+
+  const responseData = await response.json();
+  return responseData.message;
 };
 
 export default submitNewsletterForm;
