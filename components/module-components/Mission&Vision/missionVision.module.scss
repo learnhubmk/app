@@ -1,9 +1,6 @@
 .missionVisionMain {
   @media (max-width: 1022px) {
     position: relative;
-    // overflow: hidden;   /* Hide any overflow content */
-    // width: 100%;        /* Adjust as necessary */
-    // height: auto;
   }
 
   @media (min-width: 1023px) {
@@ -75,7 +72,6 @@
 
 .missionTitle {
   padding: 0 4rem 2rem 4rem;
-  // height: auto;
 
   @media (min-width: 1023px) {
     border-radius: 0.5rem;
@@ -83,7 +79,6 @@
     position: absolute;
     left: 50%;
     width: 45%;
-    // height: fit-content;
     max-width: 100%;
   }
 
@@ -91,23 +86,25 @@
     width: 100% !important;
     padding-inline: 3rem;
     border: none;
+    margin-top: -1.88rem;
   }
 
   h2 {
-    font-size: 2.25rem;
+    font-size: 1.87rem;
     font-weight: 700;
     line-height: var(--lh-body);
-    margin: 2rem 0;
+    padding-block: 2rem;
 
     @media (max-width: 1023px) {
-      font-size: 1.875rem;
       font-weight: 700;
       line-height: 2.285rem;
       letter-spacing: -0.015625rem;
     }
 
-    @media (max-width: 1300px) {
-      font-size: 1.8rem;
+    @media (min-width: 767px) and (max-width: 1022px) {
+      &:nth-of-type(2) {
+        margin-top: 5rem;
+      }
     }
   }
 
@@ -119,11 +116,12 @@
     letter-spacing: 0.00625rem;
 
     @media (max-width: 1022px) {
-      margin-right: 1rem;
+      margin-right: 1.2rem;
     }
 
     @media (max-width: 1300px) {
       font-size: 1rem;
+      line-height: 1.5;
     }
   }
 }
@@ -170,6 +168,11 @@
   position: absolute;
   left: -2.1875rem;
 
+  @media (min-width: 767px) and (max-width: 1022px) {
+    &:nth-of-type(2) {
+      margin-top: 5rem;
+    }
+  }
   @media (min-width: 1023px) {
     display: none;
   }

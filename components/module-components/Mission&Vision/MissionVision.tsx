@@ -40,7 +40,6 @@ const MissionVision = () => {
       <div
         className={`${style.missionTitle} ${isLightTheme ? style.missionTitleWhite : style.missionTitleDark}`}
       >
-        {/* <div> */}
         <Image
           className={style.mobilePattern}
           src="\Mission&Vision\frame6.svg"
@@ -56,9 +55,7 @@ const MissionVision = () => {
           соработка на реални проекти и безрезервна поддршка и едукација во текот на целиот процес
           од идеја до пазар и одржување.
         </p>
-        {/* </div> */}
 
-        {/* <div> */}
         <Image
           className={style.mobilePattern}
           src="\Mission&Vision\frame6.svg"
@@ -73,7 +70,6 @@ const MissionVision = () => {
           многу нови производи и услуги ќе бидат резултат на заеднички напори и спој на различни
           вештини од повеќе области во технолошкиот свет.
         </p>
-        {/* </div> */}
       </div>
       <Image
         className={style.patternHorizontally}
