@@ -3,6 +3,7 @@
 import React, { FC, HTMLProps } from 'react';
 import style from './textInput.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
+import setClass from '../../../utils/setClass';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   placeholder: string;
@@ -13,6 +14,7 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
   formik: any;
   isRequired?: boolean;
   isFooter?: boolean;
+  inputClass?: string[];
 }
 
 const TextInput: FC<InputProps> = ({
@@ -24,6 +26,7 @@ const TextInput: FC<InputProps> = ({
   formik,
   isRequired,
   isFooter,
+  inputClass = [],
 }) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
@@ -38,7 +41,7 @@ const TextInput: FC<InputProps> = ({
       <div className={style.inputWrapper}>
         <input
           type={type}
-          className={`${style.input} ${style[`${isError}`]} ${style[`${isValid}`]}`}
+          className={`${style.input} ${setClass(inputClass, style)} ${style[`${isError}`]} ${style[`${isValid}`]}`}
           placeholder={placeholder}
           value={formik.values[field]}
           onChange={formik.handleChange}
