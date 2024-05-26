@@ -1,9 +1,9 @@
 .missionVisionMain {
-  @media (max-width: 1022px) {
+  @media (max-width: 1025px) {
     position: relative;
   }
 
-  @media (min-width: 1023px) {
+  @media (min-width: 1026px) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,7 +21,7 @@
 .missionMainDark {
   background: hsla(220, 20%, 43%, 1);
 
-  @media (max-width: 1022px) {
+  @media (max-width: 1025px) {
     background: linear-gradient(90deg, hsl(222, 50%, 14%) 0%, hsl(208, 34%, 24%) 100%);
   }
 }
@@ -30,7 +30,7 @@
   position: relative;
   height: 100%;
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1025px) {
     display: none;
   }
 }
@@ -39,7 +39,7 @@
   flex: 0 0 65%;
   object-fit: cover;
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1025px) {
     display: none;
   }
 }
@@ -48,7 +48,7 @@
   flex: 0 0 25%;
   object-fit: cover;
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1025px) {
     display: none;
   }
 }
@@ -57,7 +57,7 @@
 .mvLeftSide,
 .mvRightSide,
 .imgMission {
-  @media (max-width: 1022px) {
+  @media (max-width: 1025px) {
     display: none;
   }
 }
@@ -65,15 +65,19 @@
 .imgMission {
   object-fit: cover;
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1025px) {
     display: none;
   }
 }
 
 .missionTitle {
   padding: 0 4rem 2rem 4rem;
+  width: 100%;
+  padding-inline: 3rem;
+  border: none;
+  margin-top: -1.88rem;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1026px) {
     border-radius: 0.5rem;
     border: 0.063rem solid rgba(148, 163, 184, 1);
     position: absolute;
@@ -82,26 +86,18 @@
     max-width: 100%;
   }
 
-  @media (max-width: 1023px) {
-    width: 100% !important;
-    padding-inline: 3rem;
-    border: none;
-    margin-top: -1.88rem;
-  }
-
   h2 {
     font-size: 1.87rem;
     font-weight: 700;
     line-height: var(--lh-body);
     padding-block: 2rem;
 
-    @media (max-width: 1024px) {
-      font-weight: 700;
+    @media (max-width: 1025px) {
       line-height: 2.285rem;
       letter-spacing: -0.015625rem;
     }
 
-    @media (min-width: 767px) and (max-width: 1023px) {
+    @media (min-width: 767px) and (max-width: 1025px) {
       &:nth-of-type(2) {
         margin-top: 5rem;
       }
@@ -114,10 +110,6 @@
     font-weight: 400;
     line-height: var(--lh-body);
     letter-spacing: 0.00625rem;
-
-    @media (max-width: 1023px) {
-      margin-right: 1.2rem;
-    }
 
     @media (max-width: 1600px) {
       font-size: 1rem;
@@ -141,7 +133,7 @@
 .missionTitleDark {
   background: rgba(54, 67, 98, 1);
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1025px) {
     background: linear-gradient(90deg, hsl(222, 50%, 14%) 0%, hsl(208, 34%, 24%) 100%);
   }
 
@@ -159,7 +151,7 @@
   object-fit: cover;
   padding-block: 2.5rem;
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1025px) {
     display: none;
   }
 }
@@ -168,22 +160,22 @@
   position: absolute;
   left: -2.1875rem;
 
-  @media (min-width: 767px) and (max-width: 1024px) {
+  @media (min-width: 767px) and (max-width: 1025px) {
     &:nth-of-type(2) {
       margin-top: 5rem;
     }
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     display: none;
   }
 }
 
 .patternHorizontally {
-  @media (min-width: 1025px) {
+  @media (min-width: 1026px) {
     display: none;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1025px) {
     bottom: -30px;
     right: 0;
     position: absolute;
