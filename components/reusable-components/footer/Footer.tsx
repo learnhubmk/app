@@ -16,6 +16,12 @@ import LogoDark from '../../../public/logo/logo-black.svg';
 import SocialMediaLinks from './SocialMediaIcons';
 import Button from '../button/Button';
 
+// eslint-disable-next-line no-unused-vars
+interface FormValues {
+  name: string;
+  email: string;
+}
+
 const Footer: React.FC = () => {
   const { theme } = useTheme();
   const isThemeLight = theme === 'light';
@@ -51,10 +57,8 @@ const Footer: React.FC = () => {
 
     try {
       const responseMessage = await submitNewsletterForm(formValues);
-      if (responseMessage === '') {
-        toast.info(responseMessage);
-      } else {
-        toast.success(responseMessage || '');
+      if (responseMessage) {
+        toast.success(responseMessage);
       }
       setSuccessMessage(true);
       resetForm();
