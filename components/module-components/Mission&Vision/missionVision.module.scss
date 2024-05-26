@@ -1,15 +1,19 @@
 .missionVisionMain {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15rem;
-  width: 100%;
-  height: 100vh;
-  min-height: 37.5rem !important;
-  position: relative;
+  @media (max-width: 1022px) {
+    position: relative;
+    // overflow: hidden;   /* Hide any overflow content */
+    // width: 100%;        /* Adjust as necessary */
+    // height: auto;
+  }
 
-  @media (min-width: 500px) and (max-width: 1023px) {
-    height: 60vh;
+  @media (min-width: 1023px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15rem;
+    width: 100%;
+    height: 100vh;
+    min-height: 37.5rem !important;
   }
 }
 
@@ -44,7 +48,8 @@
 }
 
 .mvRightSide {
-  flex: 0 0 35%;
+  flex: 0 0 25%;
+  object-fit: cover;
 
   @media (max-width: 1023px) {
     display: none;
@@ -66,51 +71,26 @@
   @media (max-width: 1023px) {
     display: none;
   }
-
-  @media (max-width: 425px) {
-    background: none;
-  }
 }
 
 .missionTitle {
   padding: 0 4rem 2rem 4rem;
-  border-radius: 0.5rem;
-  border: 0.063rem solid rgba(148, 163, 184, 1);
-  position: absolute;
-  left: 50%;
-  width: 45%;
-  height: auto;
-  min-height: 25rem;
-  max-width: 100%;
-  overflow: hidden;
-  object-fit: cover;
+  // height: auto;
 
-  @media (max-width: 431px) {
-    padding: 0 4rem 0 4rem;
-    width: 100% !important;
-    height: 53.25rem;
-    gap: 1.25rem;
-    padding-inline: 3rem;
-    left: 0;
-    border: none;
-  }
-
-  @media (min-width: 500px) and (max-width: 1023px) {
-    width: 100%;
-    top: auto;
-    left: auto;
+  @media (min-width: 1023px) {
     border-radius: 0.5rem;
-    border: 1px;
+    border: 0.063rem solid rgba(148, 163, 184, 1);
+    position: absolute;
+    left: 50%;
+    width: 45%;
+    // height: fit-content;
+    max-width: 100%;
+  }
+
+  @media (max-width: 1022px) {
+    width: 100% !important;
+    padding-inline: 3rem;
     border: none;
-    margin-bottom: 0;
-  }
-
-  @media (min-width: 539px) and (max-width: 550px) {
-    height: 100vh;
-  }
-
-  @media (min-width: 551px) and (max-width: 1023px) {
-    height: 60vh;
   }
 
   h2 {
@@ -124,12 +104,10 @@
       font-weight: 700;
       line-height: 2.285rem;
       letter-spacing: -0.015625rem;
-      text-align: left;
+    }
 
-      &:nth-of-type(2) {
-        position: absolute;
-        top: 50%;
-      }
+    @media (max-width: 1300px) {
+      font-size: 1.8rem;
     }
   }
 
@@ -137,22 +115,15 @@
     font-style: normal;
     font-size: var(--fs-body);
     font-weight: 400;
-    line-height: var(-lh-card-text);
+    line-height: var(--lh-body);
     letter-spacing: 0.00625rem;
-    height: fit-content !important;
 
-    @media (max-width: 767px) {
-      &:nth-of-type(2) {
-        position: absolute;
-        top: 60%;
-      }
+    @media (max-width: 1022px) {
+      margin-right: 1rem;
     }
 
-    @media (min-width: 768px) and (max-width: 1023px) {
-      &:nth-of-type(2) {
-        position: absolute;
-        top: 65%;
-      }
+    @media (max-width: 1300px) {
+      font-size: 1rem;
     }
   }
 }
@@ -185,13 +156,6 @@
   }
 }
 
-.cardMission {
-  @media (max-width: 431px) {
-    width: 110%;
-    height: 100vh;
-  }
-}
-
 .missionPattern {
   left: 100%;
   object-fit: cover;
@@ -203,24 +167,7 @@
 }
 
 .mobilePattern {
-  display: block;
-  width: 6.79688rem;
-  height: 6.79688rem;
   position: absolute;
-  left: -2.1875rem;
-
-  &:nth-child(1) {
-    top: 0;
-  }
-
-  @media (min-width: 1023px) {
-    display: none;
-  }
-}
-
-.mobilePatternSecond {
-  position: absolute;
-  top: 50%;
   left: -2.1875rem;
 
   @media (min-width: 1023px) {
@@ -234,8 +181,7 @@
   }
 
   @media (max-width: 1022px) {
-    width: 4.188rem;
-    bottom: 0;
+    bottom: -30px;
     right: 0;
     position: absolute;
   }
