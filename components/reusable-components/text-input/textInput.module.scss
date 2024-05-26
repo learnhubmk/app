@@ -37,12 +37,12 @@
     }
 
     .newsletterInput {
-      border: 1px solid white;
+      border: 1px solid var(--white-color);
       background-color: transparent;
-      color: white !important;
+      color: var(--white-color) !important;
       height: 3.375rem;
-      -webkit-text-fill-color: #ffff !important;
-      -webkit-text-color: #ffff !important;
+      -webkit-text-fill-color: var(--white-color) !important;
+      -webkit-text-color: var(--white-color) !important;
 
       &::placeholder {
         background-color: transparent !important;
@@ -54,12 +54,12 @@
     }
 
     .lightNewsletterInput {
-      -webkit-box-shadow: inset 0 0 0 30px #121d36 !important;
+      -webkit-box-shadow: inset 0 0 0 30px var(--section-bg-color) !important;
       background-clip: content-box !important;
     }
 
     .darkNewsletterInput {
-      -webkit-box-shadow: inset 0 0 0 30px #070b15 !important;
+      -webkit-box-shadow: inset 0 0 0 30px var(--tertiary-dark-mode) !important;
       background-clip: content-box !important;
     }
 

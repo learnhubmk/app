@@ -69,7 +69,6 @@ const ContactForm = () => {
           type="text"
           field="username"
           formik={formik}
-          inputClass={['']}
           isRequired
         />
         <TextInput
@@ -79,7 +78,6 @@ const ContactForm = () => {
           type="email"
           field="email"
           formik={formik}
-          inputClass={['']}
           isRequired
         />
         <TextArea

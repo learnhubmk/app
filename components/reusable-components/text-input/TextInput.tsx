@@ -14,7 +14,7 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
   formik: any;
   isRequired?: boolean;
   isFooter?: boolean;
-  inputClass: string[];
+  inputClass?: string[];
 }
 
 const TextInput: FC<InputProps> = ({
@@ -26,7 +26,7 @@ const TextInput: FC<InputProps> = ({
   formik,
   isRequired,
   isFooter,
-  inputClass,
+  inputClass = [],
 }) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
