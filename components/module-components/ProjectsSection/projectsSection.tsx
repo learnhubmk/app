@@ -4,7 +4,7 @@ import React from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import style from './projectsSection.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
-import ProjectCard, { ProjectCardProps } from '../../reusable-components/ProjectCard/ProjectCard';
+import ProjectCard, { ProjectCardProps } from '../../reusable-components/projectCard/ProjectCard';
 
 interface Props {
   cards: ProjectCardProps[];
@@ -13,11 +13,12 @@ interface Props {
 const ProjectsSection = ({ cards }: Props) => {
   const { theme } = useTheme();
   const lightTheme = theme === 'light';
+  const shouldUseCarousel = cards.length > 2;
 
   const options = {
-    active: true,
+    active: shouldUseCarousel,
     breakpoints: {
-      '(min-width: 900px)': { active: false },
+      '(min-width: 700px)': { active: false },
     },
   };
   const [emblaRef] = useEmblaCarousel(options);
@@ -41,7 +42,10 @@ const ProjectsSection = ({ cards }: Props) => {
           </p>
         </div>
 
-        <div className={style.carouselContainer} ref={emblaRef}>
+        <div
+          className={`${style.carouselContainer} ${cards.length > 2 ? style.manyCards : ''}`}
+          ref={emblaRef}
+        >
           <div className={style.projectContainer}>
             {cards.map((card, index) => (
               <ProjectCard
