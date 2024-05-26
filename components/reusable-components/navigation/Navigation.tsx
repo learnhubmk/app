@@ -10,53 +10,40 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import styles from './navigation.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
-import solImage from '../../../public/theme/sun.png';
+import sunImage from '../../../public/theme/sun.png';
 import moonImage from '../../../public/theme/moon.png';
+import LogoNavigation from '../../../public/logo/logo-black.svg';
 
 const Navigation = () => {
   const { theme, toggleTheme } = useTheme();
   const isSun = theme === 'light';
 
   return (
-    <nav className={`${styles.largeNavbar} ${isSun && styles.lightNavbar}`}>
-      <div className={styles.navContainer}>
-        <Link className={styles.navigationLogo} href="/">
-          <Image
-            src="/logo/logo-black.svg"
-            className={`${styles.navigationLogo}`}
-            alt="LearnHub Logo"
-            width={208}
-            height={48}
-          />
+    <nav className={`${styles.navigation} ${isSun && styles.lightNavigation}`}>
+      <div className={styles.navigationContainer}>
+        <Link className={styles.navigationLogoLink} href="/">
+          <Image src={LogoNavigation} className={styles.navigationLogo} alt="LearnHub Logo" />
         </Link>
-
-        <div
-          className={`${styles.themeBackgroundSize} ${!isSun ? styles.themeDark && styles.themeBackgroundLight : styles.themeLight && styles.themeBackgroundDark}`}
-          onClick={toggleTheme}
-        >
+        <div className={styles.toggleContainer} onClick={toggleTheme}>
           <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
-            {isSun ? (
-              <div className={`${styles.ellipse1} ${styles.ellipse}`} />
-            ) : (
-              <div className={`${styles.ellipse} ${styles.ellipse1}`} />
-            )}
+            <div className={`${styles.toggleButton} ${isSun && styles.marginLeftButton}`} />
           </div>
 
           {isSun ? (
             <Image
               src={moonImage}
-              alt="Sun Image"
+              alt="moon icon"
               width={18}
               height={18}
-              className={styles.customImageClass}
+              className={styles.moonImage}
             />
           ) : (
             <Image
-              src={solImage}
-              alt="Moon Image"
+              src={sunImage}
+              alt="sun icon"
               width={18}
               height={18}
-              className={styles.customImageClass1}
+              className={styles.sunImage}
             />
           )}
         </div>

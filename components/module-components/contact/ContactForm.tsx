@@ -1,21 +1,20 @@
 'use client';
 
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Turnstile from 'react-turnstile';
 import { ContactFormData, submitContactForm } from './SubmitContactForm';
 import Button from '../../reusable-components/button/Button';
 import TextInput from '../../reusable-components/text-input/TextInput';
 import TextArea from '../../reusable-components/text-area/TextArea';
 import { fullNameRegexValidation, emailRegexValidation } from './regexValidation';
 
-interface ContactFormProps {
-  cfTurnstileResponse: string;
-}
+const ContactForm = () => {
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
   const formik = useFormik({
     initialValues: { username: '', email: '', message: '' },
     validationSchema: Yup.object({
@@ -34,12 +33,16 @@ const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
         .required('*Пораката е задолжителна'),
     }),
     onSubmit: async (values, { resetForm }) => {
+      if (!turnstileToken) {
+        return;
+      }
+
       try {
         const formData: ContactFormData = {
           name: values.username,
           email: values.email,
           message: values.message,
-          cfTurnstileResponse,
+          cfTurnstileResponse: turnstileToken,
         };
 
         const response = await submitContactForm(formData);
@@ -87,6 +90,12 @@ const ContactForm = ({ cfTurnstileResponse }: ContactFormProps) => {
         />
 
         <Button href="" type="submit" buttonClass={['primaryButton']} buttonText="Испрати" />
+        <Turnstile
+          sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
+          onVerify={(token) => setTurnstileToken(token)}
+          theme="light"
+          size="invisible"
+        />
       </form>
     </div>
   );
