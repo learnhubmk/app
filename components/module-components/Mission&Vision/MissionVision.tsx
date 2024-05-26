@@ -75,8 +75,8 @@ const MissionVision = () => {
         className={style.patternHorizontally}
         src="\Mission&Vision\frame5.svg"
         alt="Mobile Pattern"
-        width={67}
-        height={104}
+        width={109}
+        height={70}
       />
     </section>
   );
