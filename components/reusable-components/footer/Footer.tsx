@@ -127,9 +127,8 @@ const Footer: React.FC = () => {
           </div>
 
           <Turnstile
-            sitekey={process.env.NEXT_PUBLIC_SITE_KEY || ''}
+            sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
             onVerify={(token) => setTurnstileToken(token)}
-            theme="light"
             size="invisible"
           />
         </form>
