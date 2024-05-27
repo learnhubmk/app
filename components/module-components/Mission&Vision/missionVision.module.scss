@@ -71,10 +71,8 @@
 }
 
 .missionTitle {
-  width: 100%;
-  padding-right: 5rem;
   border: none;
-  margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, 1rem + 11.429vw, 12.5rem);
+  margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0.5rem, 1rem + 11.429vw, 12.5rem);
 
   @media (min-width: 1026px) {
     padding: 0 4rem 2rem 4rem;
@@ -111,10 +109,6 @@
     font-weight: 400;
     line-height: var(--lh-body);
     letter-spacing: 0.00625rem;
-
-    @media (min-width: 767px) and (max-width: 1025px) {
-      padding-right: 5rem;
-    }
 
     @media (max-width: 1600px) {
       font-size: 1rem;
