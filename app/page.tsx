@@ -9,6 +9,7 @@ import FAQ_DUMMY_DATA from '../data/FAQ';
 import Contact from '../components/module-components/contact/Contact';
 import ProjectsSection from '../components/module-components/ProjectsSection/projectsSection';
 import ProjectCardData from '../components/module-components/ProjectsSection/ProjectCardData';
+import MissionVision from '../components/module-components/Mission&Vision/MissionVision';
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       />
       <InfiniteCarousel />
       <PerkCards />
+      <MissionVision />
       {/* <MemberList /> */}
       <ProjectsSection cards={ProjectCardData} />
       <FAQ data={FAQ_DUMMY_DATA} />
