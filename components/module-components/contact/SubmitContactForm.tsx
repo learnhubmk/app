@@ -10,7 +10,7 @@ type ContactFormResponse = any;
 export const submitContactForm = async (
   formData: ContactFormData
 ): Promise<ContactFormResponse> => {
-  const url = new URL('https://staging-api.learnhub.mk/contact');
+  const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/contact'!;
 
   const headers = {
     'Content-Type': 'application/json',

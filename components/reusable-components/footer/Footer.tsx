@@ -16,6 +16,12 @@ import LogoDark from '../../../public/logo/logo-black.svg';
 import SocialMediaLinks from './SocialMediaIcons';
 import Button from '../button/Button';
 
+// eslint-disable-next-line no-unused-vars
+interface FormValues {
+  name: string;
+  email: string;
+}
+
 const Footer: React.FC = () => {
   const { theme } = useTheme();
   const isThemeLight = theme === 'light';
@@ -38,28 +44,27 @@ const Footer: React.FC = () => {
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-  const handleSubmit = async (
-    values: { name: string; email: string },
-    { resetForm }: FormikHelpers<{ name: string; email: string }>
-  ) => {
+  const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (!turnstileToken) {
-      toast.error('Please complete the captcha');
       return;
     }
 
     const formValues = {
-      ...values,
-      turnstileToken,
+      first_name: values.name,
+      email: values.email,
+      'cf-turnstile-response': turnstileToken,
     };
 
     try {
-      await submitNewsletterForm(formValues);
+      const response = await submitNewsletterForm(formValues);
+      if (response) {
+        toast.success(response);
+      }
       setSuccessMessage(true);
-      toast.success('Успешно испратено!');
       resetForm();
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error.message || 'Грешка');
       setErrorMessage(true);
-      toast.error('Грешка');
     }
   };
 
