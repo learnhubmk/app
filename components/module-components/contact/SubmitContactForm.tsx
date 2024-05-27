@@ -23,8 +23,12 @@ export const submitContactForm = async (
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const errorData = await response.json();
+    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
   }
-  return response;
+
+  const responseData = await response.json();
+  return responseData.message;
 };
+
 export default submitContactForm;
