@@ -56,9 +56,9 @@ const Footer: React.FC = () => {
     };
 
     try {
-      const responseMessage = await submitNewsletterForm(formValues);
-      if (responseMessage) {
-        toast.success(responseMessage);
+      const response = await submitNewsletterForm(formValues);
+      if (response) {
+        toast.success(response);
       }
       setSuccessMessage(true);
       resetForm();
