@@ -96,14 +96,14 @@
       line-height: 2.285rem;
       letter-spacing: -0.015625rem;
 
-      &:nth-child(2){
+      &:nth-child(2) {
         padding-bottom: 2rem;
         padding-top: 0;
       }
 
-      &:nth-last-child(2){
-      padding-block: 2rem;
-  }
+      &:nth-last-child(2) {
+        padding-block: 2rem;
+      }
     }
 
     @media (min-width: 767px) and (max-width: 1025px) {
