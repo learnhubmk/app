@@ -46,11 +46,11 @@ const ContactForm = () => {
         };
 
         const response = await submitContactForm(formData);
-        if (response.status) {
-          toast.success('Успешно испратено');
+        if (response) {
+          toast.success(response);
           resetForm();
         } else {
-          toast.error('Грешка');
+          toast.error(response);
         }
       } catch (error) {
         toast.error('Грешка');
