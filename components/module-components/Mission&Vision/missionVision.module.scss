@@ -19,11 +19,7 @@
 }
 
 .missionMainDark {
-  background: hsla(220, 20%, 43%, 1);
-
-  @media (max-width: 1025px) {
-    background: linear-gradient(90deg, hsl(222, 50%, 14%) 0%, hsl(208, 34%, 24%) 100%);
-  }
+  background: linear-gradient(270.18deg, #283E51 -24.61%, #121D36 130.92%);
 }
 
 .mvImgContainer {
@@ -139,7 +135,7 @@
 }
 
 .missionTitleDark {
-  background: rgba(54, 67, 98, 1);
+  background: var(--Primary, hsla(222, 50%, 14%, 1));
 
   @media (max-width: 1025px) {
     background: none;
