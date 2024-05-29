@@ -54,9 +54,16 @@
 
 .faqTitle {
   margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  text-align: center;
 
   @include u.breakpoint(medium) {
     margin-bottom: 1.5rem;
+  }
+
+  @include u.breakpoint(xsmall) {
+    font-size: 2.5rem;
+    text-align: start;
   }
 }
 
@@ -64,10 +71,17 @@
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1rem;
 
   @include u.breakpoint(medium) {
     margin-bottom: 5rem;
     max-width: 48.75rem;
+  }
+
+  @include u.breakpoint(xsmall) {
+    text-align: start;
+    font-size: 1.5rem;
   }
 }
 
