@@ -1,3 +1,5 @@
+@import "/app/styles/globals/variables";
+
 .missionVisionMain {
   @media (max-width: 1025px) {
     position: relative;
@@ -15,11 +17,11 @@
 }
 
 .missionMainWhite {
-  background: rgba(235, 237, 241, 1);
+  background: $clr-secondary-light-mode;
 }
 
 .missionMainDark {
-  background: linear-gradient(270.18deg, #283E51 -24.61%, #121D36 130.92%);
+  background: $clr-primary-dark-mode;
 }
 
 .mvImgContainer {
@@ -123,31 +125,32 @@
 }
 
 .missionTitleWhite {
-  background: rgba(235, 237, 241, 1);
+  background: $clr-secondary-light-mode;
 
   h2 {
-    color: rgba(18, 29, 54, 1);
+    color: $clr-title-dark-mode;
   }
 
   p {
-    color: rgba(71, 85, 105, 1);
+    color: $clr-text-light-mode;
   }
 }
 
 .missionTitleDark {
-  background: var(--Primary, hsla(222, 50%, 14%, 1));
+  background: $clr-titles-light-mode;
 
   @media (max-width: 1025px) {
     background: none;
   }
 
-  h2 {
-    color: rgba(255, 255, 255, 1);
+  h2,
+  p {
+    color: $clr-primary-light-mode;
   }
 
-  p {
-    color: rgba(255, 255, 255, 1);
-  }
+  // p {
+  //   color: hsl(0, 0%, 100%);
+  // }
 }
 
 .missionPattern {

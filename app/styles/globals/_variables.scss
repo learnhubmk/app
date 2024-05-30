@@ -1,0 +1,60 @@
+// Define SCSS variables
+$clr-primary-light-mode: hsl(0, 0%, 100%);
+$clr-secondary-light-mode: hsl(220, 18%, 93%);
+$clr-tertiary-light-mode: hsl(222, 50%, 14%);
+$clr-title-light-mode: hsl(222, 50%, 14%);
+$clr-text-light-mode: hsl(215, 19%, 35%);
+$clr-elevated-elements-light-mode: hsl(210, 40%, 98%);
+$clr-titles-light-mode: var(--Primary, hsla(222, 50%, 14%, 1));
+$clr-tertiary-button-light-mode: hsl(0, 0%, 0%);
+
+$clr-primary-dark-mode: linear-gradient(270.18deg, #283E51 -24.61%, #121D36 130.92%);
+$clr-secondary-dark-mode: hsl(222, 19%, 44%);
+$clr-tertiary-dark-mode: hsl(222, 52%, 5%);
+$clr-title-dark-mode: hsla(222, 50%, 14%, 1);  // Changed to hsla directly
+$clr-text-dark-mode: hsl(0, 0%, 83%);
+$clr-elevated-elements-dark-mode: hsl(221, 29%, 30%);
+$clr-titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
+
+$clr-main-button: hsl(10, 94%, 63%);
+$clr-error-state: hsl(0, 75%, 42%);
+
+@mixin apply-color-scheme($mode: 'light') {
+  $primary: if($mode == 'light', $clr-primary-light-mode, $clr-primary-dark-mode);
+  $secondary: if($mode == 'light', $clr-secondary-light-mode, $clr-secondary-dark-mode);
+  $tertiary: if($mode == 'light', $clr-tertiary-light-mode, $clr-tertiary-dark-mode);
+  $text: if($mode == 'light', $clr-text-light-mode, $clr-text-dark-mode);
+  $elevated-elements: if(
+    $mode == 'light',
+    $clr-elevated-elements-light-mode,
+    $clr-elevated-elements-dark-mode
+  );
+  $titles: if($mode == 'light', $clr-titles-light-mode, $clr-titles-tertiary-button-dark-mode);
+  $tertiary-button: if(
+    $mode == 'light',
+    $clr-tertiary-button-light-mode,
+    $clr-titles-tertiary-button-dark-mode
+  );
+  $main-button: $clr-main-button;
+  $error-state: $clr-error-state;
+
+  color: $text;
+  background-color: $primary;
+  border-color: $secondary;
+
+  .button {
+    background-color: $main-button;
+  }
+  .error {
+    color: $error-state;
+  }
+}
+
+// Apply color schemes based on class
+body.light-mode {
+  @include apply-color-scheme('light');
+}
+
+body.dark-mode {
+  @include apply-color-scheme('dark');
+}
