@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import style from './ProjectCard.module.scss';
+import style from './projectCard.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 
 export interface ProjectCardProps {
