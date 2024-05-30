@@ -4,16 +4,13 @@ import React from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import style from './projectsSection.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
-import ProjectCard, { ProjectCardProps } from '../../reusable-components/projectCard/ProjectCard';
+import projectsData from './projectData';
+import ProjectCard from '../../reusable-components/projectCard/projectCard';
 
-interface Props {
-  cards: ProjectCardProps[];
-}
-
-const ProjectsSection = ({ cards }: Props) => {
+const ProjectsSection = () => {
   const { theme } = useTheme();
   const lightTheme = theme === 'light';
-  const shouldUseCarousel = cards.length > 2;
+  const shouldUseCarousel = projectsData.length > 2;
 
   const options = {
     active: shouldUseCarousel,
@@ -43,15 +40,14 @@ const ProjectsSection = ({ cards }: Props) => {
         </div>
 
         <div
-          className={`${style.carouselContainer} ${cards.length > 2 ? style.manyCards : ''}`}
+          className={`${style.carouselContainer} ${projectsData.length > 2 ? style.manyCards : ''}`}
           ref={emblaRef}
         >
           <div className={style.projectContainer}>
-            {cards.map((card, index) => (
+            {projectsData.map((card) => (
               <ProjectCard
                 id={card.id}
-                // eslint-disable-next-line react/no-array-index-key
-                key={`${card.id}-${index}`}
+                key={card.id}
                 imageUrl={card.imageUrl}
                 title={card.title}
                 description={card.description}
