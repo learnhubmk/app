@@ -1,5 +1,7 @@
+import SearchAndFilter from '../../components/module-components/SearchAndFilter/SearchAndFilter';
+
 const AdminDashboard = () => {
-  return <div>Admin Dashboard</div>;
+  return <SearchAndFilter />;
 };
 
 export default AdminDashboard;

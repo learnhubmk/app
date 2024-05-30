@@ -4,7 +4,7 @@ import style from './input.module.scss';
 interface InputProps {
   type: string;
   placeholder: string;
-  icon: React.JSX.Element;
+  icon?: React.JSX.Element;
 }
 
 const Input = ({ type, placeholder, icon }: InputProps) => {
