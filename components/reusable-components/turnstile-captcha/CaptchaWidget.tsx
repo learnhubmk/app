@@ -17,7 +17,7 @@ const TurnstileWidget: React.FC = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token }),
         }).then((response) => {
-          // eslint-disable-next-line no-unused-vars
+          // eslint-disable-next-line no-unused-vars, no-alert
           if (!response.ok) alert('Verification failed');
         });
       }}
