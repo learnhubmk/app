@@ -89,7 +89,12 @@ const ContactForm = () => {
           isRequired
         />
 
-        <Button href="" type="submit" buttonClass={['primaryButton']} buttonText="Испрати" />
+        <Button
+          href=""
+          type="submit"
+          buttonClass={['primaryButton', 'contactButton']}
+          buttonText="Испрати"
+        />
         <Turnstile
           sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
           onVerify={(token) => setTurnstileToken(token)}

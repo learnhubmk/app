@@ -52,6 +52,12 @@
   &:focus {
     outline: none;
   }
+
+  &.contactButton {
+    @include u.breakpoint(small) {
+      width: 123px;
+    }
+  }
 }
 
 .secondaryButton {
