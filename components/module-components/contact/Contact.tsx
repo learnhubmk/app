@@ -20,10 +20,9 @@ const Contact = () => {
       <div className={style.contact}>
         <div className={style.contactLeftContainer}>
           <div className={style.leftTextContainer}>
-            <h2>Кажи ни повеќе за тебе</h2>
+            <h2>Имаш прашања или идеи за соработка?</h2>
             <p className={style.leftText}>
-              Have some big idea or brand to develop and need help? Then reach out we'd love to hear
-              about your project and provide help
+              Слободно контактирај не и ќе ти одговориме во најбрз можен рок.
             </p>
           </div>
           <ContactForm />
