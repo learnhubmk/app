@@ -3,27 +3,27 @@ import Input from '../../reusable-components/input/Input';
 import style from './search.module.scss';
 
 interface SearchProps {
-    handleInputChange: (value: string) => void;
-    searchValue: string;
+  handleInputChange: (value: string) => void;
+  searchValue: string;
 }
 
 const Search: React.FC<SearchProps> = ({ handleInputChange, searchValue }) => {
-    const onChange = (value: string) => {
-        console.log('Search value changed:', value);
-        handleInputChange(value);
-    };
+  const onChange = (value: string) => {
+    console.log('Search value changed:', value);
+    handleInputChange(value);
+  };
 
-    return (
-        <div className={style.search}>
-            <Input
-                type="string"
-                placeholder="Search"
-                icon={<i className="bi bi-search" />}
-                value={searchValue}
-                onChange={onChange}
-            />
-        </div>
-    );
+  return (
+    <div className={style.search}>
+      <Input
+        type="string"
+        placeholder="Search"
+        icon={<i className="bi bi-search" />}
+        value={searchValue}
+        onChange={onChange}
+      />
+    </div>
+  );
 };
 
 export default Search;
