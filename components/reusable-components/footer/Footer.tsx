@@ -82,7 +82,7 @@ const Footer: React.FC = () => {
         <Image src={LogoDark} alt="LearnHub Logo" className={styles.footerLogo} />
         <div className={styles.footerSectionsContainer}>
           <div className={styles.newsletterContainer}>
-            <h2 className={styles.footerTitle}>Претплати се на нашиот...</h2>
+            <h2 className={styles.footerTitle}>Претплати се на нашиот билтен</h2>
             <form className={styles.newsletterForm} onSubmit={formik.handleSubmit}>
               <TextInput
                 placeholder="Enter your Name"
