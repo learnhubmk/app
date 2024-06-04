@@ -1,17 +1,16 @@
 import React from 'react';
 import style from './input.module.scss';
-
 interface InputProps {
   type: string;
   placeholder: string;
   icon?: React.JSX.Element;
-  value: string;
-  onChange: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const Input: React.FC<InputProps> = ({ type, placeholder, icon, value, onChange }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
+    onChange?.(event.target.value);
   };
 
   return (
