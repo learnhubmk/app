@@ -29,9 +29,9 @@
 
   .hero {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
-
+    gap: 3rem;
     text-align: center;
     max-width: 100%;
 
@@ -107,7 +107,6 @@
       width: 100%;
       max-width: 27rem;
       height: auto;
-      margin-top: 3.5rem;
 
       @include u.breakpoint(medium) {
         width: 100%;

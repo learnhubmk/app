@@ -1,3 +1,4 @@
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import React, { Suspense } from 'react';
@@ -19,6 +20,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
           <Navigation />
           <main className={styles.main}>
             <Suspense fallback={<Loading />}>{children}</Suspense>
+            <SpeedInsights />
           </main>
           <Footer />
         </ReactQueryProvider>

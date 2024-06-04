@@ -34,8 +34,7 @@ const ProjectsSection = () => {
           <p
             className={`${style.projectDesc} ${lightTheme ? style.lightProjectDesc : style.darkProjectDesc}`}
           >
-            Овозможете си да достигнете нови височини, развивајќи и споделувајќи вештини cо заедница
-            од ентузијасти и професионалци.
+            Разгледај ги тековните проектите на кои што работат тимови од заедницата
           </p>
         </div>
 
