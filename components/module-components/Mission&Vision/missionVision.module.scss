@@ -1,5 +1,3 @@
-@import "/app/styles/globals/variables";
-
 .missionVisionMain {
   @media (max-width: 1025px) {
     position: relative;
@@ -17,11 +15,11 @@
 }
 
 .missionMainWhite {
-  background: $clr-secondary-light-mode;
+  background: var(--secondary-light-mode);
 }
 
 .missionMainDark {
-  background: $clr-primary-dark-mode;
+  background: var(--primary-dark-mode);
 }
 
 .mvImgContainer {
@@ -125,19 +123,19 @@
 }
 
 .missionTitleWhite {
-  background: $clr-secondary-light-mode;
+  background: var(--secondary-light-mode);
 
   h2 {
-    color: $clr-title-dark-mode;
+    color: var(--title-dark-mode);
   }
 
   p {
-    color: $clr-text-light-mode;
+    color: var(--text-light-mode);
   }
 }
 
 .missionTitleDark {
-  background: $clr-titles-light-mode;
+  background: var(--titles-light-mode);
 
   @media (max-width: 1025px) {
     background: none;
@@ -145,12 +143,8 @@
 
   h2,
   p {
-    color: $clr-primary-light-mode;
+    color: var(--primary-light-mode);
   }
-
-  // p {
-  //   color: hsl(0, 0%, 100%);
-  // }
 }
 
 .missionPattern {
