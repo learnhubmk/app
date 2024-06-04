@@ -7,7 +7,7 @@ import { useTheme } from '../../../app/context/themeContext';
 import ContactForm from './ContactForm';
 import Button from '../../reusable-components/button/Button';
 import ContactImageDesktop from '../../../public/contact-section-image-desktop.png';
-import ContactImageMobile from '../../../public/contact-section-image-mobile.png';
+import ContactImageMobile from '../../../public/contact-section-mob-image.png';
 
 const Contact = () => {
   const { theme } = useTheme();

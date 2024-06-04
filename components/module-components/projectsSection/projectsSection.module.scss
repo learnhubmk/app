@@ -23,8 +23,19 @@
   @include u.breakpoint-down(medium) {
     flex-wrap: nowrap;
   }
+  @include u.breakpoint-down(small) {
+    flex-direction: column;
+  }
 }
 
+.manyCards .projectContainer {
+  flex-wrap: wrap;
+
+  @include u.breakpoint-down(small) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}
 .lightPrSection {
   background: white;
 }
