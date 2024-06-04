@@ -1,4 +1,4 @@
-const ProjectCardData = [
+const projectsData = [
   {
     id: 0,
     imageUrl: '/photo.jpg',
@@ -17,4 +17,4 @@ const ProjectCardData = [
   },
 ];
 
-export default ProjectCardData;
+export default projectsData;

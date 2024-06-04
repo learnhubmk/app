@@ -3,14 +3,12 @@
 .projectCard {
   width: calc(100% / 3 - calc(1rem / 3 * 2));
   height: auto;
-  padding: 10px;
-
   @include u.breakpoint-down(large) {
     width: calc(100% / 2 - calc(1rem / 2 * 1));
   }
-  @include u.breakpoint-down(medium) {
+  @include u.breakpoint-down(small) {
     flex: 0 0 auto;
-    min-width: 300px;
+    min-width: 100%;
   }
 }
 
