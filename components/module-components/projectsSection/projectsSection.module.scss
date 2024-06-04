@@ -18,13 +18,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 4rem;
 
   @include u.breakpoint-down(medium) {
     flex-wrap: wrap;
+    gap: 1rem;
   }
   @include u.breakpoint-down(small) {
     flex-direction: column;
+    gap: 2rem;
   }
 }
 
