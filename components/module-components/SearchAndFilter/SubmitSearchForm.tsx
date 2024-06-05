@@ -1,12 +1,12 @@
 const submitSearchForm = async (): Promise<any> => {
-  const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/blog-posts'!;
+  const url = 'https://mocki.io/v1/ed331a85-c472-40e5-97eb-c15aedd6b8f2';
 
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
 
-  const response = await fetch(url.toString(), {
+  const response = await fetch(url, {
     method: 'GET',
     headers,
   });
