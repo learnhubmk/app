@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+
+'use client';
+
 import React from 'react';
 import style from './input.module.scss';
 
