@@ -17,7 +17,7 @@
 .projectContainer {
   width: 100%;
   display: flex;
-  justify-content: center;
+
   gap: 4rem;
 
   @include u.breakpoint-down(medium) {
@@ -49,10 +49,12 @@
 .projectText {
   width: 100%;
   margin-bottom: 3rem;
-  padding-left: 10px;
 
   @include u.breakpoint-down(small) {
     margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -61,6 +63,10 @@
   font-size: var(--fs-h2);
   line-height: var(--lh-h2);
   margin-bottom: 2rem;
+
+  @include u.breakpoint-down(small) {
+    text-align: center;
+  }
 }
 
 .darkProjectTitle {
@@ -76,11 +82,17 @@
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   width: 60%;
+
   @include u.breakpoint-down(large) {
     width: 80%;
   }
+
   @include u.breakpoint-down(medium) {
     width: 90%;
+  }
+
+  @include u.breakpoint-down(small) {
+    text-align: center;
   }
 }
 
