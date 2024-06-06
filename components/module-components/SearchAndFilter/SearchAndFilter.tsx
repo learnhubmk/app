@@ -8,7 +8,7 @@ import Filter, { UserRole } from './Filter';
 import Search from './Search';
 import DisplayNames from './DisplayNames';
 
-const SearchAndFilter: React.FC = () => {
+const SearchAndFilter = () => {
   const [searchValue, setSearchValue] = useState('');
   const [debouncedValue, setDebouncedValue] = useState(searchValue);
   const [selectedRoles, setSelectedRoles] = useState<UserRole[]>(Object.values(UserRole));
@@ -45,7 +45,6 @@ const SearchAndFilter: React.FC = () => {
         <Filter handleRoleChange={handleRoleChange} />
       </div>
       <DisplayNames filterValue={debouncedValue} selectedRoles={selectedRoles} />{' '}
-      {/* Pass selectedRoles */}
     </div>
   );
 };

@@ -13,7 +13,7 @@ interface FilterProps {
   handleRoleChange: (roles: UserRole[]) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ handleRoleChange }) => {
+const Filter = ({ handleRoleChange }: FilterProps) => {
   const [selectedOption, setSelectedOption] = useState<UserRole | ''>('');
 
   useEffect(() => {

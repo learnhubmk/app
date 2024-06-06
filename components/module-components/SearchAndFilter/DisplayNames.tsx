@@ -15,7 +15,7 @@ interface DisplayNamesProps {
   selectedRoles: UserRole[];
 }
 
-const DisplayNames: React.FC<DisplayNamesProps> = ({ filterValue, selectedRoles }) => {
+const DisplayNames = ({ filterValue, selectedRoles }: DisplayNamesProps) => {
   const [names, setNames] = useState<Author[]>([]);
 
   useEffect(() => {

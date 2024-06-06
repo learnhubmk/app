@@ -9,7 +9,7 @@ interface SearchProps {
   searchValue: string;
 }
 
-const Search: React.FC<SearchProps> = ({ handleInputChange, searchValue }) => {
+const Search = ({ handleInputChange, searchValue }: SearchProps) => {
   const onChange = (value: string) => {
     handleInputChange(value);
   };
