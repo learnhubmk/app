@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import style from './input.module.scss';
+
 interface InputProps {
   type: string;
   placeholder: string;
