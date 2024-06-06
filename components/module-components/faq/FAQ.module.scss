@@ -38,14 +38,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 1rem 0.5rem 0.3rem;
+        gap: 1.5rem;
       }
 
       > div:nth-child(2) {
         overflow: hidden;
 
         > div {
-          padding: 0.5rem 0 0 0.3rem;
+          padding: 0.75rem 0 0 0;
         }
       }
     }
@@ -67,7 +67,6 @@
 }
 
 .faqDesc {
- 
   line-height: var(--lh-body);
   margin-bottom: 2rem;
   text-align: center;
