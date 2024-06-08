@@ -2,8 +2,14 @@ import React from 'react';
 import style from './tableRowComponent.module.scss';
 import ActionDropdown from './ActionDropdown';
 
+interface UserData {
+  first_name: string;
+  last_name: string;
+  role: string;
+}
+
 interface TableRowComponentProps {
-  data: any;
+  data: UserData;
 }
 
 const TableRowComponent = ({ data }: TableRowComponentProps) => {
