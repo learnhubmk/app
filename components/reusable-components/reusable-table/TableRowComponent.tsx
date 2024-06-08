@@ -6,7 +6,7 @@ interface TableRowComponentProps {
   data: any;
 }
 
-const TableRowComponent: React.FC<TableRowComponentProps> = ({ data }) => {
+const TableRowComponent = ({ data }: TableRowComponentProps) => {
   return (
     <tr>
       <td className={style.name}>{data.first_name}</td>
