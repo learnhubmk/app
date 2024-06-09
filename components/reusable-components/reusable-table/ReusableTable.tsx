@@ -22,22 +22,20 @@ const ReusableTable = () => {
   }, []);
 
   return (
-    <div className={style.tableWrapper}>
-      <table className={style.reusableTable}>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => (
-            <TableRowComponent key={item.id} data={item} />
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <table className={style.reusableTable}>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((item) => (
+          <TableRowComponent key={item.id} data={item} />
+        ))}
+      </tbody>
+    </table>
   );
 };
 

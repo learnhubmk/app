@@ -1,13 +1,9 @@
-.tableWrapper {
-    text-align: center;
-
-
-
-    .reusableTable {
-        border-radius: 25px;
-        width: 85vw;
-        background-color: antiquewhite;
-        border-collapse: collapse;
-        margin: auto;
-    }
-}
+  .reusableTable {
+      border-radius: 1.5rem;
+      width: 85vw;
+      background-color: antiquewhite;
+      border-collapse: collapse;
+      margin: auto;
+      text-align: left;
+      text-indent: 1rem;
+  }
