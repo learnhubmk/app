@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import fetchData from './FetchData';
 import TableRowComponent from './TableRowComponent';
-import style from './tableRowComponent.module.scss';
+import style from './reusableTable.module.scss';
 
 const ReusableTable = () => {
   const [data, setData] = useState<any[]>([]);
@@ -22,20 +22,22 @@ const ReusableTable = () => {
   }, []);
 
   return (
-    <table className={style.reusableTable}>
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item) => (
-          <TableRowComponent key={item.id} data={item} />
-        ))}
-      </tbody>
-    </table>
+    <div className={style.tableWrapper}>
+      <table className={style.reusableTable}>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <TableRowComponent key={item.id} data={item} />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

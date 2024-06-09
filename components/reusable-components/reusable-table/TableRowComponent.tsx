@@ -14,9 +14,9 @@ interface TableRowComponentProps {
 
 const TableRowComponent = ({ data }: TableRowComponentProps) => {
   return (
-    <tr>
-      <td className={style.name}>{data.first_name}</td>
-      <td className={style.name}>{data.last_name}</td>
+    <tr className={style.rowComponent}>
+      <td className={style.firstName}>{data.first_name}</td>
+      <td className={style.lastName}>{data.last_name}</td>
       <td className={style.role}>{data.role}</td>
       <ActionDropdown />
     </tr>
