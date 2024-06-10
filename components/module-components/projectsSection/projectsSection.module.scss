@@ -1,0 +1,91 @@
+@use '../../../app/styles/utils' as u;
+
+.projectSection {
+  width: 100%;
+}
+
+.projectCardsWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
+}
+.carouselContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.projectContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  @include u.breakpoint-down(medium) {
+    flex-wrap: nowrap;
+  }
+  @include u.breakpoint-down(small) {
+    flex-direction: column;
+  }
+}
+
+.manyCards .projectContainer {
+  flex-wrap: wrap;
+
+  @include u.breakpoint-down(small) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}
+.lightPrSection {
+  background: white;
+}
+
+.darkPrSection {
+  background: #121d36;
+}
+
+.projectText {
+  width: 100%;
+  margin-bottom: 3rem;
+  padding-left: 10px;
+
+  @include u.breakpoint-down(small) {
+    margin-bottom: 2rem;
+  }
+}
+
+.projectTitle {
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  margin-bottom: 2rem;
+}
+
+.darkProjectTitle {
+  color: white;
+}
+
+.lightProjectTitle {
+  color: #121d36;
+}
+
+.projectDesc {
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  width: 60%;
+  @include u.breakpoint-down(large) {
+    width: 80%;
+  }
+  @include u.breakpoint-down(medium) {
+    width: 90%;
+  }
+}
+
+.darkProjectDesc {
+  color: #d4d4d4;
+}
+
+.lightProjectDesc {
+  color: #475569;
+}

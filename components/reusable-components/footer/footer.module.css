@@ -1,0 +1,119 @@
+.footerWrapper {
+  width: 100%;
+}
+
+.footer {
+  width: 90%;
+  margin: 40px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  color: var(--text-color);
+  gap: 5rem;
+}
+
+.footerLogo {
+  flex: 1 1;
+  width: 25%;
+}
+
+.contactSection {
+  flex: 1 1;
+  width: 25%;
+  padding-left: 3rem;
+}
+.contactSection a {
+  font-weight: 300;
+  text-decoration: underline;
+  color: inherit;
+}
+
+.contactSection p:first-child {
+  flex: 1;
+  font-weight: 700;
+  margin-bottom: 1.3em;
+}
+
+.socialMediaSection {
+  flex: 1 1;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: 25%;
+  padding-left: 3rem;
+}
+.socialMediaSection p {
+  flex: 1;
+  padding-bottom: 1.3em;
+}
+.socialMediaSection a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 300;
+  gap: 10px;
+}
+
+.newsletterSection {
+  flex: 2 1;
+  font-weight: 700;
+  padding-left: 3rem;
+  width: 25%;
+}
+.newsletterSection p {
+  padding-bottom: 1.3em;
+}
+
+.newsletterSection input {
+  background-color: #bbbbbb;
+  border: 1px solid var(--text-color);
+  padding: 0.5em;
+  cursor: text;
+  width: 80%;
+  max-width: 300px;
+  color: var(--text-color);
+  height: 36px;
+}
+
+.newsletterSection input::-moz-placeholder {
+  color: var(--member-card-bg);
+}
+
+.newsletterSection input::placeholder {
+  color: var(--member-card-bg);
+}
+
+.newsletterSection button {
+  padding: 0.5em;
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  border: none;
+  cursor: pointer;
+  height: 36px;
+  width: 36px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 10px;
+  }
+  .contactSection p:first-child,
+  .contactSection p:last-child,
+  .socialMediaSection,
+  .newsletterSection {
+    margin: 10px 0;
+  }
+  .contactSection p:first-child p,
+  .contactSection p:last-child p,
+  .socialMediaSection p,
+  .newsletterSection p {
+    padding-bottom: 5px;
+  }
+  .newsletterSection button {
+    padding: 8px;
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+} /*# sourceMappingURL=footer.module.css.map */

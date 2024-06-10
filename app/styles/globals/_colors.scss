@@ -1,14 +1,79 @@
 :root {
+  --main-button: hsl(10, 94%, 63%);
+  --error-state: hsl(0, 75%, 42%);
+  --white-color: hsl(0, 0%, 100%);
   --black-color: hsl(0, 0%, 0%);
-  --bg-color: hsl(240, 4%, 13%);
-  --text-color: hsl(0, 0%, 100%);
-  --error-light: hsla(3, 71%, 41%, 1);
-  --error-light-text: hsl(0, 0%, 100%);
-  --error-dark: hsla(3, 70%, 83%, 1);
-  --error-dark-text: hsla(3, 71%, 22%, 1);
+  --bg-color: hsl(222, 52%, 5%);
+  --text-color: hsl(210, 40%, 98%);
+  --hero-text-light-color: hsl(0, 0%, 83%);
+  --hero-text-dark-color: hsl(215, 19%, 35%);
+  --error-color: hsl(0, 75%, 42%);
+  --error-footer-color: hsl(358, 100%, 63%);
+  --valid-color: hsl(122, 100%, 35%);
   --blog-card-bg: hsla(0, 0%, 85%, 1);
   --member-card-bg: hsl(0, 0%, 20%);
-  --primary-btn-color: hsl(14, 82%, 58%);
+  --primary-btn-color: hsl(10, 94%, 63%);
+  --primary-btn-hover-color: hsl(23, 93%, 59%);
+  --primary-btn-active-color: hsl(32, 93%, 54%);
+  --secondary-btn-hover-color: hsla(222, 50%, 14%, 21%);
   --input-border-color: hsl(241, 91%, 45%);
   --input-text-color: hsl(240, 0.7%, 70%);
+  --titles-color: hsl(222, 50%, 14%);
+  --section-bg-color: hsl(222, 50%, 14%);
+  --tertiary-dark-mode: hsl(222, 52%, 5%);
+
+  --primary-light-mode: hsl(0, 0%, 100%);
+  --secondary-light-mode: hsl(220, 18%, 93%);
+  --tertiary-light-mode: hsl(222, 50%, 14%);
+  --title-light-mode: hsl(222, 50%, 14%);
+  --text-light-mode: hsl(215, 19%, 35%);
+  --elevated-elements-light-mode: hsl(210, 40%, 98%);
+  --titles-light-mode: var(--Primary, hsla(222, 50%, 14%, 1));
+  --tertiary-button-light-mode: hsl(0, 0%, 0%);
+
+  --primary-dark-mode: linear-gradient(270.18deg, #283e51 -24.61%, #121d36 130.92%);
+  --secondary-dark-mode: hsl(222, 19%, 44%);
+  --tertiary-dark-mode: hsl(222, 52%, 5%);
+  --title-dark-mode: hsla(222, 50%, 14%, 1);
+  --text-dark-mode: hsl(0, 0%, 83%);
+  --elevated-elements-dark-mode: hsl(221, 29%, 30%);
+  --titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
+}
+@mixin apply-color-scheme($mode: 'light') {
+  $primary: if($mode == 'light', --primary-light-mode, --primary-dark-mode);
+  $secondary: if($mode == 'light', --secondary-light-mode, --secondary-dark-mode);
+  $tertiary: if($mode == 'light', --tertiary-light-mode, --tertiary-dark-mode);
+  $text: if($mode == 'light', --text-light-mode, --text-dark-mode);
+  $elevated-elements: if(
+    $mode == 'light',
+    --elevated-elements-light-mode,
+    --elevated-elements-dark-mode
+  );
+  $titles: if($mode == 'light', --titles-light-mode, --titles-tertiary-button-dark-mode);
+  $tertiary-button: if(
+    $mode == 'light',
+    --tertiary-button-light-mode,
+    --titles-tertiary-button-dark-mode
+  );
+  $main-button: --main-button;
+  $error-state: --error-state;
+
+  color: $text;
+  background-color: $primary;
+  border-color: $secondary;
+
+  .button {
+    background-color: $main-button;
+  }
+  .error {
+    color: $error-state;
+  }
+}
+
+body.light-mode {
+  @include apply-color-scheme('light');
+}
+
+body.dark-mode {
+  @include apply-color-scheme('dark');
 }

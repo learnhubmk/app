@@ -1,32 +1,60 @@
 'use client';
 
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+  useMemo,
+  useCallback,
+} from 'react';
+import useThemeDetector from '../../utils/themeDetector';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const storedTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') : 'dark';
-    return storedTheme === 'light' ? 'light' : 'dark';
-  });
+  const isDarkTheme = useThemeDetector();
+  const [themeLoaded, setThemeLoaded] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    document.body.className = theme;
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    if (themeLoaded) {
+      setTheme(isDarkTheme ? 'dark' : 'light');
+    }
+  }, [isDarkTheme, themeLoaded]);
 
-  const toggleTheme = () => {
-    const updatedTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(updatedTheme);
-  };
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme as 'dark' | 'light');
+    }
+    setThemeLoaded(true);
+  }, []);
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+  useEffect(() => {
+    if (themeLoaded) {
+      document.body.className = theme;
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme, themeLoaded]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  }, []);
+
+  const memoizedValue = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
+
+  return (
+    <ThemeContext.Provider value={memoizedValue}>
+      {themeLoaded ? children : null}
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => {

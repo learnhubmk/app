@@ -1,0 +1,81 @@
+.textAreaContainer {
+  margin-bottom: 2.5rem;
+
+  .label {
+    font-size: var(--fs-title);
+    line-height: var(--lh-title);
+  }
+
+  .textAreaWrapper {
+    display: flex;
+    position: relative;
+    margin-top: 1rem;
+
+    .textArea {
+      width: 100%;
+      min-height: 10.625rem;
+      padding: 0.875rem 1rem 0.875rem 1rem;
+      font-size: var(--fs-placeholder);
+      line-height: var(--fs-placeholder);
+      border: 1px solid #94a3b8;
+      border-radius: 8px;
+      background: #f8fafc;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+
+      &::placeholder {
+        color: #737373;
+        font-size: var(--fs-placeholder);
+        font-weight: 300;
+        line-height: var(--fs-placeholder);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .errorIcon,
+    .validIcon {
+      position: absolute;
+      top: 12%;
+      transform: translateY(-50%);
+      right: 0.625rem;
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .errorIcon {
+      color: var(--error-color);
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .validIcon {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--valid-color);
+    }
+
+    .error {
+      border-color: var(--error-color);
+    }
+
+    .valid {
+      border-color: var(--valid-color);
+    }
+  }
+
+  .errorMessage {
+    position: absolute;
+    color: var(--error-color);
+    margin-top: 0.25rem;
+    margin-bottom: -3.125rem;
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: var(--lh-tag);
+    text-align: left;
+  }
+}

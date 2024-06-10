@@ -1,14 +1,20 @@
 .buttonMorph {
-  background-color: var(--text-color);
-  width: 2rem;
-  height: 2rem;
-  border: 0;
+  background-color: #f7f7ff;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
   position: relative;
+
+  // @media (max-width: 430px) {
+  //   width: 2.75rem;
+  //   height: 2.75rem;
+  //   border-radius: 0.5rem;
+  // }
 
   .default {
     position: absolute;
     transition: 300ms;
-    background-color: var(--bg-color);
+    background-color: #f9674a;
     border-radius: 0.2rem;
   }
 

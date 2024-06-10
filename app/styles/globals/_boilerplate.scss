@@ -17,3 +17,18 @@ body {
   color: var(--text-color);
   font-family: inherit;
 }
+
+::-webkit-scrollbar {
+  width: 0.625rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(249, 101, 72, 1) 0%,
+    rgba(248, 105, 70, 1) 38%,
+    rgba(247, 145, 30, 1) 79%
+  );
+  border-radius: 100vw;
+  height: auto;
+}

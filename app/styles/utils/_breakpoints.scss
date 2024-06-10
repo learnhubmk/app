@@ -1,5 +1,6 @@
-// 700px, 900px, 1440px, 1920px, 2304px
+// 430px, 700px, 900px, 1440px, 1920px, 2304px
 $breakpoints-up: (
+  'xsmall': 26.875em,
   'small': 43.75em,
   'medium': 56.25em,
   'large': 90em,
@@ -7,8 +8,9 @@ $breakpoints-up: (
   'xxlarge': 144em,
 );
 
-//699.98px, 899.98px, 1439.98px, 1919.98px
+//429.98px, 699.98px, 899.98px, 1439.98px, 1919.98px
 $breakpoints-down: (
+  'xsmall': 26.874em,
   'small': 43.7485em,
   'medium': 56.24875em,
   'large': 89.99875em,

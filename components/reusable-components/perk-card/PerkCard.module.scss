@@ -1,0 +1,58 @@
+@use '../../../app/styles/utils' as u;
+
+.perkCardWrapper {
+  width: calc(100% / 3 - calc(1rem / 3 * 2));
+  @include u.breakpoint-down(large) {
+    width: calc(100% / 2 - calc(1rem / 2 * 1));
+  }
+  @include u.breakpoint-down(small) {
+    width: 100%;
+  }
+
+  .perkCardInner {
+    height: 7.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.perkCardTextContent {
+  font-size: var(--fs-card-text);
+  font-weight: 400;
+  line-height: var(--lh-card-text);
+  width: 80%;
+
+  @include u.breakpoint-down(medium) {
+    width: 75%;
+  }
+}
+.perkCardIcon {
+  width: 20%;
+  color: #f9674a;
+
+  @include u.breakpoint-down(medium) {
+    width: 25%;
+  }
+
+  .icon {
+    width: 100%;
+    max-width: 3.5rem;
+    height: auto;
+  }
+
+  @include u.breakpoint-down(medium) {
+    width: 3rem;
+  }
+}
+
+.perkCardLight {
+  background-color: #f8fafc;
+  border: 1px solid #94a3b8;
+}
+
+.perkCardDark {
+  background: #364362;
+}

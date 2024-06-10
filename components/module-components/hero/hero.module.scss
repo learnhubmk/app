@@ -1,23 +1,135 @@
-.hero {
+@use '../../../app/styles/utils' as u;
+
+.darkHeroSection {
+  background: linear-gradient(180deg, rgba(40, 62, 81, 1) 0%, rgba(18, 29, 54, 1) 100%);
+
+  @include u.breakpoint(medium) {
+    background: linear-gradient(
+      90deg,
+      rgba(40, 62, 81, 1) 0%,
+      rgba(40, 62, 81, 1) 50%,
+      rgba(18, 29, 54, 1) 100%
+    );
+  }
+}
+
+.lightHeroSection {
+  background: linear-gradient(
+    90deg,
+    rgba(164, 202, 241, 1) 0%,
+    rgba(222, 186, 211, 1) 50%,
+    rgba(251, 222, 192, 1) 100%
+  );
+}
+
+.heroSection {
   display: flex;
-  gap: 150px;
-}
+  justify-content: center;
+  width: 100%;
 
-.heroLeftContainer {
-  width: 717px;
-}
+  .hero {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0rem, -3.08441rem + 12.987vw, 12.5rem);
+    gap: 3rem;
+    text-align: center;
+    max-width: 100%;
 
-.heroTitle {
-  text-transform: uppercase;
-  line-height: 61px;
-}
+    @include u.breakpoint(medium) {
+      margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem)
+        clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
+      flex-direction: row;
+      gap: 3.25rem;
+      text-align: left;
+    }
 
-.heroHeadline {
-  line-height: 45px;
-  font-weight: 500;
-  margin-bottom: 30px;
-}
+    .heroLeftContainer {
+      display: flex;
+      flex-direction: column;
+      margin-inline: 1.5rem;
 
-.heroText {
-  width: 667px;
+      @include u.breakpoint(small) {
+        align-items: center;
+      }
+
+      @include u.breakpoint(medium) {
+        align-items: flex-start;
+        width: 54%;
+        margin-inline: 0;
+      }
+
+      .lightThemeHeroTitle {
+        color: var(--titles-color);
+      }
+
+      .darkThemeHeroTitle {
+        color: var(--white-color);
+      }
+
+      .heroText {
+        font-size: var(--fs-body);
+        line-height: var(--lh-body);
+        margin-top: 1.25rem;
+        margin-bottom: 2rem;
+
+        @include u.breakpoint(medium) {
+          letter-spacing: 0.1px;
+          margin-top: 2rem;
+          margin-bottom: 5.25rem;
+        }
+      }
+
+      .lightThemeHeroText {
+        color: var(--hero-text-dark-color);
+      }
+
+      .darkThemeHeroText {
+        color: var(--hero-text-light-color);
+      }
+    }
+  }
+
+  .heroPictureContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    @include u.breakpoint(medium) {
+      display: block;
+      width: 44%;
+    }
+
+    @include u.breakpoint(xlarge) {
+      display: flex;
+    }
+
+    .heroImage {
+      width: 100%;
+      max-width: 27rem;
+      height: auto;
+
+      @include u.breakpoint(medium) {
+        width: 100%;
+        max-width: 38.75rem;
+        height: auto;
+        margin-top: 0;
+      }
+    }
+
+    .mobile {
+      display: block;
+
+      @include u.breakpoint(medium) {
+        display: none;
+      }
+    }
+
+    .desktop {
+      display: none;
+
+      @include u.breakpoint(medium) {
+        display: block;
+      }
+    }
+  }
 }
