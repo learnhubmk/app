@@ -22,17 +22,25 @@
     gap: clamp(0rem, -2.46763rem + 10.39vw, 10rem);
     max-width: 100%;
 
-    @include u.breakpoint(medium) {
+    @include u.breakpoint(large) {
       text-align: left;
       margin-right: 0;
       align-items: flex-start;
       flex-direction: row;
     }
-
+    @include u.breakpoint(medium) {
+      margin-left: 36px;
+      margin-right: 36px;
+    }
+    @include u.breakpoint(small) {
+      margin-left: 36px;
+      margin-right: 36px;
+    }
+    
     .contactLeftContainer {
       z-index: 10;
 
-      @include u.breakpoint(medium) {
+      @include u.breakpoint(large) {
         width: 50%;
       }
 
@@ -44,7 +52,7 @@
         text-align: center;
         margin-bottom: 2.5rem;
 
-        @include u.breakpoint(medium) {
+        @include u.breakpoint(large) {
           text-align: left;
           margin-bottom: 4rem;
         }
@@ -65,11 +73,6 @@
       margin-top: clamp(3.5rem, 6.06263rem + -10.79vw, 0rem);
       margin-bottom: clamp(22.5rem, 25.86228rem + -12.658vw, 18.75rem);
       gap: 1.5rem;
-
-      @include u.breakpoint(medium) {
-        margin-top: 0;
-        width: 50%;
-      }
 
       @include u.breakpoint(large) {
         width: 60%;
