@@ -27,12 +27,6 @@ const TableHead: React.FC<TableHeadProps> = ({ headers, sortField, sortOrder, on
   return (
     <thead className={style.tableHead}>
       <tr>
-        <th className={style.tableHeaderCell}>
-          <label htmlFor="selectAllCheckbox">
-            <input id="selectAllCheckbox" type="checkbox" aria-label="Select all" />
-            Select All
-          </label>
-        </th>
         {headers.map((header) => (
           <th key={header} className={style.tableHeaderCell} onClick={() => onSort(header)}>
             {displayNames[header]}
