@@ -22,21 +22,22 @@
     gap: clamp(0rem, -2.46763rem + 10.39vw, 10rem);
     max-width: 100%;
 
-    @include u.breakpoint(large) {
-      text-align: left;
-      margin-right: 0;
-      align-items: flex-start;
-      flex-direction: row;
+    @include u.breakpoint(small) {
+      margin-left: 36px;
+      margin-right: 36px;
     }
     @include u.breakpoint(medium) {
       margin-left: 36px;
       margin-right: 36px;
     }
-    @include u.breakpoint(small) {
-      margin-left: 36px;
-      margin-right: 36px;
+    @include u.breakpoint(large) {
+      text-align: left;
+      margin-left: 200px;
+      margin-right: 200px;
+      align-items: flex-start;
+      flex-direction: row;
     }
-
+    
     .contactLeftContainer {
       z-index: 10;
 
