@@ -47,11 +47,7 @@ const Footer = () => {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentYear(new Date().getFullYear());
-    }, 1000 * 60); // Update every minute
-
-    return () => clearInterval(intervalId);
+    setCurrentYear(new Date().getFullYear());
   }, []);
 
   const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
