@@ -23,17 +23,17 @@
     max-width: 100%;
 
     @include u.breakpoint(small) {
-      margin-left: 36px;
-      margin-right: 36px;
+      margin-left: 2.25rem;
+      margin-right: 2.25rem;
     }
     @include u.breakpoint(medium) {
-      margin-left: 36px;
-      margin-right: 36px;
+      margin-left: 2.25rem;
+      margin-right: 2.25rem;
     }
     @include u.breakpoint(large) {
       text-align: left;
-      margin-left: 200px;
-      margin-right: 200px;
+      margin-left: 12.5rem;
+      margin-right: 12.5rem;
       align-items: flex-start;
       flex-direction: row;
     }
