@@ -1,9 +1,16 @@
-.reusableTable {
-  border-radius: 1.5rem;
-  width: 85vw;
-  background-color: antiquewhite;
-  border-collapse: collapse;
-  margin: auto;
-  text-align: left;
-  text-indent: 1rem;
+.tableWrapper {
+    width: 85vw;
+    border-radius: 1.5rem;
+    margin: auto;
+    border: 1px solid #94a3b8;
+    background-color: #f8fafc;
+
+
+    .reusableTable {
+        width: 100%;
+
+        border-collapse: collapse;
+        text-align: left;
+        text-indent: 1rem;
+    }
 }
