@@ -1,9 +1,25 @@
 .reusableTable {
   border-radius: 1.5rem;
   width: 85vw;
-  background-color: antiquewhite;
+  background-color: rgb(24, 14, 2);
   border-collapse: collapse;
   margin: auto;
   text-align: left;
   text-indent: 1rem;
+}
+
+.reusableTable th,
+.reusableTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.reusableTable th {
+  cursor: pointer;
+  user-select: none;
+}
+
+.reusableTable th .sortArrow {
+  margin-left: 5px;
+  font-size: 12px;
 }
