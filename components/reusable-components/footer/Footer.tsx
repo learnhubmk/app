@@ -145,7 +145,7 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.copyrightContainer}>
-          <p>&copy; {currentYear} Copyright by LearnHub. All rights reserved.</p>
+          <p>&copy; {currentYear} LearnHub. Сите права се задржани.</p>
         </div>
       </div>
     </footer>
