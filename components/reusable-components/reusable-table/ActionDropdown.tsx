@@ -43,39 +43,33 @@ const ActionDropdown = ({ onView, onEdit, onDelete }: ActionDropdownProps) => {
       </button>
       {isOpen && (
         <ul className={style.dropdownMenu}>
-          <li>
-            <button
-              type="button"
-              aria-label="View"
-              onClick={() => handleAction('view')}
-              onKeyDown={(e) => e.key === 'Enter' && handleAction('view')}
-              className={style.dropdownItem}
-            >
-              View
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              aria-label="Edit"
-              onClick={() => handleAction('edit')}
-              onKeyDown={(e) => e.key === 'Enter' && handleAction('edit')}
-              className={style.dropdownItem}
-            >
-              Edit
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              aria-label="Delete"
-              onClick={() => handleAction('delete')}
-              onKeyDown={(e) => e.key === 'Enter' && handleAction('delete')}
-              className={style.dropdownItem}
-            >
-              Delete
-            </button>
-          </li>
+          <button
+            type="button"
+            aria-label="View"
+            onClick={() => handleAction('view')}
+            onKeyDown={(e) => e.key === 'Enter' && handleAction('view')}
+            className={style.dropdownItem}
+          >
+            View
+          </button>
+          <button
+            type="button"
+            aria-label="Edit"
+            onClick={() => handleAction('edit')}
+            onKeyDown={(e) => e.key === 'Enter' && handleAction('edit')}
+            className={style.dropdownItem}
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            aria-label="Delete"
+            onClick={() => handleAction('delete')}
+            onKeyDown={(e) => e.key === 'Enter' && handleAction('delete')}
+            className={style.dropdownItem}
+          >
+            Delete
+          </button>
         </ul>
       )}
     </div>
