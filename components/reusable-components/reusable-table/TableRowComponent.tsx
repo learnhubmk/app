@@ -19,6 +19,9 @@ interface TableRowComponentProps {
 const TableRowComponent = ({ data, onView, onEdit, onDelete }: TableRowComponentProps) => {
   return (
     <tr className={style.rowComponent}>
+      <td aria-label="Checkbox">
+        <input type="checkbox" />
+      </td>
       <td
         onClick={onView}
         className={style.clickable}

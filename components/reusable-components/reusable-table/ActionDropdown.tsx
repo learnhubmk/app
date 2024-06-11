@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import style from './actionDropdown.module.scss';
 
 interface ActionDropdownProps {
@@ -9,30 +9,42 @@ interface ActionDropdownProps {
 
 const ActionDropdown = ({ onView, onEdit, onDelete }: ActionDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleAction = (action: string) => {
-    switch (action) {
-      case 'view':
-        onView();
-        break;
-      case 'edit':
-        onEdit();
-        break;
-      case 'delete':
-        onDelete();
-        break;
-      default:
-        break;
-    }
+  const handleView = () => {
+    onView();
     setIsOpen(false);
   };
 
+  const handleEdit = () => {
+    onEdit();
+    setIsOpen(false);
+  };
+
+  const handleDelete = () => {
+    onDelete();
+    setIsOpen(false);
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={style.dropdown}>
+    <div className={style.dropdown} ref={dropdownRef}>
       <button
         aria-label="Actions"
         type="button"
@@ -46,8 +58,7 @@ const ActionDropdown = ({ onView, onEdit, onDelete }: ActionDropdownProps) => {
           <button
             type="button"
             aria-label="View"
-            onClick={() => handleAction('view')}
-            onKeyDown={(e) => e.key === 'Enter' && handleAction('view')}
+            onClick={handleView}
             className={style.dropdownItem}
           >
             View
@@ -55,8 +66,7 @@ const ActionDropdown = ({ onView, onEdit, onDelete }: ActionDropdownProps) => {
           <button
             type="button"
             aria-label="Edit"
-            onClick={() => handleAction('edit')}
-            onKeyDown={(e) => e.key === 'Enter' && handleAction('edit')}
+            onClick={handleEdit}
             className={style.dropdownItem}
           >
             Edit
@@ -64,8 +74,7 @@ const ActionDropdown = ({ onView, onEdit, onDelete }: ActionDropdownProps) => {
           <button
             type="button"
             aria-label="Delete"
-            onClick={() => handleAction('delete')}
-            onKeyDown={(e) => e.key === 'Enter' && handleAction('delete')}
+            onClick={handleDelete}
             className={style.dropdownItem}
           >
             Delete

@@ -20,7 +20,6 @@ const fetchData = async (): Promise<any> => {
   return responseData;
 };
 
-// Fetch user by ID
 const fetchUserById = async (id: string): Promise<any> => {
   const response = await fetch(`${url}/${id}`, {
     method: 'GET',
