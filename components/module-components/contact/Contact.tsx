@@ -22,7 +22,7 @@ const Contact = () => {
           <div className={style.leftTextContainer}>
             <h2>Имаш прашања или идеи за соработка?</h2>
             <p className={style.leftText}>
-              Слободно контактирај не и ќе ти одговориме во најбрз можен рок.
+              Слободно контактирај нѐ и ќе ти одговориме во најбрз можен рок.
             </p>
           </div>
           <ContactForm />

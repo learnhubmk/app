@@ -81,7 +81,7 @@ const ContactForm = () => {
           isRequired
         />
         <TextArea
-          placeholder="What tickles your brain?"
+          placeholder="Постави прашање"
           label="Твојата порака"
           name="message"
           field="message"
