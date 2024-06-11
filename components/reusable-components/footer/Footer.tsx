@@ -22,7 +22,7 @@ interface FormValues {
   email: string;
 }
 
-const Footer: React.FC = () => {
+const Footer = () => {
   const { theme } = useTheme();
   const isThemeLight = theme === 'light';
 
