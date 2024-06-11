@@ -15,7 +15,7 @@
 }
 
 .faqDark {
-  background: linear-gradient(90deg, hsl(222, 50%, 14%) 0%, hsl(208, 34%, 24%) 100%);
+  background: linear-gradient(90deg, #283E51 0%, #121D36 100%);
 }
 
 .faqContainer {
@@ -23,28 +23,28 @@
   margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
   gap: 1.839rem;
 
-  > ul {
+  >ul {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     padding: 0;
     list-style-type: none;
 
-    > li > div {
+    >li>div {
       cursor: pointer;
       user-select: none;
 
-      > div:first-child {
+      >div:first-child {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 1.5rem;
       }
 
-      > div:nth-child(2) {
+      >div:nth-child(2) {
         overflow: hidden;
 
-        > div {
+        >div {
           padding: 0.75rem 0 0 0;
         }
       }
