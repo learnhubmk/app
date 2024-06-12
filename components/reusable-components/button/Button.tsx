@@ -8,7 +8,7 @@ import setClass from '../../../utils/setClass';
 interface ButtonProps {
   onClick?: () => void;
   type: string;
-  buttonText: string;
+  buttonText?: string;
   href?: string;
   // eslint-disable-next-line no-undef
   icon?: JSX.Element;
