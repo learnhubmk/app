@@ -72,7 +72,7 @@ const ContactForm = () => {
           isRequired
         />
         <TextInput
-          placeholder="Внеси ја твојата електронска пошта"
+          placeholder="Внеси ја вашата електронска пошта"
           label="Електронска Пошта"
           name="email"
           type="email"
