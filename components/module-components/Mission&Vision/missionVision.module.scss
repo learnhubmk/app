@@ -71,7 +71,6 @@
   margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0.5rem, 1rem + 11.429vw, 12.5rem);
 
   @media (min-width: 1026px) {
-    background: var(--bgr-color-light-mode) !important;
     padding: 0 4rem 3rem 4rem;
     margin: 0;
     border-radius: 0.5rem;
@@ -126,6 +125,10 @@
 
 .missionTitleWhite {
   background: var(--secondary-light-mode);
+
+  @media (min-width: 1026px) {
+    background: var(--bgr-color-light-mode) !important;
+  }
 
   h2 {
     color: var(--title-dark-mode);
