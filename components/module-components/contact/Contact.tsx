@@ -22,7 +22,7 @@ const Contact = () => {
           <div className={style.leftTextContainer}>
             <h2>Имаш прашања или идеи за соработка?</h2>
             <p className={style.leftText}>
-              Слободно контактирај не и ќе ти одговориме во најбрз можен рок.
+              Слободно контактирај нѐ и ќе ти одговориме во најбрз можен рок.
             </p>
           </div>
           <ContactForm />
@@ -33,7 +33,7 @@ const Contact = () => {
             type="link"
             href="https://discord.com/invite/nUEKUWVveW"
             buttonTarget="_blank"
-            buttonText="Придружи се"
+            buttonText="Придружи се!"
             buttonClass={['motionButton', 'orangeLink']}
             icon={<i className="bi bi-arrow-up-right-circle-fill" />}
             rotateIcon
