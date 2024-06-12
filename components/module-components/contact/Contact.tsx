@@ -33,7 +33,7 @@ const Contact = () => {
             type="link"
             href="https://discord.com/invite/nUEKUWVveW"
             buttonTarget="_blank"
-            buttonText="Придружи се"
+            buttonText="Придружи се!"
             buttonClass={['motionButton', 'orangeLink']}
             icon={<i className="bi bi-arrow-up-right-circle-fill" />}
             rotateIcon
