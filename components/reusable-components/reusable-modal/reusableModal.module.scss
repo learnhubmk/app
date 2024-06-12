@@ -1,0 +1,36 @@
+.modal {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  height: 220px;
+  width: 500px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .closeButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: transparent;
+  }
+
+  .modalContentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .modalContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modalButtons {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}

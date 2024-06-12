@@ -9,7 +9,7 @@ interface ButtonProps {
   onClick?: () => void;
   type: string;
   buttonText: string;
-  href: string;
+  href?: string;
   // eslint-disable-next-line no-undef
   icon?: JSX.Element;
   iconSrc?: string;
@@ -48,7 +48,7 @@ const Button = ({
     )) ||
     (type === 'link' && (
       <Link
-        href={href}
+        href={href!}
         className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}
         target={buttonTarget}
       >
