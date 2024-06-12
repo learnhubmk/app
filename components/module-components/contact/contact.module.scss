@@ -72,8 +72,16 @@
       flex-direction: column;
       align-items: center;
       margin-top: clamp(3.5rem, 6.06263rem + -10.79vw, 0rem);
-      margin-bottom: clamp(22.5rem, 25.86228rem + -12.658vw, 18.75rem);
+      margin-bottom: clamp(15.5rem, 24.86228rem - 12.658vw, 15.75rem);
       gap: 1.5rem;
+
+      @include u.breakpoint(small) {
+        margin-bottom: clamp(20.375rem, 7.59031rem + 30.395vw, 35.625rem);
+      }
+
+      @include u.breakpoint(medium) {
+        margin-bottom: clamp(24.375rem, 7.59031rem + 34.395vw, 35.625rem);
+      }
 
       @include u.breakpoint(large) {
         width: 60%;
