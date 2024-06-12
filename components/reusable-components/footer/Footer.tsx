@@ -91,7 +91,7 @@ const Footer = () => {
             <h2 className={styles.footerTitle}>Претплати се на нашиот билтен</h2>
             <form className={styles.newsletterForm} onSubmit={formik.handleSubmit}>
               <TextInput
-                placeholder="Внеси го твоето име"
+                placeholder="Внесете го вашето име"
                 type="text"
                 label=""
                 name="name"
@@ -104,7 +104,7 @@ const Footer = () => {
                 isFooter
               />
               <TextInput
-                placeholder="Внеси ја твојата електронска пошта"
+                placeholder="Внесете ја вашата електронска пошта"
                 type="email"
                 label=""
                 name="email"
