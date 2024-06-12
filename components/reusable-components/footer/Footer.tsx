@@ -91,7 +91,7 @@ const Footer = () => {
             <h2 className={styles.footerTitle}>Претплати се на нашиот билтен</h2>
             <form className={styles.newsletterForm} onSubmit={formik.handleSubmit}>
               <TextInput
-                placeholder="Enter your Name"
+                placeholder="Внесете го Вашето име"
                 type="text"
                 label=""
                 name="name"
@@ -104,7 +104,7 @@ const Footer = () => {
                 isFooter
               />
               <TextInput
-                placeholder="Enter your Email"
+                placeholder="Внесете ја Вашaта мејл адреса"
                 type="email"
                 label=""
                 name="email"
@@ -130,13 +130,13 @@ const Footer = () => {
             </form>
           </div>
           <div className={styles.contactContainer}>
-            <h2 className={styles.footerTitle}>Контактирај не</h2>
+            <h2 className={styles.footerTitle}>Контактирај нѐ</h2>
             <a className={styles.contactEmail} href="mailto:contact@learnhub.mk">
               contact@learnhub.mk
             </a>
           </div>
           <div className={styles.socialMediaContainer}>
-            <h2 className={`${styles.footerTitle} ${styles.socialMediaTitle}`}>Connect with us</h2>
+            <h2 className={`${styles.footerTitle} ${styles.socialMediaTitle}`}>Следете нѐ</h2>
             <SocialMediaLinks />
           </div>
         </div>
