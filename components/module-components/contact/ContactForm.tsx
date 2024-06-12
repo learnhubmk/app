@@ -63,7 +63,7 @@ const ContactForm = () => {
       <ToastContainer />
       <form onSubmit={formik.handleSubmit}>
         <TextInput
-          placeholder="Внесете го Вашето име"
+          placeholder="Внесете го вашето име"
           label="Име и презиме"
           name="username"
           type="text"
