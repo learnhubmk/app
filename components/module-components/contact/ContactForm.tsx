@@ -73,7 +73,7 @@ const ContactForm = () => {
         />
         <TextInput
           placeholder="Внесете ја Вашата емаил адреса"
-          label="E-mail"
+          label="Електронска Пошта"
           name="email"
           type="email"
           field="email"
@@ -81,8 +81,8 @@ const ContactForm = () => {
           isRequired
         />
         <TextArea
-          placeholder="Постави прашање"
-          label="Твојата порака"
+          placeholder="Напиши ја твојата порака овде"
+          label="Порака"
           name="message"
           field="message"
           formik={formik}
