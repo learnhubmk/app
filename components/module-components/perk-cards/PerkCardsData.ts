@@ -1,7 +1,7 @@
 const PerkCardsData = [
   {
     id: 0,
-    perkCardText: 'Меѓусебен раст и усовршување ИТ вештини',
+    perkCardText: 'Меѓусебен развој и усовршување ИТ вештини',
     perkCardIcon: 'perk-cards-icons/team.svg',
   },
   {
@@ -16,7 +16,7 @@ const PerkCardsData = [
   },
   {
     id: 3,
-    perkCardText: 'Реализирање идеи поттикнати од заедницата',
+    perkCardText: 'Реализирање на идеи поттикнати од заедницата',
     perkCardIcon: 'perk-cards-icons/award.svg',
   },
   {
