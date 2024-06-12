@@ -18,7 +18,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 5.125rem;
 
   @include u.breakpoint-down(medium) {
     flex-wrap: nowrap;
@@ -46,7 +46,7 @@
 
 .projectText {
   width: 100%;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
   padding-left: 10px;
 
   @include u.breakpoint-down(small) {
@@ -58,7 +58,7 @@
   font-weight: 700;
   font-size: var(--fs-h2);
   line-height: var(--lh-h2);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .darkProjectTitle {
