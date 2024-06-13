@@ -1,0 +1,26 @@
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.itemList {
+  list-style-type: none;
+  padding: 0;
+
+  .item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.selectPagination {
+  padding: 5px;
+}
