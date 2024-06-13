@@ -1,5 +1,7 @@
+import ReusableTable from '../../components/reusable-components/reusable-table/ReusableTable';
+
 const AdminDashboard = () => {
-  return <div>Admin Dashboard</div>;
+  return <ReusableTable />;
 };
 
 export default AdminDashboard;
