@@ -15,6 +15,10 @@ interface TableRowComponentProps {
 const TableRowComponent = ({ data }: TableRowComponentProps) => {
   return (
     <tr className={style.rowComponent}>
+      <td aria-label="Checkbox">
+        <input type="checkbox" />
+      </td>
+      <td className={style.firstName}>{data.first_name}</td>
       <td className={style.firstName}>{data.first_name}</td>
       <td className={style.lastName}>{data.last_name}</td>
       <td className={style.role}>{data.role}</td>
