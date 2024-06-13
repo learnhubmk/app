@@ -1,18 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import ReusableModal from '../../components/reusable-components/reusable-modal/ReusableModal';
+import {
+  ModalProvider,
+  useModal,
+} from '../../components/reusable-components/reusable-modal/ModalContext';
 
 const AdminDashboard = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const { isModalOpen, showModal, closeModal } = useModal();
 
   return (
     <div>
@@ -29,4 +25,12 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+const AdminDashboardPage = () => {
+  return (
+    <ModalProvider>
+      <AdminDashboard />
+    </ModalProvider>
+  );
+};
+
+export default AdminDashboardPage;
