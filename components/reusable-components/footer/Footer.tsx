@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { FormikHelpers, useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -22,7 +22,7 @@ interface FormValues {
   email: string;
 }
 
-const Footer: React.FC = () => {
+const Footer = () => {
   const { theme } = useTheme();
   const isThemeLight = theme === 'light';
 
@@ -42,7 +42,13 @@ const Footer: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (!turnstileToken) {
@@ -85,7 +91,7 @@ const Footer: React.FC = () => {
             <h2 className={styles.footerTitle}>Претплати се на нашиот билтен</h2>
             <form className={styles.newsletterForm} onSubmit={formik.handleSubmit}>
               <TextInput
-                placeholder="Enter your Name"
+                placeholder="Внесете го вашето име"
                 type="text"
                 label=""
                 name="name"
@@ -98,7 +104,7 @@ const Footer: React.FC = () => {
                 isFooter
               />
               <TextInput
-                placeholder="Enter your Email"
+                placeholder="Внесете ја вашата електронска пошта"
                 type="email"
                 label=""
                 name="email"
@@ -130,12 +136,12 @@ const Footer: React.FC = () => {
             </a>
           </div>
           <div className={styles.socialMediaContainer}>
-            <h2 className={`${styles.footerTitle} ${styles.socialMediaTitle}`}>Connect with us</h2>
+            <h2 className={`${styles.footerTitle} ${styles.socialMediaTitle}`}>Поврзи се со нас</h2>
             <SocialMediaLinks />
           </div>
         </div>
         <div className={styles.copyrightContainer}>
-          <p>&copy; 2024 Copyright by LearnHub. All rights reserved.</p>
+          <p>&copy; {currentYear} LearnHub. Сите права се задржани.</p>
         </div>
       </div>
     </footer>

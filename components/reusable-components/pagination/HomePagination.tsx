@@ -1,7 +1,6 @@
-// components/reusable-components/pagination/HomePagination.tsx
 import React, { useEffect, useState } from 'react';
 import { fetchItems, Item } from './lib/data';
-import Pagination from './StructurePagination';
+import StructurePagination from './StructurePagination';
 import Dropdown from './Dropdown';
 import styles from './HomePagination.module.scss';
 
@@ -38,7 +37,7 @@ const HomePagination: React.FC = () => {
         ))}
       </ul>
       <div className={styles.controls}>
-        <Pagination
+        <StructurePagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
