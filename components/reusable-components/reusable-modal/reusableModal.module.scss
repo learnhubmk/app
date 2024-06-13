@@ -12,30 +12,43 @@
 
   .modal {
     position: absolute;
-    top: 35%;
-    left: 35%;
-    min-height: 220px;
-    width: 500px;
+    min-height: 13.75rem;
+    width: 80%;
+    max-width: 31.25rem;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 10px;
-    padding-inline: 30px;
+    padding: 1.25rem;
+
+    @media (max-width: 768px) {
+      width: 90%;
+      top: 30%;
+    }
+
+    @media (max-width: 480px) {
+      width: 95%;
+      top: 25%;
+    }
 
     .closeButton {
       position: absolute;
       right: 0;
       top: 0;
+
+      @media (max-width: 899px) {
+        right: 2rem;
+      }
     }
 
     .modalContentWrapper {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 1.25rem;
 
       .modalContent {
-        width: 80%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -44,15 +57,24 @@
         h2 {
           font-size: 18px;
           font-weight: 500;
+
+          @media (max-width: 480px) {
+            font-size: 16px;
+          }
         }
       }
 
       .modalButtons {
         display: flex;
         justify-content: space-between;
+        gap: 0.6rem;
 
         button {
-          width: 215px;
+          width: 100%;
+
+          @media (min-width: 481px) {
+            width: 13.4rem;
+          }
         }
       }
     }
