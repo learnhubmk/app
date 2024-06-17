@@ -10,7 +10,7 @@ type ContactFormResponse = any;
 export const submitContactForm = async (
   formData: ContactFormData
 ): Promise<ContactFormResponse> => {
-  const url = new URL('https://staging-api.learnhub.mk/contact');
+  const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/contact'!;
 
   const headers = {
     'Content-Type': 'application/json',
@@ -23,8 +23,12 @@ export const submitContactForm = async (
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const errorData = await response.json();
+    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
   }
-  return response;
+
+  const responseData = await response.json();
+  return responseData.message;
 };
+
 export default submitContactForm;

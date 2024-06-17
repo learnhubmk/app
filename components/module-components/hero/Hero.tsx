@@ -6,10 +6,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import { useTheme } from '../../../app/context/themeContext';
 import Button from '../../reusable-components/button/Button';
-import DarkHeroImageDesktop from '../../../public/hero-pictures/dark-hero-picture-desktop.png';
-import DarkHeroImageMobile from '../../../public/hero-pictures/dark-hero-picture-mobile.png';
-import LightHeroImageDesktop from '../../../public/hero-pictures/light-hero-picture-desktop.png';
-import LightHeroImageMobile from '../../../public/hero-pictures/light-hero-picture-mobile.png';
+import HeroImageDesktop from '../../../public/hero-pictures/hero-picture.png';
+import HeroImageMobile from '../../../public/hero-pictures/hero-picture-mobile.png';
 
 import style from './hero.module.scss';
 
@@ -20,34 +18,41 @@ interface HeroProps {
 
 const Hero = ({ title, text }: HeroProps) => {
   const { theme } = useTheme();
-  const lightTheme = theme === 'light';
+  const isLightTheme = theme === 'light';
   return (
     <section
-      className={`${style.heroSection} ${lightTheme ? style.lightHeroSection : style.darkHeroSection}`}
+      className={`${style.heroSection} ${isLightTheme ? style.lightHeroSection : style.darkHeroSection}`}
     >
       <div className={style.hero}>
         <div className={style.heroLeftContainer}>
-          <h1 className={style.heroTitle}>{title}</h1>
-          <p className={style.heroText}>{text}</p>
+          <h1 className={`${isLightTheme ? style.lightThemeHeroTitle : style.darkThemeHeroTitle}`}>
+            {title}
+          </h1>
+          <p
+            className={`${style.heroText} ${isLightTheme ? style.lightThemeHeroText : style.darkThemeHeroText}`}
+          >
+            {text}
+          </p>
           <Link href="https://discord.com/invite/nUEKUWVveW" target="_blank">
             <Button
               href=""
               type="button"
               buttonText="Придружи ни се"
               buttonClass={['primaryButton', 'buttonWithIcon']}
-              icon={<i className="bi bi-arrow-right" />}
+              iconSrc="/icons/right-arrow.svg"
+              moveIcon
             />
           </Link>
         </div>
         <div className={style.heroPictureContainer}>
           <Image
-            src={lightTheme ? LightHeroImageDesktop : DarkHeroImageDesktop}
+            src={HeroImageDesktop}
             className={`${style.heroImage} ${style.desktop}`}
             alt="hero picture desktop"
             priority
           />
           <Image
-            src={lightTheme ? LightHeroImageMobile : DarkHeroImageMobile}
+            src={HeroImageMobile}
             className={`${style.heroImage} ${style.mobile}`}
             alt="hero picture mobile"
             priority
