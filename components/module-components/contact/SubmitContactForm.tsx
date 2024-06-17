@@ -2,7 +2,7 @@ export interface ContactFormData {
   name: string;
   email: string;
   message: string;
-  cfTurnstileResponse: string;
+  'cf-turnstile-response': string;
 }
 
 type ContactFormResponse = any;

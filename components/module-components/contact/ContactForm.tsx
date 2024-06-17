@@ -42,7 +42,7 @@ const ContactForm = () => {
           name: values.username,
           email: values.email,
           message: values.message,
-          cfTurnstileResponse: turnstileToken,
+          'cf-turnstile-response': turnstileToken,
         };
 
         const response = await submitContactForm(formData);
