@@ -5,7 +5,7 @@
   height: auto;
 
   @include u.breakpoint-down(large) {
-    width: calc(99% / 2 - calc(1rem / 2 * 1));
+    width: calc(100% / 2 - calc(1rem / 2 * 1));
   }
 
   @include u.breakpoint-down(small) {
@@ -20,7 +20,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
 }
 
