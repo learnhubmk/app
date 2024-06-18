@@ -1,3 +1,10 @@
+export interface User {
+  id: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+}
+
 const url = 'http://localhost:3001/users';
 
 const headers = {
@@ -5,7 +12,7 @@ const headers = {
   Accept: 'application/json',
 };
 
-const fetchData = async (): Promise<any> => {
+const fetchData = async (): Promise<any[]> => {
   const response = await fetch(url, {
     method: 'GET',
     headers,
@@ -51,7 +58,6 @@ const updateData = async (id: string, data: any): Promise<any> => {
   return responseData;
 };
 
-// Delete user
 const deleteData = async (id: string): Promise<void> => {
   const response = await fetch(`${url}/${id}`, {
     method: 'DELETE',
@@ -64,5 +70,4 @@ const deleteData = async (id: string): Promise<void> => {
   }
 };
 
-export { fetchUserById, updateData, deleteData };
-export default fetchData;
+export { fetchData, fetchUserById, updateData, deleteData };

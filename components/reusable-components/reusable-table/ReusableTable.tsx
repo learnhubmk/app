@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import fetchData from './FetchData';
+import { fetchData } from './FetchData';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 
 const ReusableTable = () => {
   const [data, setData] = useState<any[]>([]);
+  const [checkedId, setCheckedId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
@@ -21,36 +22,20 @@ const ReusableTable = () => {
     fetchDataFromApi();
   }, []);
 
-  const onView = () => {
-    console.log('View clicked');
-  };
-
-  const onEdit = () => {
-    console.log('Edit clicked');
-  };
-
-  const onDelete = () => {
-    console.log('Delete clicked');
+  const handleCheckboxChange = (id: string) => {
+    setCheckedId(id === checkedId ? null : id);
   };
 
   return (
     <div className={style.tableWrapper}>
       <table className={style.reusableTable}>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Role</th>
-          </tr>
-        </thead>
         <tbody>
           {data.map((item) => (
             <TableRowComponent
               key={item.id}
               data={item}
-              onView={onView}
-              onEdit={onEdit}
-              onDelete={onDelete}
+              isChecked={checkedId === item.id}
+              onCheckboxChange={handleCheckboxChange}
             />
           ))}
         </tbody>
