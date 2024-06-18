@@ -130,7 +130,7 @@ const Footer = () => {
             </form>
           </div>
           <div className={styles.contactContainer}>
-            <h2 className={styles.footerTitle}>Контактирај нe</h2>
+            <h2 className={styles.footerTitle}>Контактирај нè</h2>
             <a className={styles.contactEmail} href="mailto:contact@learnhub.mk">
               contact@learnhub.mk
             </a>
