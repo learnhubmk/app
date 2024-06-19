@@ -5,7 +5,7 @@ import style from './searchAndFilter.module.scss';
 import Filter from './Filter';
 import Search from './Search';
 
-const SearchAndFilter: React.FC = () => {
+const SearchAndFilter = () => {
   return (
     <div className={style.searchAndFilter}>
       <Search />
