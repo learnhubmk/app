@@ -52,6 +52,12 @@
   &:focus {
     outline: none;
   }
+
+  &.contactButton {
+    @include u.breakpoint(small) {
+      width: 7.6875rem;
+    }
+  }
 }
 
 .secondaryButton {
@@ -125,5 +131,22 @@
 
   &:active {
     color: var(--primary-btn-active-color);
+  }
+}
+
+.deactivateButton {
+  background-color: #fef0ed;
+  color: var(--primary-btn-color);
+  border: none;
+}
+
+.closeBtn {
+  background: transparent;
+  padding: 0;
+  scale: 1.5;
+  margin: 30px;
+
+  &:hover {
+    color: var(--primary-btn-color);
   }
 }

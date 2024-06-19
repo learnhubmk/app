@@ -34,7 +34,7 @@ const ProjectsSection = () => {
           <p
             className={`${style.projectDesc} ${lightTheme ? style.lightProjectDesc : style.darkProjectDesc}`}
           >
-            Разгледај ги тековните проектите на кои што работат тимови од заедницата
+            Разгледај ги тековните проекти на кои што работат тимови од заедницата
           </p>
         </div>
 
@@ -51,6 +51,8 @@ const ProjectsSection = () => {
                 title={card.title}
                 description={card.description}
                 department={card.department}
+                participants={card.participants}
+                tagNumber={card.tagNumber}
               />
             ))}
           </div>
