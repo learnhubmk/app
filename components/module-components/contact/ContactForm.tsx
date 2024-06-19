@@ -72,8 +72,8 @@ const ContactForm = () => {
           isRequired
         />
         <TextInput
-          placeholder="Внесете ја Вашата емаил адреса"
-          label="E-mail"
+          placeholder="Внесете ја вашата електронска пошта"
+          label="Електронска Пошта"
           name="email"
           type="email"
           field="email"
@@ -81,15 +81,20 @@ const ContactForm = () => {
           isRequired
         />
         <TextArea
-          placeholder="What tickles your brain?"
-          label="Твојата порака"
+          placeholder="Напиши ја твојата порака овде"
+          label="Порака"
           name="message"
           field="message"
           formik={formik}
           isRequired
         />
 
-        <Button href="" type="submit" buttonClass={['primaryButton']} buttonText="Испрати" />
+        <Button
+          href=""
+          type="submit"
+          buttonClass={['primaryButton', 'contactButton']}
+          buttonText="Испрати"
+        />
         <Turnstile
           sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
           onVerify={(token) => setTurnstileToken(token)}
