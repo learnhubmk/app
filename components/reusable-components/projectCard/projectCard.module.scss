@@ -5,7 +5,7 @@
   height: auto;
 
   @include u.breakpoint-down(large) {
-    width: calc(99% / 2 - calc(1rem / 2 * 1));
+    width: calc(100% / 2 - calc(1rem / 2 * 1));
   }
 
   @include u.breakpoint-down(small) {
@@ -20,13 +20,12 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
 }
 
 .cardContent {
   display: flex;
-
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   padding: 24px;
@@ -69,6 +68,11 @@
   letter-spacing: 0.15px;
   margin-bottom: 10px;
   color: hsla(222, 6%, 46%, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 
   @include u.breakpoint-down(small) {
     font-size: 16px;
