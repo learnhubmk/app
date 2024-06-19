@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   title: 'Learnhub.mk',
   description: 'Развијте Го Вашиот Потенцијал Со LearnHub',
   openGraph: {
-    images: ['https://learnhub.mk/logo/logo.png'],
+    images: ['https://learnhub.mk/logo/logo.jpg'],
   },
   icons: {
     icon: '/favicon.png',
