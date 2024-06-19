@@ -15,15 +15,11 @@
 }
 
 .missionMainWhite {
-  background: rgba(235, 237, 241, 1);
+  background: var(--secondary-light-mode);
 }
 
 .missionMainDark {
-  background: hsla(220, 20%, 43%, 1);
-
-  @media (max-width: 1025px) {
-    background: linear-gradient(90deg, hsl(222, 50%, 14%) 0%, hsl(208, 34%, 24%) 100%);
-  }
+  background: var(--primary-dark-mode);
 }
 
 .mvImgContainer {
@@ -75,10 +71,11 @@
   margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(0.5rem, 1rem + 11.429vw, 12.5rem);
 
   @media (min-width: 1026px) {
-    padding: 0 4rem 2rem 4rem;
+    background: var(--bgr-color-light-mode) !important;
+    padding: 0 4rem 3rem 4rem;
     margin: 0;
     border-radius: 0.5rem;
-    border: 0.063rem solid rgba(148, 163, 184, 1);
+    border: none;
     position: absolute;
     left: 50%;
     width: 45%;
@@ -89,7 +86,8 @@
     font-size: 1.87rem;
     font-weight: 700;
     line-height: var(--lh-body);
-    padding-block: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 0.5rem;
 
     @media (max-width: 1025px) {
       line-height: 2.285rem;
@@ -127,30 +125,27 @@
 }
 
 .missionTitleWhite {
-  background: rgba(235, 237, 241, 1);
+  background: var(--secondary-light-mode);
 
   h2 {
-    color: rgba(18, 29, 54, 1);
+    color: var(--title-dark-mode);
   }
 
   p {
-    color: rgba(71, 85, 105, 1);
+    color: var(--text-light-mode);
   }
 }
 
 .missionTitleDark {
-  background: rgba(54, 67, 98, 1);
+  background: var(--titles-light-mode);
 
   @media (max-width: 1025px) {
     background: none;
   }
 
-  h2 {
-    color: rgba(255, 255, 255, 1);
-  }
-
+  h2,
   p {
-    color: rgba(255, 255, 255, 1);
+    color: var(--primary-light-mode);
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import style from './ProjectCard.module.scss';
+import style from './projectCard.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 
 export interface ProjectCardProps {
@@ -9,9 +9,19 @@ export interface ProjectCardProps {
   title: string;
   description: string;
   department: string[];
+  participants: number;
+  tagNumber: number;
 }
 
-const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCardProps) => {
+const ProjectCard = ({
+  id,
+  imageUrl,
+  title,
+  description,
+  department,
+  participants,
+  tagNumber,
+}: ProjectCardProps) => {
   const { theme } = useTheme();
   const darkTheme = theme === 'dark';
   return (
@@ -39,13 +49,13 @@ const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCa
           </p>
 
           <div className={style.cardTags}>
-            {department.slice(0, 2).map((item) => (
+            {department.slice(0, tagNumber).map((item) => (
               <div key={item} className={style.cardTag}>
                 {item}
               </div>
             ))}
-            {department.length > 2 && (
-              <div className={style.cardTagHidden}>+{department.length - 2}</div>
+            {department.length > tagNumber && (
+              <div className={style.cardTagHidden}>+{department.length - tagNumber}</div>
             )}
           </div>
           <div className={style.cardParticipants}>
@@ -75,7 +85,7 @@ const ProjectCard = ({ id, imageUrl, title, description, department }: ProjectCa
                 fill="#41AD3E"
               />
             </svg>
-            <div className={style.cardTagHidden}>+3</div>
+            <div className={style.cardTagHidden}>+{participants}</div>
           </div>
         </div>
       </div>

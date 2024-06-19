@@ -4,9 +4,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import style from './filter.module.scss';
 
 export enum UserRole {
-  Admin = 'Admin',
-  Member = 'Member',
-  ContentManager = 'Content Manager',
+  Admin = 'admin',
+  Member = 'member',
+  ContentManager = 'content-manager',
 }
 
 interface FilterProps {

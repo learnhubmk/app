@@ -1,32 +1,32 @@
 const PerkCardsData = [
   {
     id: 0,
-    perkCardText: 'Учествувај во работа на реални проекти со луѓе од IT сферата',
+    perkCardText: 'Меѓусебен развој и усовршување ИТ вештини',
     perkCardIcon: 'perk-cards-icons/team.svg',
   },
   {
     id: 1,
-    perkCardText: 'Испробај ги твоите вештини со учество во кратки предизвици',
+    perkCardText: 'Практична изработка на проекти',
     perkCardIcon: 'perk-cards-icons/award.svg',
   },
   {
     id: 2,
-    perkCardText: 'Дознај повеќе за состојбата на пазарот на труд и за компаниите',
+    perkCardText: 'Подобрени шанси за наоѓање работа',
     perkCardIcon: 'perk-cards-icons/career.svg',
   },
   {
     id: 3,
-    perkCardText: 'Надгради го твоето знаење преку проверени содржини',
+    perkCardText: 'Реализирање на идеи поттикнати од заедницата',
     perkCardIcon: 'perk-cards-icons/award.svg',
   },
   {
     id: 4,
-    perkCardText: 'Зголеми ја твојата мрежа од контакти со запознавање нови луѓе',
+    perkCardText: 'Менторство и конструктивен фидбек',
     perkCardIcon: 'perk-cards-icons/team.svg',
   },
   {
     id: 5,
-    perkCardText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ',
+    perkCardText: 'Зајакнување на портфолио',
     perkCardIcon: 'perk-cards-icons/team.svg',
   },
 ];

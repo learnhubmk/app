@@ -7,7 +7,7 @@ import { useTheme } from '../../../app/context/themeContext';
 import ContactForm from './ContactForm';
 import Button from '../../reusable-components/button/Button';
 import ContactImageDesktop from '../../../public/contact-section-image-desktop.png';
-import ContactImageMobile from '../../../public/contact-section-image-mobile.png';
+import ContactImageMobile from '../../../public/contact-section-mob-image.png';
 
 const Contact = () => {
   const { theme } = useTheme();
@@ -20,10 +20,9 @@ const Contact = () => {
       <div className={style.contact}>
         <div className={style.contactLeftContainer}>
           <div className={style.leftTextContainer}>
-            <h2>Кажи ни повеќе за тебе</h2>
+            <h2>Имаш прашања или идеи за соработка?</h2>
             <p className={style.leftText}>
-              Have some big idea or brand to develop and need help? Then reach out we'd love to hear
-              about your project and provide help
+              Слободно контактирај нѐ и ќе ти одговориме во најбрз можен рок.
             </p>
           </div>
           <ContactForm />
@@ -34,7 +33,7 @@ const Contact = () => {
             type="link"
             href="https://discord.com/invite/nUEKUWVveW"
             buttonTarget="_blank"
-            buttonText="Придружи се"
+            buttonText="Придружи се!"
             buttonClass={['motionButton', 'orangeLink']}
             icon={<i className="bi bi-arrow-up-right-circle-fill" />}
             rotateIcon

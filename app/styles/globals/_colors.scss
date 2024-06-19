@@ -1,4 +1,6 @@
 :root {
+  --main-button: hsl(10, 94%, 63%);
+  --error-state: hsl(0, 75%, 42%);
   --white-color: hsl(0, 0%, 100%);
   --black-color: hsl(0, 0%, 0%);
   --bg-color: hsl(222, 52%, 5%);
@@ -20,60 +22,59 @@
   --section-bg-color: hsl(222, 50%, 14%);
   --tertiary-dark-mode: hsl(222, 52%, 5%);
 
-  $clr-primary-light-mode: hsl(0, 0%, 100%);
-  $clr-secondary-light-mode: hsl(31, 94%, 86%);
-  $clr-tertiary-light-mode: hsl(222, 50%, 14%);
-  $clr-text-light-mode: hsl(215, 19%, 35%);
-  $clr-elevated-elements-light-mode: hsl(210, 40%, 98%);
-  $clr-titles-light-mode: hsl(222, 50%, 14%);
-  $clr-tertiary-button-light-mode: hsl(0, 0%, 0%);
+  --primary-light-mode: hsl(0, 0%, 100%);
+  --secondary-light-mode: hsl(220, 18%, 93%);
+  --tertiary-light-mode: hsl(222, 50%, 14%);
+  --bgr-color-light-mode: hsla(240, 25%, 98%, 1);
+  --title-light-mode: hsl(222, 50%, 14%);
+  --text-light-mode: hsl(215, 19%, 35%);
+  --elevated-elements-light-mode: hsl(210, 40%, 98%);
+  --titles-light-mode: var(--Primary, hsla(222, 50%, 14%, 1));
+  --tertiary-button-light-mode: hsl(0, 0%, 0%);
 
-  $clr-primary-dark-mode: #121d36;
-  $clr-secondary-dark-mode: hsl(222, 19%, 44%);
-  $clr-tertiary-dark-mode: hsl(222, 52%, 5%);
-  $clr-text-dark-mode: hsl(0, 0%, 83%);
-  $clr-elevated-elements-dark-mode: hsl(221, 29%, 30%);
-  $clr-titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
+  --primary-dark-mode: linear-gradient(270.18deg, #283e51 -24.61%, #121d36 130.92%);
+  --secondary-dark-mode: hsl(222, 19%, 44%);
+  --tertiary-dark-mode: hsl(222, 52%, 5%);
+  --title-dark-mode: hsla(222, 50%, 14%, 1);
+  --text-dark-mode: hsl(0, 0%, 83%);
+  --elevated-elements-dark-mode: hsl(221, 29%, 30%);
+  --titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
+}
+@mixin apply-color-scheme($mode: 'light') {
+  $primary: if($mode == 'light', --primary-light-mode, --primary-dark-mode);
+  $secondary: if($mode == 'light', --secondary-light-mode, --secondary-dark-mode);
+  $tertiary: if($mode == 'light', --tertiary-light-mode, --tertiary-dark-mode);
+  $text: if($mode == 'light', --text-light-mode, --text-dark-mode);
+  $elevated-elements: if(
+    $mode == 'light',
+    --elevated-elements-light-mode,
+    --elevated-elements-dark-mode
+  );
+  $titles: if($mode == 'light', --titles-light-mode, --titles-tertiary-button-dark-mode);
+  $tertiary-button: if(
+    $mode == 'light',
+    --tertiary-button-light-mode,
+    --titles-tertiary-button-dark-mode
+  );
+  $main-button: --main-button;
+  $error-state: --error-state;
 
-  $clr-main-button: hsl(10, 94%, 63%);
-  $clr-error-state: hsl(0, 75%, 42%);
+  color: $text;
+  background-color: $primary;
+  border-color: $secondary;
 
-  @mixin apply-color-scheme($mode: 'light') {
-    $primary: if($mode == 'light', $clr-primary-light-mode, $clr-primary-dark-mode);
-    $secondary: if($mode == 'light', $clr-secondary-light-mode, $clr-secondary-dark-mode);
-    $tertiary: if($mode == 'light', $clr-tertiary-light-mode, $clr-tertiary-dark-mode);
-    $text: if($mode == 'light', $clr-text-light-mode, $clr-text-dark-mode);
-    $elevated-elements: if(
-      $mode == 'light',
-      $clr-elevated-elements-light-mode,
-      $clr-elevated-elements-dark-mode
-    );
-    $titles: if($mode == 'light', $clr-titles-light-mode, $clr-titles-tertiary-button-dark-mode);
-    $tertiary-button: if(
-      $mode == 'light',
-      $clr-tertiary-button-light-mode,
-      $clr-titles-tertiary-button-dark-mode
-    );
-    $main-button: $clr-main-button;
-    $error-state: $clr-error-state;
-
-    color: $text;
-    background-color: $primary;
-    border-color: $secondary;
-
-    .button {
-      background-color: $main-button;
-    }
-    .error {
-      color: $error-state;
-    }
+  .button {
+    background-color: $main-button;
   }
-
-  body.light-mode {
-    @include apply-color-scheme('light');
+  .error {
+    color: $error-state;
   }
+}
 
-  body.dark-mode {
-    @include apply-color-scheme('dark');
-  }
+body.light-mode {
+  @include apply-color-scheme('light');
+}
+
+body.dark-mode {
+  @include apply-color-scheme('dark');
 }
