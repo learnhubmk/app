@@ -26,8 +26,8 @@ const ProjectCard = ({
   const { theme } = useTheme();
   const darkTheme = theme === 'dark';
 
-  const maxLength = 20;
-  const shortenTitle = shortenString(title, maxLength);
+  const MAX_TITLE_LENGTH = 20;
+  const shortenTitle = shortenString(title, MAX_TITLE_LENGTH);
 
   return (
     <div className={style.projectCard} key={id}>
