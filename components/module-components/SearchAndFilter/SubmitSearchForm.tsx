@@ -1,4 +1,4 @@
-const submitSearchForm = async (): Promise<any> => {
+const fetchSearchResultsFromApi = async (): Promise<any> => {
   const url = 'https://mocki.io/v1/ed331a85-c472-40e5-97eb-c15aedd6b8f2';
 
   const headers = {
@@ -17,8 +17,7 @@ const submitSearchForm = async (): Promise<any> => {
   }
 
   const responseData = await response.json();
-  // console.log(responseData)
   return responseData;
 };
 
-export default submitSearchForm;
+export default fetchSearchResultsFromApi;

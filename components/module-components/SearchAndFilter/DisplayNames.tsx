@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import submitSearchForm from './SubmitSearchForm';
+import fetchSearchResultsFromApi from './SubmitSearchForm';
 import style from './displayNames.module.scss';
 import { UserRole } from './Filter';
+import Loading from '../../../app/loading';
 
 interface Author {
   id: string;
   first_name: string;
   last_name: string;
-  role: string;
+  role: UserRole;
 }
 
 interface DisplayNamesProps {
@@ -17,11 +18,13 @@ interface DisplayNamesProps {
 
 const DisplayNames = ({ filterValue, selectedRoles }: DisplayNamesProps) => {
   const [names, setNames] = useState<Author[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await submitSearchForm();
+        setLoading(true);
+        const response = await fetchSearchResultsFromApi();
         const filteredNames = response.filter((author: Author) => {
           const fullName = `${author.first_name} ${author.last_name}`.toLowerCase();
           return (
@@ -32,6 +35,8 @@ const DisplayNames = ({ filterValue, selectedRoles }: DisplayNamesProps) => {
         setNames(filteredNames);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -40,26 +45,30 @@ const DisplayNames = ({ filterValue, selectedRoles }: DisplayNamesProps) => {
 
   return (
     <div className={style.displayNames}>
-      <div className={style.tableWrapper}>
-        <table>
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {names.map((name) => (
-              <tr key={name.id}>
-                <td>{name.first_name}</td>
-                <td>{name.last_name}</td>
-                <td>{name.role}</td>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={style.tableWrapper}>
+          <table>
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {names.map((name) => (
+                <tr key={name.id}>
+                  <td>{name.first_name}</td>
+                  <td>{name.last_name}</td>
+                  <td>{name.role}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

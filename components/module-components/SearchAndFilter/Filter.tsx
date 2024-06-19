@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import style from './filter.module.scss';
 
 export enum UserRole {
@@ -16,13 +16,11 @@ interface FilterProps {
 const Filter = ({ handleRoleChange }: FilterProps) => {
   const [selectedOption, setSelectedOption] = useState<UserRole | ''>('');
 
+  const userRoleOptions = useMemo(() => Object.values(UserRole), []);
+
   useEffect(() => {
-    if (selectedOption === '') {
-      handleRoleChange(Object.values(UserRole));
-    } else {
-      handleRoleChange([selectedOption]);
-    }
-  }, [selectedOption, handleRoleChange]);
+    handleRoleChange(selectedOption === '' ? userRoleOptions : [selectedOption]);
+  }, [selectedOption, userRoleOptions, handleRoleChange]);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedRole = event.target.value as UserRole;
