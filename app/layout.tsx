@@ -30,6 +30,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
 );
 
 export const metadata: Metadata = {
+  other: { 'google-site-verification': 'whz8iFuxS7txbmpgsbhDb_9nc1GgM3I0QUJc-LMkiI8' },
   title: 'LearnHub.mk',
   description: 'Стекни релевантно знаење и ИТ вештини',
   openGraph: {
