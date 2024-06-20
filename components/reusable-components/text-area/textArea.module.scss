@@ -22,10 +22,11 @@
       background: #f8fafc;
       transition: border-color 0.3s ease;
       font-family: inherit;
+      resize: none;
 
       &::placeholder {
         color: #737373;
-        font-size: var(--fs-placeholder);
+        font-size: var(--fs-placeholder-mobile);
         font-weight: 300;
         line-height: var(--fs-placeholder);
       }

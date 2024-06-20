@@ -1,11 +1,13 @@
 @use '../../../app/styles/utils' as u;
 
 .projectCard {
-  width: calc(100% / 3 - calc(1rem / 3 * 2));
+  width: calc(99% / 3 - calc(1rem / 3 * 2));
   height: auto;
+
   @include u.breakpoint-down(large) {
     width: calc(100% / 2 - calc(1rem / 2 * 1));
   }
+
   @include u.breakpoint-down(small) {
     flex: 0 0 auto;
     min-width: 100%;
@@ -18,13 +20,12 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
 }
 
 .cardContent {
   display: flex;
-
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   padding: 24px;
@@ -67,14 +68,21 @@
   letter-spacing: 0.15px;
   margin-bottom: 10px;
   color: hsla(222, 6%, 46%, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 
   @include u.breakpoint-down(small) {
     font-size: 16px;
   }
 }
+
 .darkDescription {
   color: var(--Text, hsla(0, 0%, 83%, 1));
 }
+
 .cardTags {
   display: flex;
   gap: 8px;
@@ -87,7 +95,6 @@
   .cardTag {
     border-radius: 20px;
     border: 1px solid hsla(215, 20%, 65%, 1);
-    padding: 8px 16px 8px 16px;
     background: hsla(210, 40%, 98%, 1);
     color: hsla(222, 47%, 11%, 1);
     font-weight: 400;
@@ -95,10 +102,11 @@
     letter-spacing: 0.5px;
     line-height: 16px;
     height: 32px;
-    padding: 8px 16px 8px 16px;
+    padding: 6px 12px 6px 12px;
     gap: 8px;
   }
 }
+
 .cardTagHidden {
   padding: 8px 3px 8px 3px;
   font-weight: 400;
@@ -106,11 +114,13 @@
   color: hsla(0, 0%, 56%, 1);
   letter-spacing: 0.25px;
 }
+
 .cardParticipants {
   display: flex;
   margin-top: 24px;
   gap: 8px;
   align-items: center;
+
   @include u.breakpoint-down(medium) {
     display: none;
   }
