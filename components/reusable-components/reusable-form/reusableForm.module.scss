@@ -1,0 +1,102 @@
+@use '../../../app/styles/utils/breakpoints' as u;
+
+.reusableFormWrapper {
+  width: 42rem;
+  height: 73rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  box-shadow: 0px 25px 40px -12px #00000033;
+  background: #f8fafc;
+
+  @include u.breakpoint-down(small) {
+    width: 90vw;
+    box-shadow: none;
+    background: #d8e1e0;
+  }
+
+  .formTitle {
+    font-weight: 700;
+  }
+
+  .reusableForm {
+    width: 560px;
+
+    @include u.breakpoint-down(small) {
+      width: 80vw;
+    }
+
+    .signUpInput {
+      background-color: red;
+      color: red;
+    }
+
+    .requirements {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .requirementsItem {
+        display: flex;
+        align-items: center;
+
+        p {
+          margin-left: 8px;
+        }
+
+        .valid {
+          fill: #00b107;
+        }
+
+        .invalid {
+          filter: grayscale(100%);
+        }
+
+        &:last-child {
+          margin-bottom: 16px;
+
+          @include u.breakpoint-down(small) {
+            margin-bottom: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+          }
+        }
+      }
+    }
+
+    .signUpBtn {
+      margin-top: clamp(4rem, 6.06263rem + -10.79vw, 0rem);
+
+      @include u.breakpoint-down(small) {
+        margin-top: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .alternativeSignUp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    .socialMediaSignUp {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .haveAccount {
+      display: flex;
+      flex-direction: row;
+      padding-top: 20px;
+
+      p,
+      a {
+        font-size: 14px;
+      }
+    }
+  }
+}

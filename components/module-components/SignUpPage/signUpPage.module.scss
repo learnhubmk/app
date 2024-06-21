@@ -1,0 +1,104 @@
+@use '../../../app/styles/utils/breakpoints' as u;
+
+.signUpSection {
+  position: relative;
+  width: 100%;
+
+  @include u.breakpoint-down(small) {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .signUp {
+    display: flex;
+    flex-direction: row;
+    margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem)
+      0;
+    max-width: 100%;
+
+    @include u.breakpoint-down(small) {
+      flex-direction: column;
+      margin-top: clamp(4rem, 6.06263rem + -10.79vw, 0rem);
+    }
+
+    .titleWrapper {
+      display: flex;
+      flex-direction: column;
+      max-width: 524px;
+      gap: 36px;
+
+      @include u.breakpoint-down(small) {
+        text-align: center;
+        gap: 12px;
+      }
+
+      h1 {
+        @include u.breakpoint-down(small) {
+          text-align: center;
+          font-weight: 700;
+          font-size: 28px;
+          line-height: 34.13px;
+        }
+      }
+
+      p {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 38px;
+        letter-spacing: 0.10000000149011612px;
+        text-align: left;
+
+        @include u.breakpoint-down(small) {
+          text-align: center;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .dashboardPreview {
+      width: 603px;
+      height: 513px;
+      margin-top: clamp(9rem, 6.06263rem + -10.79vw, 0rem);
+      border-radius: 21px 0px 0px 21px;
+      opacity: 0px;
+      background: #475569;
+      margin-left: 20px;
+      z-index: 2;
+      position: relative;
+
+      @include u.breakpoint-down(small) {
+        display: none;
+      }
+    }
+
+    .signUpRightContainer {
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: clamp(11.5rem, 6.06263rem + -10.79vw, 0rem);
+      margin-bottom: 0;
+      box-shadow: 0px 25px 40px -12px #00000033;
+
+      @include u.breakpoint-down(small) {
+        box-shadow: none;
+        margin-top: clamp(4rem, 6.06263rem + -10.79vw, 0rem);
+      }
+    }
+  }
+
+  .pattern {
+    position: absolute;
+    top: 360px;
+    left: 175px;
+    z-index: 1;
+
+    @include u.breakpoint-down(small) {
+      display: none;
+    }
+  }
+}
