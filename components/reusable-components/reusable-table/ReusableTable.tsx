@@ -1,4 +1,7 @@
+'use client';
+
 /* eslint-disable no-unused-vars */
+
 import React, { useEffect, useState } from 'react';
 import fetchData from './FetchData';
 import TableHead from './TableHead';
@@ -10,7 +13,7 @@ interface ReusableTableProps<T> {
   displayNames: { [key in keyof T]?: string };
   fetchUrl: string;
 }
-/* eslint-disable-next-line no-unused-vars */
+
 const ReusableTable = <T,>({
   headers,
   displayNames,
