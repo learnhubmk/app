@@ -1,52 +1,64 @@
-'use client';
-
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import fetchData from './FetchData';
-import TableHead, { UserData } from './TableHead';
+import TableHead from './TableHead';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 
-const ReusableTable: React.FC = () => {
-  const headers: (keyof UserData)[] = ['first_name', 'last_name', 'role'];
-  const [sortField, setSortField] = useState<keyof UserData>('first_name');
+interface ReusableTableProps<T> {
+  headers: (keyof T)[];
+  displayNames: { [key in keyof T]?: string };
+  fetchUrl: string;
+}
+/* eslint-disable-next-line no-unused-vars */
+const ReusableTable = <T,>({
+  headers,
+  displayNames,
+  fetchUrl,
+}: ReusableTableProps<T>): React.JSX.Element => {
+  const [sortField, setSortField] = useState<keyof T | ''>('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [data, setData] = useState<UserData[]>([]);
+  const [data, setData] = useState<T[]>([]);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const response = await fetchData();
+        const response = await fetchData<T>(fetchUrl);
         setData(response);
       } catch (error) {
-        // console.error('Error fetching data:', error);
+        // eslint-disable-next-line no-console
       }
     };
-    fetchDataFromApi();
-  }, []);
 
-  const handleSort = (field: keyof UserData) => {
+    fetchDataFromApi();
+  }, [fetchUrl]);
+
+  const handleSort = (field: keyof T) => {
     const order = field === sortField && sortOrder === 'asc' ? 'desc' : 'asc';
     setSortField(field);
     setSortOrder(order);
   };
 
   const sortedData = [...data].sort((a, b) => {
-    if (a[sortField] < b[sortField]) return sortOrder === 'asc' ? -1 : 1;
-    if (a[sortField] > b[sortField]) return sortOrder === 'asc' ? 1 : -1;
+    if (sortField) {
+      if (a[sortField] < b[sortField]) return sortOrder === 'asc' ? -1 : 1;
+      if (a[sortField] > b[sortField]) return sortOrder === 'asc' ? 1 : -1;
+    }
     return 0;
   });
 
   return (
     <table className={style.reusableTable}>
-      <TableHead
+      <TableHead<T>
         headers={headers}
-        sortField={sortField}
+        sortField={sortField as keyof T}
         sortOrder={sortOrder}
         onSort={handleSort}
+        displayNames={displayNames}
       />
       <tbody>
         {sortedData.map((item) => (
-          <TableRowComponent key={item.id} data={item} />
+          <TableRowComponent key={(item as any).id} data={item} />
         ))}
       </tbody>
     </table>

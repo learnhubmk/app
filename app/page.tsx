@@ -10,7 +10,6 @@ import Contact from '../components/module-components/contact/Contact';
 
 import MissionVision from '../components/module-components/Mission&Vision/MissionVision';
 import ProjectsSection from '../components/module-components/projectsSection/projectsSection';
-import Table from '../components/module-components/table/Table';
 
 const Home = () => {
   return (
@@ -26,7 +25,6 @@ const Home = () => {
       <ProjectsSection />
       <FAQ data={FAQ_DUMMY_DATA} />
       <Contact />
-      <Table />
     </>
   );
 };

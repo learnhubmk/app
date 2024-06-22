@@ -1,24 +1,20 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 import React from 'react';
 import style from './tableRowComponent.module.scss';
-import ActionDropdown from './ActionDropdown';
 
-interface UserData {
-  first_name: string;
-  last_name: string;
-  role: string;
+interface TableRowComponentProps<T> {
+  data: T;
 }
 
-interface TableRowComponentProps {
-  data: UserData;
-}
+const TableRowComponent = <T,>({ data }: TableRowComponentProps<T>): React.JSX.Element => {
+  const { first_name, last_name, role } = data as any;
 
-const TableRowComponent = ({ data }: TableRowComponentProps) => {
   return (
     <tr className={style.rowComponent}>
-      <td className={style.firstName}>{data.first_name}</td>
-      <td className={style.lastName}>{data.last_name}</td>
-      <td className={style.role}>{data.role}</td>
-      <ActionDropdown />
+      <td className={style.firstName}>{first_name}</td>
+      <td className={style.lastName}>{last_name}</td>
+      <td className={style.role}>{role}</td>
     </tr>
   );
 };
