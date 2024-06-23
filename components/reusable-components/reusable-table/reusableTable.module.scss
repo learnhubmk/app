@@ -1,25 +1,15 @@
-.reusableTable {
-  border-radius: 1.5rem;
+.tableWrapper {
   width: 85vw;
-  background-color: rgb(24, 14, 2);
-  border-collapse: collapse;
+  border-radius: 1.5rem;
   margin: auto;
-  text-align: left;
-  text-indent: 1rem;
-}
+  border: 1px solid #94a3b8;
+  background-color: #f8fafc;
 
-.reusableTable th,
-.reusableTable td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
+  .reusableTable {
+    width: 100%;
 
-.reusableTable th {
-  cursor: pointer;
-  user-select: none;
-}
-
-.reusableTable th .sortArrow {
-  margin-left: 5px;
-  font-size: 12px;
+    border-collapse: collapse;
+    text-align: left;
+    text-indent: 1rem;
+  }
 }

@@ -1,5 +1,15 @@
+'use client';
+
 /* eslint-disable no-unused-vars */
+
 import React from 'react';
+import ReusableModal from '../../components/reusable-components/reusable-modal/ReusableModal';
+import {
+  ModalProvider,
+  useModal,
+} from '../../components/reusable-components/reusable-modal/ModalContext';
+
+import SearchAndFilter from '../../components/module-components/SearchAndFilter/SearchAndFilter';
 import ReusableTable from '../../components/reusable-components/reusable-table/ReusableTable';
 
 interface UserData {
@@ -16,13 +26,35 @@ const displayNames: { [key in keyof UserData]?: string } = {
   role: 'Role',
 };
 
-const fetchUrl = 'https://mocki.io/v1/ed331a85-c472-40e5-97eb-c15aedd6b8f2';
-
 /* eslint-disable-next-line no-unused-vars */
 const AdminDashboard = () => {
+  const { isModalOpen, showModal, closeModal } = useModal();
+
   return (
-    <ReusableTable<UserData> headers={headers} displayNames={displayNames} fetchUrl={fetchUrl} />
+    <>
+      <SearchAndFilter />
+      <div>
+        <button type="button" onClick={showModal}>
+          Open Modal
+        </button>
+        <ReusableModal
+          title="Modal Title"
+          description="This is an optional description for the modal."
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
+      </div>
+    </>
   );
 };
 
-export default AdminDashboard;
+const AdminDashboardPage = () => {
+  return (
+    <ModalProvider>
+      <AdminDashboard />
+      <ReusableTable headers={headers} displayNames={displayNames} />
+    </ModalProvider>
+  );
+};
+
+export default AdminDashboardPage;

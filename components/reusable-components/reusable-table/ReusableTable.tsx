@@ -3,38 +3,41 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useEffect, useState } from 'react';
-import fetchData from './FetchData';
-import TableHead from './TableHead';
+import { fetchData } from './FetchData';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
+import TableHead from './TableHead';
 
-interface ReusableTableProps<T> {
+interface ReusableTableHeadProps<T> {
   headers: (keyof T)[];
   displayNames: { [key in keyof T]?: string };
-  fetchUrl: string;
 }
 
 const ReusableTable = <T,>({
   headers,
   displayNames,
-  fetchUrl,
-}: ReusableTableProps<T>): React.JSX.Element => {
+}: ReusableTableHeadProps<T>): React.JSX.Element => {
   const [sortField, setSortField] = useState<keyof T | ''>('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [data, setData] = useState<T[]>([]);
+  const [data, setData] = useState<any[]>([]);
+  const [checkedId, setCheckedId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        const response = await fetchData<T>(fetchUrl);
+        const response = await fetchData();
         setData(response);
       } catch (error) {
-        // eslint-disable-next-line no-console
+        console.error('Error fetching data:', error);
       }
     };
 
     fetchDataFromApi();
-  }, [fetchUrl]);
+  }, []);
+
+  const handleCheckboxChange = (id: string) => {
+    setCheckedId(id === checkedId ? null : id);
+  };
 
   const handleSort = (field: keyof T) => {
     const order = field === sortField && sortOrder === 'asc' ? 'desc' : 'asc';
@@ -51,20 +54,27 @@ const ReusableTable = <T,>({
   });
 
   return (
-    <table className={style.reusableTable}>
-      <TableHead<T>
-        headers={headers}
-        sortField={sortField as keyof T}
-        sortOrder={sortOrder}
-        onSort={handleSort}
-        displayNames={displayNames}
-      />
-      <tbody>
-        {sortedData.map((item) => (
-          <TableRowComponent key={(item as any).id} data={item} />
-        ))}
-      </tbody>
-    </table>
+    <div className={style.tableWrapper}>
+      <table className={style.reusableTable}>
+        <TableHead<T>
+          headers={headers}
+          sortField={sortField as keyof T}
+          sortOrder={sortOrder}
+          onSort={handleSort}
+          displayNames={displayNames}
+        />
+        <tbody>
+          {data.map((item) => (
+            <TableRowComponent
+              key={item.id}
+              data={item}
+              isChecked={checkedId === item.id}
+              onCheckboxChange={handleCheckboxChange}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
