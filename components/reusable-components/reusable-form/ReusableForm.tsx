@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { useFormik } from 'formik';
+import { useFormik, FormikProps } from 'formik';
 import Link from 'next/link';
 import Image from 'next/image';
 import style from './reusableForm.module.scss';
@@ -32,19 +32,24 @@ const ReusableForm = () => {
       .max(50, '*Вашето име е премногу долго!')
       .required('*Задолжително внесете име'),
     lastName: Yup.string()
-      .min(2, '*Вашето име е премногу кратко!')
-      .max(50, '*Вашето име е премногу долго!')
-      .required('*Задолжително внесете име'),
+      .min(2, '*Вашето презиме е премногу кратко!')
+      .max(50, '*Вашето презиме е премногу долго!')
+      .required('*Задолжително внесете презиме'),
     email: Yup.string()
       .email('*Невалидна емаил адреса')
-      .required('*Задолжително внесете емаил адреса'),
+      .required('*Задолжително внесете електронка пошта'),
     password: Yup.string()
-      .matches(/[a-zA-Z]/, '*Невалидно име!')
-      .min(8, '*Вашиот пасворд премногу краток!')
-      .required('*Задолжително внесете пасворд'),
+      .matches(/[a-zA-Z]/, '*Лозинката не ги исполнува сите услови!')
+      .min(8, '*Вашата лозинка е премногу кратка!')
+      .required('*Задолжително внесете лозинка'),
   });
 
-  const formik = useFormik({
+  const formik: FormikProps<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }> = useFormik({
     initialValues,
     validationSchema,
     onSubmit: () => {},
@@ -76,7 +81,7 @@ const ReusableForm = () => {
         <TextInput
           placeholder="Внесете го вашето име"
           type="text"
-          label="First Name"
+          label="Име *"
           name="firstName"
           field="firstName"
           formik={formik}
@@ -85,7 +90,7 @@ const ReusableForm = () => {
         <TextInput
           placeholder="Внесете го вашето презиме"
           type="text"
-          label="Last Name"
+          label="Презиме *"
           name="lastName"
           field="lastName"
           formik={formik}
@@ -94,16 +99,16 @@ const ReusableForm = () => {
         <TextInput
           placeholder="Внесете ја вашата електронска пошта"
           type="email"
-          label="Email"
+          label="Електронска пошта *"
           name="email"
           field="email"
           formik={formik}
           inputClass={['signUpInput']}
         />
         <TextInput
-          placeholder="Внесете го вашиот пасворд"
+          placeholder="Внесете ја вашата лозинка"
           type="password"
-          label="Password"
+          label="Лозинка *"
           name="password"
           field="password"
           formik={formik}
@@ -119,7 +124,7 @@ const ReusableForm = () => {
                 isPasswordValid('uppercase', formik.values.password) ? style.valid : style.invalid
               }
             />
-            <p>One uppercase character</p>
+            <p>Една голема буква</p>
           </div>
           <div className={style.requirementsItem}>
             <Image
@@ -129,7 +134,7 @@ const ReusableForm = () => {
                 isPasswordValid('specialChar', formik.values.password) ? style.valid : style.invalid
               }
             />
-            <p>One special character</p>
+            <p>Еден специјален знак или симбол</p>
           </div>
           <div className={style.requirementsItem}>
             <Image
@@ -139,24 +144,25 @@ const ReusableForm = () => {
                 isPasswordValid('minLength', formik.values.password) ? style.valid : style.invalid
               }
             />
-            <p>8 character minimum</p>
+            <p>Минимум 8 карактери</p>
           </div>
         </div>
 
         <label htmlFor="checkbox">
-          <input type="checkbox" id="checkbox" />I agree all Terms & Conditions
+          <input type="checkbox" id="checkbox" />
+          Се согласувам со сите Terms & Conditions
         </label>
         <div className={style.signUpBtn}>
           <Button
             href="www.google.com"
             type="submit"
             buttonClass={['primaryButton', 'smallFooterButton']}
-            buttonText="Sign Up"
+            buttonText="Регистрирај се"
           />
         </div>
       </form>
       <div className={style.alternativeSignUp}>
-        <span>or continue with</span>
+        <span>или продолжи со</span>
         <div className={style.socialMediaSignUp}>
           <Link href="www.google.com" target="_blank" rel="noopener noreferrer">
             <Image src={github} alt="Github" />
@@ -169,12 +175,12 @@ const ReusableForm = () => {
           </Link>
         </div>
         <div className={style.haveAccount}>
-          <p>Already have an account?</p>
+          <p>Веќе имаш креиран профил? </p>
           <Button
             type="link"
             href="www.google.com"
             buttonTarget="_blank"
-            buttonText="Log in"
+            buttonText="Најави се"
             buttonClass={['orangeLink']}
           />
         </div>

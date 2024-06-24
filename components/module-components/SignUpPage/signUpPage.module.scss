@@ -3,6 +3,7 @@
 .signUpSection {
   position: relative;
   width: 100%;
+  background-color: #ffffff;
 
   @include u.breakpoint-down(small) {
     width: 100vw;
@@ -14,6 +15,7 @@
   .signUp {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem)
       0;
     max-width: 100%;
@@ -60,11 +62,10 @@
     }
 
     .dashboardPreview {
-      width: 603px;
+      width: 540px;
       height: 513px;
-      margin-top: clamp(9rem, 6.06263rem + -10.79vw, 0rem);
+      margin-top: clamp(8.5rem, 6.06263rem + -10.79vw, 0rem);
       border-radius: 21px 0px 0px 21px;
-      opacity: 0px;
       background: #475569;
       margin-left: 20px;
       z-index: 2;
@@ -93,12 +94,22 @@
 
   .pattern {
     position: absolute;
-    top: 360px;
-    left: 175px;
+    top: 31.25rem;
+    left: 20rem;
     z-index: 1;
 
     @include u.breakpoint-down(small) {
       display: none;
+    }
+
+    @include u.breakpoint(xxlarge) {
+      top: 31.25rem;
+      left: 40rem;
+    }
+
+    @include u.breakpoint-down(xlarge) {
+      top: 29.25rem;
+      left: 5rem;
     }
   }
 }
