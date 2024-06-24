@@ -19,6 +19,15 @@ const projectsData = [
     participants: 12,
     tagNumber: 2,
   },
+  {
+    id: 2,
+    imageUrl: '/project-img3.jpg',
+    title: 'Skopje Paws',
+    description: 'Веб апликација за ажурирање на нарачки за шетање и чување кучиња.',
+    department: ['Front-end', 'Back-end', 'Quality Assurance', 'Marketing', 'UX/UI'],
+    participants: 6,
+    tagNumber: 3,
+  },
 ];
 
 export default projectsData;
