@@ -30,10 +30,11 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
 );
 
 export const metadata: Metadata = {
-  title: 'Learnhub.mk',
-  description: 'Развијте Го Вашиот Потенцијал Со LearnHub',
+  other: { 'google-site-verification': 'whz8iFuxS7txbmpgsbhDb_9nc1GgM3I0QUJc-LMkiI8' },
+  title: 'LearnHub.mk',
+  description: 'Стекни релевантно знаење и ИТ вештини',
   openGraph: {
-    images: ['https://learnhub.mk/logo/logo.png'],
+    images: ['https://learnhub.mk/logo/logo.jpg'],
   },
   icons: {
     icon: '/favicon.png',

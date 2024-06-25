@@ -9,11 +9,13 @@
   flex-direction: column;
   margin: clamp(5rem, 4.0747rem + 3.896vw, 8.75rem) clamp(1.5rem, -1.21439rem + 11.429vw, 12.5rem);
 }
+
 .carouselContainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .projectContainer {
   width: 100%;
   display: flex;
@@ -22,9 +24,17 @@
 
   @include u.breakpoint-down(medium) {
     flex-wrap: nowrap;
+    gap: 4.125rem;
   }
+
   @include u.breakpoint-down(small) {
     flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 760px) and (max-width: 1030px) {
+  .projectContainer {
+    gap: 1rem;
   }
 }
 
@@ -36,6 +46,7 @@
     flex-wrap: nowrap;
   }
 }
+
 .lightPrSection {
   background: white;
 }
@@ -74,9 +85,11 @@
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   width: 60%;
+
   @include u.breakpoint-down(large) {
     width: 80%;
   }
+
   @include u.breakpoint-down(medium) {
     width: 90%;
   }

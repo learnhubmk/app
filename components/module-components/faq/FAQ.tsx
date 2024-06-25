@@ -75,7 +75,7 @@ const FAQ = ({ data }: FAQProps) => {
           </h1>
           <p className={`${style.faqDesc} ${lightTheme ? style.faqDarkDesc : style.faqLightDesc}`}>
             Се обидовме да ги одговориме најчесто поставуваните прашања. Доколку имаш дополнителни
-            прашања слободно контактирај нѐ.
+            прашања слободно контактирај нè.
           </p>
         </div>
         <ul>
