@@ -2,7 +2,7 @@ name: E2E tests
 on:
   pull_request:
 jobs:
-  test:
+  run_tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
