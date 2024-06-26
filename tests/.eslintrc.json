@@ -1,0 +1,18 @@
+{
+  "ignorePatterns": ["eslint.config.js"],
+  "overrides": [
+    {
+      "files": ["./**/*.ts"],
+      "plugins": ["playwright"],
+      "extends": ["plugin:playwright/recommended"],
+      "rules": {
+        "playwright/no-focused-test": "error",
+        "playwright/missing-playwright-await": "error",
+        "playwright/no-commented-out-tests": "error",
+        "playwright/no-useless-await": "error",
+        "playwright/no-page-pause": "error",
+        "playwright/no-skipped-test": "off"
+      }
+    }
+  ]
+}
