@@ -1,5 +1,4 @@
 {
-  "ignorePatterns": ["eslint.config.js"],
   "overrides": [
     {
       "files": ["./**/*.ts"],
