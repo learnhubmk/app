@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { BaseSpec } from './BaseSpec';
 
-test.describe('Navigation checks', () => {
+test.describe('Footer navigation checks', () => {
   let baseSpec: BaseSpec;
 
   test.beforeAll(async ({ browser }) => {
@@ -12,6 +12,8 @@ test.describe('Navigation checks', () => {
 
   test('Check Github footer redirect', async () => {
     await baseSpec.homeSteps.homePage.show();
+
+    // Clicking opens a new tab so we listen for the event and grab the page instance
     const [githubPage] = await Promise.all([
       baseSpec.context.waitForEvent('page'),
       baseSpec.homeSteps.homePage.clickGithubFooterButton(),

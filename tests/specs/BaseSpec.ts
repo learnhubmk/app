@@ -29,6 +29,7 @@ export class BaseSpec {
 
     // Setting a unique ID for each test if we decide to stream test analytics in the future
     this.testId = randomUUID();
+    this.logger.info(`Current test ID: ${this.testId}`);
 
     // Init steps
     this.homeSteps = new HomeSteps(this.page);

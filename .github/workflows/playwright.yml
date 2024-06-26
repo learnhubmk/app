@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: E2E tests
 on:
   pull_request:
 jobs:
@@ -6,9 +6,9 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
-      BASE_URL: "http://localhost:3000"
-      DEBUG_LEVEL: "info"
-      HEADLESS: "true"
+      BASE_URL: 'http://localhost:3000'
+      DEBUG_LEVEL: 'info'
+      HEADLESS: 'true'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,7 +18,7 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
+      - name: Run tests
         run: npm run test:e2e
       - uses: actions/upload-artifact@v4
         if: always()
