@@ -2,3 +2,5 @@ node_modules
 build
 dist
 README.md
+playwright.config.ts
+
