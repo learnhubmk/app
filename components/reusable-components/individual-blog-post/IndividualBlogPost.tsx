@@ -23,7 +23,7 @@ interface IndividualBlogPostProps {
 
 const IndividualBlogPost = ({ title, postInfo, paragraphs, tags }: IndividualBlogPostProps) => {
   return (
-    <>
+    <div className={style.backgroundWrapper}>
       <Image src={BlogImg} className={`${style.blogImg}`} alt="hero picture desktop" />
       <div className={style.layoutContainer}>
         <div className={style.headingWrapper}>
@@ -88,7 +88,7 @@ const IndividualBlogPost = ({ title, postInfo, paragraphs, tags }: IndividualBlo
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
