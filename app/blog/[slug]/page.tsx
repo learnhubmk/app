@@ -1,7 +1,5 @@
-import IndividualBlogPost from '../../../components/reusable-components/individual-blog-post/IndividualBlogPost';
-
 const SingleBlogPost = () => {
-  return <IndividualBlogPost />;
+  return <div>SingleBlogPost</div>;
 };
 
 export default SingleBlogPost;
