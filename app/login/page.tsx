@@ -1,11 +1,26 @@
-import Users from '../../components/module-components/users/Users';
+import IndividualBlogPost from '../../components/reusable-components/individual-blog-post/IndividualBlogPost';
+import { paragraphsData } from '../../data/BlogData';
+
+interface PostInfo {
+  author: string;
+  category: string;
+  postedOn: string;
+}
+
+const PostInfoData: PostInfo = {
+  author: 'Автор',
+  category: 'Категорија',
+  postedOn: 'Постирано на',
+};
 
 const Login = () => {
   return (
-    <div>
-      <div>LogIn</div>
-      <Users />
-    </div>
+    <IndividualBlogPost
+      title="Наслов"
+      postInfo={PostInfoData}
+      paragraphs={paragraphsData.map((paragraph) => paragraph.content)}
+      tags={['Tag 1', 'Tag 2', 'Tag 3']}
+    />
   );
 };
 

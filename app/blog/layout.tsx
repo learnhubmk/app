@@ -11,7 +11,7 @@ const LayoutBlogPage = ({
   return (
     <>
       <div className={style.mainContainer}>
-        <div>{children}</div>
+        {children}
         <div className={style.layoutContainer}>
           <Input type="text" placeholder="Пребарај" icon={<i className="bi bi-search" />} />
           <div className={style.suggestArticleContainer}>
