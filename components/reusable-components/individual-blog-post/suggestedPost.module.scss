@@ -16,8 +16,11 @@
 .imageWrapper {
   height: 11.5625rem;
   /* 185px */
+  width: 100%;
 
   .imageStyle {
+    width: 100%;
+    height: 100%;
     border-top-left-radius: 0.75rem;
     /* 12px */
     border-top-right-radius: 0.75rem;
@@ -30,9 +33,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   width: 100%;
   padding: 1.5rem;
   /* 24px */
+  flex-grow: 1;
 
   .cardTitle {
     margin-bottom: clamp(0.5rem, 2vw, 1rem);
@@ -52,19 +57,31 @@
     /* 24px */
     text-align: left;
     color: #475569;
-    padding-bottom: clamp(0.5rem, 2vw, 1rem);
     /* clamp(min, preferred, max) */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
   }
 
   .postInfo {
-    display: flex;
-    align-items: center;
+    padding-top: clamp(0.5rem, 2vw, 1rem);
     color: #707a88;
     font-size: 0.875rem;
     /* 14px */
     font-weight: 400;
     line-height: 1rem;
     /* 16px */
+
+    p {
+      display: flex;
+
+      img {
+        margin: 0 6px;
+      }
+    }
   }
 
   .postLink {
@@ -78,5 +95,6 @@
     font-weight: 700;
     line-height: 1.5rem;
     /* 24px */
+    text-decoration: underline;
   }
 }

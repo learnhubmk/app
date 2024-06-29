@@ -7,6 +7,8 @@ import Button from '../button/Button';
 import PopularPosts from './PopularPosts';
 import SuggestedPost from './SuggestedPost';
 import { suggestedPosts, popularPosts } from '../../../data/BlogData';
+import shortenString from '../../../utils/shortenString';
+import calculateReadingTime from '../../../utils/calculateReadingTime';
 
 interface PostInfo {
   author: string;
@@ -17,14 +19,16 @@ interface PostInfo {
 interface IndividualBlogPostProps {
   title: string;
   postInfo: PostInfo;
-  paragraphs: string[];
+  paragraph: string;
   tags: string[];
 }
 
-const IndividualBlogPost = ({ title, postInfo, paragraphs, tags }: IndividualBlogPostProps) => {
+const IndividualBlogPost = ({ title, postInfo, paragraph, tags }: IndividualBlogPostProps) => {
+  const MAX_TITLE_LENGTH = 26;
+
   return (
     <div className={style.backgroundWrapper}>
-      <Image src={BlogImg} className={`${style.blogImg}`} alt="hero picture desktop" />
+      <Image src={BlogImg} className={`${style.blogImg}`} alt={title} />
       <div className={style.layoutContainer}>
         <div className={style.headingWrapper}>
           <h2>{title}</h2>
@@ -33,11 +37,7 @@ const IndividualBlogPost = ({ title, postInfo, paragraphs, tags }: IndividualBlo
             <p>| {postInfo.category}</p>
             <p>| {postInfo.postedOn}</p>
           </div>
-          <div className={style.paragraphWrapper}>
-            {paragraphs.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-          </div>
+          <div className={style.paragraphWrapper}>{paragraph}</div>
           <div className={style.socialMediaContainer}>
             <SocialMediaLinks height={32} width={32} className={style.customSocialMediaIcons} />
           </div>
@@ -46,7 +46,9 @@ const IndividualBlogPost = ({ title, postInfo, paragraphs, tags }: IndividualBlo
           <h3>Discover more of what matters to you</h3>
           <div className={style.tags}>
             {tags.map((tag) => (
-              <div className={style.tag}>{tag}</div>
+              <div className={style.tag} key={tag}>
+                {tag}
+              </div>
             ))}
           </div>
           <h3>Најпопуларни статии</h3>
@@ -79,14 +81,25 @@ const IndividualBlogPost = ({ title, postInfo, paragraphs, tags }: IndividualBlo
               <SuggestedPost
                 key={post.id}
                 imageURL={post.imageURL}
-                title={post.title}
+                title={shortenString(post.title, MAX_TITLE_LENGTH)}
                 description={post.description}
                 date={post.date}
-                readTime={post.readTime}
+                readTime={calculateReadingTime(post.description)}
               />
             ))}
           </div>
         </div>
+      </div>
+      <div className={style.buttonWrapper}>
+        <Button
+          type="link"
+          href="www.google.com"
+          buttonTarget="_blank"
+          buttonText="Види повеќе!"
+          buttonClass={['motionButton', 'orangeLink']}
+          icon={<i className="bi bi-arrow-up-right-circle-fill" />}
+          rotateIcon
+        />
       </div>
     </div>
   );

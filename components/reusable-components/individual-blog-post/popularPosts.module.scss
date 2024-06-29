@@ -24,5 +24,10 @@
     line-height: 1.875rem;
     /* 30px */
     color: #121d36;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

@@ -61,11 +61,7 @@
       /* 16px */
       line-height: 1.5rem;
       /* 24px */
-
-      p:last-child {
-        margin-bottom: clamp(4rem, 8vw, 5rem);
-        /* clamp(min, preferred, max) */
-      }
+      margin-bottom: clamp(4rem, 8vw, 5rem);
     }
   }
 
@@ -109,6 +105,8 @@
     .buttonWrapper {
       display: flex;
       justify-content: flex-end;
+      text-decoration: underline;
+      color: var(--main-button);
     }
   }
 }
@@ -124,4 +122,11 @@
     width: 100%;
     justify-content: space-between;
   }
+}
+
+.buttonWrapper {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 2.5rem 0 8.75rem 0;
 }
