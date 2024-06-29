@@ -12,7 +12,7 @@ const PostInfoData: PostInfo = {
   postedOn: 'Постирано на',
 };
 
-const Login = () => {
+const BlogPost = () => {
   return (
     <IndividualBlogPost
       title="Наслов"
@@ -23,4 +23,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default BlogPost;
