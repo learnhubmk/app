@@ -32,9 +32,11 @@
 .perkCardIcon {
   width: 20%;
   color: #f9674a;
+  height: auto;
 
   @include u.breakpoint-down(medium) {
     width: 25%;
+    height: auto;
   }
 
   .icon {
@@ -45,6 +47,7 @@
 
   @include u.breakpoint-down(medium) {
     width: 3rem;
+    height: auto;
   }
 }
 
