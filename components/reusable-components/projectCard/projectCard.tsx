@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import style from './projectCard.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
+import shortenString from '../../../utils/shortenString';
 
 export interface ProjectCardProps {
   id: number;
@@ -24,6 +25,10 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   const { theme } = useTheme();
   const darkTheme = theme === 'dark';
+
+  const MAX_TITLE_LENGTH = 20;
+  const shortenTitle = shortenString(title, MAX_TITLE_LENGTH);
+
   return (
     <div className={style.projectCard} key={id}>
       <div className={`${style.cardInner} ${darkTheme ? style.darkProjectCard : ''}`}>
@@ -43,7 +48,7 @@ const ProjectCard = ({
         </div>
 
         <div className={style.cardContent}>
-          <h2 className={style.cardTitle}>{title}</h2>
+          <h2 className={style.cardTitle}>{shortenTitle}</h2>
           <p className={`${style.cardDesc}   ${darkTheme ? style.darkDescription : ''}`}>
             {description}
           </p>

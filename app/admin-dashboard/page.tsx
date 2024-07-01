@@ -7,21 +7,26 @@ import {
   useModal,
 } from '../../components/reusable-components/reusable-modal/ModalContext';
 
+import SearchAndFilter from '../../components/module-components/SearchAndFilter/SearchAndFilter';
+
 const AdminDashboard = () => {
   const { isModalOpen, showModal, closeModal } = useModal();
 
   return (
-    <div>
-      <button type="button" onClick={showModal}>
-        Open Modal
-      </button>
-      <ReusableModal
-        title="Modal Title"
-        description="This is an optional description for the modal."
-        isOpen={isModalOpen}
-        onClose={closeModal}
-      />
-    </div>
+    <>
+      <SearchAndFilter />
+      <div>
+        <button type="button" onClick={showModal}>
+          Open Modal
+        </button>
+        <ReusableModal
+          title="Modal Title"
+          description="This is an optional description for the modal."
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
+      </div>
+    </>
   );
 };
 

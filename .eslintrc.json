@@ -21,21 +21,13 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "import/no-extraneous-dependencies": [
-      "error",
-      { "devDependencies": ["**/*.stories.ts", "**/*.stories.tsx"] }
-    ],
-    "react/no-unknown-property": ["error", { "ignore": ["jsx"] }],
-
+    "no-shadow": "off",
     "react/jsx-filename-extension": [
       1,
       {
         "extensions": [".jsx", ".tsx"]
       }
     ],
-    "react/jsx-props-no-spreading": "off",
-    "import/prefer-default-export": "off",
-
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": 0,
     "@react/no-array-index-key": "off",
