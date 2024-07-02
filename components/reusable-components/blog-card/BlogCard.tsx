@@ -14,9 +14,9 @@ export interface BlogCardProps {
   pageTitle: string;
 }
 
-const BlogCard = ({ id, title, body, pageTitle }: BlogCardProps) => {
+const BlogCard = ({ title, body, pageTitle }: BlogCardProps) => {
   return (
-    <Link href={`/blog/${id}`} className={style.blogCardContainer}>
+    <Link href={`/blog/${title}`} className={style.blogCardContainer}>
       <div>
         <h2 className={`headline-s ${style.blogCardTitle}`}>{shortenString(title, 34)}</h2>
         <div className={style.blogCardDivider} />

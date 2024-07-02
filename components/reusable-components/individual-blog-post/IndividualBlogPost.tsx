@@ -6,7 +6,7 @@ import SocialMediaLinks from '../footer/SocialMediaIcons';
 import Button from '../button/Button';
 import PopularPosts from './PopularPosts';
 import SuggestedPost from './SuggestedPost';
-import { suggestedPosts, popularPosts } from '../../../data/BlogData';
+import suggestedPosts from '../../../data/BlogData';
 import shortenString from '../../../utils/shortenString';
 import calculateReadingTime from '../../../utils/calculateReadingTime';
 
@@ -54,7 +54,7 @@ const IndividualBlogPost = ({ title, postInfo, paragraph, tags }: IndividualBlog
           <h3>Најпопуларни статии</h3>
           <hr />
           <div className={style.popularPostContainer}>
-            {popularPosts.map((post) => (
+            {suggestedPosts.map((post) => (
               <PopularPosts
                 key={post.id}
                 author={post.author}
@@ -96,7 +96,7 @@ const IndividualBlogPost = ({ title, postInfo, paragraph, tags }: IndividualBlog
           href="www.google.com"
           buttonTarget="_blank"
           buttonText="Види повеќе!"
-          buttonClass={['motionButton', 'orangeLink']}
+          buttonClass={['motionButton']}
           icon={<i className="bi bi-arrow-up-right-circle-fill" />}
           rotateIcon
         />

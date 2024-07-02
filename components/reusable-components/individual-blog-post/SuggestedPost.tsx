@@ -37,7 +37,7 @@ const SuggestedPost = ({
           </p>
         </div>
         <div className={style.postLink}>
-          <Link href="www.google.com">Прочитај повеќе</Link>
+          <Link href="https://www.learnhub.mk/blog">Прочитај повеќе</Link>
         </div>
       </div>
     </div>
