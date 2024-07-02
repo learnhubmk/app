@@ -57,7 +57,7 @@
     }
 
     .paragraphWrapper {
-      width: 50rem;
+      max-width: 50rem;
       display: flex;
       flex-direction: column;
       gap: clamp(2rem, 5vw, 3.125rem);
@@ -105,10 +105,15 @@
     }
 
     .buttonWrapper {
+      width: 100%;
       display: flex;
       justify-content: flex-end;
       text-decoration: underline;
       color: var(--main-button);
+    }
+
+    .darkButtonWrapper {
+      color: var(--primary-light-mode);
     }
   }
 }

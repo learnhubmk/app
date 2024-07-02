@@ -80,12 +80,14 @@ const IndividualBlogPost = ({ title, postInfo, paragraph, tags }: IndividualBlog
               />
             ))}
           </div>
-          <div className={style.buttonWrapper}>
+          <div
+            className={`${style.buttonWrapper} ${lightTheme ? style.lightButtonWrapper : style.darkButtonWrapper}`}
+          >
             <Button
               type="link"
               href="#"
               buttonText="Прочитај повеќе"
-              buttonClass={['orangeLink', 'customFontSize']}
+              buttonClass={['customFontSize']}
             />
           </div>
         </div>
