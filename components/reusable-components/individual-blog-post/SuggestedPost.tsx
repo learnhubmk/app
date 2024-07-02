@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import style from './suggestedPost.module.scss';
 import Clock from '../../../public/blog-icons/clock.svg';
+import { useTheme } from '../../../app/context/themeContext';
 
 interface SuggestedPostProps {
   id?: number;
@@ -21,14 +22,22 @@ const SuggestedPost = ({
   date,
   readTime,
 }: SuggestedPostProps) => {
+  const { theme } = useTheme();
+  const lightTheme = theme === 'light';
+
   return (
-    <div className={style.suggestedContent} key={id}>
+    <div
+      className={`${style.suggestedContent} ${lightTheme ? style.lightSuggested : style.darkSuggested}`}
+      key={id}
+    >
       <div className={style.imageWrapper}>
         <Image src={imageURL} alt={title} height={185} width={412} className={style.imageStyle} />
       </div>
       <div className={style.textContainer}>
         <h4 className={style.cardTitle}>{title}</h4>
-        <p className={style.cardDesc}>{description}</p>
+        <p className={`${style.cardDesc} ${lightTheme ? style.lightCardDesc : style.darkCardDesc}`}>
+          {description}
+        </p>
         <div className={style.postInfo}>
           <p>
             {date} |

@@ -1,6 +1,20 @@
+.darkIndividualBlog {
+  background: var(--section-bg-color);
+}
+
+.lightIndividualBlog {
+  background: var(--primary-light-mode);
+}
+
+.darkTextBlog {
+  p,
+  h2 {
+    color: var(--primary-light-mode);
+  }
+}
+
 .backgroundWrapper {
   width: 100%;
-  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,18 +36,12 @@
   .customSocialMediaIcons {
     display: flex;
     gap: 1rem;
-
-    :first-child {
-      border: 1px solid black;
-      border-radius: 50%;
-      fill: gray;
-    }
   }
 
   .headingWrapper {
     display: flex;
     flex-direction: column;
-    color: #121d36;
+    color: var(--title-dark-mode);
 
     .postInfo {
       display: flex;
@@ -41,7 +49,7 @@
       margin: clamp(1rem, 3vw, 1.5rem) 0 clamp(1.5rem, 5vw, 2.3125rem) 0;
       font-weight: 500;
       font-size: 1.75rem;
-      color: #475569;
+      color: var(--text-light-mode);
 
       p {
         padding: 0 clamp(0.5rem, 2vw, 0.625rem) 0 0;
@@ -53,10 +61,14 @@
       display: flex;
       flex-direction: column;
       gap: clamp(2rem, 5vw, 3.125rem);
-      color: #475569;
-      font-size: 1rem;
-      line-height: 1.5rem;
+      color: var(--text-light-mode);
+      font-size: var(--fs-button);
+      line-height: var(--lh-card-text);
       margin-bottom: clamp(4rem, 8vw, 5rem);
+    }
+
+    .darkParagraph {
+      color: var(--primary-light-mode);
     }
   }
 
@@ -74,18 +86,22 @@
         width: 4.5rem;
         height: 2rem;
         border-radius: 1.25rem;
-        border: 0.0625rem solid #94a3b8;
+        border: 0.0625rem solid hsl(215, 20%, 65%);
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #f8fafc;
-        color: #475569;
+        background: var(--text-color);
+        color: var(--hero-text-dark-color);
+      }
+
+      .darkTag {
+        background: var(--primary-light-mode);
       }
     }
 
     hr {
       margin: clamp(0.5rem, 2vw, 0.9375rem) 0 0 0;
-      color: #475569;
+      color: var(--text-light-mode);
     }
 
     .buttonWrapper {

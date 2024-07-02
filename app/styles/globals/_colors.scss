@@ -40,6 +40,7 @@
   --elevated-elements-dark-mode: hsl(221, 29%, 30%);
   --titles-tertiary-button-dark-mode: hsl(0, 0%, 100%);
 }
+
 @mixin apply-color-scheme($mode: 'light') {
   $primary: if($mode == 'light', --primary-light-mode, --primary-dark-mode);
   $secondary: if($mode == 'light', --secondary-light-mode, --secondary-dark-mode);
@@ -66,6 +67,7 @@
   .button {
     background-color: $main-button;
   }
+
   .error {
     color: $error-state;
   }
