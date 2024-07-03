@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-nested-ternary */
 
 'use client';
 
@@ -13,10 +14,19 @@ import Button from '../button/Button';
 import github from '../../../public/icons-footer/github.svg';
 import linkedin from '../../../public/icons-footer/linkedIn.svg';
 import google from '../../../public/icons-footer/google.svg';
-import check from '../../../public/icons/check.svg';
+import CheckPasswordValidityIcon from '../CheckPasswordValidityIcon/CheckPasswordValidityIcon';
 
 const ReusableForm = () => {
   const [password, setPassword] = useState<string>('');
+  const [passwordValidation, setPasswordValidation] = useState<{
+    uppercase: boolean | null;
+    specialChar: boolean | null;
+    minLength: boolean | null;
+  }>({
+    uppercase: null,
+    specialChar: null,
+    minLength: null,
+  });
 
   const initialValues = {
     firstName: '',
@@ -52,26 +62,32 @@ const ReusableForm = () => {
   }> = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {},
+    onSubmit: (values) => {
+      setPasswordValidation({
+        uppercase: /[A-Z]/.test(values.password),
+        specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(values.password),
+        minLength: values.password.length >= 8,
+      });
+    },
   });
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPassword(value);
     formik.handleChange(e);
+    const newChange = {
+      uppercase: /[A-Z]/.test(value) ? true : null,
+      specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(value) ? true : null,
+      minLength: value.length >= 8 ? true : null,
+    };
+    setPasswordValidation((prevState) => ({
+      ...prevState,
+      ...newChange,
+    }));
   };
 
-  const isPasswordValid = (rule: string, password: string): boolean => {
-    if (rule === 'uppercase') {
-      return /[A-Z]/.test(password);
-    }
-    if (rule === 'specialChar') {
-      return /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    }
-    if (rule === 'minLength') {
-      return password.length >= 8;
-    }
-    return false;
+  const getColor = (valid: boolean | null) => {
+    return valid === null ? '#475569' : valid ? '#00B107' : '#FF4045';
   };
 
   return (
@@ -116,36 +132,18 @@ const ReusableForm = () => {
           onChange={handlePasswordChange}
         />
         <div className={style.requirements}>
-          <div className={style.requirementsItem}>
-            <Image
-              src={check}
-              alt="check"
-              className={
-                isPasswordValid('uppercase', formik.values.password) ? style.valid : style.invalid
-              }
-            />
-            <p>Една голема буква</p>
-          </div>
-          <div className={style.requirementsItem}>
-            <Image
-              src={check}
-              alt="check"
-              className={
-                isPasswordValid('specialChar', formik.values.password) ? style.valid : style.invalid
-              }
-            />
-            <p>Еден специјален знак или симбол</p>
-          </div>
-          <div className={style.requirementsItem}>
-            <Image
-              src={check}
-              alt="check"
-              className={
-                isPasswordValid('minLength', formik.values.password) ? style.valid : style.invalid
-              }
-            />
-            <p>Минимум 8 карактери</p>
-          </div>
+          {Object.entries(passwordValidation).map(([rule, valid]) => (
+            <div className={style.requirementsItem} key={rule}>
+              <CheckPasswordValidityIcon color={getColor(valid)} />
+              <p>
+                {rule === 'uppercase'
+                  ? 'Една голема буква'
+                  : rule === 'specialChar'
+                    ? 'Еден специјален знак или симбол'
+                    : 'Минимум 8 карактери'}
+              </p>
+            </div>
+          ))}
         </div>
 
         <label htmlFor="checkbox">
