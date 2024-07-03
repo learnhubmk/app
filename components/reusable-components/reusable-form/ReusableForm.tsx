@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 
@@ -64,9 +65,9 @@ const ReusableForm = () => {
     validationSchema,
     onSubmit: (values) => {
       setPasswordValidation({
-        uppercase: /[A-Z]/.test(values.password),
-        specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(values.password),
-        minLength: values.password.length >= 8,
+        uppercase: /[A-Z]/.test(values.password) ? true : false,
+        specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(values.password) ? true : false,
+        minLength: values.password.length >= 8 ? true : false,
       });
     },
   });
