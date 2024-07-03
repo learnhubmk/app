@@ -1,7 +1,15 @@
-.searchAndFilter {
-  margin-inline: 4rem;
-  display: flex;
-  justify-content: space-between;
-  padding: 4rem 5rem 0;
+.searchAndFilterWrapper {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .searchAndFilter {
+    margin-inline: 4rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 4rem 5rem 0;
+    width: 100%;
+  }
 }
