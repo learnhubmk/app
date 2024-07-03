@@ -7,24 +7,34 @@ import styles from './HomePagination.module.scss';
 const HomePagination: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [TOTAL_PAGES, SET_TOTAL_PAGES] = useState(1);
-  const [ITEMS_PER_PAGE, SET_ITEMS_PER_PAGE] = useState(25);
+  const [totalPages, setTotalPages] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(25);
 
   const ITEMS_PER_PAGE_OPTIONS = [25, 50, 100];
 
   useEffect(() => {
     const loadItems = async () => {
-      const data = await fetchItems(currentPage, ITEMS_PER_PAGE);
+      const data = await fetchItems(currentPage, itemsPerPage);
       setItems(data.items);
-      SET_TOTAL_PAGES(Math.ceil(data.total / ITEMS_PER_PAGE));
+      setTotalPages(Math.ceil(data.total / itemsPerPage));
     };
 
     loadItems();
-  }, [currentPage, ITEMS_PER_PAGE]);
+  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [ITEMS_PER_PAGE]);
+    const adjustCurrentPage = async () => {
+      const data = await fetchItems(1, itemsPerPage);
+      const newTotalPages = Math.ceil(data.total / itemsPerPage);
+
+      if (currentPage > newTotalPages) {
+        setCurrentPage(newTotalPages);
+      } else {
+        setCurrentPage(1);
+      }
+    };
+    adjustCurrentPage();
+  }, [itemsPerPage, currentPage]);
 
   return (
     <div className={styles.container}>
@@ -39,8 +49,8 @@ const HomePagination: React.FC = () => {
       <div className={styles.controls}>
         <Dropdown
           options={ITEMS_PER_PAGE_OPTIONS}
-          value={ITEMS_PER_PAGE}
-          onChange={SET_ITEMS_PER_PAGE}
+          value={itemsPerPage}
+          onChange={setItemsPerPage}
         />
       </div>
     </div>
