@@ -1,0 +1,89 @@
+.suggestedContent {
+  width: 25.75rem;
+  height: 28.69rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--primary-light-mode);
+  box-shadow: 0rem 0.3125rem 1rem 0rem #00000026;
+  border-radius: 0.75rem;
+  align-items: center;
+}
+
+.darkSuggested {
+  background: var(--elevated-elements-dark-mode);
+}
+
+.imageWrapper {
+  height: 11.5625rem;
+  width: 100%;
+
+  .imageStyle {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    object-fit: cover;
+  }
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.5rem;
+  flex-grow: 1;
+
+  .cardTitle {
+    margin-bottom: clamp(0.5rem, 2vw, 1rem);
+    font-weight: 500;
+    font-size: var(--fs-title);
+    line-height: var(--lh-title);
+  }
+
+  .cardDesc {
+    font-size: var(--fs-card-text);
+    line-height: var(--lh-card-text);
+    font-weight: 400;
+    text-align: left;
+    color: var(--text-light-mode);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+  }
+
+  .darkCardDesc {
+    color: var(--primary-light-mode);
+  }
+
+  .postInfo {
+    padding-top: clamp(0.5rem, 2vw, 1rem);
+    color: hsl(214, 10%, 60%);
+    font-size: var(--fs-tag);
+    font-weight: 400;
+    line-height: var(--lh-tag);
+
+    p {
+      display: flex;
+
+      img {
+        margin: 0 6px;
+      }
+    }
+  }
+
+  .postLink {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1.5rem;
+    font-size: var(--fs-tag);
+    font-weight: 700;
+    line-height: var(--lh-button);
+    text-decoration: underline;
+  }
+}
