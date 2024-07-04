@@ -6,6 +6,7 @@
   --fs-card-text: clamp(1rem, 0.96913rem + 0.13vw, 1.125rem); // font-size: min 16px, max 18px
   --fs-button: clamp(1rem, 1rem + 0vw, 1rem); // font-size: min 16px, max 16px
   --fs-placeholder: clamp(1rem, 1rem + 0vw, 1rem); // font-size: min 16px, max 16px
+  --fs-placeholder-mobile: clamp(0.8rem, 0.85rem + 0vw, 1rem);
   --fs-tag: clamp(0.875rem, 0.875rem + 0vw, 0.875rem); // font-size: min 14px, max 14px
 
   --lh-h1: clamp(2.25rem, 1.70391rem + 2.33vw, 4.5rem); // line-height: min 36px, max 72px
