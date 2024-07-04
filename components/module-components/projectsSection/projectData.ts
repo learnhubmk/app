@@ -26,7 +26,7 @@ const projectsData = [
     description: 'Веб апликација за ажурирање на нарачки за шетање и чување кучиња.',
     department: ['Front-end', 'Back-end', 'Quality Assurance', 'Marketing', 'UX/UI'],
     participants: 6,
-    tagNumber: 3,
+    tagNumber: 2,
   },
 ];
 
