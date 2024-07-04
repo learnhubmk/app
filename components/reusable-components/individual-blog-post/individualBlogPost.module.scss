@@ -7,6 +7,7 @@
 }
 
 .darkTextBlog {
+
   p,
   h2 {
     color: var(--primary-light-mode);
@@ -32,11 +33,6 @@
   display: flex;
   width: 80vw;
   justify-content: space-between;
-
-  .customSocialMediaIcons {
-    display: flex;
-    gap: 1rem;
-  }
 
   .headingWrapper {
     display: flex;

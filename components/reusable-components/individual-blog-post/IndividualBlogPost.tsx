@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import style from './individualBlogPost.module.scss';
 import BlogImg from '../../../public/blog-img.jpg';
-import SocialMediaLinks from '../footer/SocialMediaIcons';
 import Button from '../button/Button';
 import PopularPosts from './PopularPosts';
 import SuggestedPost from './SuggestedPost';
@@ -51,9 +50,6 @@ const IndividualBlogPost = ({ title, postInfo, paragraph, tags }: IndividualBlog
             className={`${style.paragraphWrapper} ${lightTheme ? style.lightParagraph : style.darkParagraph}`}
           >
             {paragraph}
-          </div>
-          <div className={style.socialMediaContainer}>
-            <SocialMediaLinks height={32} width={32} className={style.customSocialMediaIcons} />
           </div>
         </div>
         <div className={style.sideBar}>
