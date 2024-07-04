@@ -33,17 +33,12 @@ const AdminDashboard = () => {
   return (
     <>
       <SearchAndFilter />
-      <div>
-        <button type="button" onClick={showModal}>
-          Open Modal
-        </button>
-        <ReusableModal
-          title="Modal Title"
-          description="This is an optional description for the modal."
-          isOpen={isModalOpen}
-          onClose={closeModal}
-        />
-      </div>
+      <ReusableModal
+        title="Modal Title"
+        description="This is an optional description for the modal."
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </>
   );
 };
