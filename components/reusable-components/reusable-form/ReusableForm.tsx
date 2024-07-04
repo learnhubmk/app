@@ -16,8 +16,12 @@ import github from '../../../public/icons-footer/github.svg';
 import linkedin from '../../../public/icons-footer/linkedIn.svg';
 import google from '../../../public/icons-footer/google.svg';
 import CheckPasswordValidityIcon from '../CheckPasswordValidityIcon/CheckPasswordValidityIcon';
+import { useTheme } from '../../../app/context/themeContext';
 
 const ReusableForm = () => {
+  const { theme } = useTheme();
+  const lightTheme = theme === 'light';
+
   const [password, setPassword] = useState<string>('');
   const [passwordValidation, setPasswordValidation] = useState<{
     uppercase: boolean | null;
@@ -92,7 +96,9 @@ const ReusableForm = () => {
   };
 
   return (
-    <div className={style.reusableFormWrapper}>
+    <div
+      className={`${style.reusableFormWrapper} ${lightTheme ? style.lightFormWrapper : style.darkFormWrapper}`}
+    >
       <h2 className={style.formTitle}>Регистрирај се</h2>
       <form className={style.reusableForm} onSubmit={formik.handleSubmit}>
         <TextInput
@@ -102,7 +108,6 @@ const ReusableForm = () => {
           name="firstName"
           field="firstName"
           formik={formik}
-          inputClass={[`${style.signUpInput}`]}
         />
         <TextInput
           placeholder="Внесете го вашето презиме"
@@ -111,7 +116,6 @@ const ReusableForm = () => {
           name="lastName"
           field="lastName"
           formik={formik}
-          inputClass={[style.signUpInput]}
         />
         <TextInput
           placeholder="Внесете ја вашата електронска пошта"
@@ -120,7 +124,6 @@ const ReusableForm = () => {
           name="email"
           field="email"
           formik={formik}
-          inputClass={['signUpInput']}
         />
         <TextInput
           placeholder="Внесете ја вашата лозинка"
@@ -129,7 +132,6 @@ const ReusableForm = () => {
           name="password"
           field="password"
           formik={formik}
-          inputClass={['signUpInput']}
           onChange={handlePasswordChange}
         />
         <div className={style.requirements}>

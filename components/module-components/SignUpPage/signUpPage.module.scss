@@ -3,13 +3,18 @@
 .signUpSection {
   position: relative;
   width: 100%;
-  background-color: #ffffff;
+  background: var(--white-color);
 
   @include u.breakpoint-down(small) {
     width: 100vw;
     display: flex;
     flex-direction: column;
-    background: #ffffff;
+  }
+
+  @include u.breakpoint-down(large) {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
   }
 
   .signUp {
@@ -25,38 +30,53 @@
       margin-top: clamp(4rem, 6.06263rem + -10.79vw, 0rem);
     }
 
+    @include u.breakpoint-down(large) {
+      flex-direction: column;
+      align-items: center;
+    }
+
     .titleWrapper {
       display: flex;
       flex-direction: column;
-      max-width: 524px;
-      gap: 36px;
+      max-width: 32.75rem;
+      gap: 2.25rem;
 
       @include u.breakpoint-down(small) {
         text-align: center;
-        gap: 12px;
+        gap: 0.75rem;
+      }
+
+      @include u.breakpoint-down(large) {
+        text-align: center;
+        gap: 0.75rem;
+        width: 100%;
       }
 
       h1 {
         @include u.breakpoint-down(small) {
           text-align: center;
           font-weight: 700;
-          font-size: 28px;
-          line-height: 34.13px;
+        }
+
+        @include u.breakpoint-down(large) {
+          text-align: center;
         }
       }
 
       p {
-        font-size: 24px;
+        font-size: var(--fs-body);
         font-weight: 400;
-        line-height: 38px;
+        line-height: var(--lh-body);
         letter-spacing: 0.10000000149011612px;
         text-align: left;
 
         @include u.breakpoint-down(small) {
           text-align: center;
           font-weight: 500;
-          font-size: 16px;
-          line-height: 24px;
+        }
+
+        @include u.breakpoint-down(large) {
+          text-align: center;
         }
       }
     }
@@ -66,12 +86,16 @@
       height: 513px;
       margin-top: clamp(8.5rem, 6.06263rem + -10.79vw, 0rem);
       border-radius: 21px 0px 0px 21px;
-      background: #475569;
+      background: var(--text-light-mode);
       margin-left: 20px;
       z-index: 2;
       position: relative;
 
       @include u.breakpoint-down(small) {
+        display: none;
+      }
+
+      @include u.breakpoint-down(large) {
         display: none;
       }
     }
@@ -83,9 +107,14 @@
       align-items: center;
       margin-top: clamp(11.5rem, 6.06263rem + -10.79vw, 0rem);
       margin-bottom: 0;
-      box-shadow: 0px 25px 40px -12px #00000033;
+      box-shadow: 0px 25px 40px -12px hsla(0, 0%, 0%, 0.2);
 
       @include u.breakpoint-down(small) {
+        box-shadow: none;
+        margin-top: clamp(4rem, 6.06263rem + -10.79vw, 0rem);
+      }
+
+      @include u.breakpoint-down(large) {
         box-shadow: none;
         margin-top: clamp(4rem, 6.06263rem + -10.79vw, 0rem);
       }
@@ -111,5 +140,13 @@
       top: 29.25rem;
       left: 5rem;
     }
+
+    @include u.breakpoint-down(large) {
+      display: none;
+    }
   }
+}
+
+.darkSignUpSection {
+  background: var(--section-bg-color);
 }

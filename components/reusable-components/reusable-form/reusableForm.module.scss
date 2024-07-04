@@ -8,34 +8,35 @@
   align-items: center;
   justify-content: space-evenly;
   box-shadow: 0px 25px 40px -12px #00000033;
-  background: #f8fafc;
+  background: var(--text-color);
 
   @include u.breakpoint-down(small) {
     width: 90vw;
     box-shadow: none;
-    background: #d8e1e0;
+    background: hsl(173, 13%, 86%);
+  }
+
+  @include u.breakpoint-down(large) {
+    width: 90vw;
+    background: hsl(173, 13%, 86%);
   }
 
   .formTitle {
     font-weight: 700;
+    color: var(--titles-color);
   }
 
   .reusableForm {
-    width: 560px;
+    width: 35rem;
 
     @include u.breakpoint-down(small) {
       width: 80vw;
     }
 
-    .signUpInput {
-      background-color: red;
-      color: red;
-    }
-
     .requirements {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 0.625rem;
 
       .requirementsItem {
         display: flex;
@@ -46,7 +47,7 @@
         }
 
         .valid {
-          fill: #00b107;
+          fill: var(--valid-color);
         }
 
         .invalid {
@@ -54,9 +55,13 @@
         }
 
         &:last-child {
-          margin-bottom: 16px;
+          margin-bottom: 1rem;
 
           @include u.breakpoint-down(small) {
+            margin-bottom: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+          }
+
+          @include u.breakpoint-down(large) {
             margin-bottom: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
           }
         }
@@ -70,9 +75,13 @@
         margin-top: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
       }
 
+      @include u.breakpoint-down(large) {
+        margin-top: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+      }
+
       button {
         width: 100%;
-        max-height: 48px;
+        max-height: 3rem;
       }
     }
   }
@@ -81,23 +90,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 1.5rem;
 
     .socialMediaSignUp {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 1.75rem;
     }
 
     .haveAccount {
       display: flex;
       flex-direction: row;
-      padding-top: 20px;
+      padding-top: 1.25rem;
 
       p,
       a {
-        font-size: 14px;
+        font-size: 0.875rem;
       }
     }
+  }
+}
+
+.darkFormWrapper {
+  background: var(--elevated-elements-dark-mode);
+
+  .formTitle {
+    color: var(--text-dark-mode);
   }
 }
