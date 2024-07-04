@@ -23,7 +23,7 @@ const projectsData = [
     id: 2,
     imageUrl: '/project-img3.jpg',
     title: 'Skopje Paws',
-    description: 'Веб апликација за ажурирање на нарачки за шетање и чување кучиња.',
+    description: 'Веб апликација за закажување на термини за шетање и чување кучиња.',
     department: ['Front-end', 'Back-end', 'Quality Assurance', 'Marketing', 'UX/UI'],
     participants: 6,
     tagNumber: 2,
