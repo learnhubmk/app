@@ -51,9 +51,7 @@
       width: 222px;
       height: 336px;
       gap: 0px;
-      opacity: 0px;
       position: absolute;
-      opacity: 0px;
     }
   }
 
@@ -111,7 +109,6 @@
   width: 672px;
   padding: 96px 0px 96px 0px;
   gap: 56px;
-  opacity: 0px;
   box-shadow: 0px 25px 40px -12px hsla(0, 0%, 0%, 0.2);
   display: flex;
   flex-direction: column;
@@ -131,7 +128,6 @@
   .innerLoginForm {
     width: 90%;
     gap: 0px;
-    opacity: 0px;
 
     .loginTitle {
       font-size: var(--fs-h2);
@@ -236,7 +232,6 @@
     width: 20px;
     height: 20px;
     border-radius: 4px;
-    opacity: 0px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

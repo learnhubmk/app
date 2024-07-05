@@ -77,7 +77,7 @@ const Login = () => {
           <h1
             className={`${styles.welcomeBackTitle}  ${isLightTheme ? styles.welcomeBackTitleLight : styles.welcomeBackTitleDark}`}
           >
-            Добредојде назад, Марија!
+            Добредојдовте назад!
           </h1>
           <p
             className={`${styles.loginSubtitleInfo}  ${isLightTheme ? styles.loginSubtitleInfoLight : styles.loginSubtitleInfoDark}`}
