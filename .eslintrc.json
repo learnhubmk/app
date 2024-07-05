@@ -18,12 +18,19 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
+    "no-shadow": "off",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".jsx", ".tsx"]
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
       }
     ],
     "react/react-in-jsx-scope": "off",
@@ -47,7 +54,8 @@
       }
     ],
     "react/require-default-props": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "no-shadow": "off"
   },
   "settings": {
     "react": {
@@ -56,17 +64,12 @@
   },
   "overrides": [
     {
-      "files": ["*.tsx"],
+      "files": [
+        "*.tsx"
+      ],
       "rules": {
         "react/require-default-props": "off"
       }
-    },
-    {
-      "files": ["tests/**/*.ts"],
-      "rules": {
-        "import/prefer-default-export": "off"
-      }
     }
-  ],
-  "ignorePatterns": ["playwright.config.ts"]
+  ]
 }
