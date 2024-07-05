@@ -2,21 +2,29 @@
 import React from 'react';
 import style from './tableHead.module.scss';
 
+interface SortState<T> {
+  field: keyof T;
+  order: 'asc' | 'desc';
+}
+
 interface TableHeadProps<T> {
   headers: (keyof T)[];
-  sortField: keyof T;
-  sortOrder: 'asc' | 'desc';
+  sortState: SortState<T>[];
   onSort: (field: keyof T) => void;
   displayNames: { [key in keyof T]?: string };
 }
 
 const TableHead = <T,>({
   headers,
-  sortField,
-  sortOrder,
+  sortState,
   onSort,
   displayNames,
 }: TableHeadProps<T>): React.JSX.Element => {
+  const getSortOrder = (field: keyof T) => {
+    const sort = sortState.find((sort) => sort.field === field);
+    return sort ? sort.order : null;
+  };
+
   return (
     <thead className={style.tableHead}>
       <tr>
@@ -27,8 +35,7 @@ const TableHead = <T,>({
             onClick={() => onSort(header)}
           >
             {displayNames[header]}
-
-            <span className={style.sortArrow}>{sortOrder === 'asc' ? ' ▲' : ' ▼'}</span>
+            <span className={style.sortArrow}> {getSortOrder(header) === 'asc' ? ' ▲' : ' ▼'}</span>
           </th>
         ))}
       </tr>
