@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "types": ["jest"],
-
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,7 +14,10 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@tests-pages/*": ["./tests/pages/*"],
+      "@tests-steps/*": ["./tests/steps/*"],
+      "@tests-utils/*": ["./tests/utils/*"]
     },
     "plugins": [
       {

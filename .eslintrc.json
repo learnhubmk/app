@@ -69,6 +69,12 @@
       "rules": {
         "react/require-default-props": "off"
       }
+    },
+    {
+      "files": ["tests/**/*.ts"],
+      "rules": {
+        "import/prefer-default-export": "off"
+      }
     }
   ]
 }
