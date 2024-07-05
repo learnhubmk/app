@@ -27,9 +27,8 @@ const TableHead = <T,>({
             onClick={() => onSort(header)}
           >
             {displayNames[header]}
-            {sortField === header && (
-              <span className={style.sortArrow}>{sortOrder === 'asc' ? ' ▲' : ' ▼'}</span>
-            )}
+
+            <span className={style.sortArrow}>{sortOrder === 'asc' ? ' ▲' : ' ▼'}</span>
           </th>
         ))}
       </tr>

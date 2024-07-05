@@ -17,8 +17,8 @@ const ReusableTable = <T,>({
   headers,
   displayNames,
 }: ReusableTableHeadProps<T>): React.JSX.Element => {
-  const [sortField, setSortField] = useState<keyof T | ''>('');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortField, setSortField] = useState<keyof T | ''>(headers[0]);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [data, setData] = useState<any[]>([]);
   const [checkedId, setCheckedId] = useState<string | null>(null);
 
