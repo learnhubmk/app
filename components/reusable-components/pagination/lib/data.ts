@@ -22,3 +22,5 @@ export const fetchItems = async (
     }, 500);
   });
 };
+
+export default fetchItems;
