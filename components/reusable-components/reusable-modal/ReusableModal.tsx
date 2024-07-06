@@ -7,9 +7,26 @@ interface ReusableModalProps {
   description?: string;
   isOpen: boolean;
   onClose?: () => void;
+  secondaryButtonLabel?: string;
+  secondaryButtonClass?: string;
+  primaryButtonLabel?: string;
+  primaryButtonClass?: string;
+  onPrimaryButtonClick?: () => void;
+  onSecondaryButtonClick?: () => void;
 }
 
-const ReusableModal = ({ title, description, isOpen, onClose = () => {} }: ReusableModalProps) => {
+const ReusableModal = ({
+  title,
+  description,
+  isOpen,
+  secondaryButtonLabel = 'Cancel',
+  secondaryButtonClass = '',
+  onPrimaryButtonClick,
+  onSecondaryButtonClick,
+  primaryButtonLabel = 'Proceed',
+  primaryButtonClass = '',
+  onClose = () => {},
+}: ReusableModalProps) => {
   useEffect(() => {
     if (isOpen) {
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -67,15 +84,15 @@ const ReusableModal = ({ title, description, isOpen, onClose = () => {} }: Reusa
           <div className={style.modalButtons}>
             <Button
               type="button"
-              buttonText="Cancel"
-              buttonClass={['primaryButton']}
-              onClick={onClose}
+              buttonText={primaryButtonLabel || 'Proceed'}
+              buttonClass={primaryButtonClass ? [primaryButtonClass] : ['primaryButton']}
+              onClick={onPrimaryButtonClick || onClose}
             />
             <Button
               type="button"
-              buttonText="Deactivate"
-              buttonClass={['secondaryButton', 'deactivateButton']}
-              onClick={onClose}
+              buttonText={secondaryButtonLabel || 'Cancel'}
+              buttonClass={secondaryButtonClass ? [secondaryButtonClass] : ['secondaryButton']}
+              onClick={onSecondaryButtonClick || onClose}
             />
           </div>
         </div>
