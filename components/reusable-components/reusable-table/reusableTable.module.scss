@@ -1,6 +1,5 @@
 .tableWrapper {
   width: 85vw;
-  border-radius: 1.5rem;
   margin: auto;
   border: 1px solid #94a3b8;
   background-color: #f8fafc;
@@ -12,4 +11,12 @@
     text-align: left;
     text-indent: 1rem;
   }
+}
+
+.noDataMessage {
+  background-color: #ec4f1e;
+  padding: 60px;
+  text-align: center;
+  font-size: 50px;
+  border-bottom: 1px solid #ddd;
 }

@@ -63,24 +63,28 @@ const ReusableTable = <T extends UserData>({
 
   return (
     <div className={style.tableWrapper}>
-      <table className={style.reusableTable}>
-        <TableHead<T>
-          headers={headers}
-          sortState={sortState}
-          onSort={handleSort}
-          displayNames={displayNames}
-        />
-        <tbody>
-          {sortedData.map((item) => (
-            <TableRowComponent
-              key={item.id}
-              data={item}
-              isChecked={checkedId === item.id}
-              onCheckboxChange={handleCheckboxChange}
-            />
-          ))}
-        </tbody>
-      </table>
+      {data.length > 0 ? (
+        <table className={style.reusableTable}>
+          <TableHead<T>
+            headers={headers}
+            sortState={sortState}
+            onSort={handleSort}
+            displayNames={displayNames}
+          />
+          <tbody>
+            {data.map((item) => (
+              <TableRowComponent
+                key={item.id}
+                data={item}
+                isChecked={checkedId === item.id}
+                onCheckboxChange={handleCheckboxChange}
+              />
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className={style.noDataMessage}>No data available</div>
+      )}
     </div>
   );
 };
