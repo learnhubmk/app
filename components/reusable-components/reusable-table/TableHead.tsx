@@ -28,6 +28,7 @@ const TableHead = <T,>({
   return (
     <thead className={style.tableHead}>
       <tr>
+        <th>Select</th>
         {headers.map((header) => (
           <th
             key={header as string}

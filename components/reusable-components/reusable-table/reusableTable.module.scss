@@ -1,12 +1,13 @@
 .tableWrapper {
   width: 85vw;
-  margin: auto;
+  margin-block: 5rem;
   border: 1px solid #94a3b8;
   background-color: #f8fafc;
+  color: black;
 
   .reusableTable {
     width: 100%;
-
+    min-height: 15rem;
     border-collapse: collapse;
     text-align: left;
     text-indent: 1rem;

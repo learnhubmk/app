@@ -4,11 +4,11 @@ import React from 'react';
 import style from './tableRowComponent.module.scss';
 import ActionDropdown from './ActionDropdown';
 
-export interface UserData {
+interface UserData {
+  id: string;
   first_name: string;
   last_name: string;
   role: string;
-  id: string;
 }
 
 interface TableRowComponentProps {
@@ -27,9 +27,9 @@ const TableRowComponent = ({ data, isChecked, onCheckboxChange }: TableRowCompon
       <td aria-label="Checkbox">
         <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
       </td>
-      <td className={style.firstName}>{data.first_name}</td>
-      <td className={style.lastName}>{data.last_name}</td>
-      <td className={style.role}>{data.role}</td>
+      <td>{data.first_name}</td>
+      <td>{data.last_name}</td>
+      <td>{data.role}</td>
       <td className={style.actionCell} aria-label="Actions">
         <ActionDropdown isDisabled={!isChecked} />
       </td>

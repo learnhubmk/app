@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchData } from './FetchData';
-import TableRowComponent, { UserData } from './TableRowComponent';
+import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
 
@@ -16,6 +16,13 @@ interface ReusableTableHeadProps<T> {
 interface SortState<T> {
   field: keyof T;
   order: 'asc' | 'desc';
+}
+
+export interface UserData {
+  id: string;
+  first_name: string;
+  last_name: string;
+  role: string;
 }
 
 const ReusableTable = <T extends UserData>({
@@ -32,7 +39,7 @@ const ReusableTable = <T extends UserData>({
         const response = await fetchData();
         setData(response);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
       }
     };
 
@@ -50,16 +57,6 @@ const ReusableTable = <T extends UserData>({
       return [...prevSortState.filter((sort) => sort.field !== field), { field, order: newOrder }];
     });
   };
-
-  const sortedData = [...data].sort((a, b) => {
-    const activeSort = sortState[sortState.length - 1];
-    if (activeSort) {
-      const { field, order } = activeSort;
-      if (a[field] < b[field]) return order === 'asc' ? -1 : 1;
-      if (a[field] > b[field]) return order === 'asc' ? 1 : -1;
-    }
-    return 0;
-  });
 
   return (
     <div className={style.tableWrapper}>
