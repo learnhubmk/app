@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Image from 'next/image';
 import styles from './SignupAndLoginLayout.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
@@ -8,9 +8,9 @@ import { useTheme } from '../../../app/context/themeContext';
 interface SignupAndLoginProps {
   welcomeTitle: string;
   welcomeSubtitle: string;
-  // form?: JSX.Element;
+  children?: ReactNode;
 }
-const SignupAndLoginLayout = ({ welcomeTitle, welcomeSubtitle }: SignupAndLoginProps) => {
+const SignupAndLoginLayout = ({ welcomeTitle, welcomeSubtitle, children }: SignupAndLoginProps) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
 
@@ -46,7 +46,7 @@ const SignupAndLoginLayout = ({ welcomeTitle, welcomeSubtitle }: SignupAndLoginP
             </div>
           </div>
         </div>
-        {/* {form} */}
+        {children}
       </div>
     </div>
   );
