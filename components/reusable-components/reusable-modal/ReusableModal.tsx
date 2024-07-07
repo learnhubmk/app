@@ -20,11 +20,11 @@ const ReusableModal = ({
   description,
   isOpen,
   secondaryButtonLabel = 'Cancel',
-  secondaryButtonClass = '',
+  secondaryButtonClass = 'secondaryButton',
   onPrimaryButtonClick,
   onSecondaryButtonClick,
   primaryButtonLabel = 'Proceed',
-  primaryButtonClass = '',
+  primaryButtonClass = 'primaryButton',
   onClose = () => {},
 }: ReusableModalProps) => {
   useEffect(() => {
@@ -84,14 +84,14 @@ const ReusableModal = ({
           <div className={style.modalButtons}>
             <Button
               type="button"
-              buttonText={primaryButtonLabel || 'Proceed'}
-              buttonClass={primaryButtonClass ? [primaryButtonClass] : ['primaryButton']}
+              buttonText={primaryButtonLabel}
+              buttonClass={[primaryButtonClass]}
               onClick={onPrimaryButtonClick || onClose}
             />
             <Button
               type="button"
-              buttonText={secondaryButtonLabel || 'Cancel'}
-              buttonClass={secondaryButtonClass ? [secondaryButtonClass] : ['secondaryButton']}
+              buttonText={secondaryButtonLabel}
+              buttonClass={[secondaryButtonClass]}
               onClick={onSecondaryButtonClick || onClose}
             />
           </div>
