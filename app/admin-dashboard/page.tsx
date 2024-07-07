@@ -24,6 +24,7 @@ const AdminDashboard = () => {
           description="This is an optional description for the modal."
           isOpen={isModalOpen}
           onClose={closeModal}
+          primaryButtonLabel="Deactivate"
         />
       </div>
     </>
