@@ -61,9 +61,10 @@
 }
 
 .secondaryButton {
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--primary-btn-color);
+  font-size: var(--fs-title);
+  background-color: #fef0ed;
+  color: var(--primary-btn-color);
+  border: none;
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
@@ -132,12 +133,6 @@
   &:active {
     color: var(--primary-btn-active-color);
   }
-}
-
-.deactivateButton {
-  background-color: #fef0ed;
-  color: var(--primary-btn-color);
-  border: none;
 }
 
 .closeBtn {
