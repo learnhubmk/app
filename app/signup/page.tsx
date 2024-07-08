@@ -1,7 +1,15 @@
-import SignUpPage from '../../components/module-components/SignUpPage/SignUpPage';
+import SignupAndLoginLayout from '../../components/reusable-components/signup-and-login-layout/SignupAndLoginLayout';
+import ReusableForm from '../../components/reusable-components/reusable-form/ReusableForm';
 
-const SignUp = () => {
-  return <SignUpPage />;
+const SignupPage = () => {
+  return (
+    <SignupAndLoginLayout
+      welcomeTitle="Добредојдовте на платформата!"
+      welcomeSubtitle="Ве молиме пополнете ги податоците подолу за да креирате свој профил."
+    >
+      <ReusableForm />
+    </SignupAndLoginLayout>
+  );
 };
 
-export default SignUp;
+export default SignupPage;
