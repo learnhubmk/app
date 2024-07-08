@@ -98,6 +98,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+  align-items: center;
 }
 
 .forgotPassword {
@@ -109,7 +110,6 @@
   text-decoration: underline;
   @include u.breakpoint-down(small) {
     font-size: 14px;
-
     line-height: 20.3px;
   }
 }
@@ -121,6 +121,7 @@
   display: flex;
   justify-items: center;
   align-items: center;
+  gap: 8px;
 
   .checkbox {
     cursor: pointer;

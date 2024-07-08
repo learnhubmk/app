@@ -84,8 +84,8 @@ const LoginForm = () => {
           isRequired
         />
         <TextInput
-          placeholder="Внесете го вашиот пасворд"
-          label="Пасворд"
+          placeholder="Внесете ја вашата лозинка"
+          label="Лозинка"
           name="password"
           type="password"
           field="password"
@@ -101,16 +101,16 @@ const LoginForm = () => {
               name="remember"
             />{' '}
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="remember">Remember me</label>
+            <label htmlFor="remember">Запомни ме</label>
           </div>
 
           <a className={styles.forgotPassword} href="/">
-            Forgot password?
+            Заборавена лозинка?
           </a>
         </div>
         <button type="submit" className={styles.loginBtn}>
           {' '}
-          Log in
+          Најави се
         </button>
         <Turnstile
           sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
@@ -120,7 +120,7 @@ const LoginForm = () => {
         />
       </form>
       <div className={styles.loginSocials}>
-        <p>or continue with</p>
+        <p>или продолжи со</p>
         <div className={styles.socialIcons}>
           <Link href="https://github.com/learnhubmk" target="_blank" rel="noopener noreferrer">
             <Image className={styles.socialIcon} src={github} alt="Github" />
@@ -137,7 +137,7 @@ const LoginForm = () => {
           </Link>
         </div>{' '}
         <p>
-          Don’t have an account? <span className={styles.signup}>Sign up</span>
+          Немаш креиран профил? <span className={styles.signup}>Регистрирај се</span>
         </p>
       </div>
     </div>
