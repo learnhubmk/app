@@ -31,7 +31,7 @@ const TableRowComponent = ({ data, isChecked, onCheckboxChange }: TableRowCompon
       <td>{data.last_name}</td>
       <td>{data.role}</td>
       <td className={style.actionCell} aria-label="Actions">
-        <ActionDropdown isDisabled={!isChecked} />
+        <ActionDropdown isDisabled={!isChecked} dropdownItems={['View', 'Edit', 'Delete']} />
       </td>
     </tr>
   );

@@ -1,11 +1,18 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState, useRef, useEffect } from 'react';
 import style from './actionDropdown.module.scss';
 
+interface DropdownItem {
+  id: string;
+  label: string;
+}
 interface ActionDropdownProps {
   isDisabled: boolean;
+  dropdownItems: DropdownItem[];
 }
 
-const ActionDropdown = ({ isDisabled }: ActionDropdownProps) => {
+const ActionDropdown = ({ isDisabled, dropdownItems }: ActionDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -29,9 +36,11 @@ const ActionDropdown = ({ isDisabled }: ActionDropdownProps) => {
       </button>
       {isOpen && (
         <ul className={style.dropdownMenu}>
-          <li className={style.dropdownItem}>View</li>
-          <li className={style.dropdownItem}>Edit</li>
-          <li className={style.dropdownItem}>Delete</li>
+          {dropdownItems.map((item, index) => (
+            <li key={item.id} className={style.dropdownItem}>
+              {item.label}
+            </li>
+          ))}
         </ul>
       )}
     </div>

@@ -9,7 +9,7 @@ interface SortState<T> {
 
 interface TableHeadProps<T> {
   headers: (keyof T)[];
-  sortState: SortState<T>[];
+  sortState: SortState<T>;
   onSort: (field: keyof T) => void;
   displayNames: { [key in keyof T]?: string };
 }
@@ -21,14 +21,14 @@ const TableHead = <T,>({
   displayNames,
 }: TableHeadProps<T>): React.JSX.Element => {
   const getSortOrder = (field: keyof T) => {
-    const sort = sortState.find((sort) => sort.field === field);
-    return sort ? sort.order : null;
+    return sortState.field === field ? sortState.order : null;
   };
 
   return (
     <thead className={style.tableHead}>
       <tr>
-        <th>Select</th>
+        <th aria-hidden="true" />
+
         {headers.map((header) => (
           <th
             key={header as string}
@@ -39,6 +39,7 @@ const TableHead = <T,>({
             <span className={style.sortArrow}> {getSortOrder(header) === 'asc' ? ' ▲' : ' ▼'}</span>
           </th>
         ))}
+        <th aria-hidden="true" />
       </tr>
     </thead>
   );

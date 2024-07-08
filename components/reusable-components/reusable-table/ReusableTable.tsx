@@ -29,8 +29,12 @@ const ReusableTable = <T extends UserData>({
   headers,
   displayNames,
 }: ReusableTableHeadProps<T>): React.JSX.Element => {
-  const [sortState, setSortState] = useState<SortState<T>[]>([]);
+  const [sortState, setSortState] = useState<SortState<T>>({
+    field: 'first_name' as keyof T,
+    order: 'asc',
+  });
   const [data, setData] = useState<T[]>([]);
+  const [sortedData, setSortedData] = useState<T[]>([]);
   const [checkedId, setCheckedId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -46,21 +50,34 @@ const ReusableTable = <T extends UserData>({
     fetchDataFromApi();
   }, []);
 
+  useEffect(() => {
+    const sortData = () => {
+      const sorted = [...data].sort((a, b) => {
+        if (a[sortState.field] < b[sortState.field]) return sortState.order === 'asc' ? -1 : 1;
+        if (a[sortState.field] > b[sortState.field]) return sortState.order === 'asc' ? 1 : -1;
+        return 0;
+      });
+      setSortedData(sorted);
+    };
+
+    sortData();
+  }, [data, sortState]);
+
   const handleCheckboxChange = (id: string) => {
     setCheckedId(id === checkedId ? null : id);
   };
 
   const handleSort = (field: keyof T) => {
     setSortState((prevSortState) => {
-      const existingSort = prevSortState.find((sort) => sort.field === field);
-      const newOrder = existingSort && existingSort.order === 'asc' ? 'desc' : 'asc';
-      return [...prevSortState.filter((sort) => sort.field !== field), { field, order: newOrder }];
+      const newOrder =
+        prevSortState.field === field && prevSortState.order === 'asc' ? 'desc' : 'asc';
+      return { field, order: newOrder };
     });
   };
 
   return (
     <div className={style.tableWrapper}>
-      {data.length > 0 ? (
+      {sortedData.length > 0 ? (
         <table className={style.reusableTable}>
           <TableHead<T>
             headers={headers}
@@ -69,7 +86,7 @@ const ReusableTable = <T extends UserData>({
             displayNames={displayNames}
           />
           <tbody>
-            {data.map((item) => (
+            {sortedData.map((item) => (
               <TableRowComponent
                 key={item.id}
                 data={item}
