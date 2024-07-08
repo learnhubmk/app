@@ -5,10 +5,15 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import Turnstile from 'react-turnstile';
+import Link from 'next/link';
+import Image from 'next/image';
 import styles from './LoginForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import TextInput from '../text-input/TextInput';
 import { submitLoginForm } from './SubmitLoginForm';
+import linkedin from '../../../public/icons/linkedin.svg';
+import github from '../../../public/icons/github.svg';
+import google from '../../../public/icons/google.svg';
 
 interface FormValues {
   email: string;
@@ -116,7 +121,21 @@ const LoginForm = () => {
       </form>
       <div className={styles.loginSocials}>
         <p>or continue with</p>
-        {/* <div className={styles.socialIcons}></div> */}
+        <div className={styles.socialIcons}>
+          <Link href="https://github.com/learnhubmk" target="_blank" rel="noopener noreferrer">
+            <Image className={styles.socialIcon} src={github} alt="Github" />
+          </Link>
+          <Link href="/" target="_blank" rel="noopener noreferrer">
+            <Image className={styles.socialIcon} src={google} alt="Youtube" />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/company/102600044/admin/feed/posts/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image className={styles.socialIcon} src={linkedin} alt="Linkedin" />
+          </Link>
+        </div>{' '}
         <p>
           Don’t have an account? <span className={styles.signup}>Sign up</span>
         </p>
