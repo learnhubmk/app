@@ -9,7 +9,7 @@ interface SortState<T> {
 
 interface TableHeadProps<T> {
   headers: (keyof T)[];
-  sortState: SortState<T>;
+  sortState: SortState<T>[];
   onSort: (field: keyof T) => void;
   displayNames: { [key in keyof T]?: string };
 }
@@ -21,7 +21,9 @@ const TableHead = <T,>({
   displayNames,
 }: TableHeadProps<T>): React.JSX.Element => {
   const getSortOrder = (field: keyof T) => {
-    return sortState.field === field ? sortState.order : null;
+    const sort = sortState.find((sort) => sort.field === field);
+
+    return sort ? sort.order : null;
   };
 
   return (

@@ -3,25 +3,29 @@
 import React from 'react';
 import style from './tableRowComponent.module.scss';
 import ActionDropdown from './ActionDropdown';
+import { UserData } from './ReusableTable';
 
-interface UserData {
+interface DropdownItem {
   id: string;
-  first_name: string;
-  last_name: string;
-  role: string;
+  label: string;
 }
-interface TableRowComponentProps {
-  data: UserData;
+
+interface TableRowComponentProps<T extends UserData> {
+  data: T;
   isChecked: boolean;
   onCheckboxChange: (id: string) => void;
 }
 
-const TableRowComponent = ({ data, isChecked, onCheckboxChange }: TableRowComponentProps) => {
+const TableRowComponent = <T extends UserData>({
+  data,
+  isChecked,
+  onCheckboxChange,
+}: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
     onCheckboxChange(data.id);
   };
 
-  const dropdownItems = [
+  const dropdownItems: DropdownItem[] = [
     { id: 'view', label: 'View' },
     { id: 'edit', label: 'Edit' },
     { id: 'delete', label: 'Delete' },
