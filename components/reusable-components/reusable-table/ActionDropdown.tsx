@@ -36,7 +36,7 @@ const ActionDropdown = ({ isDisabled, dropdownItems }: ActionDropdownProps) => {
       </button>
       {isOpen && (
         <ul className={style.dropdownMenu}>
-          {dropdownItems.map((item, index) => (
+          {dropdownItems.map((item) => (
             <li key={item.id} className={style.dropdownItem}>
               {item.label}
             </li>

@@ -10,7 +10,6 @@ interface UserData {
   last_name: string;
   role: string;
 }
-
 interface TableRowComponentProps {
   data: UserData;
   isChecked: boolean;
@@ -22,6 +21,12 @@ const TableRowComponent = ({ data, isChecked, onCheckboxChange }: TableRowCompon
     onCheckboxChange(data.id);
   };
 
+  const dropdownItems = [
+    { id: 'view', label: 'View' },
+    { id: 'edit', label: 'Edit' },
+    { id: 'delete', label: 'Delete' },
+  ];
+
   return (
     <tr className={style.rowComponent}>
       <td aria-label="Checkbox">
@@ -31,7 +36,7 @@ const TableRowComponent = ({ data, isChecked, onCheckboxChange }: TableRowCompon
       <td>{data.last_name}</td>
       <td>{data.role}</td>
       <td className={style.actionCell} aria-label="Actions">
-        <ActionDropdown isDisabled={!isChecked} dropdownItems={['View', 'Edit', 'Delete']} />
+        <ActionDropdown isDisabled={!isChecked} dropdownItems={dropdownItems} />
       </td>
     </tr>
   );
