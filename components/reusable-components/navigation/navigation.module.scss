@@ -1,3 +1,5 @@
+@use '../../../app/styles/utils' as u;
+
 .lightNavigation {
   background-color: var(--section-bg-color);
 }
@@ -20,6 +22,15 @@
       }
     }
   }
+}
+.navigationActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navigationButton {
+  padding: 8px 24px 8px 24px;
 }
 
 .toggleContainer {
