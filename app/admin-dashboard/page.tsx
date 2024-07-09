@@ -37,7 +37,7 @@ const AdminDashboardPage = () => {
   return (
     <ModalProvider>
       <AdminDashboard />
-      <ReusableTable headers={headers as (keyof UserData)[]} displayNames={displayNames} />
+      <ReusableTable<UserData> headers={headers} displayNames={displayNames} />
     </ModalProvider>
   );
 };
