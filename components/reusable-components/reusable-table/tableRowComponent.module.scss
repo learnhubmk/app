@@ -1,6 +1,7 @@
 .rowComponent {
   border-top: 1px solid black;
   height: 2.5rem;
+  cursor: pointer;
 
 
   td:nth-child(3),
@@ -10,6 +11,7 @@
 
   td:last-child {
     text-align: center;
+    
   }
 
   .actionCell {

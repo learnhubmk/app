@@ -3,23 +3,26 @@
 import React from 'react';
 import style from './tableRowComponent.module.scss';
 import ActionDropdown from './ActionDropdown';
-import { UserData } from './ReusableTable';
 
 interface DropdownItem {
   id: string;
   label: string;
 }
 
-interface TableRowComponentProps<T extends UserData> {
+interface TableRowComponentProps<T> {
   data: T;
   isChecked: boolean;
   onCheckboxChange: (id: string) => void;
+  displayFelds: (keyof T)[];
+  displayNames: { [key in keyof T]?: string };
 }
 
-const TableRowComponent = <T extends UserData>({
+const TableRowComponent = <T extends { id: string }>({
   data,
   isChecked,
   onCheckboxChange,
+  displayFelds,
+  displayNames,
 }: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
     onCheckboxChange(data.id);
@@ -36,9 +39,9 @@ const TableRowComponent = <T extends UserData>({
       <td aria-label="Checkbox">
         <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
       </td>
-      <td>{data.first_name}</td>
-      <td>{data.last_name}</td>
-      <td>{data.role}</td>
+      {displayFelds.map((field) => (
+        <td key={field as string}>{String(data[field])}</td>
+      ))}
       <td className={style.actionCell} aria-label="Actions">
         <ActionDropdown isDisabled={!isChecked} dropdownItems={dropdownItems} />
       </td>

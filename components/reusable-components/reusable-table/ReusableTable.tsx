@@ -25,7 +25,7 @@ export interface UserData {
   role: string;
 }
 
-const ReusableTable = <T extends UserData>({
+const ReusableTable = <T extends { id: string }>({
   headers,
   displayNames,
 }: ReusableTableHeadProps<T>): React.JSX.Element => {
@@ -40,7 +40,7 @@ const ReusableTable = <T extends UserData>({
         const response = await fetchData();
         setData(response);
       } catch (error) {
-        // console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -87,11 +87,13 @@ const ReusableTable = <T extends UserData>({
           />
           <tbody>
             {data.map((item) => (
-              <TableRowComponent
+              <TableRowComponent<T>
                 key={item.id}
                 data={item}
                 isChecked={checkedId === item.id}
                 onCheckboxChange={handleCheckboxChange}
+                displayFelds={headers}
+                displayNames={displayNames}
               />
             ))}
           </tbody>
