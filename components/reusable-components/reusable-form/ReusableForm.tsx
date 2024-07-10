@@ -18,16 +18,18 @@ import google from '../../../public/icons-footer/google.svg';
 import CheckPasswordValidityIcon from '../CheckPasswordValidityIcon/CheckPasswordValidityIcon';
 import { useTheme } from '../../../app/context/themeContext';
 
+interface PasswordValidation {
+  uppercase: boolean | null;
+  specialChar: boolean | null;
+  minLength: boolean | null;
+}
+
 const ReusableForm = () => {
   const { theme } = useTheme();
   const lightTheme = theme === 'light';
 
   const [password, setPassword] = useState<string>('');
-  const [passwordValidation, setPasswordValidation] = useState<{
-    uppercase: boolean | null;
-    specialChar: boolean | null;
-    minLength: boolean | null;
-  }>({
+  const [passwordValidation, setPasswordValidation] = useState<PasswordValidation>({
     uppercase: null,
     specialChar: null,
     minLength: null,
@@ -95,6 +97,13 @@ const ReusableForm = () => {
     return valid === null ? '#475569' : valid ? '#00B107' : '#FF4045';
   };
 
+  const ruleMessages: { [key in keyof PasswordValidation]: string } & { default: string } = {
+    uppercase: 'Една голема буква',
+    specialChar: 'Еден специјален знак или симбол',
+    minLength: 'Минимум 8 карактери',
+    default: 'Невалидно правило',
+  };
+
   return (
     <div
       className={`${style.reusableFormWrapper} ${lightTheme ? style.lightFormWrapper : style.darkFormWrapper}`}
@@ -139,18 +148,14 @@ const ReusableForm = () => {
             <div className={style.requirementsItem} key={rule}>
               <CheckPasswordValidityIcon color={getColor(valid)} />
               <p>
-                {rule === 'uppercase'
-                  ? 'Една голема буква'
-                  : rule === 'specialChar'
-                    ? 'Еден специјален знак или симбол'
-                    : 'Минимум 8 карактери'}
+                <p>{ruleMessages[rule as keyof PasswordValidation] || ruleMessages.default}</p>
               </p>
             </div>
           ))}
         </div>
 
         <label htmlFor="checkbox">
-          <input type="checkbox" id="checkbox" />
+          <input type="checkbox" id="checkbox" required />
           Се согласувам со сите Terms & Conditions
         </label>
         <div className={style.signUpBtn}>
