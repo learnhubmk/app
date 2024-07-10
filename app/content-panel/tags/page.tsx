@@ -1,56 +1,69 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import styles from './Tags.module.scss';
 import ReusableModal from '../../../components/reusable-components/reusable-modal/ReusableModal';
+import Button from '../../../components/reusable-components/button/Button';
 
-const initialTags = [
+interface Tag {
+  id: number;
+  name: string;
+}
+
+const initialTags: Tag[] = [
   { id: 1, name: 'tag1' },
   { id: 2, name: 'tag2' },
   { id: 3, name: 'tag3' },
 ];
 
-const TagsPage = () => {
-  const [tags, setTags] = useState(initialTags);
+const TagsPage: React.FC = () => {
+  const [tags, setTags] = useState<Tag[]>(initialTags);
   const [searchTerm, setSearchTerm] = useState('');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [editingTagId, setEditingTagId] = useState(null);
+  const [editingTagId, setEditingTagId] = useState<number | null>(null);
+  const [deletingTagId, setDeletingTagId] = useState<number | null>(null);
   const [editedTagName, setEditedTagName] = useState('');
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  const filteredTags = useMemo(() => {
+    return tags.filter((tag) => tag.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  }, [tags, searchTerm]);
 
-  const filteredTags = tags.filter((tag) =>
-    tag.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleAddTag = () => {
+  const handleAddTag = useCallback(() => {
     // Implement add tag functionality
     console.log('Add tag clicked');
-  };
+  }, []);
 
-  const handleEditTag = (id) => {
-    const tagToEdit = tags.find((tag) => tag.id === id);
-    setEditingTagId(id);
-    setEditedTagName(tagToEdit.name);
-  };
+  const handleEditTag = useCallback(
+    (id: number) => {
+      const tagToEdit = tags.find((tag) => tag.id === id);
+      if (!tagToEdit) return;
+      setEditingTagId(id);
+      setEditedTagName(tagToEdit.name);
+    },
+    [tags]
+  );
 
-  const handleCancelEdit = () => {
+  const handleCancelEdit = useCallback(() => {
     setEditingTagId(null);
     setEditedTagName('');
-  };
+  }, []);
 
-  const handleSaveChanges = (id) => {
-    setTags(tags.map((tag) => (tag.id === id ? { ...tag, name: editedTagName } : tag)));
-    setEditingTagId(null);
-    setEditedTagName('');
-  };
+  const handleSaveChanges = useCallback(
+    (id: number) => {
+      setTags((prevTags) =>
+        prevTags.map((tag) => (tag.id === id ? { ...tag, name: editedTagName } : tag))
+      );
+      setEditingTagId(null);
+      setEditedTagName('');
+    },
+    [editedTagName]
+  );
 
-  const handleDeleteTag = (id) => {
-    setIsDeleteModalOpen(true);
-    console.log('Delete tag', id);
-  };
+  const confirmDelete = useCallback(() => {
+    setIsDeleteModalOpen(false);
+    setTags((prevTags) => prevTags.filter((tag) => tag.id !== deletingTagId));
+    setDeletingTagId(null);
+  }, [deletingTagId]);
 
   return (
     <div className={styles.container}>
@@ -59,12 +72,16 @@ const TagsPage = () => {
           type="text"
           placeholder="Search tags..."
           value={searchTerm}
-          onChange={handleSearch}
+          onChange={(event) => setSearchTerm(event.target.value)}
           className={styles.searchInput}
         />
-        <button type="button" onClick={handleAddTag} className={styles.addButton}>
-          Add Tag
-        </button>
+
+        <Button
+          type="button"
+          buttonText="Add Tag"
+          buttonClass={['addButton']}
+          onClick={() => handleAddTag()}
+        />
       </div>
       <table className={styles.table}>
         <thead>
@@ -88,41 +105,43 @@ const TagsPage = () => {
                   tag.name
                 )}
               </td>
+
               <td className={styles.actionsColumn}>
                 <div className={styles.actionButtons}>
                   {editingTagId === tag.id ? (
                     <>
-                      <button
+                      <Button
                         type="button"
+                        buttonText="Save changes"
+                        buttonClass={['saveButton']}
                         onClick={() => handleSaveChanges(tag.id)}
-                        className={styles.saveButton}
-                      >
-                        Save changes
-                      </button>
-                      <button
+                      />
+
+                      <Button
                         type="button"
+                        buttonText="Cancel"
+                        buttonClass={['deleteButton']}
                         onClick={handleCancelEdit}
-                        className={styles.deleteButton}
-                      >
-                        Cancel
-                      </button>
+                      />
                     </>
                   ) : (
                     <>
-                      <button
+                      <Button
                         type="button"
+                        buttonText="Edit"
+                        buttonClass={['editButton']}
                         onClick={() => handleEditTag(tag.id)}
-                        className={styles.editButton}
-                      >
-                        Edit
-                      </button>
-                      <button
+                      />
+
+                      <Button
                         type="button"
-                        onClick={() => handleDeleteTag(tag.id)}
-                        className={styles.deleteButton}
-                      >
-                        Delete
-                      </button>
+                        buttonText="Delete"
+                        buttonClass={['deleteButton']}
+                        onClick={() => {
+                          setIsDeleteModalOpen(true);
+                          setDeletingTagId(tag.id);
+                        }}
+                      />
                     </>
                   )}
                 </div>
@@ -139,10 +158,7 @@ const TagsPage = () => {
         primaryButtonLabel="Delete"
         secondaryButtonLabel="Cancel"
         onClose={() => setIsDeleteModalOpen(false)}
-        onPrimaryButtonClick={() => {
-          setIsDeleteModalOpen(false);
-          alert('deleted');
-        }}
+        onPrimaryButtonClick={confirmDelete}
       />
     </div>
   );
