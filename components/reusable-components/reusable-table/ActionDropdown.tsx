@@ -8,11 +8,10 @@ interface DropdownItem {
   label: string;
 }
 interface ActionDropdownProps {
-  isDisabled: boolean;
   dropdownItems: DropdownItem[];
 }
 
-const ActionDropdown = ({ isDisabled, dropdownItems }: ActionDropdownProps) => {
+const ActionDropdown = ({ dropdownItems }: ActionDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +30,7 @@ const ActionDropdown = ({ isDisabled, dropdownItems }: ActionDropdownProps) => {
 
   return (
     <div className={style.dropdown} ref={dropdownRef}>
-      <button type="button" onClick={() => setIsOpen(!isOpen)} disabled={isDisabled}>
+      <button type="button" onClick={() => setIsOpen(!isOpen)}>
         Actions
       </button>
       {isOpen && (

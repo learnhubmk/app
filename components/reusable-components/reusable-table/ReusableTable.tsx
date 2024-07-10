@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useEffect, useState, useMemo } from 'react';
-import { fetchData } from './FetchData';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
@@ -32,20 +31,6 @@ const ReusableTable = <T extends { id: string }>({
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
   const [data, setData] = useState<T[]>([]);
   const [checkedId, setCheckedId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchDataFromApi = async () => {
-      try {
-        const response = await fetchData();
-        setData(response);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchDataFromApi();
-  }, []);
 
   const handleCheckboxChange = (id: string) => {
     setCheckedId(id === checkedId ? null : id);
@@ -113,7 +98,6 @@ const ReusableTable = <T extends { id: string }>({
               isChecked={checkedId === item.id}
               onCheckboxChange={handleCheckboxChange}
               displayFields={headers}
-              displayNames={displayNames}
             />
           ))}
         </tbody>

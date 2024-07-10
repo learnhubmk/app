@@ -14,7 +14,6 @@ interface TableRowComponentProps<T> {
   isChecked?: boolean;
   onCheckboxChange: (id: string) => void;
   displayFields: (keyof T)[];
-  displayNames: { [key in keyof T]?: string };
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -22,7 +21,6 @@ const TableRowComponent = <T extends { id: string }>({
   isChecked,
   onCheckboxChange,
   displayFields,
-  displayNames,
 }: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
     onCheckboxChange(data.id);
@@ -45,7 +43,7 @@ const TableRowComponent = <T extends { id: string }>({
         <td key={field as string}>{String(data[field])}</td>
       ))}
       <td className={style.actionCell} aria-label="Actions">
-        <ActionDropdown isDisabled={!isChecked} dropdownItems={dropdownItems} />
+        <ActionDropdown dropdownItems={dropdownItems} />
       </td>
     </tr>
   );
