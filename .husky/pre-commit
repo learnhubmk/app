@@ -1,3 +1,11 @@
 npm run format
 npm run lint-staged
 
+if ! git diff-index --quiet HEAD -- ./tests; then
+  echo >&2 "Running pre-commit checks for e2e tests"
+  cd tests
+  npm run lint:e2e
+  cd -
+fi
+
+

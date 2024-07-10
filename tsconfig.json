@@ -14,7 +14,10 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@tests-pages/*": ["./tests/pages/*"],
+      "@tests-steps/*": ["./tests/steps/*"],
+      "@tests-utils/*": ["./tests/utils/*"]
     },
     "plugins": [
       {
