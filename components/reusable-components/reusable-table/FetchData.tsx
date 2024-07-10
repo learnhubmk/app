@@ -6,9 +6,9 @@ const headers = {
 };
 
 const dummyDataPosts = [
-  { id: 1, first_name: 'John', last_name: 'Smith', role: ' role 1' },
-  { id: 2, first_name: 'Mike', last_name: 'Rowland', role: ' role 2' },
-  { id: 3, first_name: 'Pablo', last_name: 'Rooney', role: ' role 3' },
+  { id: 1, first_name: 'Aohn', last_name: 'Bmith', role: ' role 2' },
+  { id: 2, first_name: 'Cike', last_name: 'Aowland', role: ' role 1' },
+  { id: 3, first_name: 'Bablo', last_name: 'Cooney', role: ' role 3' },
 ];
 
 const fetchData = async (): Promise<any[]> => {

@@ -11,9 +11,9 @@ interface DropdownItem {
 
 interface TableRowComponentProps<T> {
   data: T;
-  isChecked: boolean;
+  isChecked?: boolean;
   onCheckboxChange: (id: string) => void;
-  displayFelds: (keyof T)[];
+  displayFields: (keyof T)[];
   displayNames: { [key in keyof T]?: string };
 }
 
@@ -21,7 +21,7 @@ const TableRowComponent = <T extends { id: string }>({
   data,
   isChecked,
   onCheckboxChange,
-  displayFelds,
+  displayFields,
   displayNames,
 }: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
@@ -36,10 +36,12 @@ const TableRowComponent = <T extends { id: string }>({
 
   return (
     <tr className={style.rowComponent}>
-      <td aria-label="Checkbox">
-        <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-      </td>
-      {displayFelds.map((field) => (
+      {isChecked && (
+        <td aria-label="Checkbox">
+          <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
+        </td>
+      )}
+      {displayFields.map((field) => (
         <td key={field as string}>{String(data[field])}</td>
       ))}
       <td className={style.actionCell} aria-label="Actions">
