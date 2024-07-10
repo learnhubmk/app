@@ -17,13 +17,6 @@ interface SortState<T> {
   order: 'asc' | 'desc';
 }
 
-export interface UserData {
-  id: string;
-  first_name: string;
-  last_name: string;
-  role: string;
-}
-
 const ReusableTable = <T extends { id: string }>({
   headers,
   displayNames,
