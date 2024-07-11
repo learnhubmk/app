@@ -48,7 +48,8 @@
       }
     ],
     "react/require-default-props": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "no-shadow": "off"
   },
   "settings": {
     "react": {

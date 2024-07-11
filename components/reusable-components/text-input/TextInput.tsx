@@ -27,11 +27,19 @@ const TextInput: FC<InputProps> = ({
   isRequired,
   isFooter,
   inputClass = [],
+  onChange,
 }) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
   const isError = formik.touched[field] && formik.errors[field] !== undefined && 'error';
   const isValid = !isError && formik.touched[field] && 'valid';
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    formik.handleChange(e);
+    if (onChange) {
+      onChange(e);
+    }
+  };
 
   return (
     <div className={style.inputContainer}>
@@ -44,7 +52,7 @@ const TextInput: FC<InputProps> = ({
           className={`${style.input} ${setClass(inputClass, style)} ${style[`${isError}`]} ${style[`${isValid}`]}`}
           placeholder={placeholder}
           value={formik.values[field]}
-          onChange={formik.handleChange}
+          onChange={handleChange}
           onBlur={formik.handleBlur}
           name={name}
         />
