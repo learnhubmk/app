@@ -1,15 +1,15 @@
 'use client';
 
-/* eslint-disable no-unused-vars */
-
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
 
-interface ReusableTableHeadProps<T> {
+interface ReusableTableProps<T> {
   headers: (keyof T)[];
   displayNames: { [key in keyof T]?: string };
+  data: T[];
+  renderActions?: (item: T) => React.ReactNode;
 }
 
 interface SortState<T> {
@@ -20,14 +20,10 @@ interface SortState<T> {
 const ReusableTable = <T extends { id: string }>({
   headers,
   displayNames,
-}: ReusableTableHeadProps<T>): React.JSX.Element => {
+  data,
+  renderActions,
+}: ReusableTableProps<T>): React.JSX.Element => {
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
-  const [data, setData] = useState<T[]>([]);
-  const [checkedId, setCheckedId] = useState<string | null>(null);
-
-  const handleCheckboxChange = (id: string) => {
-    setCheckedId(id === checkedId ? null : id);
-  };
 
   const handleSort = (field: keyof T) => {
     setSortState((prevSortState) => {
@@ -36,23 +32,6 @@ const ReusableTable = <T extends { id: string }>({
       return [{ field, order: newOrder }];
     });
   };
-
-  useEffect(() => {
-    if (sortState.length > 0) {
-      const sortedData = data.slice().sort((a, b) => {
-        const sort = sortState[0];
-        if (a[sort.field] > b[sort.field]) {
-          return sort.order === 'asc' ? 1 : -1;
-        }
-        if (a[sort.field] < b[sort.field]) {
-          return sort.order === 'asc' ? -1 : 1;
-        }
-        return 0;
-      });
-      setData(sortedData);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortState]);
 
   const sortedData = useMemo(() => {
     if (sortState.length > 0) {
@@ -70,7 +49,7 @@ const ReusableTable = <T extends { id: string }>({
     return data;
   }, [data, sortState]);
 
-  if (data?.length === 0) {
+  if (data.length === 0) {
     return <div className={style.noDataMessage}>No data available</div>;
   }
 
@@ -82,15 +61,15 @@ const ReusableTable = <T extends { id: string }>({
           sortState={sortState}
           onSort={handleSort}
           displayNames={displayNames}
+          showActions={!!renderActions}
         />
         <tbody>
           {sortedData.map((item) => (
             <TableRowComponent<T>
               key={item.id}
               data={item}
-              isChecked={checkedId === item.id}
-              onCheckboxChange={handleCheckboxChange}
               displayFields={headers}
+              renderActions={renderActions}
             />
           ))}
         </tbody>
