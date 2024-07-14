@@ -28,7 +28,6 @@ const ReusableForm = () => {
   const { theme } = useTheme();
   const lightTheme = theme === 'light';
 
-  const [password, setPassword] = useState<string>('');
   const [passwordValidation, setPasswordValidation] = useState<PasswordValidation>({
     uppercase: null,
     specialChar: null,
@@ -80,7 +79,6 @@ const ReusableForm = () => {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setPassword(value);
     formik.handleChange(e);
     const newChange = {
       uppercase: /[A-Z]/.test(value) ? true : null,

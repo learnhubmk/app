@@ -1,6 +1,5 @@
 .tableWrapper {
-  width: 85vw;
-  margin-block: 5rem;
+  margin-block: 1.5rem;
   border: 1px solid #94a3b8;
   background-color: #f8fafc;
   color: black;
@@ -11,6 +10,18 @@
     border-collapse: collapse;
     text-align: left;
     text-indent: 1rem;
+
+    th,
+    th:first-child,
+    td:first-child {
+      width: 70%;
+    }
+
+    th:last-child,
+    td:last-child {
+      width: 10%;
+      white-space: nowrap;
+    }
   }
 }
 

@@ -37,10 +37,6 @@ const Footer = () => {
       .email('*Невалидна емаил адреса')
       .required('*Задолжително внесете ја вашата електронска пошта'),
   });
-  // eslint-disable-next-line no-unused-vars
-  const [successMessage, setSuccessMessage] = useState<boolean>(false);
-  // eslint-disable-next-line no-unused-vars
-  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
 
@@ -66,11 +62,9 @@ const Footer = () => {
       if (response) {
         toast.success(response);
       }
-      setSuccessMessage(true);
       resetForm();
     } catch (error: any) {
       toast.error(error.message || 'Грешка');
-      setErrorMessage(true);
     }
   };
 
