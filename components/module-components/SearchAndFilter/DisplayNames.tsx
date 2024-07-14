@@ -34,6 +34,7 @@ const DisplayNames = ({ filterValue, selectedRoles }: DisplayNamesProps) => {
         });
         setNames(filteredNames);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
