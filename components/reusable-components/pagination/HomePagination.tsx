@@ -3,11 +3,10 @@ import { fetchItems, Item } from './lib/data';
 import Dropdown from './Dropdown';
 import styles from './HomePagination.module.scss';
 
-/* eslint no-unused-vars: "off" */
 const HomePagination: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [_totalPages, setTotalPages] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(25);
 
   const ITEMS_PER_PAGE_OPTIONS = [25, 50, 100];
