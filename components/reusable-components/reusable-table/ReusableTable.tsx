@@ -10,6 +10,7 @@ interface ReusableTableProps<T> {
   displayNames: { [key in keyof T]?: string };
   data: T[];
   renderActions?: (item: T) => React.ReactNode;
+  renderActionsDropdown?: React.ReactNode;
 }
 
 interface SortState<T> {
@@ -22,6 +23,7 @@ const ReusableTable = <T extends { id: string }>({
   displayNames,
   data,
   renderActions,
+  renderActionsDropdown,
 }: ReusableTableProps<T>): React.JSX.Element => {
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
 
@@ -49,7 +51,7 @@ const ReusableTable = <T extends { id: string }>({
     return data;
   }, [data, sortState]);
 
-  if (data.length === 0) {
+  if (data?.length === 0) {
     return <div className={style.noDataMessage}>No data available</div>;
   }
 
@@ -62,6 +64,7 @@ const ReusableTable = <T extends { id: string }>({
           onSort={handleSort}
           displayNames={displayNames}
           showActions={!!renderActions}
+          showDropdownActions={!!renderActionsDropdown}
         />
         <tbody>
           {sortedData.map((item) => (
@@ -70,6 +73,7 @@ const ReusableTable = <T extends { id: string }>({
               data={item}
               displayFields={headers}
               renderActions={renderActions}
+              renderActionsDropdown={renderActionsDropdown}
             />
           ))}
         </tbody>

@@ -1,5 +1,5 @@
 .tableWrapper {
-  height: 100%;
+  margin-block: 1.5rem;
   border: 1px solid #94a3b8;
   background-color: #f8fafc;
   color: black;
@@ -14,12 +14,12 @@
     th,
     th:first-child,
     td:first-child {
-      width: 80%;
+      width: 70%;
     }
 
     th:last-child,
     td:last-child {
-      width: 40%;
+      width: 10%;
       white-space: nowrap;
     }
   }

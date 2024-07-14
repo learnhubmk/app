@@ -12,6 +12,7 @@ interface TableHeadProps<T> {
   onSort: (field: keyof T) => void;
   displayNames: { [key in keyof T]?: string };
   showActions: boolean;
+  showDropdownActions: boolean;
 }
 
 const TableHead = <T,>({
@@ -20,6 +21,7 @@ const TableHead = <T,>({
   onSort,
   displayNames,
   showActions,
+  showDropdownActions,
 }: TableHeadProps<T>): React.JSX.Element => {
   const getSortOrder = (field: keyof T) => {
     const sort = sortState.find((sort) => sort.field === field);
@@ -39,7 +41,8 @@ const TableHead = <T,>({
             <span className={style.sortArrow}> {getSortOrder(header) === 'asc' ? ' ▲' : ' ▼'}</span>
           </th>
         ))}
-        {showActions && <th>Actions</th>}
+        {showActions && <th aria-hidden="true" />}
+        {showDropdownActions && <th aria-hidden="true" />}
       </tr>
     </thead>
   );
