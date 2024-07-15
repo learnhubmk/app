@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
 import styles from './Tags.module.scss';
 import TagManagementControls from './TagManagementControls';
 import TagTable from './TagTable';
