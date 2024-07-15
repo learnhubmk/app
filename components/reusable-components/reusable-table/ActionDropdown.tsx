@@ -3,11 +3,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import style from './actionDropdown.module.scss';
 
-interface DropdownItem {
+export interface DropdownItem {
   id: string;
   label: string;
 }
-interface ActionDropdownProps {
+export interface ActionDropdownProps {
   dropdownItems: DropdownItem[];
 }
 
@@ -36,7 +36,7 @@ const ActionDropdown = ({ dropdownItems }: ActionDropdownProps) => {
       {isOpen && (
         <ul className={style.dropdownMenu}>
           {dropdownItems.map((item) => (
-            <li key={item.id} className={style.dropdownItem}>
+            <li key={item.id} className={style.dropdownItem} data-id={item.label}>
               {item.label}
             </li>
           ))}

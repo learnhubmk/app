@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchItems, Item } from './lib/data';
-import Dropdown from './Dropdown';
+import { DropdownItem } from '../reusable-table/ActionDropdown';
 import styles from './HomePagination.module.scss';
+import ActionDropdownWrapper from './ActionDropdownWrapper';
 
 const HomePagination: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
@@ -10,6 +11,11 @@ const HomePagination: React.FC = () => {
   const [itemsPerPage, setItemsPerPage] = useState(25);
 
   const ITEMS_PER_PAGE_OPTIONS = [25, 50, 100];
+
+  const dropdownItems: DropdownItem[] = ITEMS_PER_PAGE_OPTIONS.map((option) => ({
+    id: option.toString(),
+    label: option.toString(),
+  }));
 
   useEffect(() => {
     const loadItems = async () => {
@@ -35,6 +41,10 @@ const HomePagination: React.FC = () => {
     adjustCurrentPage();
   }, [itemsPerPage, currentPage]);
 
+  const handleDropdownSelect = (item: DropdownItem) => {
+    setItemsPerPage(parseInt(item.label, 10));
+  };
+
   return (
     <div className={styles.container}>
       <h1>Items</h1>
@@ -46,11 +56,7 @@ const HomePagination: React.FC = () => {
         ))}
       </ul>
       <div className={styles.controls}>
-        <Dropdown
-          options={ITEMS_PER_PAGE_OPTIONS}
-          value={itemsPerPage}
-          onChange={setItemsPerPage}
-        />
+        <ActionDropdownWrapper dropdownItems={dropdownItems} onItemSelect={handleDropdownSelect} />
       </div>
     </div>
   );
