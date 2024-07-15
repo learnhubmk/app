@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import TagTable from '../../../components/module-components/tags/TagTable';
+import AddTag from './AddTag';
 
 interface Tag {
   id: string;
@@ -19,13 +20,22 @@ const Tags = () => {
   const [showAddTag, setShowAddTag] = useState(false);
 
   const addTag = (newTag: string) => {
-    console.log(newTag);
+    // Code below is for testing purposes. To be changed when implemented with API.
+
+    if (tags.some((tag) => tag.name.toLowerCase() === newTag.toLowerCase())) {
+      return false; // Tag already exists
+    }
+
+    const newId = (parseInt(tags[tags.length - 1].id, 10) + 1).toString();
+    setTags([...tags, { id: newId, name: newTag }]);
+    return true;
   };
 
   return (
     <div className={styles.container}>
       <TagManagementControls onAddClick={() => setShowAddTag(true)} />
-      <TagTable handleDelete={() => {}} handleEdit={() => {}} tags={tags} />
+      {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
+      <TagTable tags={tags} handleEdit={() => {}} handleDelete={() => {}} />
     </div>
   );
 };

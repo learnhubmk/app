@@ -27,14 +27,11 @@ const TagTable: React.FC<TagTableProps> = ({ tags, handleEdit, handleDelete }) =
         buttonClass={['editButton']}
         onClick={() => handleEdit(item.id)}
       />
-
       <Button
         type="button"
         buttonText="Избриши"
         buttonClass={['deleteButton']}
-        onClick={() => {
-          handleDelete(item.id);
-        }}
+        onClick={() => handleDelete(item.id)}
       />
     </>
   );

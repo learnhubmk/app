@@ -5,6 +5,7 @@ import React, { Suspense } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import './styles/main.scss';
+import { ToastContainer } from 'react-toastify';
 import Loading from './loading';
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
@@ -50,6 +51,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           </noscript>
         )}
         <ThemeProvider>
+          <ToastContainer />
           <ReactQueryProvider>
             <Navigation />
             <main className={styles.main}>
