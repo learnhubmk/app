@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import 'react-toastify/dist/ReactToastify.css';
 import Turnstile from 'react-turnstile';
@@ -60,7 +60,6 @@ const ContactForm = () => {
 
   return (
     <div>
-      <ToastContainer />
       <form onSubmit={formik.handleSubmit}>
         <TextInput
           placeholder="Внесете го вашето име"

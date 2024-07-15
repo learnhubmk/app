@@ -185,6 +185,11 @@
   }
 }
 
+.createTag {
+  @extend .saveButton;
+  width: 125px;
+}
+
 .editButton {
   background-color: #2196f3;
   color: white;
