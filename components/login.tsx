@@ -11,7 +11,7 @@ const SignIn = () => {
       fetch('https://staging-api.learnhub.mk/sanctum/csrf-cookie', {
         headers: {
           Accept: 'application/json',
-          Referer: 'https://staging-api.learnhub.mk',
+          Referer: 'learnhub.mk',
         },
         credentials: 'include',
       });
