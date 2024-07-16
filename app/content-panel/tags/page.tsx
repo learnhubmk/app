@@ -31,11 +31,15 @@ const Tags = () => {
     return true;
   };
 
+  const handleDelete = (id: string) => {
+    setTags(tags.filter((tag) => tag.id !== id));
+  };
+
   return (
     <div className={styles.container}>
       <TagManagementControls onAddClick={() => setShowAddTag(true)} />
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
-      <TagTable tags={tags} handleEdit={() => {}} handleDelete={() => {}} />
+      <TagTable tags={tags} onDelete={handleDelete} />
     </div>
   );
 };
