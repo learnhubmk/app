@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import ReusableTable from '../../../components/reusable-components/reusable-table/ReusableTable';
 import Button from '../../../components/reusable-components/button/Button';
+import ReusableModal from '../../../components/reusable-components/reusable-modal/ReusableModal';
 
 interface Tag {
   id: string;
@@ -11,19 +12,16 @@ interface Tag {
 
 interface TagTableProps {
   tags: Tag[];
-  setTags: React.Dispatch<React.SetStateAction<Tag[]>>;
+  onDelete: (id: string) => void;
 }
 
-const TagTable: React.FC<TagTableProps> = ({ tags, setTags }) => {
+const TagTable: React.FC<TagTableProps> = ({ tags, onDelete }) => {
+  const [deleteTagId, setDeleteTagId] = useState<string>('');
   const headers: (keyof Tag)[] = ['name'];
   const displayNames: { [key in keyof Tag]?: string } = { name: 'Tag Name' };
 
   const handleEdit = (id: string) => {
     console.log('Edit tag', id);
-  };
-
-  const handleDelete = (id: string) => {
-    setTags(tags.filter((tag) => tag.id !== id));
   };
 
   const renderActions = (item: Tag) => (
@@ -33,23 +31,38 @@ const TagTable: React.FC<TagTableProps> = ({ tags, setTags }) => {
         buttonText="Edit"
         buttonClass={['editButton']}
         onClick={() => handleEdit(item.id)}
+        aria-label={`Edit ${item.name}`}
       />
       <Button
         type="button"
         buttonText="Delete"
         buttonClass={['deleteButton']}
-        onClick={() => handleDelete(item.id)}
+        onClick={() => setDeleteTagId(item.id)}
+        aria-label={`Delete ${item.name}`}
       />
     </>
   );
 
   return (
-    <ReusableTable<Tag>
-      headers={headers}
-      displayNames={displayNames}
-      data={tags}
-      renderActions={renderActions}
-    />
+    <>
+      <ReusableTable<Tag>
+        headers={headers}
+        displayNames={displayNames}
+        data={tags}
+        renderActions={renderActions}
+      />
+
+      <ReusableModal
+        isOpen={!!deleteTagId}
+        title="Delete Tag"
+        description="Are you sure you want to delete this tag?"
+        onClose={() => setDeleteTagId('')}
+        onPrimaryButtonClick={() => {
+          onDelete(deleteTagId);
+          setDeleteTagId('');
+        }}
+      />
+    </>
   );
 };
 
