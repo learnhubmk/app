@@ -1,0 +1,37 @@
+.addSkillWrapper {
+  position: relative;
+}
+
+.addButton {
+  padding: 8px 16px;
+  background: #212f42;
+  color: #aad6ff;
+  border: 3px solid #aad6ff;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.selectedTags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+
+  .selectedTag {
+    background: white;
+    color: #212F42;
+    border: 1px solid #212F42;
+    padding: 4px 8px;
+    border-radius: 10px;
+    margin: 4px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    .removeTag {
+      cursor: pointer;
+    }
+  }
+}
