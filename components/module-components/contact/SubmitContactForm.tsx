@@ -1,3 +1,5 @@
+import { useMutation } from '@tanstack/react-query';
+
 export interface ContactFormData {
   name: string;
   email: string;
@@ -7,7 +9,7 @@ export interface ContactFormData {
 
 type ContactFormResponse = any;
 
-export const submitContactForm = async (
+export const submitContactFormFn = async (
   formData: ContactFormData
 ): Promise<ContactFormResponse> => {
   const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/contact'!;
@@ -31,4 +33,10 @@ export const submitContactForm = async (
   return responseData.message;
 };
 
-export default submitContactForm;
+export const useSubmitContactForm = () => {
+  return useMutation({
+    mutationFn: submitContactFormFn,
+  });
+};
+
+export default useSubmitContactForm;

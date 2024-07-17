@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import 'react-toastify/dist/ReactToastify.css';
 import Turnstile from 'react-turnstile';
-import { ContactFormData, submitContactForm } from './SubmitContactForm';
+import { useSubmitContactForm, ContactFormData } from './SubmitContactForm';
 import Button from '../../reusable-components/button/Button';
 import TextInput from '../../reusable-components/text-input/TextInput';
 import TextArea from '../../reusable-components/text-area/TextArea';
@@ -14,6 +14,7 @@ import { fullNameRegexValidation, emailRegexValidation } from './regexValidation
 
 const ContactForm = () => {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const submitContactMutation = useSubmitContactForm();
 
   const formik = useFormik({
     initialValues: { username: '', email: '', message: '' },
@@ -45,13 +46,15 @@ const ContactForm = () => {
           cfTurnstileResponse: turnstileToken,
         };
 
-        const response = await submitContactForm(formData);
-        if (response) {
-          toast.success(response);
-          resetForm();
-        } else {
-          toast.error(response);
-        }
+        await submitContactMutation.mutateAsync(formData, {
+          onSuccess: (response) => {
+            toast.success(response);
+            resetForm();
+          },
+          onError: (error: Error) => {
+            toast.error(error.message || 'Грешка');
+          },
+        });
       } catch (error) {
         toast.error('Грешка');
       }
