@@ -1,7 +1,5 @@
 'use server';
 
-import BlogCard, { BlogCardProps } from '../components/reusable-components/blog-card/BlogCard';
-
 const fetchBlogPosts = async (nextPosts: number, pageTitle: string, blogCardsNumber: number) => {
   try {
     const response = await fetch(
@@ -10,17 +8,7 @@ const fetchBlogPosts = async (nextPosts: number, pageTitle: string, blogCardsNum
 
     const data = await response.json();
 
-    return data?.posts.map((post: BlogCardProps) => {
-      return (
-        <BlogCard
-          key={post?.id}
-          id={post?.id}
-          title={post?.title}
-          body={post?.body}
-          pageTitle={pageTitle}
-        />
-      );
-    });
+    return data?.posts;
   } catch (error: any) {
     throw new Error(error);
   }
