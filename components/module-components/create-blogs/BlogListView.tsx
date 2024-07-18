@@ -14,7 +14,7 @@ interface BlogPost {
   author: string;
 }
 
-const CreateBlogs = () => {
+const BlogListView = () => {
   const [data, setData] = useState<BlogPost[]>([]);
 
   useEffect(() => {
@@ -25,15 +25,13 @@ const CreateBlogs = () => {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        if (result && Array.isArray(result.data)) {
-          const transformedData: BlogPost[] = result.data.map((item: any) => ({
-            id: item.id,
-            title: item.title,
-            tags: item.tags,
-            author: `${item.author.first_name} ${item.author.last_name}`,
-          }));
-          setData(transformedData);
-        }
+        const transformedData: BlogPost[] = result.data.map((item: any) => ({
+          id: item.id,
+          title: item.title,
+          tags: item.tags,
+          author: `${item.author.first_name} ${item.author.last_name}`,
+        }));
+        setData(transformedData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -58,7 +56,7 @@ const CreateBlogs = () => {
           <Button
             href=""
             type="button"
-            buttonText="Search"
+            buttonText="Add Blog"
             buttonClass={['primaryButton']}
             moveIcon
           />
@@ -69,4 +67,4 @@ const CreateBlogs = () => {
   );
 };
 
-export default CreateBlogs;
+export default BlogListView;

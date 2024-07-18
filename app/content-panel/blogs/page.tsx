@@ -1,12 +1,8 @@
 import React from 'react';
-import CreateBlogs from '../../../components/module-components/create-blogs/CreateBlogs';
+import BlogListView from '../../../components/module-components/create-blogs/BlogListView';
 
 const page = () => {
-  return (
-    <div>
-      <CreateBlogs />
-    </div>
-  );
+  return <BlogListView />;
 };
 
 export default page;
