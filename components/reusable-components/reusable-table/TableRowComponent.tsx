@@ -9,18 +9,20 @@ interface DropdownItem {
   label: string;
 }
 
-interface TableRowComponentProps<T> {
+interface TableRowComponentProps<T extends { id: string; tags: { name: string }[] }> {
   data: T;
   isChecked?: boolean;
   onCheckboxChange: (id: string) => void;
   displayFields: (keyof T)[];
+  showCheckbox: boolean;
 }
 
-const TableRowComponent = <T extends { id: string }>({
+const TableRowComponent = <T extends { id: string; tags: { name: string }[] }>({
   data,
   isChecked,
   onCheckboxChange,
   displayFields,
+  showCheckbox,
 }: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
     onCheckboxChange(data.id);
@@ -34,13 +36,15 @@ const TableRowComponent = <T extends { id: string }>({
 
   return (
     <tr className={style.rowComponent}>
-      {isChecked && (
+      {showCheckbox && (
         <td aria-label="Checkbox">
           <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
         </td>
       )}
       {displayFields.map((field) => (
-        <td key={field as string}>{String(data[field])}</td>
+        <td key={field as string}>
+          {field === 'tags' ? data.tags.map((tag) => tag.name).join(', ') : String(data[field])}
+        </td>
       ))}
       <td className={style.actionCell} aria-label="Actions">
         <ActionDropdown dropdownItems={dropdownItems} />

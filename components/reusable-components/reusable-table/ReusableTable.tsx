@@ -1,15 +1,14 @@
-'use client';
-
 /* eslint-disable no-unused-vars */
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
 
-interface ReusableTableHeadProps<T> {
+interface ReusableTableProps<T> {
   headers: (keyof T)[];
   displayNames: { [key in keyof T]?: string };
+  data: T[];
 }
 
 interface SortState<T> {
@@ -17,12 +16,12 @@ interface SortState<T> {
   order: 'asc' | 'desc';
 }
 
-const ReusableTable = <T extends { id: string }>({
+const ReusableTable = <T extends { id: string; tags: { name: string }[] }>({
   headers,
   displayNames,
-}: ReusableTableHeadProps<T>): React.JSX.Element => {
+  data,
+}: ReusableTableProps<T>): React.JSX.Element => {
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
-  const [data, setData] = useState<T[]>([]);
   const [checkedId, setCheckedId] = useState<string | null>(null);
 
   const handleCheckboxChange = (id: string) => {
@@ -37,31 +36,25 @@ const ReusableTable = <T extends { id: string }>({
     });
   };
 
-  useEffect(() => {
-    if (sortState.length > 0) {
-      const sortedData = data.slice().sort((a, b) => {
-        const sort = sortState[0];
-        if (a[sort.field] > b[sort.field]) {
-          return sort.order === 'asc' ? 1 : -1;
-        }
-        if (a[sort.field] < b[sort.field]) {
-          return sort.order === 'asc' ? -1 : 1;
-        }
-        return 0;
-      });
-      setData(sortedData);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortState]);
+  const getNestedValue = (obj: any, path: string) => {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  };
 
   const sortedData = useMemo(() => {
     if (sortState.length > 0) {
       return [...data].sort((a, b) => {
         const sort = sortState[0];
-        if (a[sort.field] > b[sort.field]) {
+        const aValue = getNestedValue(a, sort.field as string);
+        const bValue = getNestedValue(b, sort.field as string);
+
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          return sort.order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+        }
+
+        if (aValue > bValue) {
           return sort.order === 'asc' ? 1 : -1;
         }
-        if (a[sort.field] < b[sort.field]) {
+        if (aValue < bValue) {
           return sort.order === 'asc' ? -1 : 1;
         }
         return 0;
@@ -77,11 +70,11 @@ const ReusableTable = <T extends { id: string }>({
   return (
     <div className={style.tableWrapper}>
       <table className={style.reusableTable}>
-        <TableHead<T>
+        <TableHead
           headers={headers}
           sortState={sortState}
           onSort={handleSort}
-          displayNames={displayNames}
+          displayNames={displayNames as { [key in keyof T]?: string }}
         />
         <tbody>
           {sortedData.map((item) => (
@@ -91,6 +84,7 @@ const ReusableTable = <T extends { id: string }>({
               isChecked={checkedId === item.id}
               onCheckboxChange={handleCheckboxChange}
               displayFields={headers}
+              showCheckbox={false}
             />
           ))}
         </tbody>
