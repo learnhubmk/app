@@ -20,13 +20,11 @@ const Tags = () => {
   const [showAddTag, setShowAddTag] = useState(false);
 
   const addTag = (newTag: string) => {
-    // Code below is for testing purposes. To be changed when implemented with API.
-
     if (tags.some((tag) => tag.name.toLowerCase() === newTag.toLowerCase())) {
       return false; // Tag already exists
     }
 
-    const newId = (parseInt(tags[tags.length - 1].id, 10) + 1).toString();
+    const newId = tags.length > 0 ? (parseInt(tags[tags.length - 1].id, 10) + 1).toString() : '1';
     setTags([...tags, { id: newId, name: newTag }]);
     return true;
   };
