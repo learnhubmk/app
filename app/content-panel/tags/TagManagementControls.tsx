@@ -3,11 +3,11 @@ import Button from '../../../components/reusable-components/button/Button';
 import Input from '../../../components/reusable-components/input/Input';
 import styles from './tagManagementControls.module.scss';
 
-interface TagSearchProps {
+interface TagManagementControlsProps {
   onAddClick: () => void;
 }
 
-const TagManagementControls: React.FC<TagSearchProps> = ({ onAddClick }) => {
+const TagManagementControls: React.FC<TagManagementControlsProps> = ({ onAddClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
