@@ -36,16 +36,16 @@ const AddSkill = () => {
         />
       )}
       <div className={styles.selectedTags}>
-        {/* eslint-disable jsx-a11y/no-static-element-interactions */}
-        {/* eslint-disable jsx-a11y/click-events-have-key-events */}
         {selectedTags.map((tag) => (
           <div key={tag} className={styles.selectedTag}>
-            <span
+            <button
+              aria-label="Remove"
               className={styles.removeTag}
+              type="button"
               onClick={() => setSelectedTags(selectedTags.filter((item) => item !== tag))}
             >
               <i className="bi bi-x" />
-            </span>{' '}
+            </button>{' '}
             {tag}
           </div>
         ))}

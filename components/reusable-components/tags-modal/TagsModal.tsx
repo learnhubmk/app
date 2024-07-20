@@ -49,7 +49,6 @@ const TagsModal = ({ existingTags, selectedTags, setSelectedTags, onClose }: Tag
         <button type="button" className={styles.closeButton} onClick={onClose}>
           <i aria-label="Close button" className="bi bi-x" />
         </button>
-        {/* eslint-disable jsx-a11y/label-has-associated-control  */}
         <label className={styles.skillLabel} htmlFor="searchTagInput">
           Skill
         </label>

@@ -49,7 +49,14 @@
     ],
     "react/require-default-props": "off",
     "import/no-cycle": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "assert": "htmlFor",
+        "depth": 3
+      }
+    ]
   },
   "settings": {
     "react": {
