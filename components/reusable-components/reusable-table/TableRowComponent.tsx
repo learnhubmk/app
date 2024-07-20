@@ -9,7 +9,7 @@ interface DropdownItem {
   label: string;
 }
 
-interface TableRowComponentProps<T extends { id: string; tags: { name: string }[] }> {
+interface TableRowComponentProps<T extends { id: string }> {
   data: T;
   isChecked?: boolean;
   onCheckboxChange: (id: string) => void;
@@ -17,7 +17,7 @@ interface TableRowComponentProps<T extends { id: string; tags: { name: string }[
   showCheckbox: boolean;
 }
 
-const TableRowComponent = <T extends { id: string; tags: { name: string }[] }>({
+const TableRowComponent = <T extends { id: string }>({
   data,
   isChecked,
   onCheckboxChange,
@@ -43,7 +43,9 @@ const TableRowComponent = <T extends { id: string; tags: { name: string }[] }>({
       )}
       {displayFields.map((field) => (
         <td key={field as string}>
-          {field === 'tags' ? data.tags.map((tag) => tag.name).join(', ') : String(data[field])}
+          {Array.isArray(data[field])
+            ? (data[field] as unknown as { name: string }[]).map((item) => item.name).join(', ')
+            : String(data[field])}
         </td>
       ))}
       <td className={style.actionCell} aria-label="Actions">

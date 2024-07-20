@@ -16,7 +16,7 @@ interface SortState<T> {
   order: 'asc' | 'desc';
 }
 
-const ReusableTable = <T extends { id: string; tags: { name: string }[] }>({
+const ReusableTable = <T extends { id: string }>({
   headers,
   displayNames,
   data,
