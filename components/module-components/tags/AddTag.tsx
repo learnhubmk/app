@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import Button from '../../../components/reusable-components/button/Button';
+import Button from '../../reusable-components/button/Button';
 import styles from './addTag.module.scss';
 
 interface AddTagProps {

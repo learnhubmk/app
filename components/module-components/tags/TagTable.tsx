@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import ReusableTable from '../../../components/reusable-components/reusable-table/ReusableTable';
-import Button from '../../../components/reusable-components/button/Button';
-import ReusableModal from '../../../components/reusable-components/reusable-modal/ReusableModal';
+import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
+import Button from '../../reusable-components/button/Button';
+import ReusableModal from '../../reusable-components/reusable-modal/ReusableModal';
 
 interface Tag {
   id: string;

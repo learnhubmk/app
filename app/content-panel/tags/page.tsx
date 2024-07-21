@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import styles from './Tags.module.scss';
-import TagManagementControls from './TagManagementControls';
-import TagTable from './TagTable';
-import AddTag from './AddTag';
-import useTagManagement from './tagManagement';
+import styles from '../../../components/module-components/tags/Tags.module.scss';
+import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
+import TagTable from '../../../components/module-components/tags/TagTable';
+import AddTag from '../../../components/module-components/tags/AddTag';
+import useTagManagement from '../../../components/module-components/tags/tagManagement';
 
 const Tags = () => {
   const {
