@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import styles from './Tags.module.scss';
-import AddTags from './AddTags';
-import TagTable from './TagTable';
+import styles from '../../../components/module-components/tags/Tags.module.scss';
+import AddTags from '../../../components/module-components/tags/AddTags';
+import TagTable from '../../../components/module-components/tags/TagTable';
 
 const Tags = () => {
   return (
