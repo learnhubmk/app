@@ -10,7 +10,7 @@ interface TableRowComponentProps<T extends { id: string }> {
   onCheckboxChange: (id: string) => void;
   showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: ReactNode; // Add renderActionsDropdown prop
+  renderActionsDropdown?: ReactNode;
 }
 
 const TableRowComponent = <T extends { id: string }>({

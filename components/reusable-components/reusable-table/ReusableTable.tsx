@@ -10,7 +10,7 @@ interface ReusableTableProps<T> {
   displayNames: { [key in keyof T]?: string };
   data: T[];
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: (item: T) => React.ReactNode; // Update prop type
+  renderActionsDropdown?: (item: T) => React.ReactNode;
 }
 
 interface SortState<T> {
@@ -92,7 +92,7 @@ const ReusableTable = <T extends { id: string }>({
               displayFields={headers}
               showCheckbox={false}
               renderActions={renderActions}
-              renderActionsDropdown={renderActionsDropdown && renderActionsDropdown(item)} // Render dropdown
+              renderActionsDropdown={renderActionsDropdown && renderActionsDropdown(item)}
             />
           ))}
         </tbody>

@@ -89,7 +89,7 @@ const BlogListView = () => {
         headers={headers}
         displayNames={displayNames}
         data={data}
-        renderActionsDropdown={renderActionsDropdown} // Pass renderActionsDropdown to ReusableTable
+        renderActionsDropdown={renderActionsDropdown}
       />
     </div>
   );
