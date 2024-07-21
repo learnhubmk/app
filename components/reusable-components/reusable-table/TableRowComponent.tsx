@@ -1,11 +1,14 @@
 import React, { ReactNode } from 'react';
 import style from './tableRowComponent.module.scss';
+import Input from '../input/Input';
 
 interface TableRowComponentProps<T> {
   data: T;
   displayFields: (keyof T)[];
   renderActions?: (item: T) => React.ReactNode;
   renderActionsDropdown?: ReactNode;
+  isEditing: boolean;
+  onEdit: (field: keyof T, value: string) => void;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -13,11 +16,24 @@ const TableRowComponent = <T extends { id: string }>({
   displayFields,
   renderActions,
   renderActionsDropdown,
+  isEditing,
+  onEdit,
 }: TableRowComponentProps<T>) => {
   return (
     <tr className={style.rowComponent}>
       {displayFields.map((field) => (
-        <td key={field as string}>{String(data[field])}</td>
+        <td key={field as string}>
+          {isEditing ? (
+            <Input
+              value={String(data[field])}
+              type="text"
+              placeholder=""
+              onChange={(newValue: string) => onEdit(field, newValue)}
+            />
+          ) : (
+            String(data[field])
+          )}
+        </td>
       ))}
 
       {renderActionsDropdown && (

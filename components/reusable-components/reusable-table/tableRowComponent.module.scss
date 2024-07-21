@@ -4,8 +4,10 @@
 
   .actionButtons {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 0.5rem;
+    height: 100%;
+    align-items: center;
   }
 
   td:last-child {

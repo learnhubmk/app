@@ -14,13 +14,15 @@
     th,
     th:first-child,
     td:first-child {
-      width: 70%;
+      width: 74%;
     }
 
     th:last-child,
     td:last-child {
-      width: 10%;
-      white-space: nowrap;
+      width: 100%;
+      text-align: right;
+      padding-right: 15px;
+      vertical-align: middle;
     }
   }
 }
