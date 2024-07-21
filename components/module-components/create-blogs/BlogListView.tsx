@@ -5,6 +5,7 @@ import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import Filter from '../SearchAndFilter/Filter';
 import Search from '../SearchAndFilter/Search';
+import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
 
 interface BlogPost {
@@ -47,6 +48,28 @@ const BlogListView = () => {
     tags: 'Tags',
   };
 
+  const handleView = (id: string) => {
+    console.log('View blog', id);
+  };
+
+  const handleEdit = (id: string) => {
+    console.log('Edit blog', id);
+  };
+
+  const handleDelete = (id: string) => {
+    console.log('Delete blog', id);
+  };
+
+  const renderActionsDropdown = (item: BlogPost) => (
+    <ActionDropdown
+      dropdownItems={[
+        { id: 'view', label: 'View', onClick: () => handleView(item.id) },
+        { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
+        { id: 'delete', label: 'Delete', onClick: () => handleDelete(item.id) },
+      ]}
+    />
+  );
+
   return (
     <div className={style.mainContainer}>
       <div className={style.inputWrapper}>
@@ -62,7 +85,12 @@ const BlogListView = () => {
           />
         </div>
       </div>
-      <ReusableTable headers={headers} displayNames={displayNames} data={data} />
+      <ReusableTable
+        headers={headers}
+        displayNames={displayNames}
+        data={data}
+        renderActionsDropdown={renderActionsDropdown} // Pass renderActionsDropdown to ReusableTable
+      />
     </div>
   );
 };

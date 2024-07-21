@@ -9,6 +9,8 @@ interface ReusableTableProps<T> {
   headers: (keyof T)[];
   displayNames: { [key in keyof T]?: string };
   data: T[];
+  renderActions?: (item: T) => React.ReactNode;
+  renderActionsDropdown?: (item: T) => React.ReactNode; // Update prop type
 }
 
 interface SortState<T> {
@@ -20,6 +22,8 @@ const ReusableTable = <T extends { id: string }>({
   headers,
   displayNames,
   data,
+  renderActions,
+  renderActionsDropdown,
 }: ReusableTableProps<T>): React.JSX.Element => {
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
   const [checkedId, setCheckedId] = useState<string | null>(null);
@@ -75,6 +79,8 @@ const ReusableTable = <T extends { id: string }>({
           sortState={sortState}
           onSort={handleSort}
           displayNames={displayNames as { [key in keyof T]?: string }}
+          showActions={!!renderActions}
+          showDropdownActions={!!renderActionsDropdown}
         />
         <tbody>
           {sortedData.map((item) => (
@@ -85,6 +91,8 @@ const ReusableTable = <T extends { id: string }>({
               onCheckboxChange={handleCheckboxChange}
               displayFields={headers}
               showCheckbox={false}
+              renderActions={renderActions}
+              renderActionsDropdown={renderActionsDropdown && renderActionsDropdown(item)} // Render dropdown
             />
           ))}
         </tbody>

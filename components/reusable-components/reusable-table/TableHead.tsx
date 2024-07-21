@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import style from './tableHead.module.scss';
 
@@ -12,7 +11,8 @@ interface TableHeadProps<T> {
   sortState: SortState<T>[];
   onSort: (field: keyof T) => void;
   displayNames: { [key in keyof T]?: string };
-  checkboxField?: boolean;
+  showActions: boolean;
+  showDropdownActions: boolean;
 }
 
 const TableHead = <T,>({
@@ -20,18 +20,17 @@ const TableHead = <T,>({
   sortState,
   onSort,
   displayNames,
-  checkboxField,
+  showActions,
+  showDropdownActions,
 }: TableHeadProps<T>): React.JSX.Element => {
   const getSortOrder = (field: keyof T) => {
     const sort = sortState.find((sort) => sort.field === field);
-
     return sort ? sort.order : null;
   };
 
   return (
     <thead className={style.tableHead}>
       <tr>
-        {checkboxField && <th aria-hidden="true" />}
         {headers.map((header) => (
           <th
             key={header as string}
@@ -42,7 +41,8 @@ const TableHead = <T,>({
             <span className={style.sortArrow}> {getSortOrder(header) === 'asc' ? ' ▲' : ' ▼'}</span>
           </th>
         ))}
-        <th aria-hidden="true" />
+        {showActions && <th aria-hidden="true" />}
+        {showDropdownActions && <th aria-hidden="true" />}
       </tr>
     </thead>
   );

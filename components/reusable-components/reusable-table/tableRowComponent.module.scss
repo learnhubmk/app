@@ -1,18 +1,15 @@
 .rowComponent {
-  border-top: 1px solid black;
+  border-bottom: 1px solid black;
   height: 2.5rem;
-  cursor: pointer;
 
-  td:nth-child(3),
-  td:last-child {
-    width: 18%;
+  .actionButtons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
   }
 
   td:last-child {
-    text-align: center;
-  }
-
-  .actionCell {
-    text-align: right;
+    padding-right: 15px;
+    text-align: left;
   }
 }

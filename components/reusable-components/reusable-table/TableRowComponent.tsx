@@ -1,38 +1,30 @@
 /* eslint-disable no-unused-vars */
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import style from './tableRowComponent.module.scss';
-import ActionDropdown from './ActionDropdown';
-
-interface DropdownItem {
-  id: string;
-  label: string;
-}
 
 interface TableRowComponentProps<T extends { id: string }> {
   data: T;
+  displayFields: (keyof T)[];
   isChecked?: boolean;
   onCheckboxChange: (id: string) => void;
-  displayFields: (keyof T)[];
-  showCheckbox: boolean;
+  showCheckbox?: boolean;
+  renderActions?: (item: T) => React.ReactNode;
+  renderActionsDropdown?: ReactNode; // Add renderActionsDropdown prop
 }
 
 const TableRowComponent = <T extends { id: string }>({
   data,
+  displayFields,
   isChecked,
   onCheckboxChange,
-  displayFields,
   showCheckbox,
+  renderActions,
+  renderActionsDropdown,
 }: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
     onCheckboxChange(data.id);
   };
-
-  const dropdownItems: DropdownItem[] = [
-    { id: 'view', label: 'View' },
-    { id: 'edit', label: 'Edit' },
-    { id: 'delete', label: 'Delete' },
-  ];
 
   return (
     <tr className={style.rowComponent}>
@@ -48,9 +40,18 @@ const TableRowComponent = <T extends { id: string }>({
             : String(data[field])}
         </td>
       ))}
-      <td className={style.actionCell} aria-label="Actions">
-        <ActionDropdown dropdownItems={dropdownItems} />
-      </td>
+
+      {renderActionsDropdown && (
+        <td className={style.actionCell} aria-label="Actions">
+          {renderActionsDropdown}
+        </td>
+      )}
+
+      {renderActions && (
+        <td className={style.actionCell}>
+          <div className={style.actionButtons}>{renderActions(data)}</div>
+        </td>
+      )}
     </tr>
   );
 };
