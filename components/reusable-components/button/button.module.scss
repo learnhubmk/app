@@ -133,3 +133,20 @@
     color: var(--primary-btn-active-color);
   }
 }
+
+.navigationButton {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  font-size: var(--fs-tag);
+  font-weight: 600;
+  max-width: 70%;
+  height: 33px;
+  line-height: 17.07px;
+
+  @include u.breakpoint(xsmall) {
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    font-size: var(--fs-button);
+    max-width: 100%;
+    height: 48px;
+    line-height: 24px;
+  }
+}
