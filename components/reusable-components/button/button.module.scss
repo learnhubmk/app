@@ -147,6 +147,9 @@
     font-size: var(--fs-button);
     max-width: 100%;
     height: 48px;
-    line-height: 24px;
-  }
+    }
+
+   @include u.breakpoint-down(small){
+    display:none
+   }
 }
