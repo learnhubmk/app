@@ -17,21 +17,29 @@ interface BlogPost {
 
 const BlogListView = () => {
   const [data, setData] = useState<BlogPost[]>([]);
+  const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/blog-posts'!;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://staging-api.learnhub.mk/blog-posts');
+        const response = await fetch(url);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`${response.status} ${response.statusText}`);
         }
         const result = await response.json();
-        const transformedData: BlogPost[] = result.data.map((item: any) => ({
-          id: item.id,
-          title: item.title,
-          tags: item.tags,
-          author: `${item.author.first_name} ${item.author.last_name}`,
-        }));
+        const transformedData: BlogPost[] = result.data.map(
+          (item: {
+            id: string;
+            title: string;
+            tags: { name: string }[];
+            author: { first_name: string; last_name: string };
+          }) => ({
+            id: item.id,
+            title: item.title,
+            tags: item.tags,
+            author: `${item.author.first_name} ${item.author.last_name}`,
+          })
+        );
         setData(transformedData);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -39,7 +47,7 @@ const BlogListView = () => {
     };
 
     fetchData();
-  }, []);
+  }, [url]);
 
   const headers: (keyof BlogPost)[] = ['title', 'author', 'tags'];
   const displayNames = {
