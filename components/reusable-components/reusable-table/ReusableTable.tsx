@@ -1,4 +1,4 @@
-'use client';
+/* eslint-disable no-unused-vars */
 
 import React, { useState, useMemo } from 'react';
 import TableRowComponent from './TableRowComponent';
@@ -10,7 +10,7 @@ interface ReusableTableProps<T> {
   displayNames: { [key in keyof T]?: string };
   data: T[];
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: React.ReactNode;
+  renderActionsDropdown?: (item: T) => React.ReactNode;
 }
 
 interface SortState<T> {
@@ -26,6 +26,11 @@ const ReusableTable = <T extends { id: string }>({
   renderActionsDropdown,
 }: ReusableTableProps<T>): React.JSX.Element => {
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
+  const [checkedId, setCheckedId] = useState<string | null>(null);
+
+  const handleCheckboxChange = (id: string) => {
+    setCheckedId(id === checkedId ? null : id);
+  };
 
   const handleSort = (field: keyof T) => {
     setSortState((prevSortState) => {
@@ -35,14 +40,25 @@ const ReusableTable = <T extends { id: string }>({
     });
   };
 
+  const getNestedValue = (obj: any, path: string) => {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  };
+
   const sortedData = useMemo(() => {
     if (sortState.length > 0) {
       return [...data].sort((a, b) => {
         const sort = sortState[0];
-        if (a[sort.field] > b[sort.field]) {
+        const aValue = getNestedValue(a, sort.field as string);
+        const bValue = getNestedValue(b, sort.field as string);
+
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          return sort.order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+        }
+
+        if (aValue > bValue) {
           return sort.order === 'asc' ? 1 : -1;
         }
-        if (a[sort.field] < b[sort.field]) {
+        if (aValue < bValue) {
           return sort.order === 'asc' ? -1 : 1;
         }
         return 0;
@@ -58,11 +74,11 @@ const ReusableTable = <T extends { id: string }>({
   return (
     <div className={style.tableWrapper}>
       <table className={style.reusableTable}>
-        <TableHead<T>
+        <TableHead
           headers={headers}
           sortState={sortState}
           onSort={handleSort}
-          displayNames={displayNames}
+          displayNames={displayNames as { [key in keyof T]?: string }}
           showActions={!!renderActions}
           showDropdownActions={!!renderActionsDropdown}
         />
@@ -71,9 +87,12 @@ const ReusableTable = <T extends { id: string }>({
             <TableRowComponent<T>
               key={item.id}
               data={item}
+              isChecked={checkedId === item.id}
+              onCheckboxChange={handleCheckboxChange}
               displayFields={headers}
+              showCheckbox={false}
               renderActions={renderActions}
-              renderActionsDropdown={renderActionsDropdown}
+              renderActionsDropdown={renderActionsDropdown && renderActionsDropdown(item)}
             />
           ))}
         </tbody>

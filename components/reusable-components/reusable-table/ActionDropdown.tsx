@@ -6,6 +6,7 @@ import style from './actionDropdown.module.scss';
 interface DropdownItem {
   id: string;
   label: string;
+  onClick: () => void;
 }
 interface ActionDropdownProps {
   dropdownItems: DropdownItem[];
