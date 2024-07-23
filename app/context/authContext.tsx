@@ -4,7 +4,7 @@ import React, { createContext, useContext, ReactNode, useMemo } from 'react';
 import { MutationStatus, QueryStatus, useMutation, useQuery } from '@tanstack/react-query';
 import { clearSession, getSession, setSession } from '../../utils/actions/session';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 export type Role = 'admin' | 'content_manager' | 'member';
 
