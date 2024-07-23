@@ -8,16 +8,32 @@ import Search from '../SearchAndFilter/Search';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
 
+interface Author {
+  first_name: string;
+  last_name: string;
+}
+
+interface Tag {
+  name: string;
+}
+
+interface BlogPostAPI {
+  id: string;
+  title: string;
+  tags: Tag[];
+  author: Author;
+}
+
 interface BlogPost {
   id: string;
   title: string;
-  tags: { name: string }[];
+  tags: Tag[];
   author: string;
 }
 
 const BlogListView = () => {
   const [data, setData] = useState<BlogPost[]>([]);
-  const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/blog-posts'!;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,19 +43,12 @@ const BlogListView = () => {
           throw new Error(`${response.status} ${response.statusText}`);
         }
         const result = await response.json();
-        const transformedData: BlogPost[] = result.data.map(
-          (item: {
-            id: string;
-            title: string;
-            tags: { name: string }[];
-            author: { first_name: string; last_name: string };
-          }) => ({
-            id: item.id,
-            title: item.title,
-            tags: item.tags,
-            author: `${item.author.first_name} ${item.author.last_name}`,
-          })
-        );
+        const transformedData: BlogPost[] = result.data.map((item: BlogPostAPI) => ({
+          id: item.id,
+          title: item.title,
+          tags: item.tags,
+          author: `${item.author.first_name} ${item.author.last_name}`,
+        }));
         setData(transformedData);
       } catch (error) {
         console.error('Error fetching data:', error);
