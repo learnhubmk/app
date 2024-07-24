@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import styles from './Tags.module.scss';
-import TagManagementControls from './TagManagementControls';
-import TagTable from './TagTable';
-import AddTag from './AddTag';
+import styles from '../../../components/module-components/tags/Tags.module.scss';
+import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
+import AddTag from '../../../components/module-components/tags/AddTag';
+import TagTable from '../../../components/module-components/tags/TagTable';
 
 interface Tag {
   id: string;
