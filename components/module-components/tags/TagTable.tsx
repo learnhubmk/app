@@ -13,33 +13,64 @@ interface Tag {
 interface TagTableProps {
   tags: Tag[];
   onDelete: (id: string) => void;
+  editingTagId: string | null;
+  onEdit: (id: string) => void;
+  onSave: () => void;
+  onCancel: () => void;
+  renderEditInput: (tag: Tag) => React.ReactNode;
 }
 
-const TagTable: React.FC<TagTableProps> = ({ tags, onDelete }) => {
+const TagTable: React.FC<TagTableProps> = ({
+  tags,
+  onDelete,
+  editingTagId,
+  onEdit,
+  onSave,
+  onCancel,
+  renderEditInput,
+}) => {
   const [deleteTagId, setDeleteTagId] = useState<string>('');
   const headers: (keyof Tag)[] = ['name'];
   const displayNames: { [key in keyof Tag]?: string } = { name: 'Tag Name' };
 
-  const handleEdit = (id: string) => {
-    console.log('Edit tag', id);
-  };
-
   const renderActions = (item: Tag) => (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      <Button
-        type="button"
-        buttonText="Edit"
-        buttonClass={['editButton']}
-        onClick={() => handleEdit(item.id)}
-        aria-label={`Edit ${item.name}`}
-      />
-      <Button
-        type="button"
-        buttonText="Delete"
-        buttonClass={['deleteButton']}
-        onClick={() => setDeleteTagId(item.id)}
-        aria-label={`Delete ${item.name}`}
-      />
+      {editingTagId === item.id ? (
+        <>
+          <Button
+            type="button"
+            buttonText="Save"
+            buttonClass={['saveButton']}
+            onClick={onSave}
+            aria-label={`Save changes for ${item.name}`}
+          />
+          <Button
+            type="button"
+            buttonText="Cancel"
+            buttonClass={['deleteButton']}
+            onClick={onCancel}
+            aria-label={`Cancel editing ${item.name}`}
+          />
+        </>
+      ) : (
+        <>
+          <Button
+            type="button"
+            buttonText="Edit"
+            buttonClass={['editButton']}
+            onClick={() => onEdit(item.id)}
+            aria-label={`Edit ${item.name}`}
+          />
+          <Button
+            type="button"
+            buttonText="Delete"
+            buttonClass={['deleteButton']}
+            onClick={() => setDeleteTagId(item.id)}
+            aria-label={`Delete ${item.name}`}
+          />
+        </>
+      )}
     </>
   );
 
@@ -50,6 +81,8 @@ const TagTable: React.FC<TagTableProps> = ({ tags, onDelete }) => {
         displayNames={displayNames}
         data={tags}
         renderActions={renderActions}
+        editingTagId={editingTagId}
+        renderEditInput={renderEditInput}
       />
 
       <ReusableModal
