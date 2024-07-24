@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import AddTag from '../../../components/module-components/tags/AddTag';
@@ -45,6 +46,7 @@ const Tags = () => {
     validationSchema,
     onSubmit: (values, { resetForm }) => {
       handleSaveChanges(editingTagId!, values.tagName);
+      toast.success('Tag updated successfully');
       resetForm();
     },
   });
