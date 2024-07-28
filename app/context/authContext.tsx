@@ -1,18 +1,22 @@
 'use client';
 
-import React, { createContext, useContext, ReactNode, useMemo } from 'react';
+import React, { createContext, useContext, ReactNode, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { MutationStatus, QueryStatus, useMutation, useQuery } from '@tanstack/react-query';
 import { clearSession, getSession, setSession } from '../../utils/actions/session';
+import getAuthUrl from '../../utils/getAuthUrl';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 export type Role = 'admin' | 'content_manager' | 'member';
 
+export type MiddlewareType = 'auth' | 'guest';
+
 type UserType = {
   id: number | string;
   is_verified: boolean;
   email: string;
-  role: Array<Role>;
+  role: Role;
 };
 
 interface AuthContextType {
@@ -38,25 +42,16 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-function getUrl(role: Role): string {
-  let url = baseUrl;
-  if (role === 'member') url = `${baseUrl}`;
-  else if (role === 'content_manager') url = `${baseUrl}/content`;
-  else if (role === 'admin') url = `${baseUrl}/admin`;
-  return url;
-}
-
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const getUser = async (): Promise<UserType | null | undefined> => {
     const session = await getSession();
     if (!session?.token || !session.role) throw new Error('No session found');
-    const response = await fetch(`${getUrl(session.role)}/user`, {
+    const response = await fetch(`${getAuthUrl(baseUrl, session.role)}/user`, {
       headers: {
         Accept: 'application/json',
         Referer: 'learnhub.mk',
         Authorization: `Bearer ${session.token}`,
       },
-      // credentials: 'include',
     });
     if (!response.ok) {
       throw new Error('An error occurred while fetching user data');
@@ -90,7 +85,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       password: string;
       role: Role;
     }) => {
-      return fetch(`${getUrl(role)}/login`, {
+      return fetch(`${getAuthUrl(baseUrl, role)}/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -120,7 +115,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     mutationFn: async () => {
       const session = await getSession();
       if (!session?.token || !session.role) throw new Error('No session found');
-      await fetch(`${getUrl(session.role)}/logout`, {
+      await fetch(`${getAuthUrl(baseUrl, session.role)}/logout`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -166,10 +161,44 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => {
+/**
+ *
+ * @param middleware - This param is used to determine if the user shall be redirected to the login page if they are not authenticated or to the home page if they are authenticated.
+ * @param redirectIfAuthenticatedTo - This param is used to determine where the user shall be redirected if they are authenticated.
+ */
+export const useAuth = ({
+  middleware,
+  redirectIfAuthenticatedTo,
+}: {
+  middleware: MiddlewareType;
+  redirectIfAuthenticatedTo?: string;
+}) => {
   const context = useContext(AuthContext);
+  const router = useRouter();
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-  return context;
+  const { getUserStatus } = context;
+
+  useEffect(() => {
+    //  Redirect to the login page if authentication is required and the user cannot be fetched
+    if (middleware === 'auth') {
+      if (getUserStatus === 'pending') return;
+      if (getUserStatus === 'error') {
+        router.push('/login');
+      }
+    }
+
+    if (getUserStatus === 'error') {
+      (async () => {
+        await clearSession();
+      })();
+    }
+
+    //  Redirect to a certain page if the user is authenticated. Ex. on the login page, if the user is authenticated, redirect them to the home page.
+    if (getUserStatus === 'success' && redirectIfAuthenticatedTo)
+      router.push(redirectIfAuthenticatedTo);
+  }, [getUserStatus, middleware, redirectIfAuthenticatedTo, router]);
+
+  return { ...context };
 };
