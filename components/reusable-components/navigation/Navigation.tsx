@@ -28,15 +28,15 @@ const Navigation = () => {
 
         <div className={styles.navigationActions}>
           <Button
-            href=""
-            type="submit"
-            buttonClass={['primaryButton', 'navigationButton']}
+            href="/register"
+            type="link"
+            buttonClass={['primaryButton', 'navigationButton', 'button']}
             buttonText="Регистрирај се"
           />
           <Button
-            href=""
-            type="submit"
-            buttonClass={['secondaryButton', 'navigationButton']}
+            href="/login"
+            type="link"
+            buttonClass={['secondaryButton', 'navigationButton', 'button']}
             buttonText="Најави се"
           />
 

@@ -141,6 +141,7 @@
   max-width: 70%;
   height: 33px;
   line-height: 17.07px;
+  text-align: center;
 
   @include u.breakpoint(xsmall) {
     padding: 0.5rem 1.5rem 0.5rem 1.5rem;
