@@ -9,6 +9,7 @@ import Navigation from '../components/reusable-components/navigation/Navigation'
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 import styles from './page.module.scss';
+import { AxiosProvider } from '../api/AxiosProvider';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -17,12 +18,14 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
     <body>
       <ThemeProvider>
         <ReactQueryProvider>
-          <Navigation />
-          <main className={styles.main}>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-            <SpeedInsights />
-          </main>
-          <Footer />
+          <AxiosProvider>
+            <Navigation />
+            <main className={styles.main}>
+              <Suspense fallback={<Loading />}>{children}</Suspense>
+              <SpeedInsights />
+            </main>
+            <Footer />
+          </AxiosProvider>
         </ReactQueryProvider>
       </ThemeProvider>
     </body>
