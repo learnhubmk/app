@@ -3,6 +3,9 @@ const QUERY_KEYS = {
     ALL: ['blogPosts'],
     INFINITE: ['infiniteBlogPosts', 'infinite'] as const,
   },
+  USERS: {
+    ALL: ['users'],
+  },
 } as const;
 
 export default QUERY_KEYS;
