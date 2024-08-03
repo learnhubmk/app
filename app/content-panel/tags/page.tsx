@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import TagTable from '../../../components/module-components/tags/TagTable';
+import AddTag from '../../../components/module-components/tags/AddTag';
 
 interface Tag {
   id: string;
   name: string;
 }
-
 const Tags = () => {
   const [tags, setTags] = useState<Tag[]>([
     { id: '1', name: 'React' },
@@ -25,7 +25,7 @@ const Tags = () => {
       return false; // Tag already exists
     }
 
-    const newId = (parseInt(tags[tags.length - 1].id, 10) + 1).toString();
+    const newId = tags.length > 0 ? (parseInt(tags[tags.length - 1].id, 10) + 1).toString() : '1';
     setTags([...tags, { id: newId, name: newTag }]);
     return true;
   };
@@ -33,7 +33,8 @@ const Tags = () => {
   return (
     <div className={styles.container}>
       <TagManagementControls onAddClick={() => setShowAddTag(true)} />
-      <TagTable handleDelete={() => {}} handleEdit={() => {}} tags={tags} />
+      {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
+      <TagTable tags={tags} handleDelete={() => {}} handleEdit={() => {}} />
     </div>
   );
 };

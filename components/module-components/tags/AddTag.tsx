@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import Button from '../../../components/reusable-components/button/Button';
+import Button from '../../reusable-components/button/Button';
 import styles from './addTag.module.scss';
 
 interface AddTagProps {
@@ -12,7 +12,7 @@ interface AddTagProps {
 
 const AddTag: React.FC<AddTagProps> = ({ onCancel, onAdd }) => {
   const validationSchema = Yup.object({
-    tagName: Yup.string().trim().required('Tag name cannot be empty'),
+    tagName: Yup.string().trim().required('Името на тагот е задолжително.'),
   });
 
   return (
@@ -24,9 +24,9 @@ const AddTag: React.FC<AddTagProps> = ({ onCancel, onAdd }) => {
         if (success) {
           resetForm();
           onCancel();
-          toast.success('Tag created successfully');
+          toast.success('Тагот е успешно креиран!');
         } else {
-          setFieldError('tagName', 'Tag already exists');
+          setFieldError('tagName', 'Тагот веке постои.');
         }
       }}
     >
@@ -37,7 +37,7 @@ const AddTag: React.FC<AddTagProps> = ({ onCancel, onAdd }) => {
               <Field
                 name="tagName"
                 type="text"
-                placeholder="Enter new tag name"
+                placeholder="Внеси ново име за тагот."
                 className={styles.input}
               />
               {errors.tagName && touched.tagName && (
@@ -47,10 +47,10 @@ const AddTag: React.FC<AddTagProps> = ({ onCancel, onAdd }) => {
             <Button
               onClick={onCancel}
               type="button"
-              buttonText="Cancel"
+              buttonText="Откажи"
               buttonClass={['deleteButton']}
             />
-            <Button type="submit" buttonText="Create Tag" buttonClass={['createTag']} />
+            <Button type="submit" buttonText="Креирај таг" buttonClass={['createTag']} />
           </div>
         </Form>
       )}
