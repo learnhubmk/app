@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 
@@ -9,36 +9,28 @@ interface Tag {
   name: string;
 }
 
-const TagTable: React.FC = () => {
-  const [tags] = useState<Tag[]>([
-    { id: '1', name: 'React' },
-    { id: '2', name: 'TypeScript' },
-    { id: '3', name: 'NextJS' },
-  ]);
+interface TagTableProps {
+  tags: Tag[];
+  handleEdit: (id: string) => void;
+  handleDelete: (id: string) => void;
+}
 
+const TagTable: React.FC<TagTableProps> = ({ tags, handleEdit, handleDelete }) => {
   const headers: (keyof Tag)[] = ['name'];
-  const displayNames: { [key in keyof Tag]?: string } = { name: 'Tag Name' };
-
-  const handleEdit = (id: string) => {
-    console.log('Edit tag', id);
-  };
-
-  const handleDelete = (id: string) => {
-    console.log('Delete tag', id);
-  };
+  const displayNames: { [key in keyof Tag]?: string } = { name: 'Име на таг' };
 
   const renderActions = (item: Tag) => (
     <>
       <Button
         type="button"
-        buttonText="Edit"
+        buttonText="Измени"
         buttonClass={['editButton']}
         onClick={() => handleEdit(item.id)}
       />
 
       <Button
         type="button"
-        buttonText="Delete"
+        buttonText="Избриши"
         buttonClass={['deleteButton']}
         onClick={() => {
           handleDelete(item.id);
