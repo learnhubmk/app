@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
+import ReusableModal from '../../reusable-components/reusable-modal/ReusableModal';
 
 interface Tag {
   id: string;
@@ -12,10 +13,11 @@ interface Tag {
 interface TagTableProps {
   tags: Tag[];
   handleEdit: (id: string) => void;
-  handleDelete: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
-const TagTable: React.FC<TagTableProps> = ({ tags, handleEdit, handleDelete }) => {
+const TagTable: React.FC<TagTableProps> = ({ tags, handleEdit, onDelete }) => {
+  const [deleteTagId, setDeleteTagId] = useState<string>('');
   const headers: (keyof Tag)[] = ['name'];
   const displayNames: { [key in keyof Tag]?: string } = { name: 'Име на таг' };
 
@@ -31,18 +33,33 @@ const TagTable: React.FC<TagTableProps> = ({ tags, handleEdit, handleDelete }) =
         type="button"
         buttonText="Избриши"
         buttonClass={['deleteButton']}
-        onClick={() => handleDelete(item.id)}
+        onClick={() => setDeleteTagId(item.id)}
       />
     </>
   );
 
   return (
-    <ReusableTable<Tag>
-      headers={headers}
-      displayNames={displayNames}
-      data={tags}
-      renderActions={renderActions}
-    />
+    <>
+      <ReusableTable<Tag>
+        headers={headers}
+        displayNames={displayNames}
+        data={tags}
+        renderActions={renderActions}
+      />
+
+      <ReusableModal
+        isOpen={!!deleteTagId}
+        title="Бришење на таг"
+        description="Дали си сигурен дека сакаш да го избришеш тагот?"
+        onClose={() => setDeleteTagId('')}
+        primaryButtonLabel="Избриши"
+        secondaryButtonLabel="Откажи"
+        onPrimaryButtonClick={() => {
+          onDelete(deleteTagId);
+          setDeleteTagId('');
+        }}
+      />
+    </>
   );
 };
 
