@@ -7,8 +7,8 @@ interface TableRowComponentProps<T> {
   displayFields: (keyof T)[];
   renderActions?: (item: T) => React.ReactNode;
   renderActionsDropdown?: ReactNode;
-  isEditing: boolean;
-  onEdit: (field: keyof T, value: string) => void;
+  editingTagId: string | null;
+  renderEditInput: (item: T) => React.ReactNode;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -16,20 +16,15 @@ const TableRowComponent = <T extends { id: string }>({
   displayFields,
   renderActions,
   renderActionsDropdown,
-  isEditing,
-  onEdit,
+  editingTagId,
+  renderEditInput,
 }: TableRowComponentProps<T>) => {
   return (
     <tr className={style.rowComponent}>
       {displayFields.map((field) => (
-        <td key={field as string}>
-          {isEditing ? (
-            <Input
-              value={String(data[field])}
-              type="text"
-              placeholder=""
-              onChange={(newValue: string) => onEdit(field, newValue)}
-            />
+        <td key={field as string} className={style.column}>
+          {editingTagId === data.id && field === 'name' ? (
+            <div className={style.editTags}>{renderEditInput(data)}</div>
           ) : (
             String(data[field])
           )}

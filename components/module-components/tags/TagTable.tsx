@@ -13,21 +13,21 @@ interface Tag {
 interface TagTableProps {
   tags: Tag[];
   onDelete: (id: string) => void;
-  onEdit: (id: string) => void;
-  onChange: (id: string, field: keyof Tag, value: string) => void;
-  onSave: (id: string, name: string) => void;
-  onCancel: () => void;
   editingTagId: string | null;
+  onEdit: (id: string) => void;
+  onSave: () => void;
+  onCancel: () => void;
+  renderEditInput: (tag: Tag) => React.ReactNode;
 }
 
 const TagTable: React.FC<TagTableProps> = ({
   tags,
   onDelete,
+  editingTagId,
   onEdit,
   onSave,
   onCancel,
-  onChange,
-  editingTagId,
+  renderEditInput,
 }) => {
   const [deleteTagId, setDeleteTagId] = useState<string>('');
   const headers: (keyof Tag)[] = ['name'];
@@ -40,12 +40,11 @@ const TagTable: React.FC<TagTableProps> = ({
         <>
           <Button
             type="button"
-            buttonText="Save Changes"
+            buttonText="Save"
             buttonClass={['saveButton']}
-            onClick={() => onSave(item.id, item.name)}
+            onClick={onSave}
             aria-label={`Save changes for ${item.name}`}
           />
-
           <Button
             type="button"
             buttonText="Cancel"
@@ -82,8 +81,8 @@ const TagTable: React.FC<TagTableProps> = ({
         displayNames={displayNames}
         data={tags}
         renderActions={renderActions}
-        editingId={editingTagId}
-        onEdit={onChange}
+        editingTagId={editingTagId}
+        renderEditInput={renderEditInput}
       />
 
       <ReusableModal

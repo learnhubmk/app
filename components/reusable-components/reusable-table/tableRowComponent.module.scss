@@ -2,16 +2,24 @@
   border-bottom: 1px solid black;
   height: 2.5rem;
 
+  td {
+    padding: 0;
+    vertical-align: middle;
+  }
+
   .actionButtons {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
     height: 100%;
-    align-items: center;
   }
 
   td:last-child {
     padding-right: 15px;
     text-align: left;
+  }
+
+  .editTags {
+    padding-left: 20px;
   }
 }
