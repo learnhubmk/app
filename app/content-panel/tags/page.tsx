@@ -27,6 +27,7 @@ const Tags = () => {
   return (
     <div className={styles.container}>
       <TagManagementControls onAddClick={() => setShowAddTag(true)} />
+      {showAddTag && <div className={styles.addTag}>Add Tag</div>}
       <TagTable tags={tags} handleEdit={() => {}} onDelete={handleDelete} />
     </div>
   );
