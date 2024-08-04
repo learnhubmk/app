@@ -26,8 +26,9 @@ const Tags = () => {
 
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
-      .required('Tag name is required')
-      .test('unique', 'Tag name already exists', function (value) {
+      .required('Името за тагот е задолжително')
+      // eslint-disable-next-line func-names
+      .test('unique', 'Тагот веќе постои', function (value) {
         return !tags.some((tag) => tag.name.toLowerCase() === value?.toLowerCase());
       }),
   });
@@ -46,7 +47,7 @@ const Tags = () => {
     validationSchema,
     onSubmit: (values, { resetForm }) => {
       handleSaveChanges(editingTagId!, values.tagName);
-      toast.success('Tag updated successfully');
+      toast.success('Тагот беше успешно изменет');
       resetForm();
     },
   });
@@ -92,7 +93,7 @@ const Tags = () => {
         renderEditInput={() => (
           <div style={{ height: '40px' }}>
             <TextInput
-              placeholder="Enter tag name"
+              placeholder="Внеси име за тагот"
               name="tagName"
               type="text"
               field="tagName"

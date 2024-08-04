@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import style from './tableRowComponent.module.scss';
-import Input from '../input/Input';
 
 interface TableRowComponentProps<T> {
   data: T;

@@ -31,7 +31,7 @@ const TagTable: React.FC<TagTableProps> = ({
 }) => {
   const [deleteTagId, setDeleteTagId] = useState<string>('');
   const headers: (keyof Tag)[] = ['name'];
-  const displayNames: { [key in keyof Tag]?: string } = { name: 'Tag Name' };
+  const displayNames: { [key in keyof Tag]?: string } = { name: 'Име' };
 
   const renderActions = (item: Tag) => (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -40,34 +40,34 @@ const TagTable: React.FC<TagTableProps> = ({
         <>
           <Button
             type="button"
-            buttonText="Save"
+            buttonText="Зачувај"
             buttonClass={['saveButton']}
             onClick={onSave}
-            aria-label={`Save changes for ${item.name}`}
+            aria-label={`Зачувај промени за ${item.name}`}
           />
           <Button
             type="button"
-            buttonText="Cancel"
+            buttonText="Откажи"
             buttonClass={['deleteButton']}
             onClick={onCancel}
-            aria-label={`Cancel editing ${item.name}`}
+            aria-label={`Откажи изменување на ${item.name}`}
           />
         </>
       ) : (
         <>
           <Button
             type="button"
-            buttonText="Edit"
+            buttonText="Измени"
             buttonClass={['editButton']}
             onClick={() => onEdit(item.id)}
-            aria-label={`Edit ${item.name}`}
+            aria-label={`Измени го ${item.name}`}
           />
           <Button
             type="button"
-            buttonText="Delete"
+            buttonText="Избриши"
             buttonClass={['deleteButton']}
             onClick={() => setDeleteTagId(item.id)}
-            aria-label={`Delete ${item.name}`}
+            aria-label={`Избриши го ${item.name}`}
           />
         </>
       )}
