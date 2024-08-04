@@ -8,9 +8,16 @@ import getAuthUrl from '../../utils/getAuthUrl';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
-export type Role = 'admin' | 'content_manager' | 'member';
+export enum Role {
+  admin = 'admin',
+  content_manager = 'content_manager',
+  member = 'member',
+}
 
-export type MiddlewareType = 'auth' | 'guest';
+export enum AuthMiddleware {
+  auth = 'auth',
+  guest = 'guest',
+}
 
 type UserType = {
   id: number | string;
@@ -19,18 +26,19 @@ type UserType = {
   role: Role;
 };
 
+interface LoginParams {
+  email: string;
+  password: string;
+  role: Role;
+}
+
+interface SuccessfulLoginResponse {
+  data: { user: UserType; access_token: string };
+}
+
 interface AuthContextType {
   user?: UserType | null;
-  login: ({
-    // eslint-disable-next-line no-unused-vars
-    email, // eslint-disable-next-line no-unused-vars
-    password, // eslint-disable-next-line no-unused-vars
-    role,
-  }: {
-    email: string;
-    password: string;
-    role: Role;
-  }) => void;
+  login: ({ email, password, role }: LoginParams) => void;
   getUserStatus: QueryStatus;
   getUserError: Error | null;
   logout: () => void;
@@ -54,7 +62,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       },
     });
     if (!response.ok) {
-      throw new Error('An error occurred while fetching user data');
+      throw new Error(response.statusText || 'An error occurred while fetching the user');
     }
     const data = await response.json();
     return data.data.user;
@@ -80,27 +88,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       email,
       password,
       role,
-    }: {
-      email: string;
-      password: string;
-      role: Role;
-    }) => {
-      return fetch(`${getAuthUrl(baseUrl, role)}/login`, {
+    }: LoginParams): Promise<SuccessfulLoginResponse> => {
+      const response = await fetch(`${getAuthUrl(baseUrl, role)}/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          Referer: 'learnhub.mk',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
+
+      if (!response.ok) {
+        // If we don't thrown an error here, the onSuccess callback will be called
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'An error occurred while logging in');
+      }
+      const data = await response.json();
+      return data;
     },
-    onSuccess: (data) =>
-      data.json().then(async (res) => {
-        const token = res.access_token;
-        if (token) await setSession({ token, role: res.data.user.role });
-        await refetchUser();
-      }),
+    onSuccess: async (data) => {
+      const token = data.data.access_token;
+      if (token) await setSession({ token, role: data.data.user.role });
+      await refetchUser();
+    },
     onError: (error) => {
       throw new Error(error?.message || 'An error occurred while logging in');
     },
@@ -115,7 +125,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     mutationFn: async () => {
       const session = await getSession();
       if (!session?.token || !session.role) throw new Error('No session found');
-      await fetch(`${getAuthUrl(baseUrl, session.role)}/logout`, {
+      const response = await fetch(`${getAuthUrl(baseUrl, session.role)}/logout`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -123,6 +133,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           Authorization: `Bearer ${session.token}`,
         },
       });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'An error occurred while logging in');
+      }
     },
     onSuccess: async () => {
       await clearSession();
@@ -165,13 +179,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
  *
  * @param middleware - This param is used to determine if the user shall be redirected to the login page if they are not authenticated or to the home page if they are authenticated.
  * @param redirectIfAuthenticatedTo - This param is used to determine where the user shall be redirected if they are authenticated.
+ * @param roles - This param is used to determine if the user has the required role to access the page. It's an array because a route can be accessed by multiple roles.
+ * @param redirectUrlIfRoleMismatch - This param is used to determine where the user shall be redirected if they don't have the required role to access the page.
  */
 export const useAuth = ({
   middleware,
   redirectIfAuthenticatedTo,
+  authorization,
 }: {
-  middleware: MiddlewareType;
+  middleware: AuthMiddleware;
   redirectIfAuthenticatedTo?: string;
+  authorization?: {
+    roles: Role[];
+    redirectUrlIfRoleMismatch: string;
+  };
 }) => {
   const context = useContext(AuthContext);
   const router = useRouter();
@@ -179,10 +200,16 @@ export const useAuth = ({
     throw new Error('useAuth must be used within an AuthProvider');
   }
   const { getUserStatus } = context;
-
   useEffect(() => {
-    //  Redirect to the login page if authentication is required and the user cannot be fetched
-    if (middleware === 'auth') {
+    if (middleware === AuthMiddleware.auth) {
+      if (
+        getUserStatus === 'success' &&
+        authorization &&
+        context.user &&
+        !authorization.roles.includes(context.user.role)
+      ) {
+        router.push(authorization.redirectUrlIfRoleMismatch);
+      }
       if (getUserStatus === 'pending') return;
       if (getUserStatus === 'error') {
         router.push('/login');
@@ -196,9 +223,11 @@ export const useAuth = ({
     }
 
     //  Redirect to a certain page if the user is authenticated. Ex. on the login page, if the user is authenticated, redirect them to the home page.
-    if (getUserStatus === 'success' && redirectIfAuthenticatedTo)
-      router.push(redirectIfAuthenticatedTo);
-  }, [getUserStatus, middleware, redirectIfAuthenticatedTo, router]);
+    if (middleware === AuthMiddleware.guest) {
+      if (getUserStatus === 'success' && redirectIfAuthenticatedTo)
+        router.push(redirectIfAuthenticatedTo);
+    }
+  }, [context.user, getUserStatus, middleware, redirectIfAuthenticatedTo, authorization, router]);
 
   return { ...context };
 };

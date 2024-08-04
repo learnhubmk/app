@@ -9,6 +9,8 @@ type Session = {
   role: Role;
 };
 
+type RefreshTokenResponse = { message: string; new_token: string };
+
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 export async function setSession(session: Session): Promise<void> {
@@ -46,11 +48,10 @@ export async function getNewToken({
     });
 
     if (!response.ok) throw new Error(response.statusText);
-    const data: { message: string; new_token: string } = await response.json();
+    const data: RefreshTokenResponse = await response.json();
     return data.new_token;
   } catch (error: any) {
-    // eslint-disable-next-line no-console
-    console.error({ msg: 'Error from getNewToken', error });
+    // console.error({ msg: 'Error from getNewToken', error });
     return null;
   }
 }

@@ -1,22 +1,21 @@
 'use client';
 
-import { useAuth } from '../context/authContext';
+import { AuthMiddleware, Role, useAuth } from '../context/authContext';
 
 const Login = () => {
-  const { login } = useAuth({ middleware: 'guest', redirectIfAuthenticatedTo: '/' });
+  const { login, loginStatus } = useAuth({
+    middleware: AuthMiddleware.guest,
+    redirectIfAuthenticatedTo: '/',
+  });
 
   return (
     <form
       action={async (formData) => {
-        try {
-          login({
-            email: formData.get('email') as string,
-            password: formData.get('password') as string,
-            role: 'content_manager',
-          });
-        } catch (err) {
-          console.error(err);
-        }
+        login({
+          email: formData.get('email') as string,
+          password: formData.get('password') as string,
+          role: Role.content_manager,
+        });
       }}
     >
       <label htmlFor="email">
@@ -27,7 +26,9 @@ const Login = () => {
         Password
         <input name="password" type="password" />
       </label>
-      <button type="submit">Sign In</button>
+      <button type="submit" disabled={loginStatus === 'pending'}>
+        {loginStatus === 'pending' ? 'Loading...' : 'Sign In'}
+      </button>
     </form>
   );
 };
