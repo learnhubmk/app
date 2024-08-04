@@ -10,9 +10,9 @@ interface ReusableTableProps<T> {
   displayNames: { [key in keyof T]?: string };
   data: T[];
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: React.ReactNode;
-  editingTagId: string | null;
-  renderEditInput: (item: T) => React.ReactNode;
+  renderActionsDropdown?: (item: T) => React.ReactNode;
+  editingTagId?: string | null;
+  renderEditInput?: (item: T) => React.ReactNode;
 }
 
 interface SortState<T> {

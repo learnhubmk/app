@@ -1,13 +1,13 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import style from './tableRowComponent.module.scss';
 
 interface TableRowComponentProps<T> {
   data: T;
   displayFields: (keyof T)[];
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: ReactNode;
-  editingTagId: string | null;
-  renderEditInput: (item: T) => React.ReactNode;
+  renderActionsDropdown?: (item: T) => React.ReactNode;
+  editingTagId?: string | null;
+  renderEditInput?: (item: T) => React.ReactNode;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -22,7 +22,7 @@ const TableRowComponent = <T extends { id: string }>({
     <tr className={style.rowComponent}>
       {displayFields.map((field) => (
         <td key={field as string} className={style.column}>
-          {editingTagId === data.id && field === 'name' ? (
+          {editingTagId === data.id && field === 'name' && renderEditInput ? (
             <div className={style.editTags}>{renderEditInput(data)}</div>
           ) : (
             String(data[field])
@@ -32,7 +32,7 @@ const TableRowComponent = <T extends { id: string }>({
 
       {renderActionsDropdown && (
         <td className={style.actionCell} aria-label="Actions">
-          {renderActionsDropdown}
+          {renderActionsDropdown(data)}
         </td>
       )}
 
