@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Button from '../../reusable-components/button/Button';
-import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
-import ReusableModal from '../../reusable-components/reusable-modal/ReusableModal';
+import ReusableTable from '../../../components/reusable-components/reusable-table/ReusableTable';
+import Button from '../../../components/reusable-components/button/Button';
+import ReusableModal from '../../../components/reusable-components/reusable-modal/ReusableModal';
 
 interface Tag {
   id: string;
@@ -12,28 +12,33 @@ interface Tag {
 
 interface TagTableProps {
   tags: Tag[];
-  handleEdit: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
-const TagTable: React.FC<TagTableProps> = ({ tags, handleEdit, onDelete }) => {
+const TagTable: React.FC<TagTableProps> = ({ tags, onDelete }) => {
   const [deleteTagId, setDeleteTagId] = useState<string>('');
   const headers: (keyof Tag)[] = ['name'];
-  const displayNames: { [key in keyof Tag]?: string } = { name: 'Име на таг' };
+  const displayNames: { [key in keyof Tag]?: string } = { name: 'Tag Name' };
+
+  const handleEdit = (id: string) => {
+    console.log('Edit tag', id);
+  };
 
   const renderActions = (item: Tag) => (
     <>
       <Button
         type="button"
-        buttonText="Измени"
+        buttonText="Edit"
         buttonClass={['editButton']}
         onClick={() => handleEdit(item.id)}
+        aria-label={`Edit ${item.name}`}
       />
       <Button
         type="button"
-        buttonText="Избриши"
+        buttonText="Delete"
         buttonClass={['deleteButton']}
         onClick={() => setDeleteTagId(item.id)}
+        aria-label={`Delete ${item.name}`}
       />
     </>
   );
@@ -49,11 +54,9 @@ const TagTable: React.FC<TagTableProps> = ({ tags, handleEdit, onDelete }) => {
 
       <ReusableModal
         isOpen={!!deleteTagId}
-        title="Бришење на таг"
-        description="Дали си сигурен дека сакаш да го избришеш тагот?"
+        title="Delete Tag"
+        description="Are you sure you want to delete this tag?"
         onClose={() => setDeleteTagId('')}
-        primaryButtonLabel="Избриши"
-        secondaryButtonLabel="Откажи"
         onPrimaryButtonClick={() => {
           onDelete(deleteTagId);
           setDeleteTagId('');

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import TagTable from '../../../components/module-components/tags/TagTable';
@@ -11,21 +12,23 @@ interface Tag {
 }
 
 const Tags = () => {
+  const [showAddTag, setShowAddTag] = useState(false);
   const [tags, setTags] = useState<Tag[]>([
     { id: '1', name: 'React' },
     { id: '2', name: 'TypeScript' },
     { id: '3', name: 'NextJS' },
   ]);
-  const [showAddTag, setShowAddTag] = useState(false);
 
-  const addTag = (newTag: string) => {
-    console.log(newTag);
+  const handleDelete = (id: string) => {
+    setTags(tags.filter((tag) => tag.id !== id));
+    toast.success('Тагот беше успешно избришан.');
   };
 
   return (
     <div className={styles.container}>
       <TagManagementControls onAddClick={() => setShowAddTag(true)} />
-      <TagTable handleDelete={() => {}} handleEdit={() => {}} tags={tags} />
+      {showAddTag && <div className={styles.addTag}>Add Tag</div>}
+      <TagTable tags={tags} handleEdit={() => {}} onDelete={handleDelete} />
     </div>
   );
 };
