@@ -12,6 +12,12 @@ const ENDPOINTS = {
   USERS: {
     GET_ALL: `${API_BASE_URL}/users`,
   },
+  CONTACT: {
+    SUBMIT: `${API_BASE_URL}/contact`,
+  },
+  NEWSLETTER: {
+    SUBSCRIBE: `${API_BASE_URL}/newsletter-subscribers`,
+  },
 };
 
 export default ENDPOINTS;

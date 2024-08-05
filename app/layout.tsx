@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import React, { Suspense } from 'react';
 import './styles/main.scss';
+import { ToastContainer } from 'react-toastify';
 import Loading from './loading';
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
@@ -16,6 +17,7 @@ const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en" className={montserrat.className}>
     <body>
+      <ToastContainer />
       <ThemeProvider>
         <ReactQueryProvider>
           <AxiosProvider>

@@ -2,15 +2,18 @@
 
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import 'react-toastify/dist/ReactToastify.css';
 import Turnstile from 'react-turnstile';
-import { useSubmitContactForm, ContactFormData } from './SubmitContactForm';
 import Button from '../../reusable-components/button/Button';
 import TextInput from '../../reusable-components/text-input/TextInput';
 import TextArea from '../../reusable-components/text-area/TextArea';
 import { fullNameRegexValidation, emailRegexValidation } from './regexValidation';
+import {
+  useSubmitContactForm,
+  ContactFormData,
+} from '../../../api/mutations/contact/useSubmitContactform';
 
 const ContactForm = () => {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -35,6 +38,7 @@ const ContactForm = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       if (!turnstileToken) {
+        toast.error('Captcha-та не е валидна');
         return;
       }
 
@@ -46,24 +50,18 @@ const ContactForm = () => {
           cfTurnstileResponse: turnstileToken,
         };
 
-        await submitContactMutation.mutateAsync(formData, {
-          onSuccess: (response) => {
-            toast.success(response);
-            resetForm();
-          },
-          onError: (error: Error) => {
-            toast.error(error.message || 'Грешка');
-          },
-        });
+        await submitContactMutation.mutateAsync(formData);
+        toast.success('Пораката беше успешно испратена!');
+        resetForm();
+        setTurnstileToken(null);
       } catch (error) {
-        toast.error('Грешка');
+        toast.error('Настана грешка при испраќањето на пораката. Пробајте повторно.');
       }
     },
   });
 
   return (
     <div>
-      <ToastContainer />
       <form onSubmit={formik.handleSubmit}>
         <TextInput
           placeholder="Внесете го Вашето име"
