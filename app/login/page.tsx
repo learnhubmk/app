@@ -1,11 +1,14 @@
-import Users from '../../components/module-components/users/Users';
+import LoginForm from '../../components/reusable-components/login-form/LoginForm';
+import SignupAndLoginLayout from '../../components/reusable-components/signup-and-login-layout/SignupAndLoginLayout';
 
 const Login = () => {
   return (
-    <div>
-      <div>LogIn</div>
-      <Users />
-    </div>
+    <SignupAndLoginLayout
+      welcomeTitle="Добредојдовте назад!"
+      welcomeSubtitle="Ве молиме пополнете ги податоците подолу за да се најавите."
+    >
+      <LoginForm />
+    </SignupAndLoginLayout>
   );
 };
 

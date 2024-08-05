@@ -20,7 +20,13 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+    "no-shadow": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".jsx", ".tsx"]
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": 0,
     "@react/no-array-index-key": "off",
@@ -36,10 +42,14 @@
     ],
     "react/function-component-definition": [
       2,
-      { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
     ],
     "react/require-default-props": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "no-shadow": "off"
   },
   "settings": {
     "react": {
@@ -50,7 +60,15 @@
     {
       "files": ["*.tsx"],
       "rules": {
-        "react/require-default-props": "off"
+        "react/require-default-props": "off",
+        "no-unused-vars": "off"
+      }
+    },
+    {
+      "files": ["tests/**/*.ts"],
+      "rules": {
+        "import/prefer-default-export": "off",
+        "no-unused-vars": "off"
       }
     }
   ]

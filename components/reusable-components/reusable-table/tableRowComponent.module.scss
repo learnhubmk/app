@@ -1,0 +1,15 @@
+.rowComponent {
+  border-bottom: 1px solid black;
+  height: 2.5rem;
+
+  .actionButtons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  td:last-child {
+    padding-right: 15px;
+    text-align: left;
+  }
+}

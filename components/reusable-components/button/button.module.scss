@@ -61,9 +61,10 @@
 }
 
 .secondaryButton {
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--primary-btn-color);
+  font-size: var(--fs-title);
+  background-color: #fef0ed;
+  color: var(--primary-btn-color);
+  border: none;
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
@@ -134,12 +135,6 @@
   }
 }
 
-.deactivateButton {
-  background-color: #fef0ed;
-  color: var(--primary-btn-color);
-  border: none;
-}
-
 .closeBtn {
   background: transparent;
   padding: 0;
@@ -148,5 +143,93 @@
 
   &:hover {
     color: var(--primary-btn-color);
+  }
+}
+
+.deleteButton {
+  width: auto;
+  background-color: #f44336;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #da190b;
+  }
+
+  @include u.breakpoint(small) {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+.saveButton {
+  width: auto;
+  background-color: #4caf50;
+  color: white;
+  &:hover {
+    background-color: #45a049;
+  }
+  padding: 4px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  @include u.breakpoint(small) {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+.editButton {
+  background-color: #2196f3;
+  color: white;
+
+  &:hover {
+    background-color: #0b7dda;
+  }
+}
+
+.editButton {
+  width: auto;
+  background-color: #2196f3;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0b7dda;
+  }
+
+  @include u.breakpoint(small) {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+.addButton {
+  white-space: nowrap;
+  padding: 6px 16px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+
+  @include u.breakpoint(small) {
+    width: auto;
+  }
+
+  &:hover {
+    background-color: #45a049;
   }
 }

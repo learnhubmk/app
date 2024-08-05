@@ -35,10 +35,10 @@ const Footer = () => {
       .matches(/^[a-zA-Z .'-]+$/, '*Невалидно име!')
       .min(2, '*Вашето име е премногу кратко!')
       .max(50, '*Вашето име е премногу долго!')
-      .required('*Задолжително внесете име'),
+      .required('*Задолжително внесете го вашето име'),
     email: Yup.string()
       .email('*Невалидна емаил адреса')
-      .required('*Задолжително внесете емаил адреса'),
+      .required('*Задолжително внесете ја вашата електронска пошта'),
   });
 
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
@@ -128,7 +128,7 @@ const Footer = () => {
             </form>
           </div>
           <div className={styles.contactContainer}>
-            <h2 className={styles.footerTitle}>Контактирај не</h2>
+            <h2 className={styles.footerTitle}>Контактирај нè</h2>
             <a className={styles.contactEmail} href="mailto:contact@learnhub.mk">
               contact@learnhub.mk
             </a>

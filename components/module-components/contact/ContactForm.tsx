@@ -47,7 +47,7 @@ const ContactForm = () => {
           name: values.username,
           email: values.email,
           message: values.message,
-          cfTurnstileResponse: turnstileToken,
+          'cf-turnstile-response': turnstileToken,
         };
 
         await submitContactMutation.mutateAsync(formData);
@@ -64,7 +64,7 @@ const ContactForm = () => {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <TextInput
-          placeholder="Внесете го Вашето име"
+          placeholder="Внесете го вашето име"
           label="Име и презиме"
           name="username"
           type="text"
