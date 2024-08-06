@@ -22,6 +22,7 @@ const Tags = () => {
     { id: '3', name: 'NextJS' },
   ]);
   const [editingTagId, setEditingTagId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
@@ -37,6 +38,9 @@ const Tags = () => {
     toast.success('Тагот беше успешно избришан.');
   };
 
+  const filteredTags = tags.filter((tag) =>
+    tag.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const addTag = (newTag: string) => {
     // Code below is for testing purposes. To be changed when implemented with API.
 
@@ -83,10 +87,14 @@ const Tags = () => {
 
   return (
     <div className={styles.container}>
-      <TagManagementControls onAddClick={() => setShowAddTag(true)} />
+      <TagManagementControls
+        onAddClick={() => setShowAddTag(true)}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
       <TagTable
-        tags={tags}
+        tags={filteredTags}
         editingTagId={editingTagId}
         onEdit={triggerEdit}
         onDelete={handleDelete}
