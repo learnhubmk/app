@@ -50,6 +50,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             />
           </noscript>
         )}
+        <ToastContainer />
         <ThemeProvider>
           <ToastContainer />
           <ReactQueryProvider>

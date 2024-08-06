@@ -3,11 +3,11 @@ import Button from '../../reusable-components/button/Button';
 import Input from '../../reusable-components/input/Input';
 import styles from './tagManagementControls.module.scss';
 
-interface TagSearchProps {
+interface TagManagementControlsProps {
   onAddClick: () => void;
 }
 
-const TagManagementControls: React.FC<TagSearchProps> = ({ onAddClick }) => {
+const TagManagementControls: React.FC<TagManagementControlsProps> = ({ onAddClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -15,17 +15,12 @@ const TagManagementControls: React.FC<TagSearchProps> = ({ onAddClick }) => {
       <div className={styles.searchInputWrapper}>
         <Input
           type="text"
-          placeholder="Пребарувај тагови..."
+          placeholder="Search tags..."
           value={searchTerm}
           onChange={setSearchTerm}
         />
       </div>
-      <Button
-        onClick={onAddClick}
-        type="button"
-        buttonText="Додади таг"
-        buttonClass={['addButton']}
-      />
+      <Button onClick={onAddClick} type="button" buttonText="Add Tag" buttonClass={['addButton']} />
     </div>
   );
 };

@@ -1,49 +1,38 @@
-/* eslint-disable no-unused-vars */
-
-import React, { ReactNode } from 'react';
+import React from 'react';
 import style from './tableRowComponent.module.scss';
 
-interface TableRowComponentProps<T extends { id: string }> {
+interface TableRowComponentProps<T> {
   data: T;
   displayFields: (keyof T)[];
-  isChecked?: boolean;
-  onCheckboxChange: (id: string) => void;
-  showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: ReactNode;
+  renderActionsDropdown?: (item: T) => React.ReactNode;
+  editingTagId?: string | null;
+  renderEditInput?: (item: T) => React.ReactNode;
 }
 
 const TableRowComponent = <T extends { id: string }>({
   data,
   displayFields,
-  isChecked,
-  onCheckboxChange,
-  showCheckbox,
   renderActions,
   renderActionsDropdown,
+  editingTagId,
+  renderEditInput,
 }: TableRowComponentProps<T>) => {
-  const handleCheckboxChange = () => {
-    onCheckboxChange(data.id);
-  };
-
   return (
     <tr className={style.rowComponent}>
-      {showCheckbox && (
-        <td aria-label="Checkbox">
-          <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-        </td>
-      )}
       {displayFields.map((field) => (
-        <td key={field as string}>
-          {Array.isArray(data[field])
-            ? (data[field] as unknown as { name: string }[]).map((item) => item.name).join(', ')
-            : String(data[field])}
+        <td key={field as string} className={style.column}>
+          {editingTagId === data.id && field === 'name' && renderEditInput ? (
+            <div className={style.editTags}>{renderEditInput(data)}</div>
+          ) : (
+            String(data[field])
+          )}
         </td>
       ))}
 
       {renderActionsDropdown && (
         <td className={style.actionCell} aria-label="Actions">
-          {renderActionsDropdown}
+          {renderActionsDropdown(data)}
         </td>
       )}
 

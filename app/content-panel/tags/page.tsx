@@ -1,11 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
-import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import TagTable from '../../../components/module-components/tags/TagTable';
+import TextInput from '../../../components/reusable-components/text-input/TextInput';
 import AddTag from '../../../components/module-components/tags/AddTag';
+import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 
 interface Tag {
   id: string;
@@ -18,6 +21,16 @@ const Tags = () => {
     { id: '2', name: 'TypeScript' },
     { id: '3', name: 'NextJS' },
   ]);
+  const [editingTagId, setEditingTagId] = useState<string | null>(null);
+
+  const validationSchema = Yup.object().shape({
+    tagName: Yup.string()
+      .required('Името за тагот е задолжително')
+      // eslint-disable-next-line func-names
+      .test('unique', 'Тагот веќе постои', function (value) {
+        return !tags.some((tag) => tag.name.toLowerCase() === value?.toLowerCase());
+      }),
+  });
 
   const handleDelete = (id: string) => {
     setTags(tags.filter((tag) => tag.id !== id));
@@ -36,11 +49,63 @@ const Tags = () => {
     return true;
   };
 
+  const handleSaveChanges = (tagId: string, newName: string) => {
+    setTags((prevTags) =>
+      prevTags.map((tag) => (tag.id === tagId ? { ...tag, name: newName } : tag))
+    );
+    setEditingTagId(null);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      tagName: '',
+    },
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      handleSaveChanges(editingTagId!, values.tagName);
+      toast.success('Тагот беше успешно изменет');
+      resetForm();
+    },
+  });
+
+  const triggerEdit = (tagId: string) => {
+    const tagToEdit = tags.find((tag) => tag.id === tagId);
+    if (tagToEdit) {
+      setEditingTagId(tagId);
+      formik.setFieldValue('tagName', tagToEdit.name);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingTagId(null);
+    formik.resetForm();
+  };
+
   return (
     <div className={styles.container}>
       <TagManagementControls onAddClick={() => setShowAddTag(true)} />
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
-      <TagTable tags={tags} onDelete={handleDelete} handleEdit={() => {}} />
+      <TagTable
+        tags={tags}
+        editingTagId={editingTagId}
+        onEdit={triggerEdit}
+        onDelete={handleDelete}
+        onSave={formik.handleSubmit}
+        onCancel={handleCancelEdit}
+        renderEditInput={() => (
+          <div style={{ height: '40px' }}>
+            <TextInput
+              placeholder="Внеси име за тагот"
+              name="tagName"
+              type="text"
+              field="tagName"
+              formik={formik}
+              isRequired
+              label=""
+            />
+          </div>
+        )}
+      />
     </div>
   );
 };
