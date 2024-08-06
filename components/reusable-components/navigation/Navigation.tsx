@@ -13,7 +13,6 @@ import { useTheme } from '../../../app/context/themeContext';
 import sunImage from '../../../public/theme/sun.png';
 import moonImage from '../../../public/theme/moon.png';
 import LogoNavigation from '../../../public/logo/logo-black.svg';
-import Button from '../button/Button';
 
 const Navigation = () => {
   const { theme, toggleTheme } = useTheme();
@@ -25,44 +24,28 @@ const Navigation = () => {
         <Link className={styles.navigationLogoLink} href="/">
           <Image src={LogoNavigation} className={styles.navigationLogo} alt="LearnHub Logo" />
         </Link>
-
-        <div className={styles.navigationActions}>
-          <Button
-            href="/register"
-            type="link"
-            buttonClass={['primaryButton', 'navigationButton', 'button']}
-            buttonText="Регистрирај се"
-          />
-          <Button
-            href="/login"
-            type="link"
-            buttonClass={['secondaryButton', 'navigationButton', 'button']}
-            buttonText="Најави се"
-          />
-
-          <div className={styles.toggleContainer} onClick={toggleTheme}>
-            <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
-              <div className={`${styles.toggleButton} ${isSun && styles.marginLeftButton}`} />
-            </div>
-
-            {isSun ? (
-              <Image
-                src={moonImage}
-                alt="moon icon"
-                width={18}
-                height={18}
-                className={styles.moonImage}
-              />
-            ) : (
-              <Image
-                src={sunImage}
-                alt="sun icon"
-                width={18}
-                height={18}
-                className={styles.sunImage}
-              />
-            )}
+        <div className={styles.toggleContainer} onClick={toggleTheme}>
+          <div className={`${styles.animate} ${!isSun ? styles.moveRight : ''}`}>
+            <div className={`${styles.toggleButton} ${isSun && styles.marginLeftButton}`} />
           </div>
+
+          {isSun ? (
+            <Image
+              src={moonImage}
+              alt="moon icon"
+              width={18}
+              height={18}
+              className={styles.moonImage}
+            />
+          ) : (
+            <Image
+              src={sunImage}
+              alt="sun icon"
+              width={18}
+              height={18}
+              className={styles.sunImage}
+            />
+          )}
         </div>
       </div>
     </nav>

@@ -7,11 +7,6 @@
 .navigation {
   padding: 1.25rem 1.5rem 1.25rem 1.5rem;
 
-  @include u.breakpoint(medium) {
-    padding: clamp(0.875rem, 1.76848rem + 0.401vw, 1.25rem)
-      clamp(1.5rem, 0.50497rem + 3.746vw, 5rem);
-  }
-
   .navigationContainer {
     display: flex;
     justify-content: space-between;
@@ -29,25 +24,15 @@
   }
 }
 
-.navigationActions {
+.toggleContainer {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 1rem;
-}
-
-.toggleContainer {
-  display: none;
-
-  @include u.breakpoint(small) {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 4rem;
-    height: 2.25rem;
-    background-color: #000000;
-    box-shadow: inset 0px 0px 3px 1px rgb(161, 161, 161);
-    border-radius: 100px;
-  }
+  width: 4rem;
+  height: 2.25rem;
+  background-color: #000000;
+  box-shadow: inset 0px 0px 3px 1px rgb(161, 161, 161);
+  border-radius: 100px;
 
   .animate {
     transition: transform 0.2s ease;
