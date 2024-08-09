@@ -1,6 +1,6 @@
 import BlogList from '../../components/module-components/blog-list/BlogList';
 import Tab from '../../components/reusable-components/tab/Tab';
-// import AddNewPost from '../addNewPost';
+// import AddNewPost from '../../components/module-components/blog/addNewPost';
 
 const Blog = () => {
   return (

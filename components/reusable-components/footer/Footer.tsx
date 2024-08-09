@@ -9,12 +9,15 @@ import Image from 'next/image';
 import Turnstile from 'react-turnstile';
 import { useTheme } from '../../../app/context/themeContext';
 // eslint-disable-next-line no-unused-vars
-import { submitNewsletterForm } from './SubmitNewsletterForm';
 import styles from './footer.module.scss';
 import TextInput from '../text-input/TextInput';
 import LogoDark from '../../../public/logo/logo-black.svg';
 import SocialMediaLinks from './SocialMediaIcons';
 import Button from '../button/Button';
+import {
+  NewsletterFormData,
+  useSubmitNewsletterForm,
+} from '../../../api/mutations/newsletter/useSubmitNewsletterForm';
 
 // eslint-disable-next-line no-unused-vars
 interface FormValues {
@@ -41,6 +44,7 @@ const Footer = () => {
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const submitNewsletterMutation = useSubmitNewsletterForm();
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -48,23 +52,23 @@ const Footer = () => {
 
   const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (!turnstileToken) {
+      toast.error('Невалидна captcha');
       return;
     }
 
-    const formValues = {
-      first_name: values.name,
-      email: values.email,
-      'cf-turnstile-response': turnstileToken,
-    };
-
     try {
-      const response = await submitNewsletterForm(formValues);
-      if (response) {
-        toast.success(response);
-      }
+      const formData: NewsletterFormData = {
+        first_name: values.name,
+        email: values.email,
+        'cf-turnstile-response': turnstileToken,
+      };
+
+      await submitNewsletterMutation.mutateAsync(formData);
+      toast.success('Успешно се претплативте на нашиот билтен!');
       resetForm();
-    } catch (error: any) {
-      toast.error(error.message || 'Грешка');
+      setTurnstileToken(null);
+    } catch (error) {
+      toast.error('Настана грешка. Пробај повторно.');
     }
   };
 
