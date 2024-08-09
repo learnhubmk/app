@@ -47,7 +47,7 @@ const ContactForm = () => {
           name: values.username,
           email: values.email,
           message: values.message,
-          'cf-turnstile-response': turnstileToken,
+          cfTurnstileResponse: turnstileToken,
         };
 
         await submitContactMutation.mutateAsync(formData);

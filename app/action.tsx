@@ -6,7 +6,6 @@ import { BlogCardProps } from '../components/reusable-components/blog-card/BlogC
 
 const fetchBlogPosts = async (
   nextPosts: number,
-  pageTitle: string,
   blogCardsNumber: number
 ): Promise<BlogCardProps[]> => {
   try {

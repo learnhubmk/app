@@ -19,7 +19,7 @@ interface BlogListProps {
 
 const BlogList = ({ pageTitle, gridLayout, blogCardsNumber }: BlogListProps) => {
   const { data, isLoading, isError } = useQuery({
-    queryFn: () => fetchBlogPosts(0, pageTitle, blogCardsNumber),
+    queryFn: () => fetchBlogPosts(0, blogCardsNumber),
     queryKey: ['blogPosts', pageTitle, blogCardsNumber],
   });
 

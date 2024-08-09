@@ -21,7 +21,7 @@ const useGetInfiniteBlogs = ({ pageTitle, blogCardsNumber }: GetInfiniteBlogsPar
       pageTitle,
       blogCardsNumber.toString(),
     ],
-    queryFn: ({ pageParam }) => fetchBlogPosts(pageParam, pageTitle, blogCardsNumber),
+    queryFn: ({ pageParam }) => fetchBlogPosts(pageParam, blogCardsNumber),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length === blogCardsNumber ? allPages.length * blogCardsNumber : undefined;

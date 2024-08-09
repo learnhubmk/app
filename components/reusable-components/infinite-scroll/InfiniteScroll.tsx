@@ -32,7 +32,7 @@ const InfiniteScroll = ({
       const delay = 500;
 
       const timeoutId = setTimeout(() => {
-        fetchBlogPosts(nextPosts, pageTitle, blogCardsNumber).then((res) => {
+        fetchBlogPosts(nextPosts, blogCardsNumber).then((res) => {
           if (res.length === 0) {
             setIsLoading(false);
           } else {

@@ -10,7 +10,7 @@ interface GetBlogsParams {
 const useGetBlogs = ({ pageTitle, blogCardsNumber }: GetBlogsParams) => {
   return useQuery({
     queryKey: [...QUERY_KEYS.BLOGS.ALL, pageTitle, blogCardsNumber],
-    queryFn: () => fetchBlogPosts(0, pageTitle, blogCardsNumber),
+    queryFn: () => fetchBlogPosts(0, blogCardsNumber),
   });
 };
 
