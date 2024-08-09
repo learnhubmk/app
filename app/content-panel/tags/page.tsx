@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import TagTable from '../../../components/module-components/tags/TagTable';
 import TextInput from '../../../components/reusable-components/text-input/TextInput';
 import AddTag from '../../../components/module-components/tags/AddTag';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
+import useDebounce from '../../../utils/hooks/useDebounce';
 
 interface Tag {
   id: string;
@@ -22,6 +23,8 @@ const Tags = () => {
     { id: '3', name: 'NextJS' },
   ]);
   const [editingTagId, setEditingTagId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
@@ -37,6 +40,9 @@ const Tags = () => {
     toast.success('Тагот беше успешно избришан.');
   };
 
+  const filteredTags = useMemo(() => {
+    return tags.filter((tag) => tag.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()));
+  }, [tags, debouncedSearchTerm]);
   const addTag = (newTag: string) => {
     // Code below is for testing purposes. To be changed when implemented with API.
 
@@ -83,10 +89,14 @@ const Tags = () => {
 
   return (
     <div className={styles.container}>
-      <TagManagementControls onAddClick={() => setShowAddTag(true)} />
+      <TagManagementControls
+        onAddClick={() => setShowAddTag(true)}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
       <TagTable
-        tags={tags}
+        tags={filteredTags}
         editingTagId={editingTagId}
         onEdit={triggerEdit}
         onDelete={handleDelete}
