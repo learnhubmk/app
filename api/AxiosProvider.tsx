@@ -14,6 +14,10 @@ export const useAxios = () => {
   return axiosInstance;
 };
 
-export const AxiosProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface AxiosProviderProps {
+  children: React.ReactNode;
+}
+
+export const AxiosProvider = ({ children }: AxiosProviderProps) => {
   return <AxiosContext.Provider value={axiosInstanceDefault}>{children}</AxiosContext.Provider>;
 };
