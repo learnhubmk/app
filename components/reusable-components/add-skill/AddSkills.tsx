@@ -33,6 +33,7 @@ const AddSkill = () => {
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
           onClose={closeModal}
+          isOpen
         />
       )}
       <div className={styles.selectedTags}>

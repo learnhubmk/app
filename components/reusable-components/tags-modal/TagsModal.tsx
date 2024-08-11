@@ -3,19 +3,34 @@
 
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from './TagsModal.module.scss';
+import ReusableModal from '../reusable-modal/ReusableModal';
 
 interface TagSearchProps {
   existingTags: string[];
   selectedTags: string[];
   setSelectedTags: (items: string[]) => void;
   onClose: () => void;
+  isOpen: boolean;
 }
 
-const TagsModal = ({ existingTags, selectedTags, setSelectedTags, onClose }: TagSearchProps) => {
+const TagsModal = ({
+  existingTags,
+  selectedTags,
+  setSelectedTags,
+  onClose,
+  isOpen,
+}: TagSearchProps) => {
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(selectedTags);
   const [searchTag, setSearchTag] = useState<string>('');
   const [filteredTags, setFilteredTags] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedSkills(selectedTags);
+    }
+  }, [isOpen, selectedTags]);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -32,26 +47,35 @@ const TagsModal = ({ existingTags, selectedTags, setSelectedTags, onClose }: Tag
   };
 
   const addTag = (tag: string) => {
-    if (!selectedTags.includes(tag)) {
-      setSelectedTags([...selectedTags, tag]);
+    if (!selectedSkills.includes(tag)) {
+      setSelectedSkills([...selectedSkills, tag]);
     }
     setSearchTag('');
     setFilteredTags([]);
   };
 
   const removeTag = (tag: string) => {
-    setSelectedTags(selectedTags.filter((item) => item !== tag));
+    setSelectedSkills(selectedSkills.filter((item) => item !== tag));
+  };
+
+  const handleSave = () => {
+    setSelectedTags(selectedSkills);
+    onClose();
+  };
+
+  const handleCancel = () => {
+    onClose();
   };
 
   return (
-    <div className={styles.modalWrapper}>
+    <ReusableModal
+      title="Add Skill"
+      isOpen={isOpen}
+      onClose={handleCancel}
+      onPrimaryButtonClick={handleSave}
+      onSecondaryButtonClick={handleCancel}
+    >
       <div className={styles.modalContent}>
-        <button type="button" className={styles.closeButton} onClick={onClose}>
-          <i aria-label="Close button" className="bi bi-x" />
-        </button>
-        <label className={styles.skillLabel} htmlFor="searchTagInput">
-          Skill
-        </label>
         <input
           id="searchTagInput"
           type="text"
@@ -77,17 +101,17 @@ const TagsModal = ({ existingTags, selectedTags, setSelectedTags, onClose }: Tag
           </div>
         )}
         <div className={styles.selectedTags}>
-          {selectedTags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              <span className={styles.removeTag} onClick={() => removeTag(tag)}>
+          {selectedSkills.map((skill) => (
+            <span key={skill} className={styles.tag}>
+              <span className={styles.removeTag} onClick={() => removeTag(skill)}>
                 <i className="bi bi-x" />
-              </span>{' '}
-              {tag}
+              </span>
+              {skill}
             </span>
           ))}
         </div>
       </div>
-    </div>
+    </ReusableModal>
   );
 };
 
