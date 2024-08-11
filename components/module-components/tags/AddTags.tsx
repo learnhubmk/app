@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Button from '../../../components/reusable-components/button/Button';
-import Input from '../../../components/reusable-components/input/Input';
 import styles from './addTags.module.scss';
+import Input from '../../reusable-components/input/Input';
+import Button from '../../reusable-components/button/Button';
 
 const AddTags = () => {
   const [searchTerm, setSearchTerm] = useState('');

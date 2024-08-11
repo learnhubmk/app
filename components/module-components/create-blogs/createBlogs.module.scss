@@ -1,0 +1,14 @@
+.mainContainer {
+  margin: 50px 0;
+
+  .inputWrapper {
+    margin: 50px 0;
+    display: flex;
+    width: 100%;
+
+    .rightContainer {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}
