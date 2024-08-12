@@ -1,35 +1,14 @@
-'use client';
-
-import { AuthMiddleware, Role, useAuth } from '../context/authContext';
+import LoginForm from '../../components/reusable-components/login-form/LoginForm';
+import SignupAndLoginLayout from '../../components/reusable-components/signup-and-login-layout/SignupAndLoginLayout';
 
 const Login = () => {
-  const { login, loginStatus } = useAuth({
-    middleware: AuthMiddleware.guest,
-    redirectIfAuthenticatedTo: '/',
-  });
-
   return (
-    <form
-      action={async (formData) => {
-        login({
-          email: formData.get('email') as string,
-          password: formData.get('password') as string,
-          role: Role.content_manager,
-        });
-      }}
+    <SignupAndLoginLayout
+      welcomeTitle="Добредојдовте назад!"
+      welcomeSubtitle="Ве молиме пополнете ги податоците подолу за да се најавите."
     >
-      <label htmlFor="email">
-        Email
-        <input name="email" type="email" />
-      </label>
-      <label htmlFor="password">
-        Password
-        <input name="password" type="password" />
-      </label>
-      <button type="submit" disabled={loginStatus === 'pending'}>
-        {loginStatus === 'pending' ? 'Loading...' : 'Sign In'}
-      </button>
-    </form>
+      <LoginForm />
+    </SignupAndLoginLayout>
   );
 };
 

@@ -1,0 +1,151 @@
+@use '../../../app/styles/utils/breakpoints' as u;
+
+.loginForm {
+  width: 672px;
+  padding: 96px 0px 96px 0px;
+  gap: 56px;
+  box-shadow: 0px 25px 40px -12px hsla(0, 0%, 0%, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--titles-color);
+  z-index: 2;
+  margin-top: 140px;
+  @include u.breakpoint-down(large) {
+    width: 100%;
+    margin-top: 30px;
+  }
+  @include u.breakpoint-down(small) {
+    margin-top: 15px;
+    padding: 48px 0px 48px 0px;
+  }
+
+  .innerLoginForm {
+    width: 90%;
+    gap: 0px;
+
+    .loginTitle {
+      font-size: var(--fs-h2);
+      font-weight: 700;
+      line-height: 60px;
+      text-align: center;
+      margin-bottom: 30px;
+
+      @include u.breakpoint-down(small) {
+        line-height: 29.26px;
+      }
+    }
+  }
+}
+
+.lightLoginForm {
+  background: hsla(210, 40%, 98%, 1);
+  @include u.breakpoint-down(large) {
+    background: hsla(173, 13%, 86%, 1);
+  }
+}
+
+.darkLoginForm {
+  background: hsla(210, 40%, 98%, 1);
+  @include u.breakpoint-down(large) {
+    background: hsla(222, 29%, 30%, 1);
+    color: hsla(0, 0%, 83%, 1);
+  }
+}
+
+.loginSocials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+
+  .socialIcons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .socialIcon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.signup {
+  color: hsla(10, 94%, 63%, 1);
+}
+
+.loginBtn {
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 8px 24px 8px 24px;
+  gap: 8px;
+  border-radius: 8px;
+  color: white;
+  background: hsla(10, 94%, 63%, 1);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.forgotPasswordContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.forgotPassword {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23.2px;
+  letter-spacing: -0.01em;
+  color: hsla(10, 94%, 63%, 1);
+  text-decoration: underline;
+  @include u.breakpoint-down(small) {
+    font-size: 14px;
+    line-height: 20.3px;
+  }
+}
+
+.rememberCheck {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 8px;
+
+  .checkbox {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    @include u.breakpoint-down(medium) {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:checked {
+      -webkit-appearance: checkbox;
+      -moz-appearance: checkbox;
+      appearance: checkbox;
+    }
+  }
+}
+.checkboxLight {
+  border: 2px solid hsla(215, 19%, 35%, 1);
+}
+.checkboxDark {
+  border: 1.5px solid var(--Secondary, hsla(220, 20%, 43%, 1));
+}

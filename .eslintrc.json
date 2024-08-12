@@ -20,8 +20,7 @@
   },
   "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-shadow": "error",
     "react/jsx-filename-extension": [
       1,
@@ -63,13 +62,15 @@
     {
       "files": ["*.tsx"],
       "rules": {
-        "react/require-default-props": "off"
+        "react/require-default-props": "off",
+        "no-unused-vars": "off"
       }
     },
     {
       "files": ["tests/**/*.ts"],
       "rules": {
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "no-unused-vars": "off"
       }
     }
   ],

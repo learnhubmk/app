@@ -9,6 +9,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import Cookies from 'js-cookie';
 import useThemeDetector from '../../utils/themeDetector';
 
 interface ThemeContextType {
@@ -21,26 +22,29 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const isDarkTheme = useThemeDetector();
   const [themeLoaded, setThemeLoaded] = useState(false);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof window !== 'undefined') {
+      return (Cookies.get('theme') as 'dark' | 'light') || (isDarkTheme ? 'dark' : 'light');
+    }
+    return 'dark';
+  });
 
   useEffect(() => {
-    if (themeLoaded) {
-      setTheme(isDarkTheme ? 'dark' : 'light');
+    if (!themeLoaded && typeof window !== 'undefined') {
+      const storedTheme = Cookies.get('theme');
+      if (storedTheme) {
+        setTheme(storedTheme as 'dark' | 'light');
+      } else {
+        setTheme(isDarkTheme ? 'dark' : 'light');
+      }
+      setThemeLoaded(true);
     }
   }, [isDarkTheme, themeLoaded]);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      setTheme(storedTheme as 'dark' | 'light');
-    }
-    setThemeLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (themeLoaded) {
+    if (themeLoaded && typeof window !== 'undefined') {
       document.body.className = theme;
-      localStorage.setItem('theme', theme);
+      Cookies.set('theme', theme, { expires: 365 });
     }
   }, [theme, themeLoaded]);
 

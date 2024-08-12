@@ -20,7 +20,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 5.125rem;
+  gap: 1.125rem;
 
   @include u.breakpoint-down(medium) {
     flex-wrap: nowrap;

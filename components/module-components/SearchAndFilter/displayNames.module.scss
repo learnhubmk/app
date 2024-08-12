@@ -1,0 +1,23 @@
+.displayNames {
+  margin: 100px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .tableWrapper {
+    width: 50%;
+
+    table {
+      width: 70vw;
+      text-align: left;
+
+      th {
+        width: 400px;
+      }
+
+      td {
+        padding: 5px;
+      }
+    }
+  }
+}
