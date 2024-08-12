@@ -1,7 +1,3 @@
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-nested-ternary */
-
 'use client';
 
 import React, { useState } from 'react';
@@ -70,8 +66,11 @@ const ReusableForm = () => {
     validationSchema,
     onSubmit: (values) => {
       setPasswordValidation({
+        // eslint-disable-next-line no-unneeded-ternary
         uppercase: /[A-Z]/.test(values.password) ? true : false,
+        // eslint-disable-next-line no-unneeded-ternary
         specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(values.password) ? true : false,
+        // eslint-disable-next-line no-unneeded-ternary
         minLength: values.password.length >= 8 ? true : false,
       });
     },
@@ -92,6 +91,7 @@ const ReusableForm = () => {
   };
 
   const getColor = (valid: boolean | null) => {
+    // eslint-disable-next-line no-nested-ternary
     return valid === null ? '#475569' : valid ? '#00B107' : '#FF4045';
   };
 

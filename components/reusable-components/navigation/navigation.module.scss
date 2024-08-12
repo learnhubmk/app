@@ -1,9 +1,11 @@
+@use '../../../app/styles/utils' as u;
+
 .lightNavigation {
   background-color: var(--section-bg-color);
 }
 
 .navigation {
-  padding: clamp(0.875rem, 1.76848rem + 0.401vw, 1.25rem) clamp(1.5rem, 0.50497rem + 3.746vw, 5rem);
+  padding: 1.25rem 1.5rem 1.25rem 1.5rem;
 
   .navigationContainer {
     display: flex;

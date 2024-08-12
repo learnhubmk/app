@@ -24,7 +24,7 @@ const TableHead = <T,>({
   showDropdownActions,
 }: TableHeadProps<T>): React.JSX.Element => {
   const getSortOrder = (field: keyof T) => {
-    const sort = sortState.find((sort) => sort.field === field);
+    const sort = sortState.find((srt) => srt.field === field);
     return sort ? sort.order : null;
   };
 
