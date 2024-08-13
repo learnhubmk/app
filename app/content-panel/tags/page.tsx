@@ -15,6 +15,7 @@ interface Tag {
   id: string;
   name: string;
 }
+
 const Tags = () => {
   const [showAddTag, setShowAddTag] = useState(false);
   const [tags, setTags] = useState<Tag[]>([
@@ -29,9 +30,8 @@ const Tags = () => {
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
       .required('Името за тагот е задолжително')
-      // eslint-disable-next-line func-names
       .test('unique', 'Тагот веќе постои', function (value) {
-        return !tags.some((tag) => tag.name.toLowerCase() === value?.toLowerCase());
+        return !tags.some((tag) => tag.name.toLowerCase() === value?.toLowerCase().trim());
       }),
   });
 
@@ -41,23 +41,24 @@ const Tags = () => {
   };
 
   const filteredTags = useMemo(() => {
-    return tags.filter((tag) => tag.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()));
+    const trimmedSearchTerm = debouncedSearchTerm.trim().toLowerCase();
+    return tags.filter((tag) => tag.name.toLowerCase().includes(trimmedSearchTerm));
   }, [tags, debouncedSearchTerm]);
-  const addTag = (newTag: string) => {
-    // Code below is for testing purposes. To be changed when implemented with API.
 
-    if (tags.some((tag) => tag.name.toLowerCase() === newTag.toLowerCase())) {
+  const addTag = (newTag: string) => {
+    const trimmedNewTag = newTag.trim();
+    if (tags.some((tag) => tag.name.toLowerCase() === trimmedNewTag.toLowerCase())) {
       return false; // Tag already exists
     }
 
     const newId = tags.length > 0 ? (parseInt(tags[tags.length - 1].id, 10) + 1).toString() : '1';
-    setTags([...tags, { id: newId, name: newTag }]);
+    setTags([...tags, { id: newId, name: trimmedNewTag }]);
     return true;
   };
 
   const handleSaveChanges = (tagId: string, newName: string) => {
     setTags((prevTags) =>
-      prevTags.map((tag) => (tag.id === tagId ? { ...tag, name: newName } : tag))
+      prevTags.map((tag) => (tag.id === tagId ? { ...tag, name: newName.trim() } : tag))
     );
     setEditingTagId(null);
   };
