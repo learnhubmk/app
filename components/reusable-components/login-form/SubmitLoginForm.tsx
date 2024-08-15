@@ -7,13 +7,13 @@ export interface LoginFormData {
 type LoginFormResponse = any;
 
 export const submitLoginForm = async (formValues: LoginFormData): Promise<LoginFormResponse> => {
-  const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/login'!;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/content-login`;
 
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
-  const response = await fetch(url.toString(), {
+  const response = await fetch(url, {
     method: 'POST',
     headers,
     body: JSON.stringify(formValues),

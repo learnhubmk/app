@@ -31,12 +31,13 @@ const LoginForm = () => {
       .required('*Задолжително внесете емаил адреса'),
     password: Yup.string()
       .required('Задолжително внесете пасворд.')
-      .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.')
-      .matches(
-        /^(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]*$/,
-        'Мора да содржи еден број и еден посебен знак'
-      ),
+      .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.'),
+    // .matches(
+    //   /^(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]*$/,
+    //   'Мора да содржи еден број и еден посебен знак'
+    // ),
   });
+
   const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (!turnstileToken) {
       return;
@@ -51,11 +52,21 @@ const LoginForm = () => {
     try {
       const response = await submitLoginForm(formValues);
       if (response) {
-        toast.success(response);
+        toast.success('Успешна најава!');
+
+        const userRole = response.role;
+
+        if (userRole === 'content-manager') {
+          window.location.href = '/content-panel';
+        } else if (userRole === 'admin') {
+          window.location.href = '/admin-panel';
+        } else if (userRole === 'user') {
+          window.location.href = '/user-dashboard';
+        }
 
         resetForm();
       } else {
-        toast.error(response);
+        toast.error('Invalid credentials');
       }
     } catch (error) {
       toast.error('Грешка');
