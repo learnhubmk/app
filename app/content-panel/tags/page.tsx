@@ -113,6 +113,7 @@ const Tags = () => {
               formik={formik}
               isRequired
               label=""
+              inputClass={['tagTableInput']}
             />
           </div>
         )}
