@@ -18,9 +18,11 @@ interface TagTableProps {
   onCancel: () => void;
   onDelete: (id: string) => void;
   renderEditInput: (tag: Tag) => React.ReactNode;
+  isLoading: boolean;
 }
 
 const TagTable: React.FC<TagTableProps> = ({
+  isLoading,
   tags,
   editingTagId,
   onEdit,
@@ -77,6 +79,7 @@ const TagTable: React.FC<TagTableProps> = ({
   return (
     <>
       <ReusableTable<Tag>
+        isLoading={isLoading}
         headers={headers}
         displayNames={displayNames}
         data={tags}

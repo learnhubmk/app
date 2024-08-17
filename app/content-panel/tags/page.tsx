@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import { useQuery } from '@tanstack/react-query';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagTable from '../../../components/module-components/tags/TagTable';
 import TextInput from '../../../components/reusable-components/text-input/TextInput';
 import AddTag from '../../../components/module-components/tags/AddTag';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import useDebounce from '../../../utils/hooks/useDebounce';
+import useGetTags from '../../../api/queries/tags/getTags';
 
 interface Tag {
   id: string;
@@ -17,12 +19,12 @@ interface Tag {
 }
 
 const Tags = () => {
+  const getTagsQuery = useGetTags();
+
+  const { data, isLoading } = useQuery(getTagsQuery);
+
   const [showAddTag, setShowAddTag] = useState(false);
-  const [tags, setTags] = useState<Tag[]>([
-    { id: '1', name: 'React' },
-    { id: '2', name: 'TypeScript' },
-    { id: '3', name: 'NextJS' },
-  ]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [editingTagId, setEditingTagId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
@@ -88,6 +90,12 @@ const Tags = () => {
     formik.resetForm();
   };
 
+  useEffect(() => {
+    if (data?.data) {
+      setTags(data.data);
+    }
+  }, [data]);
+
   return (
     <div className={styles.container}>
       <TagManagementControls
@@ -97,6 +105,7 @@ const Tags = () => {
       />
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
       <TagTable
+        isLoading={isLoading}
         tags={filteredTags}
         editingTagId={editingTagId}
         onEdit={triggerEdit}

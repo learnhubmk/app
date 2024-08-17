@@ -13,6 +13,7 @@ interface ReusableTableProps<T> {
   renderActionsDropdown?: (item: T) => React.ReactNode;
   editingTagId?: string | null;
   renderEditInput?: (item: T) => React.ReactNode;
+  isLoading?: boolean;
 }
 
 interface SortState<T> {
@@ -21,6 +22,7 @@ interface SortState<T> {
 }
 
 const ReusableTable = <T extends { id: string }>({
+  isLoading,
   headers,
   displayNames,
   data,
@@ -55,8 +57,12 @@ const ReusableTable = <T extends { id: string }>({
     return data;
   }, [data, sortState]);
 
-  if (data?.length === 0) {
-    return <div className={style.noDataMessage}>No data available</div>;
+  if (isLoading) {
+    return <div className={style.noDataMessage}>Се вчитува</div>;
+  }
+
+  if (!isLoading && data?.length === 0) {
+    return <div className={style.noDataMessage}>Нема податоци</div>;
   }
 
   return (
