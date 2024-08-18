@@ -20,6 +20,7 @@ const ENDPOINTS = {
   },
   TAGS: {
     GET_ALL: `${API_BASE_URL}/content/blog-post-tags`,
+    CREATE: `${API_BASE_URL}/content/blog-post-tags`,
   },
 };
 

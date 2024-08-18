@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { useQuery } from '@tanstack/react-query';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagTable from '../../../components/module-components/tags/TagTable';
 import TextInput from '../../../components/reusable-components/text-input/TextInput';
@@ -12,6 +12,7 @@ import AddTag from '../../../components/module-components/tags/AddTag';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import useDebounce from '../../../utils/hooks/useDebounce';
 import useGetTags from '../../../api/queries/tags/getTags';
+import useAddNewTag from '../../../api/mutations/tags/useAddNewTag';
 
 interface Tag {
   id: string;
@@ -20,7 +21,7 @@ interface Tag {
 
 const Tags = () => {
   const getTagsQuery = useGetTags();
-
+  const addNewTagMutation = useAddNewTag();
   const { data, isLoading } = useQuery(getTagsQuery);
 
   const [showAddTag, setShowAddTag] = useState(false);
@@ -47,15 +48,25 @@ const Tags = () => {
     return tags.filter((tag) => tag.name.toLowerCase().includes(trimmedSearchTerm));
   }, [tags, debouncedSearchTerm]);
 
-  const addTag = (newTag: string) => {
+  const addTag = async (newTag: string) => {
     const trimmedNewTag = newTag.trim();
     if (tags.some((tag) => tag.name.toLowerCase() === trimmedNewTag.toLowerCase())) {
-      return false; // Tag already exists
+      return { success: false, error: 'Тагот веќе постои.' };
     }
 
-    const newId = tags.length > 0 ? (parseInt(tags[tags.length - 1].id, 10) + 1).toString() : '1';
-    setTags([...tags, { id: newId, name: trimmedNewTag }]);
-    return true;
+    try {
+      await addNewTagMutation.mutateAsync({
+        name: trimmedNewTag,
+      });
+
+      // If the mutation was successful, add the new tag to the local state
+      const newId = tags.length > 0 ? (parseInt(tags[tags.length - 1].id, 10) + 1).toString() : '1';
+      setTags([...tags, { id: newId, name: trimmedNewTag }]);
+      return { success: true };
+    } catch (error) {
+      // The error will be handled by the onError callback in useAddNewTag
+      return { success: false, error: 'API Error' };
+    }
   };
 
   const handleSaveChanges = (tagId: string, newName: string) => {

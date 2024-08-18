@@ -5,9 +5,14 @@ import { toast } from 'react-toastify';
 import Button from '../../reusable-components/button/Button';
 import styles from './addTag.module.scss';
 
+interface AddTagResult {
+  success: boolean;
+  error?: string;
+}
+
 interface AddTagProps {
   onCancel: () => void;
-  onAdd: (tag: string) => boolean;
+  onAdd: (tag: string) => Promise<AddTagResult>;
 }
 
 const AddTag: React.FC<AddTagProps> = ({ onCancel, onAdd }) => {
@@ -19,14 +24,17 @@ const AddTag: React.FC<AddTagProps> = ({ onCancel, onAdd }) => {
     <Formik
       initialValues={{ tagName: '' }}
       validationSchema={validationSchema}
-      onSubmit={(values, { setFieldError, resetForm }) => {
-        const success = onAdd(values.tagName.trim());
-        if (success) {
+      onSubmit={async (values, { setFieldError, resetForm }) => {
+        const result = await onAdd(values.tagName.trim());
+
+        if (result.success) {
           resetForm();
           onCancel();
           toast.success('Тагот е успешно креиран!');
+        } else if (result.error === 'Тагот веќе постои.') {
+          setFieldError('tagName', 'Тагот веќе постои.');
         } else {
-          setFieldError('tagName', 'Тагот веке постои.');
+          setFieldError('tagName', 'Настана грешка.');
         }
       }}
     >
