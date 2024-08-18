@@ -13,6 +13,7 @@ import TagManagementControls from '../../../components/module-components/tags/Ta
 import useDebounce from '../../../utils/hooks/useDebounce';
 import useGetTags from '../../../api/queries/tags/getTags';
 import useAddNewTag from '../../../api/mutations/tags/useAddNewTag';
+import useDeleteTag from '../../../api/mutations/tags/useDeleteTag';
 
 interface Tag {
   id: string;
@@ -22,6 +23,7 @@ interface Tag {
 const Tags = () => {
   const getTagsQuery = useGetTags();
   const addNewTagMutation = useAddNewTag();
+  const deleteTagMutation = useDeleteTag();
   const { data, isLoading } = useQuery(getTagsQuery);
 
   const [showAddTag, setShowAddTag] = useState(false);
@@ -38,9 +40,14 @@ const Tags = () => {
       }),
   });
 
-  const handleDelete = (id: string) => {
-    setTags(tags.filter((tag) => tag.id !== id));
-    toast.success('Тагот беше успешно избришан.');
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteTagMutation.mutateAsync(id);
+      setTags(tags.filter((tag) => tag.id !== id));
+      toast.success('Тагот беше успешно избришан.');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const filteredTags = useMemo(() => {
