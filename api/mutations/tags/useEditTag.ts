@@ -14,7 +14,6 @@ const useEditTag = () => {
 
   return useMutation({
     mutationFn: async ({ tagId, newName }: { tagId: string; newName: string }) => {
-      console.log(newName);
       const response = await axios.patch(`${ENDPOINTS.TAGS.EDIT}/${tagId}`, { name: newName });
       return response.data;
     },
