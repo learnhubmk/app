@@ -22,19 +22,20 @@ interface Tag {
 }
 
 const Tags = () => {
-  const getTagsQuery = useGetTags();
+  // MUTATIONS
   const addNewTagMutation = useAddNewTag();
   const deleteTagMutation = useDeleteTag();
   const editTagMutation = useEditTag();
 
-  const { data, isLoading } = useQuery(getTagsQuery);
-
+  // STATE
   const [showAddTag, setShowAddTag] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
   const [editingTagId, setEditingTagId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
+  const { data, isLoading } = useGetTags(debouncedSearchTerm);
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
       .required('Името за тагот е задолжително')
@@ -52,11 +53,6 @@ const Tags = () => {
       console.error(error);
     }
   };
-
-  const filteredTags = useMemo(() => {
-    const trimmedSearchTerm = debouncedSearchTerm.trim().toLowerCase();
-    return tags.filter((tag) => tag.name.toLowerCase().includes(trimmedSearchTerm));
-  }, [tags, debouncedSearchTerm]);
 
   const addTag = async (newTag: string) => {
     const trimmedNewTag = newTag.trim();
@@ -132,7 +128,7 @@ const Tags = () => {
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
       <TagTable
         isLoading={isLoading}
-        tags={filteredTags}
+        tags={tags}
         editingTagId={editingTagId}
         onEdit={triggerEdit}
         onDelete={handleDelete}
