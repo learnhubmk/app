@@ -5,20 +5,16 @@ import { toast } from 'react-toastify';
 import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 
-type TagName = {
-  name: string;
-};
-
 const useAddNewTag = () => {
   const axios = useAxios();
 
   return useMutation({
-    mutationFn: async (tagName: TagName) => {
-      const response = await axios.post(ENDPOINTS.TAGS.CREATE, tagName);
+    mutationFn: async ({ tagName }: { tagName: string }) => {
+      const response = await axios.post(ENDPOINTS.TAGS.CREATE, { name: tagName });
       return response.data;
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.message || 'An error occurred while adding the tag');
+      toast.error(error?.response?.data?.message || 'Настана грешка при додавање на тагот');
     },
   });
 };

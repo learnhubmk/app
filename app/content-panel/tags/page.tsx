@@ -14,6 +14,7 @@ import useDebounce from '../../../utils/hooks/useDebounce';
 import useGetTags from '../../../api/queries/tags/getTags';
 import useAddNewTag from '../../../api/mutations/tags/useAddNewTag';
 import useDeleteTag from '../../../api/mutations/tags/useDeleteTag';
+import useEditTag from '../../../api/mutations/tags/useEditTag';
 
 interface Tag {
   id: string;
@@ -24,6 +25,8 @@ const Tags = () => {
   const getTagsQuery = useGetTags();
   const addNewTagMutation = useAddNewTag();
   const deleteTagMutation = useDeleteTag();
+  const editTagMutation = useEditTag();
+
   const { data, isLoading } = useQuery(getTagsQuery);
 
   const [showAddTag, setShowAddTag] = useState(false);
@@ -63,7 +66,7 @@ const Tags = () => {
 
     try {
       await addNewTagMutation.mutateAsync({
-        name: trimmedNewTag,
+        tagName: trimmedNewTag,
       });
 
       // If the mutation was successful, add the new tag to the local state
@@ -88,9 +91,14 @@ const Tags = () => {
       tagName: '',
     },
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      handleSaveChanges(editingTagId!, values.tagName);
-      toast.success('Тагот беше успешно изменет');
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        await editTagMutation.mutateAsync({ tagId: editingTagId!, newName: values.tagName });
+        handleSaveChanges(editingTagId!, values.tagName);
+        toast.success('Тагот беше успешно изменет');
+      } catch (error) {
+        console.error(error);
+      }
       resetForm();
     },
   });
