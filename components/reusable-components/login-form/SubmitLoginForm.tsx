@@ -7,7 +7,7 @@ export interface LoginFormData {
 type LoginFormResponse = any;
 
 export const submitLoginForm = async (formValues: LoginFormData): Promise<LoginFormResponse> => {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/content-login`;
+  const url = 'https://staging-api.learnhub.mk/content/login';
 
   const headers = {
     'Content-Type': 'application/json',

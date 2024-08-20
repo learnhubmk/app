@@ -10,7 +10,6 @@ import Image from 'next/image';
 import styles from './LoginForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import TextInput from '../text-input/TextInput';
-import { submitLoginForm } from './SubmitLoginForm';
 import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
@@ -19,7 +18,11 @@ interface FormValues {
   email: string;
   password: string;
 }
-const LoginForm = () => {
+interface LoginFormProps {
+  submitLoginForm: (formValues: FormValues & { cfTurnstileResponse: string }) => Promise<any>;
+}
+
+const LoginForm = ({ submitLoginForm }: LoginFormProps) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
 
@@ -52,27 +55,16 @@ const LoginForm = () => {
     try {
       const response = await submitLoginForm(formValues);
       if (response) {
-        toast.success('Успешна најава!');
-
-        const userRole = response.role;
-
-        if (userRole === 'content-manager') {
-          window.location.href = '/content-panel';
-        } else if (userRole === 'admin') {
-          window.location.href = '/admin-panel';
-        } else if (userRole === 'user') {
-          window.location.href = '/user-dashboard';
-        }
+        toast.success(response);
 
         resetForm();
       } else {
-        toast.error('Invalid credentials');
+        toast.error(response);
       }
     } catch (error) {
       toast.error('Грешка');
     }
   };
-
   const formik = useFormik({
     initialValues,
     validationSchema,
