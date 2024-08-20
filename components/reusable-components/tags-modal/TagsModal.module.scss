@@ -1,0 +1,56 @@
+.modalContent {
+  width: 100%;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  color: #121d36;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+
+  .tagItem {
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: #121d36cb;
+      color: rgb(255, 255, 255);
+    }
+  }
+}
+
+.selectedTags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+
+  .tag {
+    background: transparent;
+    color: #121d36;
+    padding: 4px 8px;
+    border: 1px solid #121d36;
+    border-radius: 10px;
+    margin: 4px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    .removeTag {
+      cursor: pointer;
+    }
+  }
+}
