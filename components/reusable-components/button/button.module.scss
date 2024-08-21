@@ -146,90 +146,68 @@
   }
 }
 
-.deleteButton {
-  width: auto;
-  background-color: #f44336;
+// Button mixins
+@mixin button-base {
   color: white;
-  padding: 4px 8px;
-  font-size: 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
 
+@mixin button-size($width: 90px, $padding: 4px 8px, $font-size: 12px) {
+  width: $width;
+  padding: $padding;
+  font-size: $font-size;
+}
+
+@mixin button-hover($color) {
   &:hover {
-    background-color: #da190b;
+    background-color: darken($color, 10%);
   }
+}
+
+// Button styles
+%button-small {
+  @include button-base;
+  @include button-size;
 
   @include u.breakpoint(small) {
-    padding: 5px 10px;
-    font-size: 14px;
+    @include button-size($padding: 5px 10px, $font-size: 14px);
   }
+}
+
+// Button variations
+.deleteButton {
+  @extend %button-small;
+  background-color: #f44336;
+  @include button-hover(#f44336);
 }
 
 .saveButton {
-  width: auto;
+  @extend %button-small;
   background-color: #4caf50;
-  color: white;
-  &:hover {
-    background-color: #45a049;
-  }
-  padding: 4px 8px;
-  font-size: 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  @include button-hover(#4caf50);
+}
 
-  @include u.breakpoint(small) {
-    padding: 5px 10px;
-    font-size: 14px;
-  }
+.createTag {
+  @extend .saveButton;
+  width: 125px;
 }
 
 .editButton {
+  @extend %button-small;
   background-color: #2196f3;
-  color: white;
-
-  &:hover {
-    background-color: #0b7dda;
-  }
-}
-
-.editButton {
-  width: auto;
-  background-color: #2196f3;
-  color: white;
-  padding: 4px 8px;
-  font-size: 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0b7dda;
-  }
-
-  @include u.breakpoint(small) {
-    padding: 5px 10px;
-    font-size: 14px;
-  }
+  @include button-hover(#2196f3);
 }
 
 .addButton {
-  white-space: nowrap;
-  padding: 6px 16px;
-  font-size: 16px;
+  @include button-base;
+  @include button-size(100%, 6px 16px, 16px);
   background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
+  white-space: nowrap;
+  @include button-hover(#4caf50);
 
   @include u.breakpoint(small) {
     width: auto;
-  }
-
-  &:hover {
-    background-color: #45a049;
   }
 }

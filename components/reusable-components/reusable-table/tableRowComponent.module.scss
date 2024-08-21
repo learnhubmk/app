@@ -1,15 +1,28 @@
 .rowComponent {
   border-bottom: 1px solid black;
-  height: 2.5rem;
+  height: 40px;
+  max-height: 40px;
+
+  td {
+    padding: 0;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   .actionButtons {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 0.5rem;
   }
 
   td:last-child {
     padding-right: 15px;
     text-align: left;
+  }
+
+  .editTags {
+    padding-left: 20px;
   }
 }

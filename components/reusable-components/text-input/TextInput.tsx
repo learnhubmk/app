@@ -7,7 +7,7 @@ import setClass from '../../../utils/setClass';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   placeholder: string;
-  label: string;
+  label: string | '';
   name: string;
   type: string;
   field: string;
@@ -43,9 +43,11 @@ const TextInput: FC<InputProps> = ({
 
   return (
     <div className={style.inputContainer}>
-      <label htmlFor={name} className={style.label}>
-        {label} {isRequired && <span className={`${isLightTheme && style.errorColor}`}>*</span>}
-      </label>
+      {label && (
+        <label htmlFor={name} className={style.label}>
+          {label} {isRequired && <span className={`${isLightTheme && style.errorColor}`}>*</span>}
+        </label>
+      )}
       <div className={style.inputWrapper}>
         <input
           type={type}
