@@ -5,6 +5,8 @@ import Button from '../button/Button';
 interface ReusableModalProps {
   title: string;
   description?: string;
+  // eslint-disable-next-line no-undef
+  children?: JSX.Element;
   isOpen: boolean;
   onClose?: () => void;
   secondaryButtonLabel?: string;
@@ -18,6 +20,7 @@ interface ReusableModalProps {
 const ReusableModal = ({
   title,
   description,
+  children,
   isOpen,
   secondaryButtonLabel = 'Cancel',
   secondaryButtonClass = 'secondaryButton',
@@ -80,6 +83,7 @@ const ReusableModal = ({
           <div className={style.modalContent}>
             <h2>{title}</h2>
             {description && <p>{description}</p>}
+            {children}
           </div>
           <div className={style.modalButtons}>
             <Button
