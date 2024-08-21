@@ -33,8 +33,8 @@ const Tags = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const { data, isLoading, refetch } = useGetTags(debouncedSearchTerm);
 
-  const { data, isLoading } = useGetTags(debouncedSearchTerm);
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
       .required('Името за тагот е задолжително')
@@ -46,10 +46,11 @@ const Tags = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteTagMutation.mutateAsync(id);
-      setTags(tags.filter((tag) => tag.id !== id));
+      await refetch();
       toast.success('Тагот беше успешно избришан.');
     } catch (error) {
       console.error(error);
+      await refetch();
     }
   };
 
@@ -63,22 +64,31 @@ const Tags = () => {
       await addNewTagMutation.mutateAsync({
         tagName: trimmedNewTag,
       });
+      await refetch();
 
       // If the mutation was successful, add the new tag to the local state
       const newId = tags.length > 0 ? (parseInt(tags[tags.length - 1].id, 10) + 1).toString() : '1';
       setTags([...tags, { id: newId, name: trimmedNewTag }]);
       return { success: true };
     } catch (error) {
-      // The error will be handled by the onError callback in useAddNewTag
+      await refetch();
       return { success: false, error: 'API Error' };
     }
   };
 
-  const handleSaveChanges = (tagId: string, newName: string) => {
-    setTags((prevTags) =>
-      prevTags.map((tag) => (tag.id === tagId ? { ...tag, name: newName.trim() } : tag))
-    );
-    setEditingTagId(null);
+  const handleSaveChanges = async (tagId: string, newName: string) => {
+    try {
+      await editTagMutation.mutateAsync({ tagId, newName: newName.trim() });
+      await refetch();
+      setTags((prevTags) =>
+        prevTags.map((tag) => (tag.id === tagId ? { ...tag, name: newName.trim() } : tag))
+      );
+      setEditingTagId(null);
+      toast.success('Тагот беше успешно изменет');
+    } catch (error) {
+      console.error(error);
+      await refetch();
+    }
   };
 
   const formik = useFormik({
@@ -87,13 +97,7 @@ const Tags = () => {
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      try {
-        await editTagMutation.mutateAsync({ tagId: editingTagId!, newName: values.tagName });
-        handleSaveChanges(editingTagId!, values.tagName);
-        toast.success('Тагот беше успешно изменет');
-      } catch (error) {
-        console.error(error);
-      }
+      await handleSaveChanges(editingTagId!, values.tagName);
       resetForm();
     },
   });
