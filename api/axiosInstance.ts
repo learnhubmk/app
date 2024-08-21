@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
   },
 });
 
+// TODO: REPLACE BEARER LOGIC AS SOON AS AUTHENTICATION IS IMPLEMENTED. THIS IS FOR TESTING PURPOSES
 axiosInstance.interceptors.request.use(
   (config) => {
     if (process.env.NEXT_PUBLIC_BEARER) {
