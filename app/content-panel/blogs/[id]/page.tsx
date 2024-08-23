@@ -1,40 +1,87 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+
+// Placeholder Text Editor Component
+const TextEditor = ({ content, editable }: { content: string; editable: boolean }) => (
+  <div>
+    {editable ? <textarea defaultValue={content} disabled={!editable} /> : <p>{content}</p>}
+  </div>
+);
 
 const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
-  try {
+  const [isEditable, setIsEditable] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const fetchData = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts/${params.id}`);
     const data = await response.json();
+    return data.data;
+  };
 
-    // Ensure data and data.data are defined
-    const blogData = data?.data;
+  const data = await fetchData();
+  const {
+    title = 'N/A',
+    slug = 'N/A',
+    image = '',
+    author = { first_name: 'N/A', last_name: 'N/A' },
+    publish_date = 'N/A',
+    tags = [],
+  } = data || {};
 
-    // Use camel case for local variables
-    const {
-      title = 'N/A',
-      slug = 'N/A',
-      excerpt = 'N/A',
-      content = 'N/A',
-      publish_date: publishDate = 'N/A', // Renamed to camel case
-      tags = [],
-    } = blogData || {};
+  const handleEditClick = () => {
+    setIsEditable(!isEditable);
+  };
 
-    return (
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedImage(reader.result as string);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
+  return (
+    <div>
       <div>
-        <h1>Blog Details Page</h1>
-        <h3>Title: {title}</h3>
-        <p>Blog Slug: {slug}</p>
-        <p>Blog Excerpt: {excerpt}</p>
-        <p>Blog Content: {content}</p>
-        <p>Blog Publish Date: {publishDate}</p>
-        <p>
-          Blog Tags: {tags.length ? tags.map((tag: { name: any }) => tag.name).join(', ') : 'N/A'}
-        </p>
+        <button onClick={handleEditClick}>{isEditable ? 'Save' : 'Edit'}</button>
+        <button>Delete</button>
       </div>
-    );
-  } catch (error) {
-    console.error('Error fetching blog details:', error);
-    return <div>Error loading blog details.</div>;
-  }
+      <h1>{title}</h1>
+      <div>
+        <label>Image:</label>
+        <input type="file" disabled={!isEditable} onChange={handleImageChange} />
+        {selectedImage && <img src={selectedImage} alt="Selected" />}
+        {!selectedImage && image && <img src={image} alt="Blog" />}
+      </div>
+      <div>
+        <label>slug:</label>
+        <TextEditor content={slug} editable={isEditable} />
+      </div>
+      <div>
+        <label>Author:</label>
+        <input
+          type="text"
+          value={`${author.first_name} ${author.last_name}`}
+          disabled={!isEditable}
+        />
+      </div>
+      <div>
+        <label>Date:</label>
+        <input type="text" value={publish_date} disabled={!isEditable} />
+      </div>
+      <div>
+        <label>Tags:</label>
+        <input
+          type="text"
+          value={tags.length ? tags.map((tag: any) => tag.name).join(', ') : 'N/A'}
+          disabled={!isEditable}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default BlogDetailsPage;
