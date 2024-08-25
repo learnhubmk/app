@@ -87,17 +87,24 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         />
       </div>
       <div className={styles.authorSection}>
-        <label>Author:</label>
+        <label>Author First Name:</label>
         <input
           type="text"
-          value={`${author.first_name} ${author.last_name}`}
-          onChange={(e) =>
-            handleInputChange(e, (value) => setAuthor({ ...author, first_name: value }))
-          }
+          value={author.first_name}
+          onChange={(e) => setAuthor({ ...author, first_name: e.target.value })}
           disabled={!isEditable}
-          className={styles.authorSection}
+          className={styles.authorInput}
+        />
+        <label>Author Last Name:</label>
+        <input
+          type="text"
+          value={author.last_name}
+          onChange={(e) => setAuthor({ ...author, last_name: e.target.value })}
+          disabled={!isEditable}
+          className={styles.authorInput}
         />
       </div>
+
       <div className={styles.dateSection}>
         <label>Date:</label>
         <input
