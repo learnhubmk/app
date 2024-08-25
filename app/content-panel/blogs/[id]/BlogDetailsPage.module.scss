@@ -1,95 +1,165 @@
 .blogDetailsPageContainer {
+  background-color: var(--section-bg-color);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 70%;
-  margin: 0 auto;
+  width: 60%
 }
 
 .actionButtons {
   display: flex;
-  gap: 10px;
+  justify-content: flex-end;
   margin-bottom: 20px;
 
   button {
-    padding: 8px 16px;
+    background-color: var(--primary-btn-color);
+    color: var(--white-color);
     border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
     transition: background-color 0.3s ease;
 
-    &:first-child {
-      background-color: #007bff;
-      color: #fff;
-
-      &:hover {
-        background-color: #0056b3;
-      }
+    &:hover {
+      background-color: var(--primary-btn-hover-color);
     }
 
-    &:last-child {
-      background-color: #dc3545;
-      color: #fff;
-
-      &:hover {
-        background-color: #c82333;
-      }
+    &:active {
+      background-color: var(--primary-btn-active-color);
     }
+  }
+
+  button:nth-child(2) {
+    background-color: var(--error-state);
   }
 }
 
 .titleInput {
   margin-bottom: 20px;
 
-  input[type='text'] {
-    margin-top: 10px;
-    padding: 8px;
-    background-color: transparent;
-    font-weight: bold;
-    font-size: xx-large;
-    width: 100%;
-    color: #a5a4a4; 
+  h1 {
+    font-size: 24px;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: inherit;
+      color: var(--text-color);
+      background-color: var(--elevated-elements-dark-mode);
+      border: 1px solid var(--input-border-color);
+      border-radius: 4px;
+      outline: none;
+
+      &:disabled {
+        background-color: var(--secondary-dark-mode);
+      }
+    }
   }
 }
 
-.imageSection,
-.slugSection,
-.authorSection,
-.dateSection,
-.tagsSection {
+.imageSection {
   margin-bottom: 20px;
 
   label {
     display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    color: var(--hero-text-light-color); 
   }
 
   input[type='file'] {
-    margin-top: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: transparent;
-  }
-
-  input[type='text'],
-  input[type='date'] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: transparent;
-    color: #a5a4a4; 
+    display: block;
+    margin-bottom: 10px;
   }
 
   img {
-    display: block;
     max-width: 100%;
-    height: auto;
-    margin-top: 10px;
+    border-radius: 8px;
+    background-color: var(--elevated-elements-dark-mode);
+  }
+}
+
+.slugSection {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hero-text-light-color); 
+  }
+}
+
+.authorSection {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    width: 100%; 
+    margin-bottom: 8px;
+    color: var(--hero-text-light-color);
+    box-sizing: border-box; 
+  }
+
+  .authorInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: var(--input-text-color);
+    background-color: var(--elevated-elements-dark-mode);
+    border: 1px solid var(--input-border-color);
     border-radius: 4px;
+    outline: none;
+    box-sizing: border-box; 
+
+    &:disabled {
+      background-color: var(--secondary-dark-mode);
+    }
+  }
+}
+
+
+.dateSection {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hero-text-light-color); 
+  }
+
+  .dateInput {
+    width: 100%;
+    padding: 10px;
+    color: var(--input-text-color);
+    background-color: var(--elevated-elements-dark-mode);
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    outline: none;
+
+    &:disabled {
+      background-color: var(--secondary-dark-mode);
+    }
+  }
+}
+
+.tagsSection {
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hero-text-light-color); 
+  }
+
+  .tagsInput {
+    width: 100%;
+    padding: 10px;
+    color: var(--input-text-color);
+    background-color: var(--elevated-elements-dark-mode);
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    outline: none;
+
+    &:disabled {
+      background-color: var(--secondary-dark-mode);
+    }
   }
 }
