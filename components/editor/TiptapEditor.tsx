@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import styles from './TiptapEditor.module.scss';
 
-const TiptapEditor = ({ content, editable }: { content: string; editable: boolean }) => {
-  const editor = useEditor({
+const TiptapEditor = ({
+  content,
+  editable,
+  onChange,
+}: {
+  content: string;
+  editable: boolean;
+  onChange?: (content: string) => void;
+}) => {
+  const editorInstance = useEditor({
     extensions: [
       StarterKit,
       Highlight,
@@ -16,9 +24,26 @@ const TiptapEditor = ({ content, editable }: { content: string; editable: boolea
     ],
     content,
     editable,
+    onUpdate: ({ editor: updatedEditor }) => {
+      if (onChange) {
+        onChange(updatedEditor.getHTML());
+      }
+    },
   });
 
-  if (!editor) {
+  useEffect(() => {
+    if (editorInstance) {
+      editorInstance.commands.setContent(content);
+    }
+  }, [content, editorInstance]);
+
+  useEffect(() => {
+    if (editorInstance) {
+      editorInstance.setEditable(editable);
+    }
+  }, [editable, editorInstance]);
+
+  if (!editorInstance) {
     return null;
   }
 
@@ -26,30 +51,63 @@ const TiptapEditor = ({ content, editable }: { content: string; editable: boolea
     <div className={styles.tiptapEditorContainer}>
       {editable && (
         <div className={styles.tiptapToolbar}>
-          <button onClick={() => editor.chain().focus().toggleBold().run()}>Bold</button>
-          <button onClick={() => editor.chain().focus().toggleItalic().run()}>Italic</button>
-          <button onClick={() => editor.chain().focus().toggleStrike().run()}>Strike</button>
-          <button onClick={() => editor.chain().focus().setParagraph().run()}>Paragraph</button>
-          <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
+          <button type="button" onClick={() => editorInstance.chain().focus().toggleBold().run()}>
+            Bold
+          </button>
+          <button type="button" onClick={() => editorInstance.chain().focus().toggleItalic().run()}>
+            Italic
+          </button>
+          <button type="button" onClick={() => editorInstance.chain().focus().toggleStrike().run()}>
+            Strike
+          </button>
+          <button type="button" onClick={() => editorInstance.chain().focus().setParagraph().run()}>
+            Paragraph
+          </button>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 1 }).run()}
+          >
             h1
           </button>
-          <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 2 }).run()}
+          >
             h2
           </button>
-          <button onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 3 }).run()}
+          >
             h3
           </button>
-          <button onClick={() => editor.chain().focus().setTextAlign('left').run()}>Left</button>
-          <button onClick={() => editor.chain().focus().setTextAlign('center').run()}>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().setTextAlign('left').run()}
+          >
+            Left
+          </button>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().setTextAlign('center').run()}
+          >
             Center
           </button>
-          <button onClick={() => editor.chain().focus().setTextAlign('right').run()}>Right</button>
-          <button onClick={() => editor.chain().focus().setTextAlign('justify').run()}>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().setTextAlign('right').run()}
+          >
+            Right
+          </button>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().setTextAlign('justify').run()}
+          >
             Justify
           </button>
         </div>
       )}
-      <EditorContent editor={editor} />
+      <EditorContent editor={editorInstance} />
     </div>
   );
 };
