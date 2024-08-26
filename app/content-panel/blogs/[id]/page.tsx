@@ -4,15 +4,31 @@ import React, { useState, useEffect } from 'react';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 
+interface Author {
+  first_name: string;
+  last_name: string;
+}
+
+interface BlogDetails {
+  title: string;
+  slug: string;
+  image: string;
+  author: Author;
+  publishDate: string;
+  tags: string[];
+}
+
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [title, setTitle] = useState('N/A');
-  const [slug, setSlug] = useState('N/A');
-  const [image, setImage] = useState('');
-  const [author, setAuthor] = useState({ first_name: 'N/A', last_name: 'N/A' });
-  const [publishDate, setPublishDate] = useState('N/A');
-  const [tags, setTags] = useState<string[]>([]);
+  const [blogDetails, setBlogDetails] = useState<BlogDetails>({
+    title: 'N/A',
+    slug: 'N/A',
+    image: '',
+    author: { first_name: 'N/A', last_name: 'N/A' },
+    publishDate: 'N/A',
+    tags: [],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,19 +37,20 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       );
       const data = await response.json();
       const { title, slug, image, author, publish_date, tags } = data.data || {};
-      setTitle(title || 'N/A');
-      setSlug(slug || 'N/A');
-      setImage(image || '');
-      setAuthor(author || { first_name: 'N/A', last_name: 'N/A' });
-      setPublishDate(publish_date || 'N/A');
-      setTags(tags || []);
+      setBlogDetails({
+        title: title || 'N/A',
+        slug: slug || 'N/A',
+        image: image || '',
+        author: author || { first_name: 'N/A', last_name: 'N/A' },
+        publishDate: publish_date || 'N/A',
+        tags: tags || [],
+      });
     };
     fetchData();
   }, [params.id]);
 
   const handleEditClick = () => {
     if (isEditable) {
-      // Implement save logic here
     }
     setIsEditable(!isEditable);
   };
@@ -48,44 +65,41 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const handleSlugChange = (newContent: string) => {
-    setSlug(newContent);
-  };
-
-  const handleAuthorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setAuthor((prev) => ({ ...prev, [name]: value }));
-  };
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPublishDate(event.target.value);
-  };
-
-  const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTags(event.target.value.split(',').map((tag) => tag.trim()));
+    if (name.startsWith('author_')) {
+      // Handle nested author fields
+      const field = name.replace('author_', '') as 'first_name' | 'last_name';
+      setBlogDetails((prev) => ({
+        ...prev,
+        author: {
+          ...prev.author,
+          [field]: value,
+        },
+      }));
+    } else {
+      // Handle non-nested fields
+      setBlogDetails((prev) => ({
+        ...prev,
+        [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
+      }));
+    }
   };
 
   return (
     <div className={styles.blogDetailsPageContainer}>
       <BlogDetailsCard
-        title={title}
-        imageUrl={selectedImage || image}
-        slug={slug}
-        author={author}
-        publishDate={publishDate}
-        tags={tags}
+        title={blogDetails.title}
+        imageUrl={selectedImage || blogDetails.image}
+        slug={blogDetails.slug}
+        author={blogDetails.author}
+        publishDate={blogDetails.publishDate}
+        tags={blogDetails.tags}
         isEditable={isEditable}
         onEditClick={handleEditClick}
         onImageChange={handleImageChange}
-        onTitleChange={handleTitleChange}
-        onSlugChange={handleSlugChange}
-        onAuthorChange={handleAuthorChange}
-        onDateChange={handleDateChange}
-        onTagsChange={handleTagsChange}
+        onChange={handleChange}
         onDeleteClick={() => console.log('Delete button clicked')} // Implement delete logic here
       />
     </div>

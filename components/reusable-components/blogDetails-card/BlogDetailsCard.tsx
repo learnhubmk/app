@@ -12,11 +12,7 @@ interface BlogDetailsCardProps {
   isEditable: boolean;
   onEditClick: () => void;
   onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSlugChange: (newContent: string) => void;
-  onAuthorChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onTagsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDeleteClick: () => void;
 }
 
@@ -30,11 +26,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   isEditable,
   onEditClick,
   onImageChange,
-  onTitleChange,
-  onSlugChange,
-  onAuthorChange,
-  onDateChange,
-  onTagsChange,
+  onChange,
   onDeleteClick,
 }) => {
   return (
@@ -46,7 +38,13 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.titleInput}>
         <h1>
-          <input type="text" value={title} onChange={onTitleChange} disabled={!isEditable} />
+          <input
+            type="text"
+            value={title}
+            onChange={onChange}
+            name="title"
+            disabled={!isEditable}
+          />
         </h1>
       </div>
 
@@ -58,7 +56,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.slugSection}>
         <label>Slug:</label>
-        <TiptapEditor content={slug} editable={isEditable} onChange={onSlugChange} />
+        <TiptapEditor
+          content={slug}
+          editable={isEditable}
+          onChange={(content) => onChange({ target: { name: 'slug', value: content } } as any)}
+        />
       </div>
 
       <div className={styles.authorSection}>
@@ -66,35 +68,39 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <input
           type="text"
           value={author.first_name}
-          onChange={(e) =>
-            onAuthorChange({
-              ...e,
-              target: { ...e.target, value: e.target.value, name: 'first_name' },
-            })
-          }
+          onChange={onChange}
+          name="author_first_name" // Match with handleChange
           disabled={!isEditable}
         />
         <input
           type="text"
           value={author.last_name}
-          onChange={(e) =>
-            onAuthorChange({
-              ...e,
-              target: { ...e.target, value: e.target.value, name: 'last_name' },
-            })
-          }
+          onChange={onChange}
+          name="author_last_name" // Match with handleChange
           disabled={!isEditable}
         />
       </div>
 
       <div className={styles.dateSection}>
         <label>Date:</label>
-        <input type="date" value={publishDate} onChange={onDateChange} disabled={!isEditable} />
+        <input
+          type="date"
+          value={publishDate}
+          onChange={onChange}
+          name="publishDate"
+          disabled={!isEditable}
+        />
       </div>
 
       <div className={styles.tagsSection}>
         <label>Tags:</label>
-        <input type="text" value={tags.join(', ')} onChange={onTagsChange} disabled={!isEditable} />
+        <input
+          type="text"
+          value={tags.join(', ')}
+          onChange={onChange}
+          name="tags"
+          disabled={!isEditable}
+        />
       </div>
     </div>
   );
