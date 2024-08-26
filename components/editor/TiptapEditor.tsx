@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
+import CodeBlock from '@tiptap/extension-code-block';
 import styles from './TiptapEditor.module.scss';
 
 const TiptapEditor = ({
@@ -14,6 +15,8 @@ const TiptapEditor = ({
   editable: boolean;
   onChange?: (content: string) => void;
 }) => {
+  const [isCodeBlockActive, setIsCodeBlockActive] = useState(false);
+
   const editorInstance = useEditor({
     extensions: [
       StarterKit,
@@ -21,6 +24,7 @@ const TiptapEditor = ({
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
+      CodeBlock,
     ],
     content,
     editable,
@@ -28,6 +32,7 @@ const TiptapEditor = ({
       if (onChange) {
         onChange(updatedEditor.getHTML());
       }
+      setIsCodeBlockActive(updatedEditor.isActive('codeBlock'));
     },
   });
 
@@ -42,6 +47,13 @@ const TiptapEditor = ({
       editorInstance.setEditable(editable);
     }
   }, [editable, editorInstance]);
+
+  const handleCodeBlockToggle = () => {
+    if (editorInstance) {
+      editorInstance.chain().focus().toggleCodeBlock().run();
+      setIsCodeBlockActive(editorInstance.isActive('codeBlock'));
+    }
+  };
 
   if (!editorInstance) {
     return null;
@@ -105,9 +117,19 @@ const TiptapEditor = ({
           >
             Justify
           </button>
+          <button
+            type="button"
+            onClick={handleCodeBlockToggle}
+            className={isCodeBlockActive ? styles.codeBlockActive : ''}
+          >
+            Code Block
+          </button>
         </div>
       )}
-      <EditorContent editor={editorInstance} />
+      <EditorContent
+        editor={editorInstance}
+        className={`${styles.tiptap} ${isCodeBlockActive ? styles.codeBlockActive : ''}`}
+      />
     </div>
   );
 };
