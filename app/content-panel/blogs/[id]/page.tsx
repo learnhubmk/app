@@ -11,7 +11,7 @@ interface Author {
 
 interface BlogDetails {
   title: string;
-  slug: string;
+  content: string;
   image: string;
   author: Author;
   publishDate: string;
@@ -23,7 +23,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [blogDetails, setBlogDetails] = useState<BlogDetails>({
     title: 'N/A',
-    slug: 'N/A',
+    content: 'N/A',
     image: '',
     author: { first_name: 'N/A', last_name: 'N/A' },
     publishDate: 'N/A',
@@ -36,13 +36,14 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts/${params.id}`
       );
       const data = await response.json();
-      const { title, slug, image, author, publish_date, tags } = data.data || {};
+      const { title, content, image, author, publish_date: publishDate, tags } = data.data || {};
+
       setBlogDetails({
         title: title || 'N/A',
-        slug: slug || 'N/A',
+        content: content || 'N/A',
         image: image || '',
         author: author || { first_name: 'N/A', last_name: 'N/A' },
-        publishDate: publish_date || 'N/A',
+        publishDate: publishDate || 'N/A',
         tags: tags || [],
       });
     };
@@ -51,6 +52,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
 
   const handleEditClick = () => {
     if (isEditable) {
+      // Future logic will go here
     }
     setIsEditable(!isEditable);
   };
@@ -92,7 +94,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       <BlogDetailsCard
         title={blogDetails.title}
         imageUrl={selectedImage || blogDetails.image}
-        slug={blogDetails.slug}
+        content={blogDetails.content}
         author={blogDetails.author}
         publishDate={blogDetails.publishDate}
         tags={blogDetails.tags}
@@ -100,7 +102,9 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         onEditClick={handleEditClick}
         onImageChange={handleImageChange}
         onChange={handleChange}
-        onDeleteClick={() => console.log('Delete button clicked')} // Implement delete logic here
+        onDeleteClick={() => {
+          // Future delete logic will go here
+        }}
       />
     </div>
   );

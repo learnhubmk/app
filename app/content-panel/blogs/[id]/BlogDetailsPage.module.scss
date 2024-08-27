@@ -3,7 +3,7 @@
   color: var(--text-color);
   padding: 20px;
   border-radius: 8px;
-  width: 60%
+  width: 60%;
 }
 
 .actionButtons {
@@ -64,7 +64,7 @@
   label {
     display: block;
     margin-bottom: 8px;
-    color: var(--hero-text-light-color); 
+    color: var(--hero-text-light-color);
   }
 
   input[type='file'] {
@@ -79,13 +79,13 @@
   }
 }
 
-.slugSection {
+.contentSection {
   margin-bottom: 20px;
 
   label {
     display: block;
     margin-bottom: 8px;
-    color: var(--hero-text-light-color); 
+    color: var(--hero-text-light-color);
   }
 }
 
@@ -94,10 +94,10 @@
 
   label {
     display: block;
-    width: 100%; 
+    width: 100%;
     margin-bottom: 8px;
     color: var(--hero-text-light-color);
-    box-sizing: border-box; 
+    box-sizing: border-box;
   }
 
   .authorInput {
@@ -109,14 +109,13 @@
     border: 1px solid var(--input-border-color);
     border-radius: 4px;
     outline: none;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 
     &:disabled {
-      background-color: var(--elevated-elements-dark-mode)
+      background-color: var(--elevated-elements-dark-mode);
     }
   }
 }
-
 
 .dateSection {
   margin-bottom: 20px;
@@ -124,7 +123,7 @@
   label {
     display: block;
     margin-bottom: 8px;
-    color: var(--hero-text-light-color); 
+    color: var(--hero-text-light-color);
   }
 
   .dateInput {
@@ -146,7 +145,7 @@
   label {
     display: block;
     margin-bottom: 8px;
-    color: var(--hero-text-light-color); 
+    color: var(--hero-text-light-color);
   }
 
   .tagsInput {

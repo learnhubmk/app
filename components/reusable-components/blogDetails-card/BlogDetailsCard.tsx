@@ -1,11 +1,14 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React from 'react';
+import Image from 'next/image';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 
 interface BlogDetailsCardProps {
   title: string;
   imageUrl: string;
-  slug: string;
+  content: string;
   author: { first_name: string; last_name: string };
   publishDate: string;
   tags: string[];
@@ -19,7 +22,7 @@ interface BlogDetailsCardProps {
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
   imageUrl,
-  slug,
+  content,
   author,
   publishDate,
   tags,
@@ -32,8 +35,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   return (
     <div className={styles.blogDetailsCard}>
       <div className={styles.actionButtons}>
-        <button onClick={onEditClick}>{isEditable ? 'Save' : 'Edit'}</button>
-        <button onClick={onDeleteClick}>Delete</button>
+        <button type="button" onClick={onEditClick}>
+          {isEditable ? 'Save' : 'Edit'}
+        </button>
+        <button type="button" onClick={onDeleteClick}>
+          Delete
+        </button>
       </div>
 
       <div className={styles.titleInput}>
@@ -43,47 +50,54 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             value={title}
             onChange={onChange}
             name="title"
+            id="title" // Add ID here
             disabled={!isEditable}
           />
         </h1>
       </div>
 
       <div className={styles.imageSection}>
-        <label>Image:</label>
-        <input type="file" disabled={!isEditable} onChange={onImageChange} />
-        {imageUrl && <img src={imageUrl} alt="Blog" />}
+        <label htmlFor="imageUpload">Image:</label>
+        <input id="imageUpload" type="file" disabled={!isEditable} onChange={onImageChange} />
+        {imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />}
       </div>
 
-      <div className={styles.slugSection}>
-        <label>Slug:</label>
+      <div className={styles.contentSection}>
+        <label htmlFor="contentEditor">Content:</label>
         <TiptapEditor
-          content={slug}
+          content={content}
           editable={isEditable}
-          onChange={(content) => onChange({ target: { name: 'slug', value: content } } as any)}
+          onChange={(editorContent) =>
+            onChange({ target: { name: 'content', value: editorContent } } as any)
+          }
         />
       </div>
 
       <div className={styles.authorSection}>
-        <label>Author:</label>
+        <label htmlFor="authorFirstName">Author First Name:</label>
         <input
+          id="authorFirstName"
           type="text"
           value={author.first_name}
           onChange={onChange}
-          name="author_first_name" // Match with handleChange
+          name="author_first_name"
           disabled={!isEditable}
         />
+        <label htmlFor="authorLastName">Author Last Name:</label>
         <input
+          id="authorLastName"
           type="text"
           value={author.last_name}
           onChange={onChange}
-          name="author_last_name" // Match with handleChange
+          name="author_last_name"
           disabled={!isEditable}
         />
       </div>
 
       <div className={styles.dateSection}>
-        <label>Date:</label>
+        <label htmlFor="publishDate">Date:</label>
         <input
+          id="publishDate"
           type="date"
           value={publishDate}
           onChange={onChange}
@@ -93,8 +107,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       </div>
 
       <div className={styles.tagsSection}>
-        <label>Tags:</label>
+        <label htmlFor="tagsInput">Tags:</label>
         <input
+          id="tagsInput"
           type="text"
           value={tags.join(', ')}
           onChange={onChange}
