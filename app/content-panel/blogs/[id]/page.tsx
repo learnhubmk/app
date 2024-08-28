@@ -30,7 +30,8 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     tags: [],
   });
 
-  const [error, setError] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,8 +55,8 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
           publishDate: publishDate || 'N/A',
           tags: tags || [],
         });
-      } catch (error) {
-        setError(true);
+      } catch (fetchError) {
+        setHasError(true);
         setBlogDetails({
           title: 'Error fetching data',
           content: '',
@@ -71,23 +72,33 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   const handleEditClick = () => {
-    if (isEditable) {
-      // Future logic will go here
+    const form = document.querySelector('form') as HTMLFormElement;
+    if (form) {
+      const isFormValid = form.checkValidity();
+      if (!isFormValid) {
+        form.reportValidity();
+        return;
+      }
+      setIsEditable(!isEditable);
     }
-    setIsEditable(!isEditable);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
+    const files = event.target.files;
+    if (files && files[0]) {
+      const file = files[0];
       const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
       if (!validImageTypes.includes(file.type)) {
-        alert('Please upload a valid image file (jpg, jpeg, png, gif).');
+        setUploadError(
+          'Invalid file type. Please upload an image with one of the following formats: JPEG, JPG, PNG, GIF.'
+        );
         setSelectedImage(null);
-        event.target.value = '';
+        (event.target as HTMLInputElement).value = '';
         return;
       }
+
+      setUploadError(null);
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -101,7 +112,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     const { name, value } = event.target;
 
     if (name.startsWith('author_')) {
-      // Handle nested author fields
       const field = name.replace('author_', '') as 'first_name' | 'last_name';
       setBlogDetails((prev) => ({
         ...prev,
@@ -111,7 +121,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         },
       }));
     } else {
-      // Handle non-nested fields
       setBlogDetails((prev) => ({
         ...prev,
         [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
@@ -119,27 +128,30 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  if (error) {
+  if (hasError) {
     return <div className={styles.error}>Something went wrong. Please try again later.</div>;
   }
 
   return (
     <div className={styles.blogDetailsPageContainer}>
-      <BlogDetailsCard
-        title={blogDetails.title}
-        imageUrl={selectedImage || blogDetails.image}
-        content={blogDetails.content}
-        author={blogDetails.author}
-        publishDate={blogDetails.publishDate}
-        tags={blogDetails.tags}
-        isEditable={isEditable}
-        onEditClick={handleEditClick}
-        onImageChange={handleImageChange}
-        onChange={handleChange}
-        onDeleteClick={() => {
-          // Future delete logic will go here
-        }}
-      />
+      <form>
+        {uploadError && <div className={styles.error}>{uploadError}</div>}
+        <BlogDetailsCard
+          title={blogDetails.title}
+          imageUrl={selectedImage || blogDetails.image}
+          content={blogDetails.content}
+          author={blogDetails.author}
+          publishDate={blogDetails.publishDate}
+          tags={blogDetails.tags}
+          isEditable={isEditable}
+          onEditClick={handleEditClick}
+          onImageChange={handleImageChange}
+          onChange={handleChange}
+          onDeleteClick={() => {
+            // Future delete logic will go here
+          }}
+        />
+      </form>
     </div>
   );
 };

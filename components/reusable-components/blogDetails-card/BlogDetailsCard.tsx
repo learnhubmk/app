@@ -52,6 +52,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             name="title"
             id="title"
             disabled={!isEditable}
+            required
+            placeholder="Title is required"
           />
         </h1>
       </div>
@@ -64,6 +66,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             id="imageUpload"
             type="file"
             onChange={onImageChange}
+            required
           />
         ) : (
           imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />
@@ -91,6 +94,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           name="author_first_name"
           disabled={!isEditable}
           className={styles.inputField}
+          required
+          placeholder="First name is required"
         />
         <label htmlFor="authorLastName">Author Last Name:</label>
         <input
@@ -101,6 +106,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           name="author_last_name"
           disabled={!isEditable}
           className={styles.inputField}
+          required
+          placeholder="Last name is required"
         />
       </div>
 
@@ -114,6 +121,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           name="publishDate"
           disabled={!isEditable}
           className={styles.inputField}
+          required
         />
       </div>
 
@@ -127,6 +135,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           name="tags"
           disabled={!isEditable}
           className={styles.inputField}
+          required
+          placeholder="Tags are required"
         />
       </div>
     </div>
