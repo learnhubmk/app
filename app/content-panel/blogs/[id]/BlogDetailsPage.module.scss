@@ -58,96 +58,24 @@
   }
 }
 
-.imageSection {
-  margin-bottom: 20px;
-
-  label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--hero-text-light-color);
-  }
-
-  input[type='file'] {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  img {
-    max-width: 100%;
-    border-radius: 8px;
-    background-color: var(--elevated-elements-dark-mode);
-  }
-}
-
-.contentSection {
-  margin-bottom: 20px;
-
-  label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--hero-text-light-color);
-  }
-}
-
-.authorSection {
-  margin-bottom: 20px;
-
-  label {
-    display: block;
-    width: 100%;
-    margin-bottom: 8px;
-    color: var(--hero-text-light-color);
-    box-sizing: border-box;
-  }
-
-  .authorInput {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    color: var(--input-text-color);
-    background-color: var(--elevated-elements-dark-mode);
-    border: 1px solid var(--input-border-color);
-    border-radius: 4px;
-    outline: none;
-    box-sizing: border-box;
-
-    &:disabled {
-      background-color: var(--elevated-elements-dark-mode);
-    }
-  }
-}
-
-.dateSection {
-  margin-bottom: 20px;
-
-  label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--hero-text-light-color);
-  }
-
-  .dateInput {
-    width: 100%;
-    padding: 10px;
-    color: var(--input-text-color);
-    background-color: var(--elevated-elements-dark-mode);
-    border: 1px solid var(--input-border-color);
-    border-radius: 4px;
-    outline: none;
-
-    &:disabled {
-      background-color: var(--secondary-dark-mode);
-    }
-  }
-}
-
+.imageSection,
+.contentSection,
+.authorSection,
+.dateSection,
 .tagsSection {
+  margin-bottom: 20px;
+
   label {
     display: block;
     margin-bottom: 8px;
     color: var(--hero-text-light-color);
   }
 
+  input[type='text'],
+  input[type='date'],
+  input[type='file'],
+  .authorInput,
+  .dateInput,
   .tagsInput {
     width: 100%;
     padding: 10px;
@@ -156,9 +84,16 @@
     border: 1px solid var(--input-border-color);
     border-radius: 4px;
     outline: none;
+    box-sizing: border-box;
 
     &:disabled {
       background-color: var(--secondary-dark-mode);
     }
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+    background-color: var(--elevated-elements-dark-mode);
   }
 }

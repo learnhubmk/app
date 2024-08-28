@@ -58,7 +58,13 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.imageSection}>
         <label htmlFor="imageUpload">Image:</label>
-        <input id="imageUpload" type="file" disabled={!isEditable} onChange={onImageChange} />
+        <input
+          className={styles.inputField}
+          id="imageUpload"
+          type="file"
+          disabled={!isEditable}
+          onChange={onImageChange}
+        />
         {imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />}
       </div>
 
@@ -82,6 +88,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           onChange={onChange}
           name="author_first_name"
           disabled={!isEditable}
+          className={styles.inputField}
         />
         <label htmlFor="authorLastName">Author Last Name:</label>
         <input
@@ -91,6 +98,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           onChange={onChange}
           name="author_last_name"
           disabled={!isEditable}
+          className={styles.inputField}
         />
       </div>
 
@@ -103,6 +111,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           onChange={onChange}
           name="publishDate"
           disabled={!isEditable}
+          className={styles.inputField}
         />
       </div>
 
@@ -115,6 +124,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           onChange={onChange}
           name="tags"
           disabled={!isEditable}
+          className={styles.inputField}
         />
       </div>
     </div>
