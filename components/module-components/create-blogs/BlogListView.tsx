@@ -45,7 +45,6 @@ const BlogListView = () => {
           throw new Error(`${response.status} ${response.statusText}`);
         }
         const result = await response.json();
-        console.log('result', result);
         const transformedData: BlogPost[] = result.data.map((item: BlogPostAPI) => ({
           id: item.slug,
           title: item.title,
@@ -70,20 +69,20 @@ const BlogListView = () => {
 
   const handleView = (id: string) => router.push(`/content-panel/blogs/${id}`);
 
-  const handleEdit = (id: string) => {
-    console.log('Edit blog', id);
+  const handleEdit = () => {
+    // edit logic here
   };
 
-  const handleDelete = (id: string) => {
-    console.log('Delete blog', id);
+  const handleDelete = () => {
+    // edit logic here
   };
 
   const renderActionsDropdown = (item: BlogPost) => (
     <ActionDropdown
       dropdownItems={[
         { id: 'view', label: 'View', onClick: () => handleView(item.id) },
-        { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
-        { id: 'delete', label: 'Delete', onClick: () => handleDelete(item.id) },
+        { id: 'edit', label: 'Edit', onClick: () => handleEdit() },
+        { id: 'delete', label: 'Delete', onClick: () => handleDelete() },
       ]}
     />
   );
