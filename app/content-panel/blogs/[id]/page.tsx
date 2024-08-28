@@ -30,23 +30,43 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     tags: [],
   });
 
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts/${params.id}`
-      );
-      const data = await response.json();
-      const { title, content, image, author, publish_date: publishDate, tags } = data.data || {};
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts/${params.id}`
+        );
 
-      setBlogDetails({
-        title: title || 'N/A',
-        content: content || 'N/A',
-        image: image || '',
-        author: author || { first_name: 'N/A', last_name: 'N/A' },
-        publishDate: publishDate || 'N/A',
-        tags: tags || [],
-      });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const { title, content, image, author, publish_date: publishDate, tags } = data.data || {};
+
+        setBlogDetails({
+          title: title || 'N/A',
+          content: content || 'N/A',
+          image: image || '',
+          author: author || { first_name: 'N/A', last_name: 'N/A' },
+          publishDate: publishDate || 'N/A',
+          tags: tags || [],
+        });
+      } catch (error) {
+        setError(true);
+        setBlogDetails({
+          title: 'Error fetching data',
+          content: '',
+          image: '',
+          author: { first_name: 'N/A', last_name: 'N/A' },
+          publishDate: 'N/A',
+          tags: [],
+        });
+      }
     };
+
     fetchData();
   }, [params.id]);
 
@@ -59,11 +79,21 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+
+      if (!validImageTypes.includes(file.type)) {
+        alert('Please upload a valid image file (jpg, jpeg, png, gif).');
+        setSelectedImage(null);
+        event.target.value = '';
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = () => {
         setSelectedImage(reader.result as string);
       };
-      reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(file);
     }
   };
 
@@ -88,6 +118,10 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       }));
     }
   };
+
+  if (error) {
+    return <div className={styles.error}>Something went wrong. Please try again later.</div>;
+  }
 
   return (
     <div className={styles.blogDetailsPageContainer}>

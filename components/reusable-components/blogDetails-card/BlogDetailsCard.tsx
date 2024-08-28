@@ -50,7 +50,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             value={title}
             onChange={onChange}
             name="title"
-            id="title" // Add ID here
+            id="title"
             disabled={!isEditable}
           />
         </h1>
@@ -58,14 +58,16 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.imageSection}>
         <label htmlFor="imageUpload">Image:</label>
-        <input
-          className={styles.inputField}
-          id="imageUpload"
-          type="file"
-          disabled={!isEditable}
-          onChange={onImageChange}
-        />
-        {imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />}
+        {isEditable ? (
+          <input
+            className={styles.inputField}
+            id="imageUpload"
+            type="file"
+            onChange={onImageChange}
+          />
+        ) : (
+          imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />
+        )}
       </div>
 
       <div className={styles.contentSection}>
