@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 
@@ -29,6 +30,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     tags: [],
   });
   const [hasError, setHasError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,6 +74,10 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     // Implement the delete logic here
   };
 
+  const handleViewBlogListClick = () => {
+    router.push('/content-panel/blogs/');
+  };
+
   const noop = () => {};
 
   if (hasError) {
@@ -86,6 +92,9 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         </Link>
         <button type="button" className={styles.deleteButton} onClick={handleDeleteClick}>
           Delete
+        </button>
+        <button type="button" className={styles.viewListButton} onClick={handleViewBlogListClick}>
+          View Blog List
         </button>
       </div>
       <form>
