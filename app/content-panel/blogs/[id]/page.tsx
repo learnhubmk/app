@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 
@@ -19,8 +20,6 @@ interface BlogDetails {
 }
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
-  const [isEditable, setIsEditable] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [blogDetails, setBlogDetails] = useState<BlogDetails>({
     title: 'N/A',
     content: 'N/A',
@@ -29,8 +28,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     publishDate: 'N/A',
     tags: [],
   });
-
-  const [uploadError, setUploadError] = useState<string | null>(null);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -71,62 +68,11 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     fetchData();
   }, [params.id]);
 
-  const handleEditClick = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
-    if (form) {
-      const isFormValid = form.checkValidity();
-      if (!isFormValid) {
-        form.reportValidity();
-        return;
-      }
-      setIsEditable(!isEditable);
-    }
+  const handleDeleteClick = () => {
+    // Implement the delete logic here
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files[0]) {
-      const file = files[0];
-      const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-
-      if (!validImageTypes.includes(file.type)) {
-        setUploadError(
-          'Invalid file type. Please upload an image with one of the following formats: JPEG, JPG, PNG, GIF.'
-        );
-        setSelectedImage(null);
-        (event.target as HTMLInputElement).value = '';
-        return;
-      }
-
-      setUploadError(null);
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    if (name.startsWith('author_')) {
-      const field = name.replace('author_', '') as 'first_name' | 'last_name';
-      setBlogDetails((prev) => ({
-        ...prev,
-        author: {
-          ...prev.author,
-          [field]: value,
-        },
-      }));
-    } else {
-      setBlogDetails((prev) => ({
-        ...prev,
-        [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
-      }));
-    }
-  };
+  const noop = () => {};
 
   if (hasError) {
     return <div className={styles.error}>Something went wrong. Please try again later.</div>;
@@ -134,22 +80,24 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className={styles.blogDetailsPageContainer}>
+      <div className={styles.actionButtons}>
+        <Link className={styles.editButton} href={`/content-panel/blogs/${params.id}/edit`}>
+          Edit
+        </Link>
+        <button type="button" className={styles.deleteButton} onClick={handleDeleteClick}>
+          Delete
+        </button>
+      </div>
       <form>
-        {uploadError && <div className={styles.error}>{uploadError}</div>}
         <BlogDetailsCard
           title={blogDetails.title}
-          imageUrl={selectedImage || blogDetails.image}
+          imageUrl={blogDetails.image}
           content={blogDetails.content}
           author={blogDetails.author}
           publishDate={blogDetails.publishDate}
           tags={blogDetails.tags}
-          isEditable={isEditable}
-          onEditClick={handleEditClick}
-          onImageChange={handleImageChange}
-          onChange={handleChange}
-          onDeleteClick={() => {
-            // Future delete logic will go here
-          }}
+          onChange={noop}
+          readOnly
         />
       </form>
     </div>
