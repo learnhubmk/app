@@ -5,12 +5,10 @@
   border-radius: 8px;
   width: 60%;
 }
-
 .actionButtons {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
-
   button {
     background-color: var(--primary-btn-color);
     color: var(--white-color);
@@ -20,35 +18,16 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
     &:hover {
       background-color: var(--primary-btn-hover-color);
     }
-
     &:active {
       background-color: var(--primary-btn-active-color);
     }
   }
-
   button:nth-child(2) {
     background-color: var(--error-state);
   }
-}
-
-.editButton {
-  background-color: #0070f3;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-block;
-}
-
-.editButton:hover {
-  background-color: #005bb5;
 }
 
 .titleInput {
@@ -56,7 +35,6 @@
 
   h1 {
     font-size: 24px;
-
     input {
       width: 100%;
       padding: 10px;
@@ -66,27 +44,23 @@
       border: 1px solid var(--input-border-color);
       border-radius: 4px;
       outline: none;
-
       &:disabled {
         background-color: var(--secondary-dark-mode);
       }
     }
   }
 }
-
 .imageSection,
 .contentSection,
 .authorSection,
 .dateSection,
 .tagsSection {
   margin-bottom: 20px;
-
   label {
     display: block;
     margin-bottom: 8px;
     color: var(--hero-text-light-color);
   }
-
   input[type='text'],
   input[type='date'],
   input[type='file'],
@@ -101,12 +75,10 @@
     border-radius: 4px;
     outline: none;
     box-sizing: border-box;
-
     &:disabled {
       background-color: var(--secondary-dark-mode);
     }
   }
-
   img {
     max-width: 100%;
     border-radius: 8px;
