@@ -3,6 +3,7 @@ import { fetchItems, Item } from './lib/data';
 import { DropdownItem } from '../reusable-table/ActionDropdown';
 import styles from './HomePagination.module.scss';
 import ActionDropdownWrapper from './ActionDropdownWrapper';
+import ReusableTable from '../reusable-table/ReusableTable';
 
 const HomePagination: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
@@ -15,6 +16,7 @@ const HomePagination: React.FC = () => {
   const dropdownItems: DropdownItem[] = ITEMS_PER_PAGE_OPTIONS.map((option) => ({
     id: option.toString(),
     label: option.toString(),
+    onClick: () => setItemsPerPage(option),
   }));
 
   useEffect(() => {
@@ -48,13 +50,11 @@ const HomePagination: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1>Items</h1>
-      <ul className={styles.itemList}>
-        {items.map((item) => (
-          <li key={item.id} className={styles.item}>
-            {item.name}
-          </li>
-        ))}
-      </ul>
+      <ReusableTable<Item>
+        headers={['id', 'name']}
+        displayNames={{ id: 'ID', name: 'Name' }}
+        data={items}
+      />
       <div className={styles.controls}>
         <ActionDropdownWrapper dropdownItems={dropdownItems} onItemSelect={handleDropdownSelect} />
       </div>

@@ -1,5 +1,5 @@
 export interface Item {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -9,7 +9,7 @@ export const fetchItems = async (
 ): Promise<{ items: Item[]; total: number }> => {
   const totalItems = 100;
   const items = Array.from({ length: totalItems }, (_, i) => ({
-    id: i + 1,
+    id: (i + 1).toString(),
     name: `Item ${i + 1}`,
   }));
 
