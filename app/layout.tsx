@@ -5,12 +5,15 @@ import React, { Suspense } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import './styles/main.scss';
+import { ToastContainer } from 'react-toastify';
 import Loading from './loading';
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 import styles from './page.module.scss';
+import { AuthProvider } from './context/authContext';
+import { AxiosProvider } from '../api/AxiosProvider';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -49,15 +52,20 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             />
           </noscript>
         )}
+        <ToastContainer />
         <ThemeProvider>
-          <ReactQueryProvider>
-            <Navigation />
-            <main className={styles.main}>
-              <Suspense fallback={<Loading />}>{children}</Suspense>
-              <SpeedInsights />
-            </main>
-            <Footer />
-          </ReactQueryProvider>
+          <AxiosProvider>
+            <ReactQueryProvider>
+              <AuthProvider>
+                <Navigation />
+                <main className={styles.main}>
+                  <Suspense fallback={<Loading />}>{children}</Suspense>
+                  <SpeedInsights />
+                </main>
+                <Footer />
+              </AuthProvider>
+            </ReactQueryProvider>
+          </AxiosProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -80,5 +80,3 @@ Before diving into LearnHub.mk, make sure you have Node.js installed on your mac
 
 ## License
 LearnHub.mk is licensed under the MIT License. See the LICENSE file for more details.
-
-## Start your journey with LearnHub.mk today and let's shape the future of web development together! 🚀
