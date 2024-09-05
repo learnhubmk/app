@@ -8,6 +8,7 @@ interface Author {
   first_name: string;
   last_name: string;
 }
+
 interface BlogDetails {
   title: string;
   content: string;
@@ -30,7 +31,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   });
 
   const [uploadError, setUploadError] = useState<string | null>(null);
-  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,18 +52,14 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
           tags: tags || [],
         });
       } catch (fetchError) {
-        setHasError(true);
-        setBlogDetails({
-          title: 'Error fetching data',
-          content: '',
-          image: '',
-          author: { first_name: 'N/A', last_name: 'N/A' },
-          publishDate: 'N/A',
-          tags: [],
-        });
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error fetching blog details:', fetchError);
+        }
       }
     };
-    fetchData();
+    if (params?.id) {
+      fetchData();
+    }
   }, [params.id]);
 
   const handleEditClick = () => {
@@ -74,7 +70,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         form.reportValidity();
         return;
       }
-      setIsEditable(!isEditable);
+      setIsEditable((prevEditable) => !prevEditable);
     }
   };
 
@@ -90,10 +86,10 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         );
         setSelectedImage(null);
 
-        const newInput = event.target.cloneNode(true) as HTMLInputElement;
-        newInput.value = '';
+        const newTarget = event.target.cloneNode(true) as HTMLInputElement;
+        newTarget.value = '';
 
-        event.target.parentNode?.replaceChild(newInput, event.target);
+        event.target.parentNode?.replaceChild(newTarget, event.target);
         return;
       }
 
@@ -127,10 +123,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  if (hasError) {
-    return <div className={styles.error}>Something went wrong. Please try again later.</div>;
-  }
-
   return (
     <div className={styles.blogDetailsPageContainer}>
       <form>
@@ -154,4 +146,5 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     </div>
   );
 };
+
 export default BlogDetailsPage;
