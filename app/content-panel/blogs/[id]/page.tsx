@@ -3,64 +3,48 @@
 import React, { useState, useEffect } from 'react';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
-
-interface Author {
-  first_name: string;
-  last_name: string;
-}
-
-interface BlogDetails {
-  title: string;
-  content: string;
-  image: string;
-  author: Author;
-  publishDate: string;
-  tags: string[];
-}
+import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [blogDetails, setBlogDetails] = useState<BlogDetails>({
-    title: 'N/A',
-    content: 'N/A',
+  const [blogDetailsData, setBlogDetailsData] = useState({
+    title: '',
     image: '',
-    author: { first_name: 'N/A', last_name: 'N/A' },
-    publishDate: 'N/A',
+    content: '',
+    author: {
+      first_name: '',
+      last_name: '',
+    },
+    publishDate: '',
     tags: [],
   });
 
-  const [uploadError, setUploadError] = useState<string | null>(null);
+  const { data, error, isLoading } = useGetBlogDetails(params.id);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts/${params.id}`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        const { title, content, image, author, publish_date: publishDate, tags } = data.data || {};
-        setBlogDetails({
-          title: title || 'N/A',
-          content: content || 'N/A',
-          image: image || '',
-          author: author || { first_name: 'N/A', last_name: 'N/A' },
-          publishDate: publishDate || 'N/A',
-          tags: tags || [],
-        });
-      } catch (fetchError) {
-        if (process.env.NODE_ENV === 'development') {
-          console.error('Error fetching blog details:', fetchError);
-        }
-      }
-    };
-    if (params?.id) {
-      fetchData();
+    if (data?.data) {
+      const fetchedBlog = data.data;
+      const { title, image, content, author, publish_date: publishDate, tags } = fetchedBlog;
+
+      // Format date
+      const [year, month, day] = publishDate.split('-');
+      const formattedDate = `${year}-${month}-${day}`;
+
+      // Update state
+      setBlogDetailsData({
+        title: title || 'N/A',
+        image: image || '',
+        content: content || 'N/A',
+        author: {
+          first_name: author?.first_name || 'N/A',
+          last_name: author?.last_name || 'N/A',
+        },
+        publishDate: formattedDate || 'Date not available',
+        tags: tags || [],
+      });
     }
-  }, [params.id]);
+  }, [data]);
 
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
@@ -81,19 +65,9 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
       if (!validImageTypes.includes(file.type)) {
-        setUploadError(
-          'Invalid file type. Please upload an image with one of the following formats: JPEG, JPG, PNG, GIF.'
-        );
         setSelectedImage(null);
-
-        const newTarget = event.target.cloneNode(true) as HTMLInputElement;
-        newTarget.value = '';
-
-        event.target.parentNode?.replaceChild(newTarget, event.target);
         return;
       }
-
-      setUploadError(null);
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -108,32 +82,39 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
 
     if (name.startsWith('author_')) {
       const field = name.replace('author_', '') as 'first_name' | 'last_name';
-      setBlogDetails((prev) => ({
-        ...prev,
+      setBlogDetailsData((prevData) => ({
+        ...prevData,
         author: {
-          ...prev.author,
+          ...prevData.author,
           [field]: value,
         },
       }));
     } else {
-      setBlogDetails((prev) => ({
-        ...prev,
+      setBlogDetailsData((prevData) => ({
+        ...prevData,
         [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
       }));
     }
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading blog details</div>;
+  }
+
   return (
     <div className={styles.blogDetailsPageContainer}>
       <form>
-        {uploadError && <div className={styles.error}>{uploadError}</div>}
         <BlogDetailsCard
-          title={blogDetails.title}
-          imageUrl={selectedImage || blogDetails.image}
-          content={blogDetails.content}
-          author={blogDetails.author}
-          publishDate={blogDetails.publishDate}
-          tags={blogDetails.tags}
+          title={blogDetailsData.title}
+          imageUrl={selectedImage || blogDetailsData.image}
+          content={blogDetailsData.content}
+          author={blogDetailsData.author}
+          publishDate={blogDetailsData.publishDate}
+          tags={blogDetailsData.tags}
           isEditable={isEditable}
           onEditClick={handleEditClick}
           onImageChange={handleImageChange}
