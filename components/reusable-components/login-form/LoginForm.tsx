@@ -13,17 +13,15 @@ import TextInput from '../text-input/TextInput';
 import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
+import { Role, useAuth } from '../../../app/context/authContext';
 
 interface FormValues {
   email: string;
   password: string;
 }
-interface LoginFormProps {
-  submitLoginForm: (formValues: FormValues & { cfTurnstileResponse: string }) => Promise<any>;
-}
-
-const LoginForm = ({ submitLoginForm }: LoginFormProps) => {
+const LoginForm = () => {
   const { theme } = useTheme();
+  const { login, loginStatus } = useAuth();
   const isLightTheme = theme === 'light';
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -35,36 +33,31 @@ const LoginForm = ({ submitLoginForm }: LoginFormProps) => {
     password: Yup.string()
       .required('Задолжително внесете пасворд.')
       .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.'),
-    // .matches(
-    //   /^(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]*$/,
-    //   'Мора да содржи еден број и еден посебен знак'
-    // ),
   });
-
   const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (!turnstileToken) {
+      toast.error('Turnstile verification is required.');
       return;
     }
-
-    const formValues = {
-      email: values.email,
-      password: values.password,
-      cfTurnstileResponse: turnstileToken,
-    };
-
     try {
-      const response = await submitLoginForm(formValues);
-      if (response) {
-        toast.success(response);
-
+      const response = await login({
+        email: values.email,
+        password: values.password,
+        role: Role.content_manager,
+        cfTurnstileResponse: turnstileToken,
+      });
+      console.log(response);
+      if (loginStatus === 'success') {
+        toast.success('Успех');
         resetForm();
       } else {
-        toast.error(response);
+        toast.error('Login failed');
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error('Грешка');
     }
   };
+
   const formik = useFormik({
     initialValues,
     validationSchema,
