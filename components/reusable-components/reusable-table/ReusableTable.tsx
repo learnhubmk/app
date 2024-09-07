@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
@@ -18,15 +19,13 @@ interface SortState<T> {
   order: 'asc' | 'desc';
 }
 
-const ReusableTable = <T extends { id: string }>({
-  headers,
-  displayNames,
-  data,
-  renderActions,
-  renderActionsDropdown,
-}: ReusableTableProps<T>): React.JSX.Element => {
+const ReusableTable = <T extends { id: string }>(
+  props: ReusableTableProps<T>
+): React.JSX.Element => {
+  const { headers, displayNames, data, renderActions, renderActionsDropdown } = props;
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
   const [checkedId, setCheckedId] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleCheckboxChange = (id: string) => {
     setCheckedId(id === checkedId ? null : id);
@@ -42,6 +41,10 @@ const ReusableTable = <T extends { id: string }>({
 
   const getNestedValue = (obj: any, path: string) => {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  };
+
+  const handleView = (id: string) => {
+    router.push(`/content-panel/blogs/${id}`);
   };
 
   const sortedData = useMemo(() => {
@@ -85,6 +88,7 @@ const ReusableTable = <T extends { id: string }>({
         <tbody>
           {sortedData.map((item) => (
             <TableRowComponent<T>
+              onClick={() => handleView(item.id)} // Pass the handler here
               key={item.id}
               data={item}
               isChecked={checkedId === item.id}

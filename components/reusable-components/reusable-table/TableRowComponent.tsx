@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import style from './tableRowComponent.module.scss';
 
 interface TableRowComponentProps<T extends { id: string }> {
@@ -10,7 +10,8 @@ interface TableRowComponentProps<T extends { id: string }> {
   onCheckboxChange: (id: string) => void;
   showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: ReactNode;
+  renderActionsDropdown?: React.ReactNode;
+  onClick?: (id: string) => void;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -18,38 +19,74 @@ const TableRowComponent = <T extends { id: string }>({
   displayFields,
   isChecked,
   onCheckboxChange,
-  showCheckbox,
+  showCheckbox = false,
   renderActions,
   renderActionsDropdown,
+  onClick,
 }: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
     onCheckboxChange(data.id);
   };
 
+  const handleRowClick = () => {
+    if (onClick) {
+      onClick(data.id);
+    }
+  };
+
+  const handleActionClick = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent row click from being triggered
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      handleActionClick(event as any);
+    }
+  };
+
   return (
-    <tr className={style.rowComponent}>
+    <tr
+      className={style.rowComponent}
+      onClick={handleRowClick} // Handle row click
+      style={{ cursor: onClick ? 'pointer' : 'default' }}
+    >
       {showCheckbox && (
         <td aria-label="Checkbox">
           <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
         </td>
       )}
       {displayFields.map((field) => (
-        <td key={field as string}>
+        <td key={String(field)}>
           {Array.isArray(data[field])
-            ? (data[field] as unknown as { name: string }[]).map((item) => item.name).join(', ')
+            ? (data[field] as { name: string }[]).map((item) => item.name).join(', ')
             : String(data[field])}
         </td>
       ))}
-
       {renderActionsDropdown && (
         <td className={style.actionCell} aria-label="Actions">
-          {renderActionsDropdown}
+          <button
+            type="button"
+            onClick={handleActionClick}
+            onKeyDown={handleKeyDown}
+            tabIndex={0} // Make button focusable
+            aria-haspopup="true" // Indicate a dropdown menu
+          >
+            {renderActionsDropdown}
+          </button>
         </td>
       )}
-
       {renderActions && (
         <td className={style.actionCell}>
-          <div className={style.actionButtons}>{renderActions(data)}</div>
+          <button
+            type="button"
+            className={style.actionButtons}
+            onClick={handleActionClick}
+            onKeyDown={handleKeyDown}
+            tabIndex={0} // Make button focusable
+            aria-haspopup="true" // Indicate a dropdown menu
+          >
+            {renderActions(data)}
+          </button>
         </td>
       )}
     </tr>

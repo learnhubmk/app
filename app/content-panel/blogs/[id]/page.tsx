@@ -17,7 +17,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       last_name: '',
     },
     publishDate: '',
-    tags: [],
+    tags: [] as string[],
   });
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
@@ -27,11 +27,9 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       const fetchedBlog = data.data;
       const { title, image, content, author, publish_date: publishDate, tags } = fetchedBlog;
 
-      // Format date
       const [year, month, day] = publishDate.split('-');
       const formattedDate = `${year}-${month}-${day}`;
 
-      // Update state
       setBlogDetailsData({
         title: title || 'N/A',
         image: image || '',
