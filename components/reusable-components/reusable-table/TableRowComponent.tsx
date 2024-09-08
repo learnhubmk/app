@@ -34,20 +34,22 @@ const TableRowComponent = <T extends { id: string }>({
     }
   };
 
-  const handleActionClick = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent row click from being triggered
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      handleActionClick(event as any);
+  const handleActionEvent = (
+    event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>
+  ) => {
+    if (
+      event.type === 'click' ||
+      (event as React.KeyboardEvent<HTMLButtonElement>).key === 'Enter' ||
+      (event as React.KeyboardEvent<HTMLButtonElement>).key === ' '
+    ) {
+      event.stopPropagation();
     }
   };
 
   return (
     <tr
       className={style.rowComponent}
-      onClick={handleRowClick} // Handle row click
+      onClick={handleRowClick}
       style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
       {showCheckbox && (
@@ -66,10 +68,10 @@ const TableRowComponent = <T extends { id: string }>({
         <td className={style.actionCell} aria-label="Actions">
           <button
             type="button"
-            onClick={handleActionClick}
-            onKeyDown={handleKeyDown}
-            tabIndex={0} // Make button focusable
-            aria-haspopup="true" // Indicate a dropdown menu
+            onClick={handleActionEvent}
+            onKeyDown={handleActionEvent}
+            tabIndex={0}
+            aria-haspopup="true"
           >
             {renderActionsDropdown}
           </button>
@@ -80,10 +82,10 @@ const TableRowComponent = <T extends { id: string }>({
           <button
             type="button"
             className={style.actionButtons}
-            onClick={handleActionClick}
-            onKeyDown={handleKeyDown}
-            tabIndex={0} // Make button focusable
-            aria-haspopup="true" // Indicate a dropdown menu
+            onClick={handleActionEvent}
+            onKeyDown={handleActionEvent}
+            tabIndex={0}
+            aria-haspopup="true"
           >
             {renderActions(data)}
           </button>
