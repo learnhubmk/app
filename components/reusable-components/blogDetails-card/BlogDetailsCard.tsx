@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -16,7 +17,9 @@ interface BlogDetailsCardProps {
   isEditable: boolean;
   onEditClick: () => void;
   onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
+  ) => void;
   onDeleteClick: () => void;
   onCancelClick: () => void;
 }
@@ -71,7 +74,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           <input
             type="text"
             value={title}
-            onChange={onChange}
+            onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
             name="title"
             id="title"
             disabled={!isEditable}
@@ -102,8 +105,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <TiptapEditor
           content={content}
           editable={isEditable}
-          onChange={(editorContent) =>
-            onChange({ target: { name: 'content', value: editorContent } } as any)
+          onChange={(editorContent: string) =>
+            onChange({ target: { name: 'content', value: editorContent } })
           }
         />
       </div>
@@ -114,7 +117,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           id="authorFirstName"
           type="text"
           value={author.first_name}
-          onChange={onChange}
+          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           name="author_first_name"
           disabled={!isEditable}
           className={styles.inputField}
@@ -126,7 +129,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           id="authorLastName"
           type="text"
           value={author.last_name}
-          onChange={onChange}
+          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           name="author_last_name"
           disabled={!isEditable}
           className={styles.inputField}
@@ -141,7 +144,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           id="publishDate"
           type="date"
           value={publishDate}
-          onChange={onChange}
+          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           name="publishDate"
           disabled={!isEditable}
           className={styles.inputField}
@@ -155,7 +158,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           id="tagsInput"
           type="text"
           value={tags.join(', ')}
-          onChange={onChange}
+          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           name="tags"
           disabled={!isEditable}
           className={styles.inputField}

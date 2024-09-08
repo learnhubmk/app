@@ -77,21 +77,31 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
+  ) => {
+    if ((event as React.ChangeEvent<HTMLInputElement>).target) {
+      const { name, value } = (event as React.ChangeEvent<HTMLInputElement>).target;
 
-    if (name.startsWith('author_')) {
-      setBlogDetailsData((prevData) => ({
-        ...prevData,
-        author: {
-          ...prevData.author,
-          [name.replace('author_', '')]: value,
-        },
-      }));
+      if (name.startsWith('author_')) {
+        setBlogDetailsData((prevData) => ({
+          ...prevData,
+          author: {
+            ...prevData.author,
+            [name.replace('author_', '')]: value,
+          },
+        }));
+      } else {
+        setBlogDetailsData((prevData) => ({
+          ...prevData,
+          [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
+        }));
+      }
     } else {
+      const { name, value } = (event as { target: { name: string; value: string } }).target;
       setBlogDetailsData((prevData) => ({
         ...prevData,
-        [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
+        [name]: value,
       }));
     }
   };
