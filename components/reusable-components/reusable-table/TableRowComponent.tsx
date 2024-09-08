@@ -11,7 +11,7 @@ interface TableRowComponentProps<T extends { id: string }> {
   showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
   renderActionsDropdown?: React.ReactNode;
-  onClick?: (id: string) => void; // Optional onClick for row navigation
+  onClick?: (id: string) => void;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -30,7 +30,7 @@ const TableRowComponent = <T extends { id: string }>({
 
   const handleRowClick = () => {
     if (onClick) {
-      onClick(data.id); // Navigate to blog details
+      onClick(data.id);
     }
   };
 
@@ -42,14 +42,14 @@ const TableRowComponent = <T extends { id: string }>({
       (event as React.KeyboardEvent).key === 'Enter' ||
       (event as React.KeyboardEvent).key === ' '
     ) {
-      event.stopPropagation(); // Prevent row click when interacting with action elements
+      event.stopPropagation();
     }
   };
 
   return (
     <tr
       className={style.rowComponent}
-      onClick={handleRowClick} // Handle row click to navigate
+      onClick={handleRowClick}
       style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
       {showCheckbox && (
