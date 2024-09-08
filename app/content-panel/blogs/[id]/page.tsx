@@ -5,16 +5,30 @@ import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
 
+interface Author {
+  first_name: string;
+  last_name: string;
+}
+
+interface BlogDetailsData {
+  title: string;
+  image: string;
+  content: string;
+  author: Author;
+  publishDate: string;
+  tags: string[];
+}
+
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [blogDetailsData, setBlogDetailsData] = useState({
+  const [blogDetailsData, setBlogDetailsData] = useState<BlogDetailsData>({
     title: '',
     image: '',
     content: '',
     author: { first_name: '', last_name: '' },
     publishDate: '',
-    tags: [] as string[],
+    tags: [],
   });
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
@@ -24,7 +38,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       const fetchedBlog = data.data;
       const { title, image, content, author, publish_date: publishDate, tags } = fetchedBlog;
 
-      const formattedDate = publishDate ? publishDate.split('T')[0] : 'N/A'; // Ensures correct date formatting
+      const formattedDate = publishDate ? publishDate.split('T')[0] : 'N/A';
 
       setBlogDetailsData({
         title: title || 'N/A',
