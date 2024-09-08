@@ -11,7 +11,7 @@ interface TableRowComponentProps<T extends { id: string }> {
   showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
   renderActionsDropdown?: React.ReactNode;
-  onClick?: (id: string) => void;
+  onClick?: (id: string) => void; // Optional onClick for row navigation
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -19,7 +19,7 @@ const TableRowComponent = <T extends { id: string }>({
   displayFields,
   isChecked,
   onCheckboxChange,
-  showCheckbox = false,
+  showCheckbox,
   renderActions,
   renderActionsDropdown,
   onClick,
@@ -30,26 +30,26 @@ const TableRowComponent = <T extends { id: string }>({
 
   const handleRowClick = () => {
     if (onClick) {
-      onClick(data.id);
+      onClick(data.id); // Navigate to blog details
     }
   };
 
   const handleActionEvent = (
-    event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>
   ) => {
     if (
       event.type === 'click' ||
-      (event as React.KeyboardEvent<HTMLButtonElement>).key === 'Enter' ||
-      (event as React.KeyboardEvent<HTMLButtonElement>).key === ' '
+      (event as React.KeyboardEvent).key === 'Enter' ||
+      (event as React.KeyboardEvent).key === ' '
     ) {
-      event.stopPropagation();
+      event.stopPropagation(); // Prevent row click when interacting with action elements
     }
   };
 
   return (
     <tr
       className={style.rowComponent}
-      onClick={handleRowClick}
+      onClick={handleRowClick} // Handle row click to navigate
       style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
       {showCheckbox && (
@@ -58,37 +58,39 @@ const TableRowComponent = <T extends { id: string }>({
         </td>
       )}
       {displayFields.map((field) => (
-        <td key={String(field)}>
+        <td key={field as string}>
           {Array.isArray(data[field])
-            ? (data[field] as { name: string }[]).map((item) => item.name).join(', ')
+            ? (data[field] as unknown as { name: string }[]).map((item) => item.name).join(', ')
             : String(data[field])}
         </td>
       ))}
+
       {renderActionsDropdown && (
         <td className={style.actionCell} aria-label="Actions">
-          <button
-            type="button"
+          <div
+            role="button"
+            tabIndex={0}
             onClick={handleActionEvent}
             onKeyDown={handleActionEvent}
-            tabIndex={0}
             aria-haspopup="true"
+            className={style.dropdownWrapper}
           >
             {renderActionsDropdown}
-          </button>
+          </div>
         </td>
       )}
+
       {renderActions && (
         <td className={style.actionCell}>
-          <button
-            type="button"
-            className={style.actionButtons}
+          <div
+            role="button"
+            tabIndex={0}
             onClick={handleActionEvent}
             onKeyDown={handleActionEvent}
-            tabIndex={0}
-            aria-haspopup="true"
+            className={style.actionWrapper}
           >
             {renderActions(data)}
-          </button>
+          </div>
         </td>
       )}
     </tr>
