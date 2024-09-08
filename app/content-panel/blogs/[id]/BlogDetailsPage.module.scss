@@ -5,28 +5,55 @@
   border-radius: 8px;
   width: 60%;
 }
+
 .actionButtons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 20px;
-  button {
-    background-color: var(--primary-btn-color);
-    color: var(--white-color);
-    border: none;
-    padding: 10px 20px;
-    margin-left: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: var(--primary-btn-hover-color);
-    }
-    &:active {
-      background-color: var(--primary-btn-active-color);
+
+  .leftButton {
+    button {
+      background-color: #052252; /* Dark Blue Color */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #021a40; /* Darker Blue for Hover */
+      }
     }
   }
-  button:nth-child(2) {
-    background-color: var(--error-state);
+  
+  
+
+  .rightButtons {
+    display: flex;
+
+    button {
+      background-color: var(--primary-btn-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-left: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: var(--primary-btn-hover-color);
+      }
+
+      &:active {
+        background-color: var(--primary-btn-active-color);
+      }
+
+      &:nth-child(2) {
+        background-color: var(--error-state);
+      }
+    }
   }
 }
 
@@ -44,29 +71,30 @@
       border: 1px solid var(--input-border-color);
       border-radius: 4px;
       outline: none;
+
       &:disabled {
         background-color: var(--secondary-dark-mode);
       }
     }
   }
 }
+
 .imageSection,
 .contentSection,
 .authorSection,
 .dateSection,
 .tagsSection {
   margin-bottom: 20px;
+
   label {
     display: block;
     margin-bottom: 8px;
     color: var(--hero-text-light-color);
   }
+
   input[type='text'],
   input[type='date'],
-  input[type='file'],
-  .authorInput,
-  .dateInput,
-  .tagsInput {
+  input[type='file'] {
     width: 100%;
     padding: 10px;
     color: var(--input-text-color);
@@ -75,10 +103,12 @@
     border-radius: 4px;
     outline: none;
     box-sizing: border-box;
+
     &:disabled {
       background-color: var(--secondary-dark-mode);
     }
   }
+
   img {
     max-width: 100%;
     border-radius: 8px;

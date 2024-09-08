@@ -12,10 +12,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     title: '',
     image: '',
     content: '',
-    author: {
-      first_name: '',
-      last_name: '',
-    },
+    author: { first_name: '', last_name: '' },
     publishDate: '',
     tags: [] as string[],
   });
@@ -27,8 +24,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       const fetchedBlog = data.data;
       const { title, image, content, author, publish_date: publishDate, tags } = fetchedBlog;
 
-      const [year, month, day] = publishDate.split('-');
-      const formattedDate = `${year}-${month}-${day}`;
+      const formattedDate = publishDate ? publishDate.split('T')[0] : 'N/A'; // Ensures correct date formatting
 
       setBlogDetailsData({
         title: title || 'N/A',
@@ -38,7 +34,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
           first_name: author?.first_name || 'N/A',
           last_name: author?.last_name || 'N/A',
         },
-        publishDate: formattedDate || 'Date not available',
+        publishDate: formattedDate,
         tags: tags || [],
       });
     }
@@ -46,32 +42,24 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
 
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
-    if (form) {
-      const isFormValid = form.checkValidity();
-      if (!isFormValid) {
-        form.reportValidity();
-        return;
-      }
+    if (form && form.checkValidity()) {
       setIsEditable((prevEditable) => !prevEditable);
+    } else {
+      form?.reportValidity();
     }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.target;
-    if (files && files[0]) {
-      const file = files[0];
-      const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-
-      if (!validImageTypes.includes(file.type)) {
+    const file = event.target.files?.[0];
+    if (file) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      if (validImageTypes.includes(file.type)) {
+        const reader = new FileReader();
+        reader.onload = () => setSelectedImage(reader.result as string);
+        reader.readAsDataURL(file);
+      } else {
         setSelectedImage(null);
-        return;
       }
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -79,12 +67,11 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     const { name, value } = event.target;
 
     if (name.startsWith('author_')) {
-      const field = name.replace('author_', '') as 'first_name' | 'last_name';
       setBlogDetailsData((prevData) => ({
         ...prevData,
         author: {
           ...prevData.author,
-          [field]: value,
+          [name.replace('author_', '')]: value,
         },
       }));
     } else {
@@ -95,13 +82,12 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const handleCancelClick = () => {
+    setIsEditable(false);
+  };
 
-  if (error) {
-    return <div>Error loading blog details</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading blog details</div>;
 
   return (
     <div className={styles.blogDetailsPageContainer}>
@@ -117,6 +103,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
           onEditClick={handleEditClick}
           onImageChange={handleImageChange}
           onChange={handleChange}
+          onCancelClick={handleCancelClick}
           onDeleteClick={() => {
             // Future delete logic will go here
           }}

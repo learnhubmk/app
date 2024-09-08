@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 interface BlogDetailsCardProps {
   title: string;
@@ -16,6 +18,7 @@ interface BlogDetailsCardProps {
   onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDeleteClick: () => void;
+  onCancelClick: () => void;
 }
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
@@ -30,16 +33,37 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onImageChange,
   onChange,
   onDeleteClick,
+  onCancelClick,
 }) => {
+  const router = useRouter();
+
+  const handleCancelClick = () => {
+    router.push('/content-panel/blogs');
+    if (onCancelClick) {
+      onCancelClick();
+    }
+  };
+
   return (
     <div className={styles.blogDetailsCard}>
       <div className={styles.actionButtons}>
-        <button type="button" onClick={onEditClick}>
-          {isEditable ? 'Save' : 'Edit'}
-        </button>
-        <button type="button" onClick={onDeleteClick}>
-          Delete
-        </button>
+        <div className={styles.leftButton}>
+          <button type="button" onClick={handleCancelClick} aria-label="Go back">
+            <i className="bi bi-arrow-left" />
+          </button>
+        </div>
+        <div className={styles.rightButtons}>
+          <button
+            type="button"
+            onClick={onEditClick}
+            aria-label={isEditable ? 'Save changes' : 'Edit blog'}
+          >
+            {isEditable ? 'Save' : 'Edit'}
+          </button>
+          <button type="button" onClick={onDeleteClick} aria-label="Delete blog">
+            Delete
+          </button>
+        </div>
       </div>
 
       <div className={styles.titleInput}>
@@ -83,6 +107,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           }
         />
       </div>
+
       <div className={styles.authorSection}>
         <label htmlFor="authorFirstName">Author First Name:</label>
         <input
@@ -141,4 +166,5 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     </div>
   );
 };
+
 export default BlogDetailsCard;
