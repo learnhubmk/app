@@ -11,7 +11,7 @@ interface TableRowComponentProps<T extends { id: string }> {
   showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
   renderActionsDropdown?: React.ReactNode;
-  onClick?: (id: string) => void;
+  onClick: (id: string) => void;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -29,9 +29,7 @@ const TableRowComponent = <T extends { id: string }>({
   };
 
   const handleRowClick = () => {
-    if (onClick) {
-      onClick(data.id);
-    }
+    onClick(data.id);
   };
 
   const handleActionEvent = (
@@ -47,11 +45,7 @@ const TableRowComponent = <T extends { id: string }>({
   };
 
   return (
-    <tr
-      className={style.rowComponent}
-      onClick={handleRowClick}
-      style={{ cursor: onClick ? 'pointer' : 'default' }}
-    >
+    <tr className={style.rowComponent} onClick={handleRowClick} style={{ cursor: 'pointer' }}>
       {showCheckbox && (
         <td aria-label="Checkbox">
           <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
