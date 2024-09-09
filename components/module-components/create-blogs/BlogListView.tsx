@@ -74,7 +74,7 @@ const BlogListView = () => {
   };
 
   const handleDelete = () => {
-    // edit logic here
+    // delete logic here
   };
 
   const renderActionsDropdown = (item: BlogPost) => (
@@ -106,6 +106,7 @@ const BlogListView = () => {
         headers={headers}
         displayNames={displayNames}
         data={data}
+        onRowClick={handleView} // Pass the handler here
         renderActionsDropdown={renderActionsDropdown}
       />
     </div>
