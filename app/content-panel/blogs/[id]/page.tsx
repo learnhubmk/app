@@ -21,6 +21,7 @@ interface BlogDetailsData {
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isEditable, setIsEditable] = useState(false);
+  console.log(isEditable);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [blogDetailsData, setBlogDetailsData] = useState<BlogDetailsData>({
     title: '',
