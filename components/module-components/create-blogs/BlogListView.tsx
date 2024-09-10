@@ -67,11 +67,9 @@ const BlogListView = () => {
     tags: 'Tags',
   };
 
-  const handleView = (id: string) => router.push(`/content-panel/blogs/${id}`);
+  const handleView = (id: string) => router.push(`/content-panel/blogs/${id}?edit=false`);
 
-  const handleEdit = () => {
-    // edit logic here
-  };
+  const handleEdit = (id: string) => router.push(`/content-panel/blogs/${id}?edit=true`);
 
   const handleDelete = () => {
     // delete logic here
@@ -81,7 +79,7 @@ const BlogListView = () => {
     <ActionDropdown
       dropdownItems={[
         { id: 'view', label: 'View', onClick: () => handleView(item.id) },
-        { id: 'edit', label: 'Edit', onClick: () => handleEdit() },
+        { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
         { id: 'delete', label: 'Delete', onClick: () => handleDelete() },
       ]}
     />

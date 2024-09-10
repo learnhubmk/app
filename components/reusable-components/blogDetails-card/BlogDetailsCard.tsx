@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -14,7 +14,6 @@ interface BlogDetailsCardProps {
   author: { first_name: string; last_name: string };
   publishDate: string;
   tags: string[];
-  isEditable: boolean;
   onEditClick: () => void;
   onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChange: (
@@ -31,7 +30,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   author,
   publishDate,
   tags,
-  isEditable,
   onEditClick,
   onImageChange,
   onChange,
@@ -39,6 +37,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onCancelClick,
 }) => {
   const router = useRouter();
+
+  const textToBoolean = (text: string) => text?.toLowerCase() === 'true';
+
+  const searchParams = useSearchParams();
+
+  const isEditable = textToBoolean(searchParams.get('edit') as string);
 
   const handleCancelClick = () => {
     router.push('/content-panel/blogs');
@@ -68,7 +72,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           </button>
         </div>
       </div>
-
       <div className={styles.titleInput}>
         <h1>
           <input
@@ -84,7 +87,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           />
         </h1>
       </div>
-
       <div className={styles.imageSection}>
         <label htmlFor="imageUpload">Image:</label>
         {isEditable ? (
@@ -99,7 +101,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />
         )}
       </div>
-
       <div className={styles.contentSection}>
         <label htmlFor="contentEditor">Content:</label>
         <TiptapEditor
@@ -110,7 +111,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           }
         />
       </div>
-
       <div className={styles.authorSection}>
         <label htmlFor="authorFirstName">Author First Name:</label>
         <input
@@ -137,7 +137,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           placeholder="Last name is required"
         />
       </div>
-
       <div className={styles.dateSection}>
         <label htmlFor="publishDate">Date:</label>
         <input
@@ -151,7 +150,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           required
         />
       </div>
-
       <div className={styles.tagsSection}>
         <label htmlFor="tagsInput">Tags:</label>
         <input

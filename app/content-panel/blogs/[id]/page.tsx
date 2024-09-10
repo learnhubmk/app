@@ -123,7 +123,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
           author={blogDetailsData.author}
           publishDate={blogDetailsData.publishDate}
           tags={blogDetailsData.tags}
-          isEditable={isEditable}
           onEditClick={handleEditClick}
           onImageChange={handleImageChange}
           onChange={handleChange}
