@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
@@ -37,41 +37,96 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onCancelClick,
 }) => {
   const router = useRouter();
-
-  const textToBoolean = (text: string) => text?.toLowerCase() === 'true';
-
   const searchParams = useSearchParams();
+  const [isEditable, setIsEditable] = useState<boolean>(false);
+  const [imageError, setImageError] = useState<string | null>(null);
 
-  const isEditable = textToBoolean(searchParams.get('edit') as string);
+  useEffect(() => {
+    const editMode = searchParams.get('edit') === 'true';
+    setIsEditable(editMode);
+  }, [searchParams]);
+
+  const handleEditClick = () => {
+    console.log('Edit button clicked'); // Debugging
+    const newEditMode = !isEditable;
+    setIsEditable(newEditMode);
+    router.replace(`${window.location.pathname}?edit=${newEditMode}`);
+    if (onEditClick) {
+      onEditClick();
+    }
+  };
 
   const handleCancelClick = () => {
-    router.push('/content-panel/blogs');
+    console.log('Cancel button clicked'); // Debugging
+    setIsEditable(false);
+    router.replace(window.location.pathname);
     if (onCancelClick) {
       onCancelClick();
     }
   };
 
+  const validateImage = (file: File) => {
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxSize = 5 * 1024 * 1024;
+
+    if (!validTypes.includes(file.type)) {
+      setImageError('Invalid file type. Please select a JPEG, PNG, or GIF image.');
+      return false;
+    }
+
+    if (file.size > maxSize) {
+      setImageError('File size exceeds 5MB. Please select a smaller image.');
+      return false;
+    }
+
+    setImageError(null);
+    return true;
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (validateImage(file)) {
+        onImageChange(event);
+      }
+    }
+  };
+
   return (
-    <div className={styles.blogDetailsCard}>
+    <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.actionButtons}>
         <div className={styles.leftButton}>
-          <button type="button" onClick={handleCancelClick} aria-label="Go back">
+          <button
+            type="button"
+            onClick={() => router.push('/content-panel/blogs')}
+            aria-label="Go back"
+          >
             <i className="bi bi-arrow-left" />
           </button>
         </div>
         <div className={styles.rightButtons}>
-          <button
-            type="button"
-            onClick={onEditClick}
-            aria-label={isEditable ? 'Save changes' : 'Edit blog'}
-          >
-            {isEditable ? 'Save' : 'Edit'}
-          </button>
-          <button type="button" onClick={onDeleteClick} aria-label="Delete blog">
-            Delete
-          </button>
+          {isEditable ? (
+            <>
+              <button type="button" onClick={handleEditClick}>
+                Save
+              </button>
+              <button type="button" onClick={handleCancelClick}>
+                Cancel
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" onClick={handleEditClick}>
+                Edit
+              </button>
+              <button type="button" onClick={onDeleteClick}>
+                Delete
+              </button>
+            </>
+          )}
         </div>
       </div>
+
       <div className={styles.titleInput}>
         <h1>
           <input
@@ -87,20 +142,23 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           />
         </h1>
       </div>
+
       <div className={styles.imageSection}>
         <label htmlFor="imageUpload">Image:</label>
+        {imageError && <p className={styles.errorText}>{imageError}</p>}
         {isEditable ? (
           <input
             className={styles.inputField}
             id="imageUpload"
             type="file"
-            onChange={onImageChange}
+            onChange={handleImageChange}
             required
           />
         ) : (
           imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />
         )}
       </div>
+
       <div className={styles.contentSection}>
         <label htmlFor="contentEditor">Content:</label>
         <TiptapEditor
@@ -111,6 +169,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           }
         />
       </div>
+
       <div className={styles.authorSection}>
         <label htmlFor="authorFirstName">Author First Name:</label>
         <input
@@ -137,19 +196,19 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           placeholder="Last name is required"
         />
       </div>
+
       <div className={styles.dateSection}>
         <label htmlFor="publishDate">Date:</label>
         <input
           id="publishDate"
           type="date"
           value={publishDate}
-          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
-          name="publishDate"
-          disabled={!isEditable}
+          disabled
           className={styles.inputField}
           required
         />
       </div>
+
       <div className={styles.tagsSection}>
         <label htmlFor="tagsInput">Tags:</label>
         <input
@@ -164,7 +223,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           placeholder="Tags are required"
         />
       </div>
-    </div>
+    </form>
   );
 };
 
