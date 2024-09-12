@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
@@ -36,10 +36,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onDeleteClick,
   onCancelClick,
 }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [imageError, setImageError] = useState<string | null>(null);
+  const [isImageValid, setIsImageValid] = useState<boolean>(true);
 
   useEffect(() => {
     const editMode = searchParams.get('edit') === 'true';
@@ -47,7 +49,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   }, [searchParams]);
 
   const handleEditClick = () => {
-    console.log('Edit button clicked'); // Debugging
     const newEditMode = !isEditable;
     setIsEditable(newEditMode);
     router.replace(`${window.location.pathname}?edit=${newEditMode}`);
@@ -57,7 +58,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   };
 
   const handleCancelClick = () => {
-    console.log('Cancel button clicked'); // Debugging
     setIsEditable(false);
     router.replace(window.location.pathname);
     if (onCancelClick) {
@@ -71,23 +71,31 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
     if (!validTypes.includes(file.type)) {
       setImageError('Invalid file type. Please select a JPEG, PNG, or GIF image.');
+      setIsImageValid(false);
       return false;
     }
 
     if (file.size > maxSize) {
       setImageError('File size exceeds 5MB. Please select a smaller image.');
+      setIsImageValid(false);
       return false;
     }
 
     setImageError(null);
+    setIsImageValid(true);
     return true;
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      if (validateImage(file)) {
+      const isValidImage = validateImage(file);
+
+      if (isValidImage) {
+        setImageError(null);
         onImageChange(event);
+      } else if (fileInputRef.current) {
+        fileInputRef.current.value = '';
       }
     }
   };
@@ -107,7 +115,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <div className={styles.rightButtons}>
           {isEditable ? (
             <>
-              <button type="button" onClick={handleEditClick}>
+              <button type="button" onClick={handleEditClick} disabled={!isImageValid}>
                 Save
               </button>
               <button type="button" onClick={handleCancelClick}>
@@ -153,6 +161,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             type="file"
             onChange={handleImageChange}
             required
+            ref={fileInputRef}
           />
         ) : (
           imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />
