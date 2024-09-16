@@ -14,7 +14,6 @@ interface BlogDetailsCardProps {
   author: { first_name: string; last_name: string };
   publishDate: string;
   tags: string[];
-  onEditClick: () => void;
   onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
@@ -30,7 +29,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   author,
   publishDate,
   tags,
-  onEditClick,
   onImageChange,
   onChange,
   onDeleteClick,
@@ -49,11 +47,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   }, [searchParams]);
 
   const handleEditClick = () => {
-    const newEditMode = !isEditable;
-    setIsEditable(newEditMode);
-    router.replace(`${window.location.pathname}?edit=${newEditMode}`);
-    if (onEditClick) {
-      onEditClick();
+    const form = document.querySelector('form') as HTMLFormElement;
+    if (form && form.checkValidity()) {
+      setIsEditable((prevEditable) => !prevEditable);
+    } else {
+      form?.reportValidity();
     }
   };
 

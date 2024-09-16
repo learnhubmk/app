@@ -21,7 +21,6 @@ interface BlogDetailsData {
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isEditable, setIsEditable] = useState(false);
-  console.log(isEditable);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [blogDetailsData, setBlogDetailsData] = useState<BlogDetailsData>({
     title: '',
@@ -54,15 +53,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       });
     }
   }, [data]);
-
-  const handleEditClick = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
-    if (form && form.checkValidity()) {
-      setIsEditable((prevEditable) => !prevEditable);
-    } else {
-      form?.reportValidity();
-    }
-  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -111,28 +101,32 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     setIsEditable(false);
   };
 
+  const useIsEditable = (value: boolean) => {
+    return value;
+  };
+
+  // Ensure `useIsEditable` is called before any early returns
+  useIsEditable(isEditable);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading blog details</div>;
 
   return (
     <div className={styles.blogDetailsPageContainer}>
-      <form>
-        <BlogDetailsCard
-          title={blogDetailsData.title}
-          imageUrl={selectedImage || blogDetailsData.image}
-          content={blogDetailsData.content}
-          author={blogDetailsData.author}
-          publishDate={blogDetailsData.publishDate}
-          tags={blogDetailsData.tags}
-          onEditClick={handleEditClick}
-          onImageChange={handleImageChange}
-          onChange={handleChange}
-          onCancelClick={handleCancelClick}
-          onDeleteClick={() => {
-            // Future delete logic will go here
-          }}
-        />
-      </form>
+      <BlogDetailsCard
+        title={blogDetailsData.title}
+        imageUrl={selectedImage || blogDetailsData.image}
+        content={blogDetailsData.content}
+        author={blogDetailsData.author}
+        publishDate={blogDetailsData.publishDate}
+        tags={blogDetailsData.tags}
+        onImageChange={handleImageChange}
+        onChange={handleChange}
+        onCancelClick={handleCancelClick}
+        onDeleteClick={() => {
+          // Future delete logic will go here
+        }}
+      />
     </div>
   );
 };
