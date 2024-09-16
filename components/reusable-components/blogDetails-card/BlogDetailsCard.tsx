@@ -20,6 +20,7 @@ interface BlogDetailsCardProps {
   ) => void;
   onDeleteClick: () => void;
   onCancelClick: () => void;
+  imageError: string | null;
 }
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
@@ -33,13 +34,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onChange,
   onDeleteClick,
   onCancelClick,
+  imageError,
 }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isEditable, setIsEditable] = useState<boolean>(false);
-  const [imageError, setImageError] = useState<string | null>(null);
-  const [isImageValid, setIsImageValid] = useState<boolean>(true);
 
   useEffect(() => {
     const editMode = searchParams.get('edit') === 'true';
@@ -63,41 +63,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     }
   };
 
-  const validateImage = (file: File) => {
-    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    const maxSize = 5 * 1024 * 1024;
-
-    if (!validTypes.includes(file.type)) {
-      setImageError('Invalid file type. Please select a JPEG, PNG, or GIF image.');
-      setIsImageValid(false);
-      return false;
-    }
-
-    if (file.size > maxSize) {
-      setImageError('File size exceeds 5MB. Please select a smaller image.');
-      setIsImageValid(false);
-      return false;
-    }
-
-    setImageError(null);
-    setIsImageValid(true);
-    return true;
-  };
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const isValidImage = validateImage(file);
-
-      if (isValidImage) {
-        setImageError(null);
-        onImageChange(event);
-      } else if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
-  };
-
   return (
     <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.actionButtons}>
@@ -113,7 +78,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <div className={styles.rightButtons}>
           {isEditable ? (
             <>
-              <button type="button" onClick={handleEditClick} disabled={!isImageValid}>
+              <button type="button" onClick={handleEditClick}>
                 Save
               </button>
               <button type="button" onClick={handleCancelClick}>
@@ -157,24 +122,28 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             className={styles.inputField}
             id="imageUpload"
             type="file"
-            onChange={handleImageChange}
+            onChange={onImageChange}
             required
             ref={fileInputRef}
           />
         ) : (
-          imageUrl && <Image src={imageUrl} alt="Blog" width={500} height={300} />
+          imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
         )}
       </div>
 
       <div className={styles.contentSection}>
-        <label htmlFor="contentEditor">Content:</label>
-        <TiptapEditor
-          content={content}
-          editable={isEditable}
-          onChange={(editorContent: string) =>
-            onChange({ target: { name: 'content', value: editorContent } })
-          }
-        />
+        <label htmlFor="content">Content:</label>
+        {isEditable ? (
+          <TiptapEditor
+            content={content}
+            editable={isEditable}
+            onChange={(editorContent: string) =>
+              onChange({ target: { name: 'content', value: editorContent } })
+            }
+          />
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: content }} />
+        )}
       </div>
 
       <div className={styles.authorSection}>
@@ -203,7 +172,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           placeholder="Last name is required"
         />
       </div>
-
       <div className={styles.dateSection}>
         <label htmlFor="publishDate">Date:</label>
         <input
@@ -215,19 +183,18 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           required
         />
       </div>
-
       <div className={styles.tagsSection}>
-        <label htmlFor="tagsInput">Tags:</label>
+        <label htmlFor="tags">Tags:</label>
         <input
-          id="tagsInput"
           type="text"
+          id="tags"
           value={tags.join(', ')}
           onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           name="tags"
           disabled={!isEditable}
-          className={styles.inputField}
           required
-          placeholder="Tags are required"
+          placeholder="Enter tags separated by commas"
+          className={styles.inputField}
         />
       </div>
     </form>

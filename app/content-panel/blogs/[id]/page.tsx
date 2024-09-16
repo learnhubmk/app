@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
@@ -30,6 +30,9 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     publishDate: '',
     tags: [],
   });
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [isImageValid, setIsImageValid] = useState<boolean>(true);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
 
@@ -54,16 +57,39 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   }, [data]);
 
+  const validateImage = (file: File) => {
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxSize = 5 * 1024 * 1024;
+
+    if (!validTypes.includes(file.type)) {
+      setImageError('Invalid file type. Please select a JPEG, PNG, or GIF image.');
+      setIsImageValid(false);
+      return false;
+    }
+
+    if (file.size > maxSize) {
+      setImageError('File size exceeds 5MB. Please select a smaller image.');
+      setIsImageValid(false);
+      return false;
+    }
+
+    setImageError(null);
+    setIsImageValid(true);
+    return true;
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-      if (validImageTypes.includes(file.type)) {
+      const isValidImage = validateImage(file);
+
+      if (isValidImage) {
+        setImageError(null);
         const reader = new FileReader();
         reader.onload = () => setSelectedImage(reader.result as string);
         reader.readAsDataURL(file);
-      } else {
-        setSelectedImage(null);
+      } else if (fileInputRef.current) {
+        fileInputRef.current.value = '';
       }
     }
   };
@@ -105,8 +131,13 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     return value;
   };
 
-  // Ensure `useIsEditable` is called before any early returns
   useIsEditable(isEditable);
+
+  const useisImageValid = (value: boolean) => {
+    return value;
+  };
+
+  useisImageValid(isImageValid);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading blog details</div>;
@@ -122,10 +153,11 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         tags={blogDetailsData.tags}
         onImageChange={handleImageChange}
         onChange={handleChange}
-        onCancelClick={handleCancelClick}
         onDeleteClick={() => {
           // Future delete logic will go here
         }}
+        onCancelClick={handleCancelClick}
+        imageError={imageError}
       />
     </div>
   );
