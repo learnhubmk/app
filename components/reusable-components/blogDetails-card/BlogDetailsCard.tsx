@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
@@ -27,7 +27,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
   imageUrl,
   content,
-  author,
+  author: propAuthor,
   publishDate,
   tags,
   onImageChange,
@@ -36,15 +36,37 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onCancelClick,
   imageError,
 }) => {
+  // TODO: The Author should be a dropdown where all the content managers would be listed and we can select one.
+  // There are 3 types of users which are: users, admins, and content managers, so according to role filter them and take only users that are content managers
+
+  const hardcodedAuthors = useMemo(
+    () => [
+      { id: '1', first_name: 'John', last_name: 'Doe' },
+      { id: '2', first_name: 'Jane', last_name: 'Smith' },
+      { id: '3', first_name: 'Emily', last_name: 'Johnson' },
+    ],
+    []
+  );
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isEditable, setIsEditable] = useState<boolean>(false);
+  const [selectedAuthorId, setSelectedAuthorId] = useState<string>('');
 
   useEffect(() => {
     const editMode = searchParams.get('edit') === 'true';
     setIsEditable(editMode);
   }, [searchParams]);
+
+  useEffect(() => {
+    const authorMatch = hardcodedAuthors.find(
+      (a) => a.first_name === propAuthor.first_name && a.last_name === propAuthor.last_name
+    );
+    if (authorMatch) {
+      setSelectedAuthorId(authorMatch.id);
+    }
+  }, [propAuthor, hardcodedAuthors]);
 
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
@@ -60,6 +82,19 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     router.replace(window.location.pathname);
     if (onCancelClick) {
       onCancelClick();
+    }
+  };
+
+  const handleAuthorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedAuthor = hardcodedAuthors.find((a) => a.id === event.target.value);
+    if (selectedAuthor) {
+      onChange({
+        target: {
+          name: 'author',
+          value: `${selectedAuthor.first_name} ${selectedAuthor.last_name}`,
+        },
+      });
+      setSelectedAuthorId(selectedAuthor.id);
     }
   };
 
@@ -147,11 +182,29 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       </div>
 
       <div className={styles.authorSection}>
+        <label htmlFor="authorSelect">Select Author:</label>
+        <select
+          id="authorSelect"
+          value={selectedAuthorId}
+          onChange={handleAuthorChange}
+          disabled={!isEditable}
+          className={styles.inputField}
+        >
+          <option value="" disabled>
+            Select an author
+          </option>
+          {hardcodedAuthors.map((author) => (
+            <option key={author.id} value={author.id}>
+              {author.first_name} {author.last_name}
+            </option>
+          ))}
+        </select>
+
         <label htmlFor="authorFirstName">Author First Name:</label>
         <input
           id="authorFirstName"
           type="text"
-          value={author.first_name}
+          value={propAuthor.first_name}
           onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           name="author_first_name"
           disabled={!isEditable}
@@ -163,7 +216,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <input
           id="authorLastName"
           type="text"
-          value={author.last_name}
+          value={propAuthor.last_name}
           onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           name="author_last_name"
           disabled={!isEditable}
@@ -172,6 +225,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           placeholder="Last name is required"
         />
       </div>
+
       <div className={styles.dateSection}>
         <label htmlFor="publishDate">Date:</label>
         <input
@@ -183,6 +237,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           required
         />
       </div>
+
       <div className={styles.tagsSection}>
         <label htmlFor="tags">Tags:</label>
         <input
