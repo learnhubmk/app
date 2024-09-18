@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
@@ -32,7 +32,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   });
   const [imageError, setImageError] = useState<string | null>(null);
   const [isImageValid, setIsImageValid] = useState<boolean>(true);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
 
@@ -78,9 +77,9 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     return true;
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
+  const handleImageChange = (files: File[]) => {
+    if (files.length > 0) {
+      const file = files[0];
       const isValidImage = validateImage(file);
 
       if (isValidImage) {
@@ -88,8 +87,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         const reader = new FileReader();
         reader.onload = () => setSelectedImage(reader.result as string);
         reader.readAsDataURL(file);
-      } else if (fileInputRef.current) {
-        fileInputRef.current.value = '';
       }
     }
   };

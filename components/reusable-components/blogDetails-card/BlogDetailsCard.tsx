@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useDropzone } from 'react-dropzone';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -14,7 +15,7 @@ interface BlogDetailsCardProps {
   author: { first_name: string; last_name: string };
   publishDate: string;
   tags: string[];
-  onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onImageChange: (files: File[]) => void;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
   ) => void;
@@ -48,11 +49,27 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     []
   );
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [selectedAuthorId, setSelectedAuthorId] = useState<string>('');
+
+  const { getRootProps, getInputProps, acceptedFiles, fileRejections } = useDropzone({
+    accept: {
+      'image/*': [],
+    },
+    maxSize: 5 * 1024 * 1024,
+    onDrop: (files) => {
+      console.log('Accepted files:', files);
+      if (onImageChange) {
+        onImageChange(files);
+      }
+    },
+    onDropRejected: (fileRejections) => {
+      console.log('File Rejections:', fileRejections);
+    },
+  });
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const editMode = searchParams.get('edit') === 'true';
@@ -153,14 +170,26 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <label htmlFor="imageUpload">Image:</label>
         {imageError && <p className={styles.errorText}>{imageError}</p>}
         {isEditable ? (
-          <input
-            className={styles.inputField}
-            id="imageUpload"
-            type="file"
-            onChange={onImageChange}
-            required
-            ref={fileInputRef}
-          />
+          <div {...getRootProps()} className={styles.dropzone}>
+            <input {...getInputProps()} id="imageUpload" />
+            <p>Drag 'n' drop some files here, or click to select files</p>
+            {acceptedFiles.length > 0 && (
+              <ul>
+                {acceptedFiles.map((file) => (
+                  <li key={file.name}>{file.name}</li>
+                ))}
+              </ul>
+            )}
+            {fileRejections.length > 0 && (
+              <ul>
+                {fileRejections.map(({ file, errors }) => (
+                  <li key={file.name}>
+                    {file.name} - {errors.map((e) => e.message).join(', ')}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         ) : (
           imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
         )}

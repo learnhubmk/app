@@ -114,3 +114,10 @@
     background-color: var(--elevated-elements-dark-mode);
   }
 }
+
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
