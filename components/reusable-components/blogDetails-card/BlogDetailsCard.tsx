@@ -4,6 +4,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDropzone } from 'react-dropzone';
+import DOMPurify from 'dompurify';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -38,6 +39,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 }) => {
   // TODO: The Author should be a dropdown where all the content managers would be listed and we can select one.
   // There are 3 types of users which are: users, admins, and content managers, so according to role filter them and take only users that are content managers
+
   const hardcodedAuthors = useMemo(
     () => [
       { id: '1', first_name: 'John', last_name: 'Doe' },
@@ -54,7 +56,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     image: null,
   });
 
-  const { getRootProps, getInputProps, acceptedFiles, fileRejections } = useDropzone({
+  const {
+    getRootProps,
+    getInputProps,
+    acceptedFiles,
+    fileRejections: rejectedFiles,
+  } = useDropzone({
     accept: {
       'image/*': [],
     },
@@ -62,13 +69,13 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     onDrop: (files) => {
       if (files.length > 0) {
         setImageFile(files[0]);
-        if (onImageChange) {
-          onImageChange(files);
-        }
+        onImageChange(files);
       }
     },
-    onDropRejected: (fileRejections) => {
-      console.log('File Rejections:', fileRejections);
+    onDropRejected: (rejectedFiles) => {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('File Rejections:', rejectedFiles);
+      }
     },
   });
 
@@ -190,9 +197,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
                 ))}
               </ul>
             )}
-            {fileRejections.length > 0 && (
+            {rejectedFiles.length > 0 && (
               <ul>
-                {fileRejections.map(({ file, errors }) => (
+                {rejectedFiles.map(({ file, errors }) => (
                   <li key={file.name}>
                     {file.name} - {errors.map((e) => e.message).join(', ')}
                   </li>
@@ -216,7 +223,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             }
           />
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: content }} />
+          <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
         )}
       </div>
 
@@ -284,8 +291,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           id="tags"
           value={tags.join(', ')}
           onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
-          name="tags"
           disabled={!isEditable}
+          name="tags"
           required
           placeholder="Enter tags separated by commas"
           className={styles.inputField}
