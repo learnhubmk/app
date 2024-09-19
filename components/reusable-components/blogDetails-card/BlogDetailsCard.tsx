@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -34,6 +36,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onDeleteClick,
   onCancelClick,
 }) => {
+  // TODO: The Author should be a dropdown where all the content managers would be listed and we can select one.
+  // There are 3 types of users which are: users, admins, and content managers, so according to role filter them and take only users that are content managers
   const hardcodedAuthors = useMemo(
     () => [
       { id: '1', first_name: 'John', last_name: 'Doe' },
@@ -91,7 +95,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
     if (form && form.checkValidity() && !isImageRequired) {
       setIsEditable((prevEditable) => !prevEditable);
-      setValidationErrors({ image: null }); // Clear error messages
+      setValidationErrors({ image: null });
     } else {
       form?.reportValidity();
       if (isImageRequired) {
