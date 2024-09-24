@@ -160,21 +160,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       </div>
 
       <div className={styles.authorSection}>
-        <label htmlFor="authorFirstName">Author First Name:</label>
+        <label htmlFor="author">Author:</label>
         <input
-          id="authorFirstName"
+          id="author"
           type="text"
-          value={hardcodedAuthor.first_name}
-          name="author_first_name"
-          disabled
-          className={styles.inputField}
-        />
-        <label htmlFor="authorLastName">Author Last Name:</label>
-        <input
-          id="authorLastName"
-          type="text"
-          value={hardcodedAuthor.last_name}
-          name="author_last_name"
+          value={`${hardcodedAuthor.first_name} ${hardcodedAuthor.last_name}`}
+          name="author"
           disabled
           className={styles.inputField}
         />
