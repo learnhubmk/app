@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDropzone } from 'react-dropzone';
@@ -29,7 +29,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
   imageUrl,
   content,
-  author: propAuthor,
   publishDate,
   tags,
   onImageChange,
@@ -37,20 +36,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onDeleteClick,
   onCancelClick,
 }) => {
-  // TODO: The Author should be a dropdown where all the content managers would be listed and we can select one.
-  // There are 3 types of users which are: users, admins, and content managers, so according to role filter them and take only users that are content managers
-
-  const hardcodedAuthors = useMemo(
-    () => [
-      { id: '1', first_name: 'John', last_name: 'Doe' },
-      { id: '2', first_name: 'Jane', last_name: 'Smith' },
-      { id: '3', first_name: 'Emily', last_name: 'Johnson' },
-    ],
-    []
-  );
+  // Hardcoding author temporarily. This will be replaced with logged-in user in the future.
+  // TODO: Replace hardcoded author with the logged-in user's data
+  const hardcodedAuthor = { first_name: 'John', last_name: 'Doe' };
 
   const [isEditable, setIsEditable] = useState<boolean>(false);
-  const [selectedAuthorId, setSelectedAuthorId] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [validationErrors, setValidationErrors] = useState<{ image: string | null }>({
     image: null,
@@ -87,15 +77,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     setIsEditable(editMode);
   }, [searchParams]);
 
-  useEffect(() => {
-    const authorMatch = hardcodedAuthors.find(
-      (a) => a.first_name === propAuthor.first_name && a.last_name === propAuthor.last_name
-    );
-    if (authorMatch) {
-      setSelectedAuthorId(authorMatch.id);
-    }
-  }, [propAuthor, hardcodedAuthors]);
-
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
     const isImageRequired = isEditable && !imageFile && !imageUrl;
@@ -116,19 +97,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     router.replace(window.location.pathname);
     if (onCancelClick) {
       onCancelClick();
-    }
-  };
-
-  const handleAuthorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedAuthor = hardcodedAuthors.find((a) => a.id === event.target.value);
-    if (selectedAuthor) {
-      onChange({
-        target: {
-          name: 'author',
-          value: `${selectedAuthor.first_name} ${selectedAuthor.last_name}`,
-        },
-      });
-      setSelectedAuthorId(selectedAuthor.id);
     }
   };
 
@@ -228,47 +196,23 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       </div>
 
       <div className={styles.authorSection}>
-        <label htmlFor="authorSelect">Select Author:</label>
-        <select
-          id="authorSelect"
-          value={selectedAuthorId}
-          onChange={handleAuthorChange}
-          disabled={!isEditable}
-          className={styles.inputField}
-        >
-          <option value="" disabled>
-            Select an author
-          </option>
-          {hardcodedAuthors.map((author) => (
-            <option key={author.id} value={author.id}>
-              {author.first_name} {author.last_name}
-            </option>
-          ))}
-        </select>
-
         <label htmlFor="authorFirstName">Author First Name:</label>
         <input
           id="authorFirstName"
           type="text"
-          value={propAuthor.first_name}
-          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
+          value={hardcodedAuthor.first_name}
           name="author_first_name"
-          disabled={!isEditable}
+          disabled
           className={styles.inputField}
-          required
-          placeholder="First name is required"
         />
         <label htmlFor="authorLastName">Author Last Name:</label>
         <input
           id="authorLastName"
           type="text"
-          value={propAuthor.last_name}
-          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
+          value={hardcodedAuthor.last_name}
           name="author_last_name"
-          disabled={!isEditable}
+          disabled
           className={styles.inputField}
-          required
-          placeholder="Last name is required"
         />
       </div>
 
