@@ -13,7 +13,7 @@ interface BlogDetailsCardProps {
   title: string;
   imageUrl: string;
   content: string;
-  author: { first_name: string; last_name: string };
+  author: { firstName: string; lastName: string };
   publishDate: string;
   tags: string[];
   onImageChange: (files: File[]) => void;
@@ -38,7 +38,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 }) => {
   // Hardcoded author temporarily. This will be replaced with logged-in user in the future.
   // TODO: Replace hardcoded author with the logged-in user's data
-  const hardcodedAuthor = { first_name: 'John', last_name: 'Doe' };
+  const hardcodedAuthor = { firstName: 'John', lastName: 'Doe' };
 
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState<{ image: string | null }>({
@@ -164,7 +164,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <input
           id="author"
           type="text"
-          value={`${hardcodedAuthor.first_name} ${hardcodedAuthor.last_name}`}
+          value={`${hardcodedAuthor.firstName} ${hardcodedAuthor.lastName}`}
           name="author"
           disabled
           className={styles.inputField}

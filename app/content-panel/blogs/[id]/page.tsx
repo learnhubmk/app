@@ -6,8 +6,8 @@ import BlogDetailsCard from '../../../../components/reusable-components/blogDeta
 import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
 
 interface Author {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
 }
 
 interface BlogDetailsData {
@@ -26,7 +26,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     title: '',
     image: '',
     content: '',
-    author: { first_name: '', last_name: '' },
+    author: { firstName: '', lastName: '' },
     publishDate: '',
     tags: [],
   });
@@ -47,8 +47,8 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         image: image || '',
         content: content || 'N/A',
         author: {
-          first_name: author?.first_name || 'N/A',
-          last_name: author?.last_name || 'N/A',
+          firstName: author?.firstName || 'N/A',
+          lastName: author?.lastName || 'N/A',
         },
         publishDate: formattedDate,
         tags: tags || [],
