@@ -8,6 +8,7 @@ import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module
 import TiptapEditor from '../../editor/TiptapEditor';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import DropZone from '../drop-zone/DropZone';
+import CancelModal from '../modals/CancelModal';
 
 interface BlogDetailsCardProps {
   title: string;
@@ -44,6 +45,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const [validationErrors, setValidationErrors] = useState<{ image: string | null }>({
     image: null,
   });
+  const [showModal, setShowModal] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -60,6 +63,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     if (form && form.checkValidity() && !isImageRequired) {
       setIsEditable((prevEditable) => !prevEditable);
       setValidationErrors({ image: null });
+      setHasUnsavedChanges(false);
     } else {
       form?.reportValidity();
       if (isImageRequired) {
@@ -68,23 +72,40 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     }
   };
 
+  const handleBackClick = () => {
+    if (hasUnsavedChanges) {
+      setShowModal(true);
+    } else {
+      router.push('/content-panel/blogs');
+    }
+  };
+
+  const confirmDiscardChanges = () => {
+    setShowModal(false);
+    router.push('/content-panel/blogs');
+  };
+
   const handleCancelClick = () => {
     setIsEditable(false);
+    setHasUnsavedChanges(false);
     router.replace(window.location.pathname);
     if (onCancelClick) {
       onCancelClick();
     }
   };
 
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
+  ) => {
+    onChange(event);
+    setHasUnsavedChanges(true);
+  };
+
   return (
     <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.actionButtons}>
         <div className={styles.leftButton}>
-          <button
-            type="button"
-            onClick={() => router.push('/content-panel/blogs')}
-            aria-label="Go back"
-          >
+          <button type="button" onClick={handleBackClick} aria-label="Go back">
             <i className="bi bi-arrow-left" />
           </button>
         </div>
@@ -116,7 +137,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           <input
             type="text"
             value={title}
-            onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
+            onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
             name="title"
             id="title"
             disabled={!isEditable}
@@ -137,6 +158,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               if (validationErrors.image) {
                 setValidationErrors({ image: null });
               }
+              setHasUnsavedChanges(true);
             }}
           />
         ) : (
@@ -151,7 +173,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             content={content}
             editable={isEditable}
             onChange={(editorContent: string) =>
-              onChange({ target: { name: 'content', value: editorContent } })
+              handleInputChange({ target: { name: 'content', value: editorContent } })
             }
           />
         ) : (
@@ -189,7 +211,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           type="text"
           id="tags"
           value={tags.join(', ')}
-          onChange={onChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
+          onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
           disabled={!isEditable}
           name="tags"
           required
@@ -197,6 +219,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           className={styles.inputField}
         />
       </div>
+
+      <CancelModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={confirmDiscardChanges}
+      />
     </form>
   );
 };
