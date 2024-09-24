@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useDropzone } from 'react-dropzone';
 import DOMPurify from 'dompurify';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import DropZone from '../drop-zone/DropZone';
 
 interface BlogDetailsCardProps {
   title: string;
@@ -36,37 +36,13 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onDeleteClick,
   onCancelClick,
 }) => {
-  // Hardcoding author temporarily. This will be replaced with logged-in user in the future.
+  // Hardcoded author temporarily. This will be replaced with logged-in user in the future.
   // TODO: Replace hardcoded author with the logged-in user's data
   const hardcodedAuthor = { first_name: 'John', last_name: 'Doe' };
 
   const [isEditable, setIsEditable] = useState<boolean>(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [validationErrors, setValidationErrors] = useState<{ image: string | null }>({
     image: null,
-  });
-
-  const {
-    getRootProps,
-    getInputProps,
-    acceptedFiles,
-    fileRejections: rejectedFiles,
-  } = useDropzone({
-    accept: {
-      'image/*': [],
-    },
-    maxSize: 5 * 1024 * 1024,
-    onDrop: (files) => {
-      if (files.length > 0) {
-        setImageFile(files[0]);
-        onImageChange(files);
-      }
-    },
-    onDropRejected: (rejectedFiles) => {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('File Rejections:', rejectedFiles);
-      }
-    },
   });
 
   const router = useRouter();
@@ -79,7 +55,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
-    const isImageRequired = isEditable && !imageFile && !imageUrl;
+    const isImageRequired = isEditable && !imageUrl;
 
     if (form && form.checkValidity() && !isImageRequired) {
       setIsEditable((prevEditable) => !prevEditable);
@@ -155,26 +131,14 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <label htmlFor="imageUpload">Image:</label>
         {validationErrors.image && <p className={styles.errorText}>{validationErrors.image}</p>}
         {isEditable ? (
-          <div {...getRootProps()} className={styles.dropzone}>
-            <input {...getInputProps()} id="imageUpload" />
-            <p>Drag 'n' drop some files here, or click to select files</p>
-            {acceptedFiles.length > 0 && (
-              <ul>
-                {acceptedFiles.map((file) => (
-                  <li key={file.name}>{file.name}</li>
-                ))}
-              </ul>
-            )}
-            {rejectedFiles.length > 0 && (
-              <ul>
-                {rejectedFiles.map(({ file, errors }) => (
-                  <li key={file.name}>
-                    {file.name} - {errors.map((e) => e.message).join(', ')}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+          <DropZone
+            onImageChange={(files) => {
+              onImageChange(files);
+              if (validationErrors.image) {
+                setValidationErrors({ image: null });
+              }
+            }}
+          />
         ) : (
           imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
         )}

@@ -115,9 +115,9 @@
   }
 }
 
-.dropzone {
-  border: 2px dashed #ccc;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
+.errorText {
+  color: red; 
+  margin-top: 5px; 
+  margin-bottom: 5px;
 }
+
