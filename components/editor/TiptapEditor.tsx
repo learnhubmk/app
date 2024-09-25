@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import TextAlign from '@tiptap/extension-text-align';
+import BulletList from '@tiptap/extension-bullet-list'; // Correct import for BulletList
+import OrderedList from '@tiptap/extension-ordered-list'; // Correct import for OrderedList
+import Blockquote from '@tiptap/extension-blockquote'; // Importing Blockquote
+import HorizontalRule from '@tiptap/extension-horizontal-rule'; // Importing HorizontalRule
 import Highlight from '@tiptap/extension-highlight';
+import TextAlign from '@tiptap/extension-text-align';
 import CodeBlock from '@tiptap/extension-code-block';
 import styles from './TiptapEditor.module.scss';
 
@@ -25,8 +29,12 @@ const TiptapEditor = ({
         types: ['heading', 'paragraph'],
       }),
       CodeBlock,
+      BulletList,
+      OrderedList,
+      Blockquote,
+      HorizontalRule,
     ],
-    content,
+    content, // Set initial content here
     editable,
     onUpdate: ({ editor: updatedEditor }) => {
       if (onChange) {
@@ -36,8 +44,9 @@ const TiptapEditor = ({
     },
   });
 
+  // Only set content if it differs from the editor's current content
   useEffect(() => {
-    if (editorInstance) {
+    if (editorInstance && editorInstance.getHTML() !== content) {
       editorInstance.commands.setContent(content);
     }
   }, [content, editorInstance]);
@@ -119,10 +128,37 @@ const TiptapEditor = ({
           </button>
           <button
             type="button"
+            onClick={() => editorInstance.chain().focus().toggleBulletList().run()}
+            className={editorInstance.isActive('bulletList') ? 'is-active' : ''}
+          >
+            Bullet list
+          </button>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleOrderedList().run()}
+            className={editorInstance.isActive('orderedList') ? 'is-active' : ''}
+          >
+            Ordered list
+          </button>
+          <button
+            type="button"
             onClick={handleCodeBlockToggle}
             className={isCodeBlockActive ? styles.codeBlockActive : ''}
           >
             Code Block
+          </button>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleBlockquote().run()}
+            className={editorInstance.isActive('blockquote') ? 'is-active' : ''}
+          >
+            Blockquote
+          </button>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().setHorizontalRule().run()}
+          >
+            Horizontal rule
           </button>
         </div>
       )}
