@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import BulletList from '@tiptap/extension-bullet-list'; // Correct import for BulletList
-import OrderedList from '@tiptap/extension-ordered-list'; // Correct import for OrderedList
-import Blockquote from '@tiptap/extension-blockquote'; // Importing Blockquote
-import HorizontalRule from '@tiptap/extension-horizontal-rule'; // Importing HorizontalRule
+import BulletList from '@tiptap/extension-bullet-list';
+import OrderedList from '@tiptap/extension-ordered-list';
+import Blockquote from '@tiptap/extension-blockquote';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import CodeBlock from '@tiptap/extension-code-block';
@@ -34,7 +34,7 @@ const TiptapEditor = ({
       Blockquote,
       HorizontalRule,
     ],
-    content, // Set initial content here
+    content,
     editable,
     onUpdate: ({ editor: updatedEditor }) => {
       if (onChange) {
@@ -44,7 +44,6 @@ const TiptapEditor = ({
     },
   });
 
-  // Only set content if it differs from the editor's current content
   useEffect(() => {
     if (editorInstance && editorInstance.getHTML() !== content) {
       editorInstance.commands.setContent(content);

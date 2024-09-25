@@ -1,7 +1,6 @@
-/* Basic editor styles */
 .tiptap {
   pre {
-    background: #000; /* Default background for code blocks */
+    background: #000;
     color: #fff;
     border-radius: 0.5rem;
     font-family: 'JetBrainsMono', monospace;
@@ -48,7 +47,7 @@
 
   .codeBlockActive {
     pre {
-      background: #000; /* Black background when code block is active */
+      background: #000;
     }
   }
 }

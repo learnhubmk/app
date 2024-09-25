@@ -1,56 +1,54 @@
 .dropzone {
-    border: 2px dashed var(--input-border-color);
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-    background-color: var(--elevated-elements-dark-mode);
-    border-radius: 8px;
-  }
-  
-  .dropzoneArea {
-    color: var(--text-color);
-    
-  }
-  
-  .files {
-    margin-top: 20px;
-    
-    ul {
-      list-style-type: none;
-      padding: 0;
-  
-      li {
-        background-color: var(--elevated-elements-dark-mode);
-        padding: 10px;
-        border-radius: 4px;
-        margin-bottom: 10px;
-        color: var(--text-color);
-      }
-    }
-  
-    button {
-      background-color: var(--primary-btn-color);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
+  border: 2px dashed var(--input-border-color);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  background-color: var(--elevated-elements-dark-mode);
+  border-radius: 8px;
+}
+
+.dropzoneArea {
+  color: var(--text-color);
+}
+
+.files {
+  margin-top: 20px;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      background-color: var(--elevated-elements-dark-mode);
+      padding: 10px;
       border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
-        background-color: var(--primary-btn-hover-color);
-      }
-  
-      &:active {
-        background-color: var(--primary-btn-active-color);
-      }
+      margin-bottom: 10px;
+      color: var(--text-color);
     }
   }
-  
-  .errorText {
-    color: var(--error-state);
+
+  button {
+    background-color: var(--primary-btn-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
     margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--primary-btn-hover-color);
+    }
+
+    &:active {
+      background-color: var(--primary-btn-active-color);
+    }
   }
-  
+}
+
+.errorText {
+  color: var(--error-state);
+  margin-top: 10px;
+}
