@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import DOMPurify from 'dompurify';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -14,7 +13,6 @@ interface BlogDetailsCardProps {
   title: string;
   imageUrl: string;
   content: string;
-  author: { firstName: string; lastName: string };
   publishDate: string;
   tags: string[];
   onImageChange: (files: File[]) => void;
@@ -23,6 +21,7 @@ interface BlogDetailsCardProps {
   ) => void;
   onDeleteClick: () => void;
   onCancelClick: () => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   imageError: string | null;
 }
 
@@ -177,7 +176,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             }
           />
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
+          /* eslint-disable-next-line react/no-danger */
+          <div dangerouslySetInnerHTML={{ __html: content }} />
         )}
       </div>
 

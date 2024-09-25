@@ -145,7 +145,6 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         title={blogDetailsData.title}
         imageUrl={selectedImage || blogDetailsData.image}
         content={blogDetailsData.content}
-        author={blogDetailsData.author}
         publishDate={blogDetailsData.publishDate}
         tags={blogDetailsData.tags}
         onImageChange={handleImageChange}
