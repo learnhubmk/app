@@ -80,51 +80,6 @@ const TiptapEditor = ({
           <button type="button" onClick={() => editorInstance.chain().focus().toggleStrike().run()}>
             Strike
           </button>
-          <button type="button" onClick={() => editorInstance.chain().focus().setParagraph().run()}>
-            Paragraph
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 1 }).run()}
-          >
-            h1
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 2 }).run()}
-          >
-            h2
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 3 }).run()}
-          >
-            h3
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('left').run()}
-          >
-            Left
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('center').run()}
-          >
-            Center
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('right').run()}
-          >
-            Right
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('justify').run()}
-          >
-            Justify
-          </button>
           <button
             type="button"
             onClick={() => editorInstance.chain().focus().toggleBulletList().run()}

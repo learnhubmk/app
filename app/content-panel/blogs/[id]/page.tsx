@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
@@ -20,8 +21,7 @@ interface BlogDetailsData {
 }
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
-  const [isEditable, setIsEditable] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const router = useRouter();
   const [blogDetailsData, setBlogDetailsData] = useState<BlogDetailsData>({
     title: '',
     image: '',
@@ -30,8 +30,9 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     publishDate: '',
     tags: [],
   });
+  const [originalBlogData, setOriginalBlogData] = useState<BlogDetailsData | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
-  const [isImageValid, setIsImageValid] = useState<boolean>(true);
+  const [isEditing, setIsEditing] = useState(false);
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
 
@@ -42,7 +43,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
 
       const formattedDate = publishDate ? publishDate.split('T')[0] : 'N/A';
 
-      setBlogDetailsData({
+      const formattedBlogData = {
         title: title || 'N/A',
         image: image || '',
         content: content || 'N/A',
@@ -52,89 +53,46 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         },
         publishDate: formattedDate,
         tags: tags || [],
-      });
+      };
+
+      setBlogDetailsData(formattedBlogData);
+      setOriginalBlogData(formattedBlogData);
     }
   }, [data]);
-
-  const validateImage = (file: File) => {
-    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    const maxSize = 5 * 1024 * 1024;
-
-    if (!validTypes.includes(file.type)) {
-      setImageError('Invalid file type. Please select a JPEG, PNG, or GIF image.');
-      setIsImageValid(false);
-      return false;
-    }
-
-    if (file.size > maxSize) {
-      setImageError('File size exceeds 5MB. Please select a smaller image.');
-      setIsImageValid(false);
-      return false;
-    }
-
-    setImageError(null);
-    setIsImageValid(true);
-    return true;
-  };
 
   const handleImageChange = (files: File[]) => {
     if (files.length > 0) {
       const file = files[0];
-      const isValidImage = validateImage(file);
-
-      if (isValidImage) {
-        setImageError(null);
-        const reader = new FileReader();
-        reader.onload = () => setSelectedImage(reader.result as string);
-        reader.readAsDataURL(file);
-      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        setBlogDetailsData((prev) => ({ ...prev, image: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
   ) => {
-    if ((event as React.ChangeEvent<HTMLInputElement>).target) {
-      const { name, value } = (event as React.ChangeEvent<HTMLInputElement>).target;
-
-      if (name.startsWith('author_')) {
-        setBlogDetailsData((prevData) => ({
-          ...prevData,
-          author: {
-            ...prevData.author,
-            [name.replace('author_', '')]: value,
-          },
-        }));
-      } else {
-        setBlogDetailsData((prevData) => ({
-          ...prevData,
-          [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
-        }));
-      }
-    } else {
-      const { name, value } = (event as { target: { name: string; value: string } }).target;
-      setBlogDetailsData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    const { name, value } = event.target;
+    setBlogDetailsData((prevData) => ({
+      ...prevData,
+      [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
+    }));
   };
 
   const handleCancelClick = () => {
-    setIsEditable(false);
+    if (originalBlogData) {
+      setBlogDetailsData(originalBlogData);
+      setImageError(null);
+      setIsEditing(false);
+      router.replace(`/blogs/${params.id}`);
+    }
   };
 
-  const useIsEditable = (value: boolean) => {
-    return value;
+  const handleValidationError = (validationError: string) => {
+    setImageError(validationError);
   };
-
-  useIsEditable(isEditable);
-
-  const useisImageValid = (value: boolean) => {
-    return value;
-  };
-
-  useisImageValid(isImageValid);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading blog details</div>;
@@ -143,17 +101,20 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     <div className={styles.blogDetailsPageContainer}>
       <BlogDetailsCard
         title={blogDetailsData.title}
-        imageUrl={selectedImage || blogDetailsData.image}
+        imageUrl={blogDetailsData.image}
         content={blogDetailsData.content}
         publishDate={blogDetailsData.publishDate}
         tags={blogDetailsData.tags}
-        onImageChange={handleImageChange}
         onChange={handleChange}
+        onImageChange={handleImageChange}
+        onValidationError={handleValidationError}
         onDeleteClick={() => {
           // Future delete logic will go here
         }}
         onCancelClick={handleCancelClick}
         imageError={imageError}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
       />
     </div>
   );

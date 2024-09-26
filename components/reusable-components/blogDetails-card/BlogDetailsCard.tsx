@@ -21,10 +21,13 @@ interface BlogDetailsCardProps {
   ) => void;
   onDeleteClick: () => void;
   onCancelClick: () => void;
-  // eslint-disable-next-line react/no-unused-prop-types
   imageError: string | null;
+  onValidationError: (error: string) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  isEditing: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
   imageUrl,
@@ -35,15 +38,14 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onChange,
   onDeleteClick,
   onCancelClick,
+  imageError,
+  onValidationError,
 }) => {
   // Hardcoded author temporarily. This will be replaced with logged-in user in the future.
   // TODO: Replace hardcoded author with the logged-in user's data
   const hardcodedAuthor = { firstName: 'John', lastName: 'Doe' };
 
   const [isEditable, setIsEditable] = useState<boolean>(false);
-  const [validationErrors, setValidationErrors] = useState<{ image: string | null }>({
-    image: null,
-  });
   const [showModal, setShowModal] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
@@ -61,12 +63,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
     if (form && form.checkValidity() && !isImageRequired) {
       setIsEditable((prevEditable) => !prevEditable);
-      setValidationErrors({ image: null });
+      onValidationError('');
       setHasUnsavedChanges(false);
     } else {
       form?.reportValidity();
       if (isImageRequired) {
-        setValidationErrors({ image: 'Image is required.' });
+        onValidationError('Image is required.');
       }
     }
   };
@@ -149,16 +151,17 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.imageSection}>
         <label htmlFor="imageUpload">Image:</label>
-        {validationErrors.image && <p className={styles.errorText}>{validationErrors.image}</p>}
+        {imageError && <p className={styles.errorText}>{imageError}</p>}
         {isEditable ? (
           <DropZone
             onImageChange={(files) => {
               onImageChange(files);
-              if (validationErrors.image) {
-                setValidationErrors({ image: null });
+              if (imageError) {
+                onValidationError('');
               }
               setHasUnsavedChanges(true);
             }}
+            onValidationError={onValidationError}
           />
         ) : (
           imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
