@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import styles from './CancelModal.module.scss';
 
 interface CancelModalProps {
@@ -10,17 +10,30 @@ interface CancelModalProps {
 const CancelModal: React.FC<CancelModalProps> = ({ show, onHide, onConfirm }) => {
   if (!show) return null;
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      onHide();
+    }
+  };
+
   return (
     <div className={styles.cancelModalOverlay}>
       <div className={styles.cancelModal}>
-        <span className={styles.closeModal} onClick={onHide}></span>
+        <div
+          className={styles.closeModal}
+          onClick={onHide}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={0}
+          aria-label="Close modal"
+        />
         <h2 className={styles.modalTitle}>Unsaved Changes</h2>
         <p>You have unsaved changes. Are you sure you want to discard them?</p>
         <div className={styles.modalBtns}>
-          <button className={styles.cancelButton} onClick={onConfirm}>
+          <button type="button" className={styles.cancelButton} onClick={onConfirm}>
             Discard Changes
           </button>
-          <button className={styles.cancelButton} onClick={onHide}>
+          <button type="button" className={styles.cancelButton} onClick={onHide}>
             Continue Edit
           </button>
         </div>
