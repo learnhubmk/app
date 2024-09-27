@@ -1,138 +1,87 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
-
-interface Author {
-  first_name: string;
-  last_name: string;
-}
-
-interface BlogDetailsData {
-  title: string;
-  image: string;
-  content: string;
-  author: Author;
-  publishDate: string;
-  tags: string[];
-}
+import { BlogDetailsData } from '../../../../components/reusable-components/_Types';
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
-  const [isEditable, setIsEditable] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [blogDetailsData, setBlogDetailsData] = useState<BlogDetailsData>({
-    title: '',
-    image: '',
-    content: '',
-    author: { first_name: '', last_name: '' },
-    publishDate: '',
-    tags: [],
-  });
+  const router = useRouter();
+  const [blogDetailsData, setBlogDetailsData] = useState<BlogDetailsData | null>(null);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
 
   useEffect(() => {
-    if (data?.data) {
-      const fetchedBlog = data.data;
-      const { title, image, content, author, publish_date: publishDate, tags } = fetchedBlog;
-
-      const formattedDate = publishDate ? publishDate.split('T')[0] : 'N/A';
-
-      setBlogDetailsData({
-        title: title || 'N/A',
-        image: image || '',
-        content: content || 'N/A',
-        author: {
-          first_name: author?.first_name || 'N/A',
-          last_name: author?.last_name || 'N/A',
-        },
-        publishDate: formattedDate,
-        tags: tags || [],
-      });
+    if (data) {
+      setBlogDetailsData(data);
     }
   }, [data]);
 
-  const handleEditClick = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
-    if (form && form.checkValidity()) {
-      setIsEditable((prevEditable) => !prevEditable);
-    } else {
-      form?.reportValidity();
-    }
-  };
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-      if (validImageTypes.includes(file.type)) {
-        const reader = new FileReader();
-        reader.onload = () => setSelectedImage(reader.result as string);
-        reader.readAsDataURL(file);
-      } else {
-        setSelectedImage(null);
-      }
+  const handleImageChange = (files: File[]) => {
+    if (files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        setBlogDetailsData((prev) => (prev ? { ...prev, image: reader.result as string } : null));
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
   ) => {
-    if ((event as React.ChangeEvent<HTMLInputElement>).target) {
-      const { name, value } = (event as React.ChangeEvent<HTMLInputElement>).target;
-
-      if (name.startsWith('author_')) {
-        setBlogDetailsData((prevData) => ({
-          ...prevData,
-          author: {
-            ...prevData.author,
-            [name.replace('author_', '')]: value,
-          },
-        }));
-      } else {
-        setBlogDetailsData((prevData) => ({
-          ...prevData,
-          [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
-        }));
-      }
-    } else {
-      const { name, value } = (event as { target: { name: string; value: string } }).target;
-      setBlogDetailsData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    const { name, value } = event.target;
+    setBlogDetailsData((prevData) =>
+      prevData
+        ? {
+            ...prevData,
+            [name]: name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
+          }
+        : null
+    );
   };
 
   const handleCancelClick = () => {
-    setIsEditable(false);
+    if (data) {
+      setBlogDetailsData(data);
+      setImageError(null);
+      setIsEditing(false);
+      router.replace(window.location.pathname);
+    }
+  };
+
+  const handleValidationError = (validationError: string) => {
+    setImageError(validationError);
   };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading blog details</div>;
+  if (!blogDetailsData) return null;
 
   return (
     <div className={styles.blogDetailsPageContainer}>
-      <form>
-        <BlogDetailsCard
-          title={blogDetailsData.title}
-          imageUrl={selectedImage || blogDetailsData.image}
-          content={blogDetailsData.content}
-          author={blogDetailsData.author}
-          publishDate={blogDetailsData.publishDate}
-          tags={blogDetailsData.tags}
-          isEditable={isEditable}
-          onEditClick={handleEditClick}
-          onImageChange={handleImageChange}
-          onChange={handleChange}
-          onCancelClick={handleCancelClick}
-          onDeleteClick={() => {
-            // Future delete logic will go here
-          }}
-        />
-      </form>
+      <BlogDetailsCard
+        title={blogDetailsData.title}
+        imageUrl={blogDetailsData.image}
+        content={blogDetailsData.content}
+        publishDate={blogDetailsData.publishDate}
+        tags={blogDetailsData.tags}
+        onChange={handleChange}
+        onImageChange={handleImageChange}
+        onValidationError={handleValidationError}
+        onDeleteClick={() => {
+          // Future delete logic will go here
+        }}
+        onCancelClick={handleCancelClick}
+        imageError={imageError}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+      />
     </div>
   );
 };

@@ -8,6 +8,7 @@ import Filter from '../SearchAndFilter/Filter';
 import Search from '../SearchAndFilter/Search';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
+import { useEditor } from '../../../app/context/EditorContext';
 
 interface Author {
   first_name: string;
@@ -33,6 +34,7 @@ interface BlogPost {
 }
 
 const BlogListView = () => {
+  const { editorStateChange } = useEditor();
   const [data, setData] = useState<BlogPost[]>([]);
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
   const router = useRouter();
@@ -53,7 +55,7 @@ const BlogListView = () => {
         }));
         setData(transformedData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        throw new Error(`Error fetching data: ${error}`);
       }
     };
 
@@ -67,10 +69,14 @@ const BlogListView = () => {
     tags: 'Tags',
   };
 
-  const handleView = (id: string) => router.push(`/content-panel/blogs/${id}`);
+  const handleView = (id: string) => {
+    editorStateChange({ isEditable: false });
+    router.push(`/content-panel/blogs/${id}`);
+  };
 
-  const handleEdit = () => {
-    // edit logic here
+  const handleEdit = (id: string) => {
+    editorStateChange({ isEditable: true });
+    router.push(`/content-panel/blogs/${id}`);
   };
 
   const handleDelete = () => {
@@ -81,7 +87,7 @@ const BlogListView = () => {
     <ActionDropdown
       dropdownItems={[
         { id: 'view', label: 'View', onClick: () => handleView(item.id) },
-        { id: 'edit', label: 'Edit', onClick: () => handleEdit() },
+        { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
         { id: 'delete', label: 'Delete', onClick: () => handleDelete() },
       ]}
     />
@@ -106,7 +112,7 @@ const BlogListView = () => {
         headers={headers}
         displayNames={displayNames}
         data={data}
-        onRowClick={handleView} // Pass the handler here
+        onRowClick={handleView}
         renderActionsDropdown={renderActionsDropdown}
       />
     </div>

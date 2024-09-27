@@ -92,7 +92,8 @@
 
   input[type='text'],
   input[type='date'],
-  input[type='file'] {
+  input[type='file'],
+  select {
     width: 100%;
     padding: 10px;
     color: var(--input-text-color);
@@ -112,4 +113,10 @@
     border-radius: 8px;
     background-color: var(--elevated-elements-dark-mode);
   }
+}
+
+.errorText {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

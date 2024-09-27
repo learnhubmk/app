@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import TextAlign from '@tiptap/extension-text-align';
+import BulletList from '@tiptap/extension-bullet-list';
+import OrderedList from '@tiptap/extension-ordered-list';
+import Blockquote from '@tiptap/extension-blockquote';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Highlight from '@tiptap/extension-highlight';
+import TextAlign from '@tiptap/extension-text-align';
 import CodeBlock from '@tiptap/extension-code-block';
 import styles from './TiptapEditor.module.scss';
 
@@ -25,6 +29,10 @@ const TiptapEditor = ({
         types: ['heading', 'paragraph'],
       }),
       CodeBlock,
+      BulletList,
+      OrderedList,
+      Blockquote,
+      HorizontalRule,
     ],
     content,
     editable,
@@ -37,7 +45,7 @@ const TiptapEditor = ({
   });
 
   useEffect(() => {
-    if (editorInstance) {
+    if (editorInstance && editorInstance.getHTML() !== content) {
       editorInstance.commands.setContent(content);
     }
   }, [content, editorInstance]);
@@ -72,50 +80,19 @@ const TiptapEditor = ({
           <button type="button" onClick={() => editorInstance.chain().focus().toggleStrike().run()}>
             Strike
           </button>
-          <button type="button" onClick={() => editorInstance.chain().focus().setParagraph().run()}>
-            Paragraph
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleBulletList().run()}
+            className={editorInstance.isActive('bulletList') ? 'is-active' : ''}
+          >
+            Bullet list
           </button>
           <button
             type="button"
-            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 1 }).run()}
+            onClick={() => editorInstance.chain().focus().toggleOrderedList().run()}
+            className={editorInstance.isActive('orderedList') ? 'is-active' : ''}
           >
-            h1
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 2 }).run()}
-          >
-            h2
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().toggleHeading({ level: 3 }).run()}
-          >
-            h3
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('left').run()}
-          >
-            Left
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('center').run()}
-          >
-            Center
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('right').run()}
-          >
-            Right
-          </button>
-          <button
-            type="button"
-            onClick={() => editorInstance.chain().focus().setTextAlign('justify').run()}
-          >
-            Justify
+            Ordered list
           </button>
           <button
             type="button"
@@ -123,6 +100,12 @@ const TiptapEditor = ({
             className={isCodeBlockActive ? styles.codeBlockActive : ''}
           >
             Code Block
+          </button>
+          <button
+            type="button"
+            onClick={() => editorInstance.chain().focus().setHorizontalRule().run()}
+          >
+            Horizontal rule
           </button>
         </div>
       )}
