@@ -1,33 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
+import { BlogDetailsCardProps } from '../_Types';
 
-interface BlogDetailsCardProps {
-  title: string;
-  imageUrl: string;
-  content: string;
-  publishDate: string;
-  tags: string[];
-  onImageChange: (files: File[]) => void;
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
-  ) => void;
-  onDeleteClick: () => void;
-  onCancelClick: () => void;
-  imageError: string | null;
-  onValidationError: (error: string) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
-  isEditing: boolean;
-  // eslint-disable-next-line react/no-unused-prop-types
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
   imageUrl,
@@ -43,43 +24,30 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 }) => {
   // Hardcoded author temporarily. This will be replaced with logged-in user in the future.
   // TODO: Replace hardcoded author with the logged-in user's data
-  const hardcodedAuthor = { firstName: 'John', lastName: 'Doe' };
+  // const hardcodedAuthor = { firstName: 'John', lastName: 'Doe' };
 
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const editMode = searchParams.get('edit') === 'true';
-    setIsEditable(editMode);
-  }, [searchParams]);
 
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
     const isImageRequired = isEditable && !imageUrl;
 
-    if (form && form.checkValidity() && !isImageRequired) {
+    if (form?.checkValidity() && !isImageRequired) {
       setIsEditable((prevEditable) => !prevEditable);
       onValidationError('');
       setHasUnsavedChanges(false);
     } else {
       form?.reportValidity();
-      if (isImageRequired) {
-        onValidationError('Image is required.');
-      }
+      if (isImageRequired) onValidationError('Image is required.');
     }
   };
 
-  const handleBackClick = () => {
-    if (hasUnsavedChanges) {
-      setShowModal(true);
-    } else {
-      router.push('/content-panel/blogs');
-    }
-  };
+  const handleBackClick = () =>
+    hasUnsavedChanges ? setShowModal(true) : router.push('/content-panel/blogs');
 
   const confirmDiscardChanges = () => {
     setShowModal(false);
@@ -90,9 +58,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     setIsEditable(false);
     setHasUnsavedChanges(false);
     router.replace(window.location.pathname);
-    if (onCancelClick) {
-      onCancelClick();
-    }
+    onCancelClick?.();
   };
 
   const handleInputChange = (
@@ -101,6 +67,20 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     onChange(event);
     setHasUnsavedChanges(true);
   };
+
+  const renderInput = (id: string, value: string, disabled: boolean = !isEditable) => (
+    <input
+      type="text"
+      id={id}
+      name={id}
+      value={value}
+      onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
+      disabled={disabled}
+      required
+      placeholder={`${id.charAt(0).toUpperCase() + id.slice(1)} is required`}
+      className={styles.inputField}
+    />
+  );
 
   return (
     <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
@@ -134,19 +114,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       </div>
 
       <div className={styles.titleInput}>
-        <h1>
-          <input
-            type="text"
-            value={title}
-            onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
-            name="title"
-            id="title"
-            disabled={!isEditable}
-            required
-            placeholder="Title is required"
-            className={styles.inputField}
-          />
-        </h1>
+        <h1>{renderInput('title', title)}</h1>
       </div>
 
       <div className={styles.imageSection}>
@@ -156,9 +124,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           <DropZone
             onImageChange={(files) => {
               onImageChange(files);
-              if (imageError) {
-                onValidationError('');
-              }
+              if (imageError) onValidationError('');
               setHasUnsavedChanges(true);
             }}
             onValidationError={onValidationError}
@@ -186,14 +152,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.authorSection}>
         <label htmlFor="author">Author:</label>
-        <input
-          id="author"
-          type="text"
-          value={`${hardcodedAuthor.firstName} ${hardcodedAuthor.lastName}`}
-          name="author"
-          disabled
-          className={styles.inputField}
-        />
+        {renderInput('author', 'John Doe', true)}
       </div>
 
       <div className={styles.dateSection}>
@@ -210,17 +169,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.tagsSection}>
         <label htmlFor="tags">Tags:</label>
-        <input
-          type="text"
-          id="tags"
-          value={tags.join(', ')}
-          onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
-          disabled={!isEditable}
-          name="tags"
-          required
-          placeholder="Enter tags separated by commas"
-          className={styles.inputField}
-        />
+        {renderInput('tags', tags.join(', '))}
       </div>
 
       <CancelModal
