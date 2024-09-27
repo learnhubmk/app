@@ -10,6 +10,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 export enum Role {
   admin = 'admin',
   content_manager = 'content_manager',
+  content = 'content',
   member = 'member',
 }
 

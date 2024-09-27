@@ -43,7 +43,7 @@ const LoginForm = () => {
       const response = await login({
         email: values.email,
         password: values.password,
-        role: Role.content_manager,
+        role: Role.content,
         cfTurnstileResponse: turnstileToken,
       });
       console.log(response);
