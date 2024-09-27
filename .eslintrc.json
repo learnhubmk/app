@@ -20,6 +20,7 @@
   },
   "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
+    "no-param-reassign": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_", "ignoreRestSiblings": true }

@@ -8,6 +8,7 @@ import TiptapEditor from '../../editor/TiptapEditor';
 import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps } from '../_Types';
+import { useAppSelector } from '../../../store/_Hooks';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
@@ -25,8 +26,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   // Hardcoded author temporarily. This will be replaced with logged-in user in the future.
   // TODO: Replace hardcoded author with the logged-in user's data
   // const hardcodedAuthor = { firstName: 'John', lastName: 'Doe' };
+  const editorState = useAppSelector((state) => state.editorState);
 
-  const [isEditable, setIsEditable] = useState<boolean>(false);
+  const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
   const [showModal, setShowModal] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 

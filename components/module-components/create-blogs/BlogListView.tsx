@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import Filter from '../SearchAndFilter/Filter';
 import Search from '../SearchAndFilter/Search';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
+import { editorStateChange } from '../../../store';
 
 interface Author {
   first_name: string;
@@ -33,6 +35,7 @@ interface BlogPost {
 }
 
 const BlogListView = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState<BlogPost[]>([]);
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
   const router = useRouter();
@@ -53,7 +56,7 @@ const BlogListView = () => {
         }));
         setData(transformedData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        throw new Error(`Error fetching data: ${error}`);
       }
     };
 
@@ -67,9 +70,15 @@ const BlogListView = () => {
     tags: 'Tags',
   };
 
-  const handleView = (id: string) => router.push(`/content-panel/blogs/${id}?edit=false`);
+  const handleView = (id: string) => {
+    dispatch(editorStateChange({ isEditable: false }));
+    router.push(`/content-panel/blogs/${id}`);
+  };
 
-  const handleEdit = (id: string) => router.push(`/content-panel/blogs/${id}?edit=true`);
+  const handleEdit = (id: string) => {
+    dispatch(editorStateChange({ isEditable: true }));
+    router.push(`/content-panel/blogs/${id}`);
+  };
 
   const handleDelete = () => {
     // delete logic here
