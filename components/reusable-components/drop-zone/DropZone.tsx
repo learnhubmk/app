@@ -6,9 +6,14 @@ import styles from './DropZone.module.scss';
 interface DropZoneProps {
   onImageChange: (files: File[]) => void;
   onValidationError: (error: string) => void;
+  isRequired?: boolean;
 }
 
-const DropZone: React.FC<DropZoneProps> = ({ onImageChange, onValidationError }) => {
+const DropZone: React.FC<DropZoneProps> = ({
+  onImageChange,
+  onValidationError,
+  isRequired = false,
+}) => {
   const [acceptedFiles, setAcceptedFiles] = useState<File[]>([]);
 
   const validateImage = useCallback(
@@ -62,7 +67,11 @@ const DropZone: React.FC<DropZoneProps> = ({ onImageChange, onValidationError })
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <input {...getInputProps()} style={{ display: 'none' }} />
         {acceptedFiles.length === 0 ? (
-          <p>Drag and drop an image here, or click to select one</p>
+          <p>
+            {isRequired
+              ? 'Drag and drop an image here, or click to select one (required)'
+              : 'Drag and drop an image here, or click to select one (optional)'}
+          </p>
         ) : (
           <div className={styles.files}>
             <ul>
@@ -70,13 +79,14 @@ const DropZone: React.FC<DropZoneProps> = ({ onImageChange, onValidationError })
                 <li key={file.name}>{file.name}</li>
               ))}
             </ul>
-            <Image
-              src={URL.createObjectURL(acceptedFiles[0])}
-              alt="Preview"
-              width={500}
-              height={300}
-              style={{ borderRadius: '8px', marginTop: '10px' }}
-            />
+            <div className={styles.imagePreview}>
+              <Image
+                src={URL.createObjectURL(acceptedFiles[0])}
+                alt="Preview"
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
             <button type="button" onClick={clearFiles}>
               Clear
             </button>

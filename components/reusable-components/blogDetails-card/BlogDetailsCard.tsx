@@ -68,9 +68,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
-    const isImageRequired = isEditable && !imageUrl;
 
-    if (form?.checkValidity() && !isImageRequired) {
+    if (form?.checkValidity()) {
       const newEditableState = !isEditable;
       setIsEditable(newEditableState);
       editorStateChange({ isEditable: newEditableState });
@@ -78,7 +77,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       setHasUnsavedChanges(false);
     } else {
       form?.reportValidity();
-      if (isImageRequired) onValidationError('Image is required.');
     }
   };
 
@@ -149,6 +147,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               setHasUnsavedChanges(true);
             }}
             onValidationError={onValidationError}
+            isRequired={false}
           />
         ) : (
           imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
@@ -166,6 +165,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             }
           />
         ) : (
+          // eslint-disable-next-line react/no-danger
           <div dangerouslySetInnerHTML={{ __html: content }} />
         )}
       </div>
