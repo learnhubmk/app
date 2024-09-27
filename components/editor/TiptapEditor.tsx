@@ -103,13 +103,6 @@ const TiptapEditor = ({
           </button>
           <button
             type="button"
-            onClick={() => editorInstance.chain().focus().toggleBlockquote().run()}
-            className={editorInstance.isActive('blockquote') ? 'is-active' : ''}
-          >
-            Blockquote
-          </button>
-          <button
-            type="button"
             onClick={() => editorInstance.chain().focus().setHorizontalRule().run()}
           >
             Horizontal rule

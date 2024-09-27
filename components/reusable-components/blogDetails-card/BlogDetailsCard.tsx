@@ -23,16 +23,44 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   imageError,
   onValidationError,
 }) => {
-  // Hardcoded author temporarily. This will be replaced with logged-in user in the future.
-  // TODO: Replace hardcoded author with the logged-in user's data
-  // const hardcodedAuthor = { firstName: 'John', lastName: 'Doe' };
   const editorState = useAppSelector((state) => state.editorState);
 
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
   const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const router = useRouter();
+
+  const handleConfirm = () => {
+    setShowModal(false);
+    if (modalType === 'back') {
+      router.push('/content-panel/blogs');
+    } else {
+      setIsEditable(false);
+      setHasUnsavedChanges(false);
+      router.replace(window.location.pathname);
+      onCancelClick?.();
+    }
+  };
+
+  const handleBackClick = () => {
+    if (hasUnsavedChanges) {
+      setModalType('back');
+      setShowModal(true);
+    } else {
+      router.push('/content-panel/blogs');
+    }
+  };
+
+  const handleCancelClick = () => {
+    if (hasUnsavedChanges) {
+      setModalType('cancel');
+      setShowModal(true);
+    } else {
+      handleConfirm();
+    }
+  };
 
   const handleEditClick = () => {
     const form = document.querySelector('form') as HTMLFormElement;
@@ -46,21 +74,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       form?.reportValidity();
       if (isImageRequired) onValidationError('Image is required.');
     }
-  };
-
-  const handleBackClick = () =>
-    hasUnsavedChanges ? setShowModal(true) : router.push('/content-panel/blogs');
-
-  const confirmDiscardChanges = () => {
-    setShowModal(false);
-    router.push('/content-panel/blogs');
-  };
-
-  const handleCancelClick = () => {
-    setIsEditable(false);
-    setHasUnsavedChanges(false);
-    router.replace(window.location.pathname);
-    onCancelClick?.();
   };
 
   const handleInputChange = (
@@ -174,11 +187,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         {renderInput('tags', tags.join(', '))}
       </div>
 
-      <CancelModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        onConfirm={confirmDiscardChanges}
-      />
+      <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />
     </form>
   );
 };

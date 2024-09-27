@@ -51,7 +51,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
       setBlogDetailsData(data);
       setImageError(null);
       setIsEditing(false);
-      router.replace(`/blogs/${params.id}`);
+      router.replace(window.location.pathname);
     }
   };
 
