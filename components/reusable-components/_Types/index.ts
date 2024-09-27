@@ -17,3 +17,17 @@ export interface BlogDetailsCardProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface Author {
+  firstName: string;
+  lastName: string;
+}
+
+export interface BlogDetailsData {
+  title: string;
+  image: string;
+  content: string;
+  author: Author;
+  publishDate: string;
+  tags: string[];
+}
