@@ -10,8 +10,6 @@ const fetchBlogDetails = async (id: string): Promise<BlogDetailsData> => {
   }
   const data = await response.json();
 
-  // console.log('Raw API response:', data);
-
   const blogPost = data.data || data;
 
   return {
