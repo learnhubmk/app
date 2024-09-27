@@ -2,14 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import Filter from '../SearchAndFilter/Filter';
 import Search from '../SearchAndFilter/Search';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
-import { editorStateChange } from '../../../store';
+import { useEditor } from '../../../app/context/EditorContext';
 
 interface Author {
   first_name: string;
@@ -35,7 +34,7 @@ interface BlogPost {
 }
 
 const BlogListView = () => {
-  const dispatch = useDispatch();
+  const { editorStateChange } = useEditor();
   const [data, setData] = useState<BlogPost[]>([]);
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
   const router = useRouter();
@@ -71,12 +70,12 @@ const BlogListView = () => {
   };
 
   const handleView = (id: string) => {
-    dispatch(editorStateChange({ isEditable: false }));
+    editorStateChange({ isEditable: false });
     router.push(`/content-panel/blogs/${id}`);
   };
 
   const handleEdit = (id: string) => {
-    dispatch(editorStateChange({ isEditable: true }));
+    editorStateChange({ isEditable: true });
     router.push(`/content-panel/blogs/${id}`);
   };
 
@@ -113,7 +112,7 @@ const BlogListView = () => {
         headers={headers}
         displayNames={displayNames}
         data={data}
-        onRowClick={handleView} // Pass the handler here
+        onRowClick={handleView}
         renderActionsDropdown={renderActionsDropdown}
       />
     </div>

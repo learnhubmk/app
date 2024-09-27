@@ -15,7 +15,7 @@ import styles from './page.module.scss';
 import { AuthProvider } from './context/authContext';
 import { AxiosProvider } from '../api/AxiosProvider';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import ReduxProvider from '../store/Provider';
+import { EditorProvider } from './context/EditorContext';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -55,7 +55,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           </noscript>
         )}
         <ToastContainer />
-        <ReduxProvider>
+        <EditorProvider>
           <ThemeProvider>
             <AxiosProvider>
               <ReactQueryProvider>
@@ -70,7 +70,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               </ReactQueryProvider>
             </AxiosProvider>
           </ThemeProvider>
-        </ReduxProvider>
+        </EditorProvider>
       </body>
     </html>
   );

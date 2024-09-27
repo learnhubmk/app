@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
@@ -8,7 +8,7 @@ import TiptapEditor from '../../editor/TiptapEditor';
 import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps } from '../_Types';
-import { useAppSelector } from '../../../store/_Hooks';
+import { useEditor } from '../../../app/context/EditorContext';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
@@ -23,14 +23,17 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   imageError,
   onValidationError,
 }) => {
-  const editorState = useAppSelector((state) => state.editorState);
-
+  const { editorState, editorStateChange } = useEditor();
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setIsEditable(editorState.isEditable);
+  }, [editorState.isEditable]);
 
   const handleConfirm = () => {
     setShowModal(false);
@@ -39,6 +42,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     } else {
       setIsEditable(false);
       setHasUnsavedChanges(false);
+      editorStateChange({ isEditable: false });
       router.replace(window.location.pathname);
       onCancelClick?.();
     }
@@ -67,7 +71,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     const isImageRequired = isEditable && !imageUrl;
 
     if (form?.checkValidity() && !isImageRequired) {
-      setIsEditable((prevEditable) => !prevEditable);
+      const newEditableState = !isEditable;
+      setIsEditable(newEditableState);
+      editorStateChange({ isEditable: newEditableState });
       onValidationError('');
       setHasUnsavedChanges(false);
     } else {
@@ -160,7 +166,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             }
           />
         ) : (
-          /* eslint-disable-next-line react/no-danger */
           <div dangerouslySetInnerHTML={{ __html: content }} />
         )}
       </div>
