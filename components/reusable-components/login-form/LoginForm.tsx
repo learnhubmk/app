@@ -10,10 +10,10 @@ import Image from 'next/image';
 import styles from './LoginForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import TextInput from '../text-input/TextInput';
-import { submitLoginForm } from './SubmitLoginForm';
 import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
+import { Role, useAuth } from '../../../app/context/authContext';
 
 interface FormValues {
   email: string;
@@ -21,6 +21,7 @@ interface FormValues {
 }
 const LoginForm = () => {
   const { theme } = useTheme();
+  const { login, loginStatus } = useAuth();
   const isLightTheme = theme === 'light';
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -31,33 +32,28 @@ const LoginForm = () => {
       .required('*Задолжително внесете емаил адреса'),
     password: Yup.string()
       .required('Задолжително внесете пасворд.')
-      .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.')
-      .matches(
-        /^(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]*$/,
-        'Мора да содржи еден број и еден посебен знак'
-      ),
+      .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.'),
   });
   const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     if (!turnstileToken) {
+      toast.error('Turnstile verification is required.');
       return;
     }
-
-    const formValues = {
-      email: values.email,
-      password: values.password,
-      cfTurnstileResponse: turnstileToken,
-    };
-
     try {
-      const response = await submitLoginForm(formValues);
-      if (response) {
-        toast.success(response);
-
+      const response = await login({
+        email: values.email,
+        password: values.password,
+        role: Role.content,
+        cfTurnstileResponse: turnstileToken,
+      });
+      console.log(response);
+      if (loginStatus === 'success') {
+        toast.success('Успех');
         resetForm();
       } else {
-        toast.error(response);
+        toast.error('Login failed');
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error('Грешка');
     }
   };
