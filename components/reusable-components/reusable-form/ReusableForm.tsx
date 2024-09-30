@@ -53,8 +53,18 @@ const ReusableForm = () => {
   const formik: FormikProps<IAuthFormProps> = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      console.log('values', values);
+    onSubmit: async (values) => {
+      await fetch('https://staging-api.learnhub.mk/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     },
   });
 
