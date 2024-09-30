@@ -13,29 +13,24 @@ import linkedin from '../../../public/icons-footer/linkedIn.svg';
 import google from '../../../public/icons-footer/google.svg';
 import CheckPasswordValidityIcon from '../CheckPasswordValidityIcon/CheckPasswordValidityIcon';
 import { useTheme } from '../../../app/context/themeContext';
+import { IPasswordValidation, IAuthFormProps } from '../_Types';
 
-interface PasswordValidation {
-  uppercase: boolean | null;
-  specialChar: boolean | null;
-  minLength: boolean | null;
-}
+const initialValues: IAuthFormProps = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+};
 
 const ReusableForm = () => {
   const { theme } = useTheme();
   const lightTheme = theme === 'light';
 
-  const [passwordValidation, setPasswordValidation] = useState<PasswordValidation>({
-    uppercase: null,
-    specialChar: null,
-    minLength: null,
+  const [passwordValidation, setPasswordValidation] = useState<IPasswordValidation>({
+    uppercase: false,
+    specialChar: false,
+    minLength: false,
   });
-
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
 
   const validationSchema = Yup.object({
     firstName: Yup.string()
@@ -51,51 +46,39 @@ const ReusableForm = () => {
       .email('*Невалидна емаил адреса')
       .required('*Задолжително внесете електронка пошта'),
     password: Yup.string()
-      .matches(/[a-zA-Z]/, '*Лозинката не ги исполнува сите услови!')
       .min(8, '*Вашата лозинка е премногу кратка!')
       .required('*Задолжително внесете лозинка'),
   });
 
-  const formik: FormikProps<{
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-  }> = useFormik({
+  const formik: FormikProps<IAuthFormProps> = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      setPasswordValidation({
-        // eslint-disable-next-line no-unneeded-ternary
-        uppercase: /[A-Z]/.test(values.password) ? true : false,
-        // eslint-disable-next-line no-unneeded-ternary
-        specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(values.password) ? true : false,
-        // eslint-disable-next-line no-unneeded-ternary
-        minLength: values.password.length >= 8 ? true : false,
-      });
+      console.log('values', values);
     },
   });
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     formik.handleChange(e);
-    const newChange = {
-      uppercase: /[A-Z]/.test(value) ? true : null,
-      specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(value) ? true : null,
-      minLength: value.length >= 8 ? true : null,
-    };
-    setPasswordValidation((prevState) => ({
-      ...prevState,
-      ...newChange,
+    setPasswordValidation(() => ({
+      uppercase: /[A-Z]/.test(value),
+      specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(value),
+      minLength: value.length >= 8,
     }));
   };
 
-  const getColor = (valid: boolean | null) => {
-    // eslint-disable-next-line no-nested-ternary
-    return valid === null ? '#475569' : valid ? '#00B107' : '#FF4045';
+  const getColor = (valid: boolean | null): string => {
+    const colors = {
+      null: '#475569',
+      true: '#00B107',
+      false: '#FF4045',
+    };
+
+    return colors[String(valid) as keyof typeof colors];
   };
 
-  const ruleMessages: { [key in keyof PasswordValidation]: string } & { default: string } = {
+  const ruleMessages: { [key in keyof IPasswordValidation]: string } & { default: string } = {
     uppercase: 'Една голема буква',
     specialChar: 'Еден специјален знак или симбол',
     minLength: 'Минимум 8 карактери',
@@ -146,7 +129,7 @@ const ReusableForm = () => {
             <div className={style.requirementsItem} key={rule}>
               <CheckPasswordValidityIcon color={getColor(valid)} />
               <p>
-                <p>{ruleMessages[rule as keyof PasswordValidation] || ruleMessages.default}</p>
+                <p>{ruleMessages[rule as keyof IPasswordValidation] || ruleMessages.default}</p>
               </p>
             </div>
           ))}

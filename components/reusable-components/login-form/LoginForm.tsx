@@ -14,11 +14,8 @@ import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
 import { Role, useAuth } from '../../../app/context/authContext';
+import { IAuthFormProps } from '../_Types';
 
-interface FormValues {
-  email: string;
-  password: string;
-}
 const LoginForm = () => {
   const { theme } = useTheme();
   const { login, loginStatus } = useAuth();
@@ -34,7 +31,10 @@ const LoginForm = () => {
       .required('Задолжително внесете пасворд.')
       .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.'),
   });
-  const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
+  const handleSubmit = async (
+    values: Pick<IAuthFormProps, 'email' | 'password'>,
+    { resetForm }: FormikHelpers<Pick<IAuthFormProps, 'email' | 'password'>>
+  ) => {
     if (!turnstileToken) {
       toast.error('Turnstile verification is required.');
       return;
