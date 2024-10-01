@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import * as Yup from 'yup';
 import { useFormik, FormikProps } from 'formik';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,13 +13,7 @@ import google from '../../../public/icons-footer/google.svg';
 import CheckPasswordValidityIcon from '../CheckPasswordValidityIcon/CheckPasswordValidityIcon';
 import { useTheme } from '../../../app/context/themeContext';
 import { IPasswordValidation, IAuthFormProps } from '../_Types';
-
-const initialValues: IAuthFormProps = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-};
+import { initialValues, validationSchema, handleSubmit } from '../login-form/formLogic';
 
 const ReusableForm = () => {
   const { theme } = useTheme();
@@ -32,40 +25,10 @@ const ReusableForm = () => {
     minLength: false,
   });
 
-  const validationSchema = Yup.object({
-    firstName: Yup.string()
-      .matches(/^[a-zA-Z .'-]+$/, '*Невалидно име!')
-      .min(2, '*Вашето име е премногу кратко!')
-      .max(50, '*Вашето име е премногу долго!')
-      .required('*Задолжително внесете име'),
-    lastName: Yup.string()
-      .min(2, '*Вашето презиме е премногу кратко!')
-      .max(50, '*Вашето презиме е премногу долго!')
-      .required('*Задолжително внесете презиме'),
-    email: Yup.string()
-      .email('*Невалидна емаил адреса')
-      .required('*Задолжително внесете електронка пошта'),
-    password: Yup.string()
-      .min(8, '*Вашата лозинка е премногу кратка!')
-      .required('*Задолжително внесете лозинка'),
-  });
-
   const formik: FormikProps<IAuthFormProps> = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values) => {
-      await fetch('https://staging-api.learnhub.mk/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(values),
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    },
+    onSubmit: handleSubmit,
   });
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {

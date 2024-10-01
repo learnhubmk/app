@@ -1,8 +1,6 @@
 'use client';
 
-import { FormikHelpers, useFormik } from 'formik';
-import { toast } from 'react-toastify';
-import * as Yup from 'yup';
+import { useFormik } from 'formik';
 import { useState } from 'react';
 import Turnstile from 'react-turnstile';
 import Link from 'next/link';
@@ -13,8 +11,8 @@ import TextInput from '../text-input/TextInput';
 import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
-import { Role, useAuth } from '../../../app/context/authContext';
-import { IAuthFormProps } from '../_Types';
+import { useAuth } from '../../../app/context/authContext';
+import { loginInitialValues, loginValidationSchema, handleLogin } from './formLogic';
 
 const LoginForm = () => {
   const { theme } = useTheme();
@@ -22,46 +20,12 @@ const LoginForm = () => {
   const isLightTheme = theme === 'light';
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const initialValues = { email: '', password: '' };
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email('*Невалидна емаил адреса')
-      .required('*Задолжително внесете емаил адреса'),
-    password: Yup.string()
-      .required('Задолжително внесете пасворд.')
-      .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.'),
-  });
-  const handleSubmit = async (
-    values: Pick<IAuthFormProps, 'email' | 'password'>,
-    { resetForm }: FormikHelpers<Pick<IAuthFormProps, 'email' | 'password'>>
-  ) => {
-    if (!turnstileToken) {
-      toast.error('Turnstile verification is required.');
-      return;
-    }
-    try {
-      const response = await login({
-        email: values.email,
-        password: values.password,
-        role: Role.content,
-        cfTurnstileResponse: turnstileToken,
-      });
-      console.log(response);
-      if (loginStatus === 'success') {
-        toast.success('Успех');
-        resetForm();
-      } else {
-        toast.error('Login failed');
-      }
-    } catch (error: any) {
-      toast.error('Грешка');
-    }
-  };
 
   const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: handleSubmit,
+    initialValues: loginInitialValues,
+    validationSchema: loginValidationSchema,
+    onSubmit: (values, formikHelpers) =>
+      handleLogin(login, loginStatus)(values, formikHelpers, turnstileToken),
   });
 
   return (
@@ -87,7 +51,7 @@ const LoginForm = () => {
           field="password"
           formik={formik}
           isRequired
-        />{' '}
+        />
         <div className={styles.forgotPasswordContainer}>
           <div className={styles.rememberCheck}>
             <input
@@ -99,19 +63,17 @@ const LoginForm = () => {
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="remember">Запомни ме</label>
           </div>
-
           <a className={styles.forgotPassword} href="/">
             Заборавена лозинка?
           </a>
         </div>
         <button type="submit" className={styles.loginBtn}>
-          {' '}
           Најави се
         </button>
         <Turnstile
           sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
           onVerify={(token) => setTurnstileToken(token)}
-          theme="light"
+          theme={isLightTheme ? 'light' : 'dark'}
           size="invisible"
         />
       </form>
@@ -131,9 +93,12 @@ const LoginForm = () => {
           >
             <Image className={styles.socialIcon} src={linkedin} alt="Linkedin" />
           </Link>
-        </div>{' '}
+        </div>
         <p>
-          Немаш креиран профил? <span className={styles.signup}>Регистрирај се</span>
+          Немаш креиран профил?{' '}
+          <Link href="/signup" className={styles.signup}>
+            Регистрирај се
+          </Link>
         </p>
       </div>
     </div>
