@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import { FormikHelpers } from 'formik';
 import { toast } from 'react-toastify';
 import { IAuthFormProps } from '../_Types';
-import { Role } from '../../../app/context/authContext';
+import { Role } from '../../../_Types';
 
 export const initialValues: IAuthFormProps = {
   firstName: '',
@@ -71,13 +71,19 @@ export const handleLogin =
       toast.error('Turnstile verification is required.');
       return;
     }
+
+    console.log('Turnstile Token:', turnstileToken);
+
+    const payload = {
+      email: values.email,
+      password: values.password,
+      role: Role.content,
+      cfTurnstileResponse: turnstileToken,
+    };
+    console.log('Login Payload:', payload);
+
     try {
-      await login({
-        email: values.email,
-        password: values.password,
-        role: Role.content,
-        cfTurnstileResponse: turnstileToken,
-      });
+      await login(payload);
       if (loginStatus === 'success') {
         toast.success('Успех');
         resetForm();
