@@ -14,7 +14,6 @@ const Login = () => {
   const submitLoginForm = async (formValues: LoginParams) => {
     try {
       login(formValues);
-
       if (loginMutation.error) {
         console.error('Login failed:', loginMutation.error);
       } else {

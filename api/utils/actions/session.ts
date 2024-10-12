@@ -1,10 +1,13 @@
 import { Session, UserType } from '../../../_Types';
 
 export const setSession = async (sessionData: Session | null): Promise<void> => {
+  console.log('setSession called with:', sessionData);
   if (sessionData === null) {
     localStorage.removeItem('session');
+    console.log('Session removed from localStorage');
   } else {
     localStorage.setItem('session', JSON.stringify(sessionData));
+    console.log('Session saved to localStorage', localStorage.getItem('session'));
   }
 };
 
@@ -19,10 +22,13 @@ export const clearSession = async (): Promise<void> => {
 };
 
 export const setUser = async (user: UserType | null): Promise<void> => {
+  console.log('setUser called with:', user);
   if (user === null) {
     localStorage.removeItem('user');
+    console.log('User removed from localStorage');
   } else {
     localStorage.setItem('user', JSON.stringify(user));
+    console.log('User saved to localStorage');
   }
 };
 
