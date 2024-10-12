@@ -44,10 +44,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ submitLoginForm }) => {
       try {
         await submitLoginForm(payload);
         toast.success('Успешно најавување!');
-        formikHelpers.resetForm();
+        // Don't reset the form here, as it might interfere with the redirection
       } catch (error) {
         console.error('Login failed:', error);
         toast.error('Неуспешно најавување. Обидете се повторно.');
+        formikHelpers.setSubmitting(false);
       }
     },
   });
