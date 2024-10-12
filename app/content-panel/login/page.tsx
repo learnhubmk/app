@@ -13,18 +13,15 @@ const Login = () => {
 
   const submitLoginForm = async (formValues: LoginParams) => {
     try {
-      await login(formValues);
+      login(formValues);
 
       if (loginMutation.error) {
         console.error('Login failed:', loginMutation.error);
-        // Handle error (e.g., show error message to user)
       } else {
-        // Redirect to user dashboard
         router.push('/content-panel/dashboard');
       }
     } catch (error) {
       console.error('Login failed:', error);
-      // Handle error (e.g., show error message to user)
     }
   };
 

@@ -4,15 +4,11 @@ import { setUser } from './utils/actions/session';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
-// Set this to true to use mock login, false to use real API
 const USE_MOCK_API = false;
 
-// Mock login function for testing without backend
 const mockLogin = async ({ email, password }: LoginParams): Promise<LoginResponse> => {
-  // Simulate API delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // Mock validation
   if (email === 'test@example.com' && password === 'password123') {
     const mockUser: UserType = {
       id: '1',
@@ -30,7 +26,6 @@ const mockLogin = async ({ email, password }: LoginParams): Promise<LoginRespons
 
     return mockResponse;
   } else {
-    // Simulate a 422 error for invalid credentials
     throw {
       status: 422,
       message: 'The provided credentials are incorrect.',
@@ -55,7 +50,6 @@ export const getUser = async (): Promise<UserType | null> => {
 
     if (!response.ok) {
       if (response.status === 401) {
-        // Token might be expired, clear the session
         await clearSession();
       }
       throw new Error(response.statusText || 'An error occurred while fetching the user');
@@ -93,7 +87,6 @@ export const login = async ({
   if (!response.ok) {
     console.error('Login error:', data);
     if (response.status === 422) {
-      // Handle validation errors
       const errorMessage = data.message || 'Validation failed';
       const errors = data.errors || {};
       throw new Error(JSON.stringify({ message: errorMessage, errors }));
@@ -101,7 +94,6 @@ export const login = async ({
     throw new Error(data.message || 'An error occurred while logging in');
   }
 
-  // Assuming the response includes an access token and user data
   if (data.data && data.data.access_token && data.data.user) {
     await setSession({
       token: data.data.access_token,
@@ -131,7 +123,6 @@ export const logout = async (): Promise<void> => {
       throw new Error(errorData.message || 'An error occurred while logging out');
     }
   } finally {
-    // Clear the session after logout attempt, regardless of success or failure
     await clearSession();
   }
 };
