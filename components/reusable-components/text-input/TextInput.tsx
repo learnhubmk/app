@@ -1,21 +1,10 @@
 'use client';
 
-import React, { FC, HTMLProps } from 'react';
+import React, { FC } from 'react';
 import style from './textInput.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import setClass from '../../../utils/setClass';
-
-interface InputProps extends HTMLProps<HTMLInputElement> {
-  placeholder: string;
-  label: string;
-  name: string;
-  type: string;
-  field: string;
-  formik: any;
-  isRequired?: boolean;
-  isFooter?: boolean;
-  inputClass?: string[];
-}
+import { InputProps } from '../../../_Types';
 
 const TextInput: FC<InputProps> = ({
   placeholder,

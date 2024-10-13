@@ -27,27 +27,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const loginMutation = useMutation<LoginResponse, Error, LoginParams>({
     mutationFn: loginApi,
     onSuccess: async (data) => {
-      console.log('Login mutation successful, data:', data);
+      // eslint-disable-next-line camelcase
       const { user, access_token } = data.data;
 
-      // Save user data
       saveToLocalStorage('user', user);
       queryClient.setQueryData(['user'], user);
 
-      // Save access token
+      // eslint-disable-next-line camelcase
       saveToLocalStorage('access_token', access_token);
 
-      // Optionally, you can also save a session object
+      // eslint-disable-next-line camelcase
       saveToLocalStorage('session', { token: access_token, role: user.role });
-
-      console.log('localStorage after login:', {
-        access_token: localStorage.getItem('access_token'),
-        session: localStorage.getItem('session'),
-        user: localStorage.getItem('user'),
-      });
     },
     onError: (error) => {
-      console.error('Login mutation error:', error);
+      console.error('Login mutation error:', error); // eslint-disable-line no-console
     },
   });
 
@@ -76,7 +69,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const value: AuthContextType = useMemo(
     () => ({
-      user: userQuery.data,
+      user: userQuery.data ?? null,
       login: (params: LoginParams) => loginMutation.mutate(params),
       logout: () => logoutMutation.mutate(),
       userQuery: {

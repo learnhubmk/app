@@ -1,55 +1,42 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Turnstile from 'react-turnstile';
 import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
-import { useAuth } from '../../../app/context/authContext';
+import * as Yup from 'yup';
 import { useTheme } from '../../../app/context/themeContext';
 import TextInput from '../text-input/TextInput';
 import styles from './LoginForm.module.scss';
 import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
-import { LoginParams } from '../../../_Types';
-import { loginInitialValues, loginValidationSchema } from './formLogic';
+import { LoginFormProps } from '../../../_Types';
 
-interface LoginFormProps {
-  submitLoginForm: (formValues: LoginParams) => Promise<void>;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ submitLoginForm }) => {
-  const { loginMutation } = useAuth();
+const LoginForm: React.FC<LoginFormProps> = ({
+  onSubmit,
+  isLoading,
+  turnstileToken,
+  setTurnstileToken,
+}) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-
   const formik = useFormik({
-    initialValues: loginInitialValues,
-    validationSchema: loginValidationSchema,
-    onSubmit: async (values, formikHelpers) => {
-      if (!turnstileToken) {
-        toast.error('Turnstile verification is required.');
-        return;
-      }
-
-      const payload: LoginParams = {
-        email: values.email,
-        password: values.password,
-        cfTurnstileResponse: turnstileToken,
-      };
-
-      try {
-        await submitLoginForm(payload);
-        toast.success('Успешно најавување!');
-        // Don't reset the form here, as it might interfere with the redirection
-      } catch (error) {
-        console.error('Login failed:', error);
-        toast.error('Неуспешно најавување. Обидете се повторно.');
-        formikHelpers.setSubmitting(false);
-      }
+    initialValues: {
+      email: '',
+      password: '',
+      remember: false,
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string().required('Required'),
+    }),
+    onSubmit: (values) => {
+      onSubmit({
+        ...values,
+        cfTurnstileResponse: turnstileToken || '',
+      });
     },
   });
 
@@ -80,19 +67,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ submitLoginForm }) => {
         <div className={styles.forgotPasswordContainer}>
           <div className={styles.rememberCheck}>
             <input
-              className={`${styles.checkbox} ${isLightTheme ? styles.checkboxLight : styles.checkboxDark}`}
+              className={`${styles.checkbox} ${isLightTheme ? styles.checkboxLight : styles.darkLoginForm}`}
               type="checkbox"
               id="remember"
               name="remember"
+              checked={formik.values.remember}
+              onChange={formik.handleChange}
             />
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="remember">Запомни ме</label>
           </div>
           <Link href="/forgot-password" className={styles.forgotPassword}>
             Заборавена лозинка?
           </Link>
         </div>
-        <button type="submit" className={styles.loginBtn} disabled={loginMutation.isLoading}>
-          {loginMutation.isLoading ? 'Најавување...' : 'Најави се'}
+        <button type="submit" className={styles.loginBtn} disabled={isLoading}>
+          {isLoading ? 'Најавување...' : 'Најави се'}
         </button>
         <Turnstile
           sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
