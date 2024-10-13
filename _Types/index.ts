@@ -3,13 +3,6 @@
 import { MutationStatus, QueryStatus } from '@tanstack/react-query';
 import { HTMLProps } from 'react';
 
-export interface IAuthFormProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-
 export enum Role {
   admin = 'admin',
   content_manager = 'content_manager',
