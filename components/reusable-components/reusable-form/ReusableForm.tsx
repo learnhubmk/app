@@ -8,7 +8,7 @@ import style from './reusableForm.module.scss';
 import TextInput from '../text-input/TextInput';
 import Button from '../button/Button';
 import { useTheme } from '../../../app/context/themeContext';
-import { ReusableFormProps } from '../../../_Types';
+import { ReusableFormProps } from '../../../Types';
 
 const ReusableForm: React.FC<ReusableFormProps> = ({
   title,

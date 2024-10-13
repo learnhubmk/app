@@ -1,4 +1,4 @@
-import { LoginParams, LoginResponse, Role, UserType } from '../_Types';
+import { LoginParams, LoginResponse, Role, UserType } from '../Types';
 import {
   getFromLocalStorage,
   removeFromLocalStorage,

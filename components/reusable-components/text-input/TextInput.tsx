@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import style from './textInput.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import setClass from '../../../utils/setClass';
-import { InputProps } from '../../../_Types';
+import { InputProps } from '../../../Types';
 
 const TextInput: FC<InputProps> = ({
   placeholder,

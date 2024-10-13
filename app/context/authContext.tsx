@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { clearSession, getSession } from '../../utils/actions/session';
 import { getUser, login as loginApi, logout as logoutApi } from '../../api/authApi';
 import { getUserFromStorage } from '../../api/utils/actions/session';
-import { AuthContextType, LoginParams, LoginResponse, UserType } from '../../_Types';
+import { AuthContextType, LoginParams, LoginResponse, UserType } from '../../Types';
 import { saveToLocalStorage } from '../../api/utils/localStorageUtils';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
