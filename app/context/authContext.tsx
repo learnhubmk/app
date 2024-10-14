@@ -42,8 +42,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       toast.success('Session and user data set successfully');
     },
-    onError: (error) => {
-      toast.error(`Login error: ${error.message}`);
+    onError: () => {
+      return null;
     },
   });
 
@@ -56,8 +56,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       queryClient.setQueryData(['user'], null);
       toast.success('Logout successful, session cleared');
     },
-    onError: (error) => {
-      toast.error(`Logout error: ${error.message}`);
+    onError: () => {
+      return null;
     },
   });
 

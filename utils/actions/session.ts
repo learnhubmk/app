@@ -1,8 +1,8 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { Role } from '../../app/context/authContext';
 import getAuthUrl from '../getAuthUrl';
+import { Role } from '../../_Types/types';
 
 type Session = {
   token: string;
