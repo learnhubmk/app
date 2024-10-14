@@ -1,0 +1,87 @@
+.cancelModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.cancelModal {
+  background-color: var(--section-bg-color);
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  max-width: 800px;
+  padding: 60px;
+  position: relative;
+}
+
+.modalTitle {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: start;
+}
+
+.closeModal {
+  position: absolute;
+  font-size: 30px;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.closeModal::before,
+.closeModal::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  background-color: #333;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.closeModal::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.modalBtns {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 60px;
+  gap: 5px;
+}
+
+.cancelButton {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+
+  &:first-child {
+    background-color: var(--error-state);
+    color: white;
+  }
+
+  &:last-child {
+    background-color: var(--primary-btn-color);
+    color: black;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

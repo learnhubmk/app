@@ -37,8 +37,10 @@ const ActionDropdown = ({ dropdownItems }: ActionDropdownProps) => {
       {isOpen && (
         <ul className={style.dropdownMenu}>
           {dropdownItems.map((item) => (
-            <li key={item.id} className={style.dropdownItem} data-id={item.label}>
-              {item.label}
+            <li key={item.id} className={style.dropdownItem}>
+              <button type="button" onClick={item.onClick}>
+                {item.label}
+              </button>
             </li>
           ))}
         </ul>
