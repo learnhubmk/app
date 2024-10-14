@@ -1,4 +1,6 @@
-import { Session, UserType } from '../../../Types';
+/* eslint-disable no-console */
+
+import { Session, UserType } from '../../../_Types/types';
 
 export const setSession = async (sessionData: Session | null): Promise<void> => {
   console.log('setSession called with:', sessionData);

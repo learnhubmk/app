@@ -2,11 +2,16 @@
 
 import React, { createContext, useContext, ReactNode, useMemo, useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { clearSession, getSession } from '../../utils/actions/session';
+import { toast } from 'react-toastify';
 import { getUser, login as loginApi, logout as logoutApi } from '../../api/authApi';
-import { getUserFromStorage } from '../../api/utils/actions/session';
-import { AuthContextType, LoginParams, LoginResponse, UserType } from '../../Types';
-import { saveToLocalStorage } from '../../api/utils/localStorageUtils';
+import { AuthContextType, LoginParams, LoginResponse, UserType, Session } from '../../_Types/types';
+import {
+  clearSession,
+  getSession,
+  getUserFromStorage,
+  setSession,
+  setUser,
+} from '../../api/utils/actions/session';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -27,33 +32,32 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const loginMutation = useMutation<LoginResponse, Error, LoginParams>({
     mutationFn: loginApi,
     onSuccess: async (data) => {
-      // eslint-disable-next-line camelcase
-      const { user, access_token } = data.data;
+      const { user, access_token } = data.data; // eslint-disable-line camelcase
 
-      saveToLocalStorage('user', user);
+      await setUser(user);
       queryClient.setQueryData(['user'], user);
 
-      // eslint-disable-next-line camelcase
-      saveToLocalStorage('access_token', access_token);
+      const sessionData: Session = { token: access_token }; // eslint-disable-line camelcase
+      await setSession(sessionData);
 
-      // eslint-disable-next-line camelcase
-      saveToLocalStorage('session', { token: access_token, role: user.role });
+      toast.success('Session and user data set successfully');
     },
     onError: (error) => {
-      console.error('Login mutation error:', error); // eslint-disable-line no-console
+      toast.error(`Login error: ${error.message}`);
     },
   });
 
   const logoutMutation = useMutation<void, Error, void>({
     mutationFn: async () => {
-      const session = await getSession();
-      if (session) {
-        await logoutApi();
-      }
+      await logoutApi();
       await clearSession();
     },
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
+      toast.success('Logout successful, session cleared');
+    },
+    onError: (error) => {
+      toast.error(`Logout error: ${error.message}`);
     },
   });
 
@@ -67,7 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     checkSession();
   }, [userQuery]);
 
-  const value: AuthContextType = useMemo(
+  const value = useMemo<AuthContextType>(
     () => ({
       user: userQuery.data ?? null,
       login: (params: LoginParams) => loginMutation.mutate(params),

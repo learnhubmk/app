@@ -12,7 +12,7 @@ import styles from './LoginForm.module.scss';
 import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
-import { LoginFormProps } from '../../../Types';
+import { LoginFormProps } from '../../../_Types/types';
 
 const LoginForm: React.FC<LoginFormProps> = ({
   onSubmit,

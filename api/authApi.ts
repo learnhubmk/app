@@ -1,9 +1,7 @@
-import { LoginParams, LoginResponse, Role, UserType } from '../Types';
-import {
-  getFromLocalStorage,
-  removeFromLocalStorage,
-  saveToLocalStorage,
-} from './utils/localStorageUtils';
+/* eslint-disable no-console */
+
+import { LoginParams, LoginResponse, UserType } from '../_Types/types';
+import { getFromLocalStorage, removeFromLocalStorage } from './utils/localStorageUtils';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
@@ -71,14 +69,7 @@ export const login = async ({
 
     console.log('Login successful');
 
-    if (data.data && data.data.access_token && data.data.user) {
-      console.log('Setting session and user data');
-      saveToLocalStorage('session', {
-        token: data.data.access_token,
-        role: Role.content,
-      });
-      saveToLocalStorage('user', data.data.user);
-    } else {
+    if (!data.data || !data.data.access_token || !data.data.user) {
       console.error('Login response is missing expected data');
       throw new Error('Invalid login response data');
     }
@@ -115,9 +106,5 @@ export const logout = async (): Promise<void> => {
   } catch (error) {
     console.error('Logout process failed:', error);
     throw error;
-  } finally {
-    console.log('Clearing session');
-    removeFromLocalStorage('session');
-    removeFromLocalStorage('user');
   }
 };

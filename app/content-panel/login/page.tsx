@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/authContext';
-import { LoginParams } from '../../../Types';
+import { LoginParams } from '../../../_Types/types';
 import LoginForm from '../../../components/reusable-components/login-form/LoginForm';
 import SignupAndLoginLayout from '../../../components/reusable-components/signup-and-login-layout/SignupAndLoginLayout';
 
