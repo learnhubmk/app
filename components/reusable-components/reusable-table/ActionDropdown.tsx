@@ -3,12 +3,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import style from './actionDropdown.module.scss';
 
-interface DropdownItem {
+export interface DropdownItem {
   id: string;
   label: string;
   onClick: () => void;
 }
-interface ActionDropdownProps {
+export interface ActionDropdownProps {
   dropdownItems: DropdownItem[];
 }
 
