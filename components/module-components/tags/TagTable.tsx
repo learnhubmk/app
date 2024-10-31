@@ -19,12 +19,14 @@ const TagTable: React.FC = () => {
   const headers: (keyof Tag)[] = ['name'];
   const displayNames: { [key in keyof Tag]?: string } = { name: 'Tag Name' };
 
-  const handleEdit = (id: string) => {
-    console.log('Edit tag', id);
+  const handleEdit = (_id: string) => {
+    // Implement edit functionality here
+    // For example: openEditModal(_id) or navigate(`/edit-tag/${_id}`)
   };
 
-  const handleDelete = (id: string) => {
-    console.log('Delete tag', id);
+  const handleDelete = (_id: string) => {
+    // Implement delete functionality here
+    // For example: showDeleteConfirmation(_id) or deleteTag(_id)
   };
 
   const renderActions = (item: Tag) => (
@@ -40,9 +42,7 @@ const TagTable: React.FC = () => {
         type="button"
         buttonText="Delete"
         buttonClass={['deleteButton']}
-        onClick={() => {
-          handleDelete(item.id);
-        }}
+        onClick={() => handleDelete(item.id)}
       />
     </>
   );

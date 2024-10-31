@@ -33,6 +33,9 @@ interface BlogPost {
 
 const BlogListView = () => {
   const [data, setData] = useState<BlogPost[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
 
   useEffect(() => {
@@ -50,8 +53,10 @@ const BlogListView = () => {
           author: `${item.author.first_name} ${item.author.last_name}`,
         }));
         setData(transformedData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      } catch (fetchError) {
+        setError('Error fetching data. Please try again later.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -65,30 +70,29 @@ const BlogListView = () => {
     tags: 'Tags',
   };
 
-  const handleView = (id: string) => {
-    console.log('View blog', id);
-  };
-
-  const handleEdit = (id: string) => {
-    console.log('Edit blog', id);
-  };
-
-  const handleDelete = (id: string) => {
-    console.log('Delete blog', id);
+  const handleAction = (action: 'view' | 'edit' | 'delete', id: string) => {
+    // Implement actual logic for view, edit, delete
+    // For now, we'll just set a temporary error message
+    setError(`${action} action not implemented for blog ${id}`);
+    // Clear error after 3 seconds
+    setTimeout(() => setError(null), 3000);
   };
 
   const renderActionsDropdown = (item: BlogPost) => (
     <ActionDropdown
       dropdownItems={[
-        { id: 'view', label: 'View', onClick: () => handleView(item.id) },
-        { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
-        { id: 'delete', label: 'Delete', onClick: () => handleDelete(item.id) },
+        { id: 'view', label: 'View', onClick: () => handleAction('view', item.id) },
+        { id: 'edit', label: 'Edit', onClick: () => handleAction('edit', item.id) },
+        { id: 'delete', label: 'Delete', onClick: () => handleAction('delete', item.id) },
       ]}
     />
   );
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div className={style.mainContainer}>
+      {error && <div className={style.errorMessage}>{error}</div>}
       <div className={style.inputWrapper}>
         <Search handleInputChange={() => {}} searchValue="Search" />
         <div className={style.rightContainer}>

@@ -7,7 +7,9 @@ const AddTags = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleAdd = () => {
-    console.log(searchTerm);
+    // logic here to add the tag
+    // addTag(searchTerm);
+    // setSearchTerm('');
   };
 
   return (
