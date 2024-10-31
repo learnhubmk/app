@@ -1,0 +1,122 @@
+.blogDetailsPageContainer {
+  background-color: var(--section-bg-color);
+  color: var(--text-color);
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .leftButton {
+    button {
+      background-color: #052252;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #021a40;
+      }
+    }
+  }
+
+  .rightButtons {
+    display: flex;
+
+    button {
+      background-color: var(--primary-btn-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-left: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: var(--primary-btn-hover-color);
+      }
+
+      &:active {
+        background-color: var(--primary-btn-active-color);
+      }
+
+      &:nth-child(2) {
+        background-color: var(--error-state);
+      }
+    }
+  }
+}
+
+.titleInput {
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 24px;
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: inherit;
+      color: var(--text-color);
+      background-color: var(--elevated-elements-dark-mode);
+      border: 1px solid var(--input-border-color);
+      border-radius: 4px;
+      outline: none;
+
+      &:disabled {
+        background-color: var(--secondary-dark-mode);
+      }
+    }
+  }
+}
+
+.imageSection,
+.contentSection,
+.authorSection,
+.dateSection,
+.tagsSection {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hero-text-light-color);
+  }
+
+  input[type='text'],
+  input[type='date'],
+  input[type='file'],
+  select {
+    width: 100%;
+    padding: 10px;
+    color: var(--input-text-color);
+    background-color: var(--elevated-elements-dark-mode);
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+
+    &:disabled {
+      background-color: var(--secondary-dark-mode);
+    }
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+    background-color: var(--elevated-elements-dark-mode);
+  }
+}
+
+.errorText {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

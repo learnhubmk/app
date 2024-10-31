@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import style from './tableRowComponent.module.scss';
 
 interface TableRowComponentProps<T extends { id: string }> {
@@ -10,7 +10,8 @@ interface TableRowComponentProps<T extends { id: string }> {
   onCheckboxChange: (id: string) => void;
   showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: ReactNode;
+  renderActionsDropdown?: React.ReactNode;
+  onClick: (id: string) => void;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -21,13 +22,30 @@ const TableRowComponent = <T extends { id: string }>({
   showCheckbox,
   renderActions,
   renderActionsDropdown,
+  onClick,
 }: TableRowComponentProps<T>) => {
   const handleCheckboxChange = () => {
     onCheckboxChange(data.id);
   };
 
+  const handleRowClick = () => {
+    onClick(data.id);
+  };
+
+  const handleActionEvent = (
+    event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    if (
+      event.type === 'click' ||
+      (event as React.KeyboardEvent).key === 'Enter' ||
+      (event as React.KeyboardEvent).key === ' '
+    ) {
+      event.stopPropagation();
+    }
+  };
+
   return (
-    <tr className={style.rowComponent}>
+    <tr className={style.rowComponent} onClick={handleRowClick} style={{ cursor: 'pointer' }}>
       {showCheckbox && (
         <td aria-label="Checkbox">
           <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
@@ -43,13 +61,30 @@ const TableRowComponent = <T extends { id: string }>({
 
       {renderActionsDropdown && (
         <td className={style.actionCell} aria-label="Actions">
-          {renderActionsDropdown}
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={handleActionEvent}
+            onKeyDown={handleActionEvent}
+            aria-haspopup="true"
+            className={style.dropdownWrapper}
+          >
+            {renderActionsDropdown}
+          </div>
         </td>
       )}
 
       {renderActions && (
         <td className={style.actionCell}>
-          <div className={style.actionButtons}>{renderActions(data)}</div>
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={handleActionEvent}
+            onKeyDown={handleActionEvent}
+            className={style.actionWrapper}
+          >
+            {renderActions(data)}
+          </div>
         </td>
       )}
     </tr>

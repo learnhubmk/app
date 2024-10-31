@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import Filter from '../SearchAndFilter/Filter';
 import Search from '../SearchAndFilter/Search';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
+import { useEditor } from '../../../app/context/EditorContext';
 
 interface Author {
   first_name: string;
@@ -18,7 +20,7 @@ interface Tag {
 }
 
 interface BlogPostAPI {
-  id: string;
+  slug: string;
   title: string;
   tags: Tag[];
   author: Author;
@@ -32,11 +34,13 @@ interface BlogPost {
 }
 
 const BlogListView = () => {
+  const { editorStateChange } = useEditor();
   const [data, setData] = useState<BlogPost[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +51,7 @@ const BlogListView = () => {
         }
         const result = await response.json();
         const transformedData: BlogPost[] = result.data.map((item: BlogPostAPI) => ({
-          id: item.id,
+          id: item.slug,
           title: item.title,
           tags: item.tags,
           author: `${item.author.first_name} ${item.author.last_name}`,
@@ -69,6 +73,7 @@ const BlogListView = () => {
     author: 'Author',
     tags: 'Tags',
   };
+
 
   const handleAction = (action: 'view' | 'edit' | 'delete', id: string) => {
     // Implement actual logic for view, edit, delete
@@ -110,6 +115,7 @@ const BlogListView = () => {
         headers={headers}
         displayNames={displayNames}
         data={data}
+        onRowClick={handleView}
         renderActionsDropdown={renderActionsDropdown}
       />
     </div>
