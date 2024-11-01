@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Turnstile from 'react-turnstile';
 import { useFormik } from 'formik';
@@ -94,9 +95,15 @@ const LoginForm: React.FC<LoginFormProps> = ({
       <div className={styles.loginSocials}>
         <p>или продолжи со</p>
         <div className={styles.socialIcons}>
-          <Link href="https://github.com/learnhubmk" target="_blank" rel="noopener noreferrer">
+          <button
+            type="button"
+            onClick={() => signIn('github', { callbackUrl: '/content-panel/dashboard' })}
+          >
             <Image className={styles.socialIcon} src={github} alt="Github" />
-          </Link>
+          </button>
+          {/* <Link href="https://github.com/learnhubmk" target="_blank" rel="noopener noreferrer">
+            <Image className={styles.socialIcon} src={github} alt="Github" />
+          </Link> */}
           <Link href="/" target="_blank" rel="noopener noreferrer">
             <Image className={styles.socialIcon} src={google} alt="Youtube" />
           </Link>

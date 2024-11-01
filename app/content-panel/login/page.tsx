@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useAuth } from '../../context/authContext';
 import { LoginParams } from '../../../Types';
 import LoginForm from '../../../components/reusable-components/login-form/LoginForm';
@@ -24,15 +25,27 @@ const Login = () => {
     };
 
     try {
-      await login(loginParams);
-      if (loginMutation.error) {
-        console.error('Login failed:', loginMutation.error); // eslint-disable-line no-console
-      } else {
-        router.push('/content-panel/dashboard');
-      }
+      const response = await signIn('credentials', {
+        email: loginParams.email,
+        password: loginParams.password,
+        cfTurnstileResponse: loginParams.cfTurnstileResponse,
+      });
+
+      if (!response?.error) router.push('/content-panel/dashboard');
     } catch (error) {
       console.error('Login failed:', error); // eslint-disable-line no-console
     }
+
+    // try {
+    //   await login(loginParams);
+    //   if (loginMutation.error) {
+    //     console.error('Login failed:', loginMutation.error); // eslint-disable-line no-console
+    //   } else {
+    //     router.push('/content-panel/dashboard');
+    //   }
+    // } catch (error) {
+    //   console.error('Login failed:', error); // eslint-disable-line no-console
+    // }
   };
 
   return (
