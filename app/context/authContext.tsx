@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, ReactNode, useMemo, useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { clearSession, getSession } from '../../utils/actions/session';
 import { getUser, login as loginApi, logout as logoutApi } from '../../api/authApi';
 import { getUserFromStorage } from '../../api/utils/actions/session';
@@ -12,6 +14,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const userQuery = useQuery<UserType | null, Error>({
     queryKey: ['user'],
@@ -24,25 +27,54 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     },
   });
 
-  const loginMutation = useMutation<LoginResponse, Error, LoginParams>({
-    mutationFn: loginApi,
-    onSuccess: async (data) => {
-      // eslint-disable-next-line camelcase
-      const { user, access_token } = data.data;
+  // This is loginMutation function with next-auth
+  const loginMutation = useMutation({
+    mutationFn: async (formValues: LoginParams) => {
+      const { email, password, cfTurnstileResponse } = formValues;
 
-      saveToLocalStorage('user', user);
-      queryClient.setQueryData(['user'], user);
+      // Call NextAuth's signIn method
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+        cfTurnstileResponse,
+      });
 
-      // eslint-disable-next-line camelcase
-      saveToLocalStorage('access_token', access_token);
-
-      // eslint-disable-next-line camelcase
-      saveToLocalStorage('session', { token: access_token, role: user.role });
+      if (!result?.ok) {
+        throw new Error(result?.error || 'Failed to login');
+      }
+      return result;
+    },
+    onSuccess: () => {
+      // Redirect to the dashboard on success
+      router.push('/content-panel/dashboard');
     },
     onError: (error) => {
-      console.error('Login mutation error:', error); // eslint-disable-line no-console
+      // eslint-disable-next-line no-console
+      console.error('Login error:', error);
     },
   });
+
+  // This is loginMutation function without next-auth
+  // const loginMutation = useMutation<LoginResponse, Error, LoginParams>({
+  //   mutationFn: loginApi,
+  //   onSuccess: async (data) => {
+  //     // eslint-disable-next-line camelcase
+  //     const { user, access_token } = data.data;
+
+  //     // saveToLocalStorage('user', user);
+  //     queryClient.setQueryData(['user'], user);
+
+  //     // eslint-disable-next-line camelcase
+  //     // saveToLocalStorage('access_token', access_token);
+
+  //     // eslint-disable-next-line camelcase
+  //     // saveToLocalStorage('session', { token: access_token, role: user.role });
+  //   },
+  //   onError: (error) => {
+  //     console.error('Login mutation error:', error); // eslint-disable-line no-console
+  //   },
+  // });
 
   const logoutMutation = useMutation<void, Error, void>({
     mutationFn: async () => {

@@ -155,3 +155,16 @@
 .checkboxDark {
   border: 1.5px solid var(--Secondary, hsla(220, 20%, 43%, 1));
 }
+.errorMessageContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #fff1f1; /* Light red background for emphasis */
+  border: 1px solid #ff6b6b; /* Slightly darker border */
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+.errorMessage {
+  color: #ff4c4c; /* Use one of the above colors */
+}

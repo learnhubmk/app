@@ -1,29 +1,23 @@
-'use client';
-
 import React from 'react';
-import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
-const Dashboard = () => {
-  const { data: session } = useSession();
+import { authOptions } from '../../../utils/authOptions';
+import LogoutButton from '../../../components/reusable-components/button/LogoutButton';
+
+const Dashboard = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect('/content-panel/login');
+  }
+  const { user } = session;
+
   return (
     <div>
       content dashboard
-      {session ? (
-        <div>
-          <h1>Welcome back, {session.user?.name}</h1>
-          <div>
-            <button type="button" onClick={() => signOut()}>
-              Sign Out
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div>
-          <p>You are not logged in</p>
-          <Link href="/content-panel/login">Go to Login</Link>
-        </div>
-      )}
+      <div> User: {user.email}</div>
+      <LogoutButton />
     </div>
   );
 };
