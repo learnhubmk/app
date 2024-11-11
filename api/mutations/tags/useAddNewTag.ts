@@ -20,11 +20,11 @@ const useAddNewTag = () => {
       return response.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {
-      queryClient.invalidateQueries(['tags']);
+      queryClient.invalidateQueries({ queryKey: ['tags'] });
       toast.error(error?.response?.data?.message || 'Настана грешка при додавање на тагот');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['tags']);
+      queryClient.invalidateQueries({ queryKey: ['tags'] });
       toast.success('Тагот беше успешно додаден.');
     },
   });
