@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
+import QUERY_KEYS from '../../queryKeys';
 
 const useDeleteTag = () => {
   const queryClient = useQueryClient();
@@ -20,11 +21,11 @@ const useDeleteTag = () => {
       return response.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {
-      queryClient.invalidateQueries({ queryKey: ['tags'] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.TAGS.ALL });
       toast.error(error?.response?.data?.message || 'Настана грешка при бришење на тагот');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tags'] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.TAGS.ALL });
       toast.success('Тагот беше успешно избришан.');
     },
   });
