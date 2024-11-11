@@ -1,13 +1,15 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 
 const useEditTag = () => {
+  const queryClient = useQueryClient();
   const axios = useAxios();
+
   interface ErrorResponse {
     message?: string;
   }
@@ -18,7 +20,12 @@ const useEditTag = () => {
       return response.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {
+      queryClient.invalidateQueries(['tags']);
       toast.error(error?.response?.data?.message || 'Настана грешка при изменување на тагот');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['tags']);
+      toast.success('Тагот беше успешно изменет');
     },
   });
 };

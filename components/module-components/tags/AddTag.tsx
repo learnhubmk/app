@@ -30,7 +30,6 @@ const AddTag: React.FC<AddTagProps> = ({ onCancel, onAdd }) => {
         if (result.success) {
           resetForm();
           onCancel();
-          toast.success('Тагот е успешно креиран!');
         } else if (result.error === 'Тагот веќе постои.') {
           setFieldError('tagName', 'Тагот веќе постои.');
         } else {

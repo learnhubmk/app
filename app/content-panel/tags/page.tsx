@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagTable from '../../../components/module-components/tags/TagTable';
@@ -35,7 +34,7 @@ const Tags = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { data, isLoading, refetch } = useGetTags(debouncedSearchTerm);
+  const { data, isLoading } = useGetTags(debouncedSearchTerm);
 
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
@@ -46,15 +45,7 @@ const Tags = () => {
   });
 
   const handleDelete = async (id: string) => {
-    try {
-      await deleteTagMutation.mutateAsync(id);
-      await refetch();
-
-      toast.success('Тагот беше успешно избришан.');
-    } catch (error) {
-      console.error(error);
-      await refetch();
-    }
+    await deleteTagMutation.mutateAsync(id);
   };
 
   const addTag = async (newTag: string) => {
@@ -64,30 +55,13 @@ const Tags = () => {
       return { success: false, error: 'Тагот веќе постои.' };
     }
 
-    try {
-      await addNewTagMutation.mutateAsync({
-        tagName: trimmedNewTag,
-      });
-      await refetch();
-
-      return { success: true };
-    } catch (error) {
-      await refetch();
-      return { success: false, error: 'API Error' };
-    }
+    await addNewTagMutation.mutateAsync({ tagName: trimmedNewTag });
+    return { success: true }; // this is for formik validation purposes
   };
 
   const handleSaveChanges = async (tagId: string, newName: string) => {
-    try {
-      await editTagMutation.mutateAsync({ tagId, newName: newName.trim() });
-      await refetch();
-
-      setEditingTagId(null);
-      toast.success('Тагот беше успешно изменет');
-    } catch (error) {
-      console.error(error);
-      await refetch();
-    }
+    await editTagMutation.mutateAsync({ tagId, newName: newName.trim() });
+    setEditingTagId(null);
   };
 
   const formik = useFormik({
@@ -128,7 +102,9 @@ const Tags = () => {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />
+
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
+
       <TagTable
         isLoading={isLoading}
         tags={tags}
