@@ -14,6 +14,7 @@ interface ReusableTableProps<T> {
   editingTagId?: string | null;
   renderEditInput?: (item: T) => React.ReactNode;
   isLoading?: boolean;
+  onRowClick?: (id: string) => void;
 }
 
 interface SortState<T> {
@@ -30,6 +31,7 @@ const ReusableTable = <T extends { id: string }>({
   renderActionsDropdown,
   editingTagId,
   renderEditInput,
+  onRowClick,
 }: ReusableTableProps<T>): React.JSX.Element => {
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
 
@@ -79,6 +81,7 @@ const ReusableTable = <T extends { id: string }>({
         <tbody>
           {sortedData.map((item) => (
             <TableRowComponent<T>
+              onClick={() => onRowClick && onRowClick(item.id)}
               key={item.id}
               data={item}
               displayFields={headers}

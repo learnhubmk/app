@@ -8,6 +8,7 @@ interface TableRowComponentProps<T> {
   renderActionsDropdown?: (item: T) => React.ReactNode;
   editingTagId?: string | null;
   renderEditInput?: (item: T) => React.ReactNode;
+  onClick: (id: string) => void;
 }
 
 const TableRowComponent = <T extends { id: string }>({
@@ -17,9 +18,26 @@ const TableRowComponent = <T extends { id: string }>({
   renderActionsDropdown,
   editingTagId,
   renderEditInput,
+  onClick,
 }: TableRowComponentProps<T>) => {
+  const handleRowClick = () => {
+    onClick(data.id);
+  };
+
+  const handleActionEvent = (
+    event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    if (
+      event.type === 'click' ||
+      (event as React.KeyboardEvent).key === 'Enter' ||
+      (event as React.KeyboardEvent).key === ' '
+    ) {
+      event.stopPropagation();
+    }
+  };
+
   return (
-    <tr className={style.rowComponent}>
+    <tr className={style.rowComponent} onClick={handleRowClick} style={{ cursor: 'pointer' }}>
       {displayFields.map((field) => (
         <td key={field as string} className={style.column}>
           {editingTagId === data.id && field === 'name' && renderEditInput ? (
@@ -32,7 +50,15 @@ const TableRowComponent = <T extends { id: string }>({
 
       {renderActionsDropdown && (
         <td className={style.actionCell} aria-label="Actions">
-          {renderActionsDropdown(data)}
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={handleActionEvent}
+            onKeyDown={handleActionEvent}
+            className={style.actionWrapper}
+          >
+            {renderActionsDropdown(data)}
+          </div>
         </td>
       )}
 
