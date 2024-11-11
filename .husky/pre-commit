@@ -1,6 +1,14 @@
 npm run format
 npm run lint-staged
 
+echo "Running Gitleaks on staged changes..."
+npm run  gitleaks
+
+if [ $? -ne 0 ]; then
+  echo "Gitleaks found sensitive information. Commit aborted."
+  exit 1
+fi
+
 if ! git diff-index --quiet HEAD -- ./tests; then
   echo >&2 "Running pre-commit checks for e2e tests"
   cd tests
