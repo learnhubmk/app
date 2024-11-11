@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagTable from '../../../components/module-components/tags/TagTable';
 import TextInput from '../../../components/reusable-components/text-input/TextInput';
 import AddTag from '../../../components/module-components/tags/AddTag';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import useDebounce from '../../../utils/hooks/useDebounce';
+
 import useGetTags from '../../../api/queries/tags/getTags';
 import useAddNewTag from '../../../api/mutations/tags/useAddNewTag';
 import useDeleteTag from '../../../api/mutations/tags/useDeleteTag';
@@ -38,7 +40,7 @@ const Tags = () => {
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
       .required('Името за тагот е задолжително')
-      .test('unique', 'Тагот веќе постои', function (value) {
+      .test('unique', 'Тагот веќе постои', (value) => {
         return !tags.some((tag) => tag.name.toLowerCase() === value?.toLowerCase().trim());
       }),
   });
@@ -47,6 +49,7 @@ const Tags = () => {
     try {
       await deleteTagMutation.mutateAsync(id);
       await refetch();
+
       toast.success('Тагот беше успешно избришан.');
     } catch (error) {
       console.error(error);
@@ -56,6 +59,7 @@ const Tags = () => {
 
   const addTag = async (newTag: string) => {
     const trimmedNewTag = newTag.trim();
+
     if (tags.some((tag) => tag.name.toLowerCase() === trimmedNewTag.toLowerCase())) {
       return { success: false, error: 'Тагот веќе постои.' };
     }
@@ -66,9 +70,6 @@ const Tags = () => {
       });
       await refetch();
 
-      // If the mutation was successful, add the new tag to the local state
-      const newId = tags.length > 0 ? (parseInt(tags[tags.length - 1].id, 10) + 1).toString() : '1';
-      setTags([...tags, { id: newId, name: trimmedNewTag }]);
       return { success: true };
     } catch (error) {
       await refetch();
@@ -80,9 +81,7 @@ const Tags = () => {
     try {
       await editTagMutation.mutateAsync({ tagId, newName: newName.trim() });
       await refetch();
-      setTags((prevTags) =>
-        prevTags.map((tag) => (tag.id === tagId ? { ...tag, name: newName.trim() } : tag))
-      );
+
       setEditingTagId(null);
       toast.success('Тагот беше успешно изменет');
     } catch (error) {
@@ -104,6 +103,7 @@ const Tags = () => {
 
   const triggerEdit = (tagId: string) => {
     const tagToEdit = tags.find((tag) => tag.id === tagId);
+
     if (tagToEdit) {
       setEditingTagId(tagId);
       formik.setFieldValue('tagName', tagToEdit.name);
