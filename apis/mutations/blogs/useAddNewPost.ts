@@ -6,8 +6,9 @@ import ENDPOINTS from '../../endpoints';
 
 type NewPost = {
   title: string;
-  body: string;
-  userId: number;
+  excerpt: string;
+  content: string;
+  tags: number[];
 };
 
 const useAddNewPost = () => {
