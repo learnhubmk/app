@@ -67,7 +67,7 @@ const Footer = () => {
       toast.success('Успешно се претплативте на нашиот билтен!');
       resetForm();
       setTurnstileToken(null);
-    } catch (error) {
+    } catch {
       toast.error('Настана грешка. Пробај повторно.');
     }
   };

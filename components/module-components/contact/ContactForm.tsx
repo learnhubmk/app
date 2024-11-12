@@ -54,7 +54,7 @@ const ContactForm = () => {
         toast.success('Пораката беше успешно испратена!');
         resetForm();
         setTurnstileToken(null);
-      } catch (error) {
+      } catch {
         toast.error('Настана грешка при испраќањето на пораката. Пробајте повторно.');
       }
     },

@@ -57,7 +57,7 @@ const LoginForm = () => {
       } else {
         toast.error(response);
       }
-    } catch (error) {
+    } catch {
       toast.error('Грешка');
     }
   };
