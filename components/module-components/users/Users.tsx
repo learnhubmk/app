@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../app/loading';
-import useGetUsers from '../../../api/queries/users/getUsers';
+import useGetUsers from '../../../apis/queries/users/getUsers';
 
 const Users = () => {
   const getUsersQuery = useGetUsers();

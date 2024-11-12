@@ -13,7 +13,7 @@ import { fullNameRegexValidation, emailRegexValidation } from './regexValidation
 import {
   useSubmitContactForm,
   ContactFormData,
-} from '../../../api/mutations/contact/useSubmitContactform';
+} from '../../../apis/mutations/contact/useSubmitContactform';
 
 const ContactForm = () => {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);

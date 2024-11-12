@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
-import useGetBlogDetails from '../../../../api/queries/blogs/getBlogDetails';
+import useGetBlogDetails from '../../../../apis/queries/blogs/getBlogDetails';
 import { BlogDetailsData } from '../../../../components/reusable-components/_Types';
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {

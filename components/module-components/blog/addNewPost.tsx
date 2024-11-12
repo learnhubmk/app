@@ -1,6 +1,6 @@
 'use client';
 
-import useAddNewPost from '../../../api/mutations/blogs/useAddNewPost';
+import useAddNewPost from '../../../apis/mutations/blogs/useAddNewPost';
 
 const AddNewPost = () => {
   const addNewPostMutation = useAddNewPost();

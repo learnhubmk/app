@@ -11,10 +11,10 @@ import AddTag from '../../../components/module-components/tags/AddTag';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import useDebounce from '../../../utils/hooks/useDebounce';
 
-import useGetTags from '../../../api/queries/tags/getTags';
-import useAddNewTag from '../../../api/mutations/tags/useAddNewTag';
-import useDeleteTag from '../../../api/mutations/tags/useDeleteTag';
-import useEditTag from '../../../api/mutations/tags/useEditTag';
+import useGetTags from '../../../apis/queries/tags/getTags';
+import useAddNewTag from '../../../apis/mutations/tags/useAddNewTag';
+import useDeleteTag from '../../../apis/mutations/tags/useDeleteTag';
+import useEditTag from '../../../apis/mutations/tags/useEditTag';
 
 interface Tag {
   id: string;
