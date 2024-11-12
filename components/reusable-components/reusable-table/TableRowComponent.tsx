@@ -1,33 +1,25 @@
-/* eslint-disable no-unused-vars */
-
 import React from 'react';
 import style from './tableRowComponent.module.scss';
 
-interface TableRowComponentProps<T extends { id: string }> {
+interface TableRowComponentProps<T> {
   data: T;
   displayFields: (keyof T)[];
-  isChecked?: boolean;
-  onCheckboxChange: (id: string) => void;
-  showCheckbox?: boolean;
   renderActions?: (item: T) => React.ReactNode;
-  renderActionsDropdown?: React.ReactNode;
+  renderActionsDropdown?: (item: T) => React.ReactNode;
+  editingTagId?: string | null;
+  renderEditInput?: (item: T) => React.ReactNode;
   onClick: (id: string) => void;
 }
 
 const TableRowComponent = <T extends { id: string }>({
   data,
   displayFields,
-  isChecked,
-  onCheckboxChange,
-  showCheckbox,
   renderActions,
   renderActionsDropdown,
+  editingTagId,
+  renderEditInput,
   onClick,
 }: TableRowComponentProps<T>) => {
-  const handleCheckboxChange = () => {
-    onCheckboxChange(data.id);
-  };
-
   const handleRowClick = () => {
     onClick(data.id);
   };
@@ -46,16 +38,13 @@ const TableRowComponent = <T extends { id: string }>({
 
   return (
     <tr className={style.rowComponent} onClick={handleRowClick} style={{ cursor: 'pointer' }}>
-      {showCheckbox && (
-        <td aria-label="Checkbox">
-          <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
-        </td>
-      )}
       {displayFields.map((field) => (
-        <td key={field as string}>
-          {Array.isArray(data[field])
-            ? (data[field] as unknown as { name: string }[]).map((item) => item.name).join(', ')
-            : String(data[field])}
+        <td key={field as string} className={style.column}>
+          {editingTagId === data.id && field === 'name' && renderEditInput ? (
+            <div className={style.editTags}>{renderEditInput(data)}</div>
+          ) : (
+            String(data[field])
+          )}
         </td>
       ))}
 
@@ -66,25 +55,16 @@ const TableRowComponent = <T extends { id: string }>({
             tabIndex={0}
             onClick={handleActionEvent}
             onKeyDown={handleActionEvent}
-            aria-haspopup="true"
-            className={style.dropdownWrapper}
+            className={style.actionWrapper}
           >
-            {renderActionsDropdown}
+            {renderActionsDropdown(data)}
           </div>
         </td>
       )}
 
       {renderActions && (
         <td className={style.actionCell}>
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={handleActionEvent}
-            onKeyDown={handleActionEvent}
-            className={style.actionWrapper}
-          >
-            {renderActions(data)}
-          </div>
+          <div className={style.actionButtons}>{renderActions(data)}</div>
         </td>
       )}
     </tr>
