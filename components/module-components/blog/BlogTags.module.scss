@@ -1,23 +1,7 @@
-.addSkillWrapper {
-  position: relative;
-}
-
 .tagsWrapper {
   gap: 15px;
   display: flex;
   align-items: center;
-}
-
-.addButton {
-  padding: 8px 16px;
-  background: #212f42;
-  color: #aad6ff;
-  border: 3px solid #aad6ff;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 18px;
-  margin-top: 20px;
 }
 
 .selectedTags {
