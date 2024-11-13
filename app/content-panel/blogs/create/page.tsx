@@ -5,6 +5,7 @@
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 import useAddNewPost from '../../../../apis/mutations/blogs/useAddNewPost';
+import BlogTags from '../../../../components/module-components/blog/BlogTags';
 
 interface Values {
   title: string;
@@ -77,6 +78,8 @@ const PostArticle = () => {
           {addNewPostMutation.isSuccess ? <div>Added new post</div> : null}
         </>
       )}
+
+      <BlogTags />
     </div>
   );
 };
