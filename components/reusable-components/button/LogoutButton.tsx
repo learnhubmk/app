@@ -3,9 +3,9 @@
 import React from 'react';
 import { signOut } from 'next-auth/react';
 
-const LogoutButton = () => {
+const LogoutButton = ({ redirectUrl }: { redirectUrl: string }) => {
   return (
-    <button type="button" onClick={() => signOut({ callbackUrl: '/content-panel/login' })}>
+    <button type="button" onClick={() => signOut({ callbackUrl: redirectUrl })}>
       Logout
     </button>
   );

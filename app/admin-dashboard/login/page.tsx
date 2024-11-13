@@ -1,17 +1,17 @@
 import React from 'react';
 
 import SignupAndLoginLayout from '../../../components/reusable-components/signup-and-login-layout/SignupAndLoginLayout';
-import ContentPanelLoginContainer from '../../../components/reusable-components/login-form/ContentPanelLoginContainer';
+import AdminPanelLoginContainer from '../../../components/reusable-components/login-form/AdminPanelLoginContainer';
 
-const Login = () => {
+const AdminLogin = () => {
   return (
     <SignupAndLoginLayout
-      welcomeTitle="Добредојдовте назад!"
+      welcomeTitle="Admin Login Panel (draft content)!"
       welcomeSubtitle="Ве молиме пополнете ги податоците подолу за да се најавите."
     >
-      <ContentPanelLoginContainer />
+      <AdminPanelLoginContainer />
     </SignupAndLoginLayout>
   );
 };
 
-export default Login;
+export default AdminLogin;

@@ -21,16 +21,36 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
-      // This provider allows users to log in with an email and password.
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
         cfTurnstileResponse: { label: 'Token', type: 'text' },
+        userType: { label: 'User Type', type: 'text' },
       },
       async authorize(credentials) {
-        // Replace this with your actual login API call or database check.
-        const res = await fetch(`${baseUrl}/content/login`, {
+        if (!credentials?.userType) {
+          console.error('User type is missing');
+          return null;
+        }
+
+        // Determine the endpoint based on the user type
+        let endpoint = '';
+        switch (credentials.userType) {
+          case 'content-manager':
+            endpoint = `${baseUrl}/content/login`;
+            break;
+          case 'admin':
+            endpoint = `${baseUrl}/admin/login`;
+            break;
+          case 'member':
+            endpoint = `${baseUrl}/login`;
+            break;
+          default:
+            console.error('Invalid user type');
+            return null;
+        }
+        const res = await fetch(endpoint, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -54,6 +74,7 @@ export const authOptions: NextAuthOptions = {
         // If login is successful, return the user object.
         if (res.ok) {
           const { user } = data.data;
+
           // If we get here, we have a successful login
           // Return the user object that will be saved in the token
           return {
@@ -62,7 +83,7 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             role: user.role,
             image: user.image,
-            accessToken: data.data.access_token, // If your API returns a token
+            accessToken: data.data.access_token, // If API returns a token
           };
         }
         // Return null if login failed.
@@ -70,28 +91,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     if (user) {
-  //       token.accessToken = user.accessToken;
-  //       token.id = user.id;
-  //       token.name = user.name;
-  //       token.email = user.email;
-  //     }
-  //     return token;
-  //   },
-
-  //   async session({ session, token }) {
-  //     // Add the access token and user ID to the session
-
-  //     session.user.id = token.id as string;
-  //     session.accessToken = token.accessToken as string;
-  //     session.user.email = token.email as string;
-  //     session.user.name = token.name as string;
-
-  //     return session;
-  //   },
-  // },
   callbacks: {
     async jwt({ token, user }) {
       const newToken = { ...token };
@@ -113,8 +112,6 @@ export const authOptions: NextAuthOptions = {
       return newSession;
     },
   },
-  pages: {
-    signIn: '/control-panel/login', // Custom login page path
-  },
+
   secret: process.env.AUTH_SECRET,
 };

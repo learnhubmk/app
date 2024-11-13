@@ -5,10 +5,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { clearSession, getSession } from '../../utils/actions/session';
-import { getUser, login as loginApi, logout as logoutApi } from '../../api/authApi';
+import { getUser, logout as logoutApi } from '../../api/authApi';
 import { getUserFromStorage } from '../../api/utils/actions/session';
-import { AuthContextType, LoginParams, LoginResponse, UserType } from '../../Types';
-import { saveToLocalStorage } from '../../api/utils/localStorageUtils';
+import { AuthContextType, LoginParams, UserType } from '../../Types';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -29,8 +28,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // This is loginMutation function with next-auth
   const loginMutation = useMutation({
-    mutationFn: async (formValues: LoginParams) => {
-      const { email, password, cfTurnstileResponse } = formValues;
+    mutationFn: async (formValues: LoginParams & { userType: string; redirectUrl: string }) => {
+      const { email, password, cfTurnstileResponse, userType, redirectUrl } = formValues;
 
       // Call NextAuth's signIn method
       const result = await signIn('credentials', {
@@ -38,43 +37,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         email,
         password,
         cfTurnstileResponse,
+        userType,
       });
 
       if (!result?.ok) {
         throw new Error(result?.error || 'Failed to login');
       }
+
+      router.push(redirectUrl);
       return result;
     },
-    onSuccess: () => {
-      // Redirect to the dashboard on success
-      router.push('/content-panel/dashboard');
-    },
+    // onSuccess: () => {
+    //   // Redirect to the dashboard on success
+    //   router.push( redirectUrl);
+    // },
     onError: (error) => {
       // eslint-disable-next-line no-console
       console.error('Login error:', error);
     },
   });
-
-  // This is loginMutation function without next-auth
-  // const loginMutation = useMutation<LoginResponse, Error, LoginParams>({
-  //   mutationFn: loginApi,
-  //   onSuccess: async (data) => {
-  //     // eslint-disable-next-line camelcase
-  //     const { user, access_token } = data.data;
-
-  //     // saveToLocalStorage('user', user);
-  //     queryClient.setQueryData(['user'], user);
-
-  //     // eslint-disable-next-line camelcase
-  //     // saveToLocalStorage('access_token', access_token);
-
-  //     // eslint-disable-next-line camelcase
-  //     // saveToLocalStorage('session', { token: access_token, role: user.role });
-  //   },
-  //   onError: (error) => {
-  //     console.error('Login mutation error:', error); // eslint-disable-line no-console
-  //   },
-  // });
 
   const logoutMutation = useMutation<void, Error, void>({
     mutationFn: async () => {
@@ -102,7 +83,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const value: AuthContextType = useMemo(
     () => ({
       user: userQuery.data ?? null,
-      login: (params: LoginParams) => loginMutation.mutate(params),
+      login: (params: LoginParams & { userType: string; redirectUrl: string }) =>
+        loginMutation.mutate(params),
       logout: () => logoutMutation.mutate(),
       userQuery: {
         status: userQuery.status,

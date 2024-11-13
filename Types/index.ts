@@ -26,7 +26,7 @@ export interface LoginParams {
 
 export interface AuthContextType {
   user: UserType | null;
-  login: (params: LoginParams) => void;
+  login: (params: LoginParams & { userType: string; redirectUrl: string }) => void;
   logout: () => void;
   userQuery: {
     status: QueryStatus;
@@ -59,9 +59,9 @@ export interface Session {
 
 export interface LoginFormProps {
   onSubmit: (values: LoginParams) => Promise<void>;
-  isLoading: boolean;
-  turnstileToken: string | null;
-  setTurnstileToken: (token: string) => void;
+  isLoading?: boolean;
+  turnstileToken?: string | null;
+  setTurnstileToken?: (token: string) => void;
 }
 
 export interface FormField {

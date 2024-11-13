@@ -159,12 +159,11 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background-color: #fff1f1; /* Light red background for emphasis */
-  border: 1px solid #ff6b6b; /* Slightly darker border */
+  border: 1px solid var(--error-color);
   padding: 8px;
   border-radius: 4px;
   margin-top: 16px;
 }
 .errorMessage {
-  color: #ff4c4c; /* Use one of the above colors */
+  color: var(--error-color);
 }

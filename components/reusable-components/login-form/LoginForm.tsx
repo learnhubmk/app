@@ -10,15 +10,18 @@ import Turnstile from 'react-turnstile';
 import styles from './LoginForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import { useAuth } from '../../../app/context/authContext';
-import { LoginParams } from '../../../Types';
+import { LoginFormProps, LoginParams } from '../../../Types';
 import TextInput from '../text-input/TextInput';
 import error from '../../../public/error.svg';
+import linkedin from '../../../public/icons/linkedin.svg';
+import github from '../../../public/icons/github.svg';
+import google from '../../../public/icons/google.svg';
 
-const LoginForm = () => {
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const { theme } = useTheme();
-  const { login, loginMutation } = useAuth();
-  const isLightTheme = theme === 'light';
+  const { loginMutation } = useAuth();
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const isLightTheme = theme === 'light';
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -40,9 +43,7 @@ const LoginForm = () => {
         ...values,
         cfTurnstileResponse: turnstileToken,
       };
-
-      // Use the mutation to handle the login process
-      login(loginParams);
+      onSubmit({ ...loginParams });
     },
   });
 
@@ -103,6 +104,30 @@ const LoginForm = () => {
           size="invisible"
         />
       </form>
+      <div className={styles.loginSocials}>
+        <p>или продолжи со</p>
+        <div className={styles.socialIcons}>
+          <Link href="https://github.com/learnhubmk" target="_blank" rel="noopener noreferrer">
+            <Image className={styles.socialIcon} src={github} alt="Github" />
+          </Link>
+          <Link href="/" target="_blank" rel="noopener noreferrer">
+            <Image className={styles.socialIcon} src={google} alt="Youtube" />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/company/102600044/admin/feed/posts/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image className={styles.socialIcon} src={linkedin} alt="Linkedin" />
+          </Link>
+        </div>
+        <p>
+          Немаш креиран профил?{' '}
+          <Link href="/signup" className={styles.signup}>
+            Регистрирај се
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
