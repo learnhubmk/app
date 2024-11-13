@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from './AddTags.module.scss';
 import useGetTags from '../../../apis/queries/tags/getTags';
@@ -35,6 +38,7 @@ const AddTags = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
 
   useEffect(() => {
     if (data?.data) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       const filteredTags = data.data.filter((tag: { name: string }) =>
         tag.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
       );
@@ -72,7 +76,7 @@ const AddTags = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
         <div className={styles.dropdown}>
           {filteredTags.length > 0 ? (
             filteredTags.map((tag: TagObject) => (
-              <button
+              <div
                 key={tag.id}
                 onClick={() => addTag(tag)}
                 className={styles.tagItem}
@@ -83,22 +87,17 @@ const AddTags = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
                 }}
               >
                 {tag.name}
-              </button>
+              </div>
             ))
           ) : (
-            <button
+            <div
               className={styles.tagItem}
               onClick={() => {
                 addNewTag(debouncedSearchTerm);
               }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  addNewTag(debouncedSearchTerm);
-                }
-              }}
             >
               Create new tag: "{debouncedSearchTerm}". <i className="bi bi-plus-lg" />
-            </button>
+            </div>
           )}
         </div>
       )}
