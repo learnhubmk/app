@@ -47,10 +47,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       router.push(redirectUrl);
       return result;
     },
-    // onSuccess: () => {
-    //   // Redirect to the dashboard on success
-    //   router.push( redirectUrl);
-    // },
     onError: (error) => {
       // eslint-disable-next-line no-console
       console.error('Login error:', error);
