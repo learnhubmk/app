@@ -16,8 +16,8 @@ const TagManager = () => {
 
   return (
     <>
-      <AddTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
       <TagList selectedTags={selectedTags} onRemoveTag={handleRemoveTag} />
+      <AddTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
     </>
   );
 };

@@ -1,0 +1,67 @@
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-xl: 1280px;
+
+.container {
+  padding: 20px 0px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.controlsContainer {
+  height: 100%;
+  margin-top: 20px;
+  padding: 25px;
+  border-radius: 20px;
+  background-color: var(--section-bg-color);
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+
+  @media (min-width: $breakpoint-md) {
+    width: 80%;
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    width: 50%;
+  }
+}
+
+.form {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 15px;
+}
+
+.error {
+  color: red;
+  font-size: 0.79rem;
+}
+
+.input {
+  color: white;
+  font-size: 15px;
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  background-color: var(--elevated-elements-dark-mode);
+}
+
+.inputLabel {
+  font-size: 1.2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
