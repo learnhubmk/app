@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import styles from './AddTags.module.scss';
+import styles from './TagInput.module.scss';
 import useGetTags from '../../../apis/queries/tags/getTags';
 import useDebounce from '../../../utils/hooks/useDebounce';
 import useAddNewTag from '../../../apis/mutations/tags/useAddNewTag';
@@ -19,7 +19,7 @@ interface TagSearchProps {
   setSelectedTags: React.Dispatch<React.SetStateAction<TagObject[]>>;
 }
 
-const AddTags = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
+const TagInput = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
   const [searchTag, setSearchTag] = useState<string>('');
   const [filteredTags, setFilteredTags] = useState<TagObject[]>([]);
 
@@ -48,8 +48,7 @@ const AddTags = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
   }, [debouncedSearchTerm, data]);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchTag(query);
+    setSearchTag(e.target.value);
   };
 
   const addTag = (tag: TagObject) => {
@@ -105,4 +104,4 @@ const AddTags = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
   );
 };
 
-export default AddTags;
+export default TagInput;

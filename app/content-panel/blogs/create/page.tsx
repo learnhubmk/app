@@ -5,7 +5,7 @@
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 import useAddNewPost from '../../../../apis/mutations/blogs/useAddNewPost';
-import BlogTags from '../../../../components/module-components/blog/BlogTags';
+import TagManager from '../../../../components/module-components/blog/TagManager';
 
 interface Values {
   title: string;
@@ -79,7 +79,7 @@ const PostArticle = () => {
         </>
       )}
 
-      <BlogTags />
+      <TagManager />
     </div>
   );
 };
