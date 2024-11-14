@@ -1,17 +1,20 @@
 .searchInput {
+  color: white;
+  background-color: var(--elevated-elements-dark-mode);
+  border: 1px solid var(--input-border-color);
   height: 45px;
   width: 100%;
   padding: 8px;
-  border: 1px solid #ffa9a9;
   border-radius: 4px;
 }
 
 .dropdown {
+  color: white;
   overflow-y: auto;
   max-height: 250px;
   width: 100%;
-  background: white;
-  color: #121d36;
+  background-color: var(--elevated-elements-dark-mode);
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }

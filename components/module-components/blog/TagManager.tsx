@@ -1,23 +1,22 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 'use client';
 
-import { useState } from 'react';
-import AddTags, { TagObject } from './TagInput';
+import TagInput, { TagObject } from './TagInput';
 import TagList from './TagList';
 
-const TagManager = () => {
-  const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
+interface TagManagerProps {
+  selectedTags: TagObject[];
+  onTagsChange: (tags: TagObject[]) => void;
+}
 
+const TagManager = ({ selectedTags, onTagsChange }: TagManagerProps) => {
   const handleRemoveTag = (tagId: number) => {
-    setSelectedTags((prevValues) => prevValues.filter((item) => item.id !== tagId));
+    onTagsChange(selectedTags.filter((tag) => tag.id !== tagId));
   };
 
   return (
     <>
       <TagList selectedTags={selectedTags} onRemoveTag={handleRemoveTag} />
-      <AddTags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+      <TagInput selectedTags={selectedTags} onTagsChange={onTagsChange} />
     </>
   );
 };

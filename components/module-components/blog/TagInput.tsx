@@ -14,12 +14,12 @@ export interface TagObject {
   updated_at: string;
 }
 
-interface TagSearchProps {
+interface TagInputProps {
   selectedTags: TagObject[];
-  setSelectedTags: React.Dispatch<React.SetStateAction<TagObject[]>>;
+  onTagsChange: (tags: TagObject[]) => void;
 }
 
-const TagInput = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
+const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
   const [searchTag, setSearchTag] = useState<string>('');
   const [filteredTags, setFilteredTags] = useState<TagObject[]>([]);
 
@@ -30,7 +30,7 @@ const TagInput = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
 
   const addNewTag = async (tagName: string) => {
     const newTag = await addNewTagMutation.mutateAsync({ tagName });
-    setSelectedTags((currentTags: TagObject[]) => [...currentTags, newTag.data as TagObject]);
+    onTagsChange([...selectedTags, newTag.data as TagObject]);
 
     setSearchTag('');
     setFilteredTags([]);
@@ -53,7 +53,7 @@ const TagInput = ({ selectedTags, setSelectedTags }: TagSearchProps) => {
 
   const addTag = (tag: TagObject) => {
     if (!selectedTags.some((selectedTag) => selectedTag.id === tag.id)) {
-      setSelectedTags([...selectedTags, tag]);
+      onTagsChange([...selectedTags, tag]);
     }
     setSearchTag('');
     setFilteredTags([]);
