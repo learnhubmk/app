@@ -6,13 +6,11 @@
 }
 
 .dropdown {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 250px;
   width: 100%;
-  max-height: 200px;
   background: white;
   color: #121d36;
-  border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
