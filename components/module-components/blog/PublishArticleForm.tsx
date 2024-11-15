@@ -22,9 +22,10 @@ const PublishArticleForm = () => {
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Насловот е задолжителен.'),
-    excerpt: Yup.string().required('Описот е задолжителен.'),
+    title: Yup.string().trim().required('Насловот е задолжителен.'),
+    excerpt: Yup.string().trim().required('Описот е задолжителен.'),
     content: Yup.string()
+      .trim()
       .required('Содржината е задолжителна.')
       .test('not-empty', 'Содржината не смее да биде празна.', (value) => {
         return value !== '<p></p>';

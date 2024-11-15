@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import styles from './TagInput.module.scss';
 import useGetTags from '../../../apis/queries/tags/getTags';
 import useDebounce from '../../../utils/hooks/useDebounce';
@@ -92,7 +93,10 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
             <div
               className={styles.tagItem}
               onClick={() => {
-                addNewTag(debouncedSearchTerm);
+                if (debouncedSearchTerm.trim()) {
+                  addNewTag(debouncedSearchTerm);
+                }
+                toast.error('Празни тагови не се дозволени');
               }}
             >
               Create new tag: "{debouncedSearchTerm}". <i className="bi bi-plus-lg" />
