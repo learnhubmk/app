@@ -22,6 +22,7 @@ export interface LoginParams {
   password: string;
   cfTurnstileResponse: string;
   role?: string;
+  remember: boolean;
 }
 
 export interface AuthContextType {

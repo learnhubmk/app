@@ -3,10 +3,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { DefaultSession, DefaultUser } from 'next-auth';
+import NextAuth from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 
 declare module 'next-auth' {
-  interface Session extends DefaultSession {
+  interface Session {
     accessToken: string | unknown;
     expires: string;
     user: {
@@ -16,19 +17,24 @@ declare module 'next-auth' {
       image?: string | unknown;
     };
   }
+}
 
-  interface User extends DefaultUser {
-    id: string;
-    name?: string;
-    email?: string;
-    image?: string;
-    accessToken?: string;
-  }
-
+declare module 'next-auth' {
   interface JWT {
     accessToken?: string;
     id: string;
     name?: string;
     email?: string;
+    exp?: number;
+  }
+}
+declare module 'next-auth' {
+  interface User {
+    id: string;
+    name?: string;
+    email?: string;
+    image?: string;
+    accessToken?: string;
+    remember?: boolean;
   }
 }

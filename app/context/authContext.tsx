@@ -28,8 +28,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // This is loginMutation function with next-auth
   const loginMutation = useMutation({
-    mutationFn: async (formValues: LoginParams & { userType: string; redirectUrl: string }) => {
-      const { email, password, cfTurnstileResponse, userType, redirectUrl } = formValues;
+    mutationFn: async (
+      formValues: LoginParams & { userType: string; redirectUrl: string; remember: boolean }
+    ) => {
+      const { email, password, cfTurnstileResponse, userType, redirectUrl, remember } = formValues;
 
       // Call NextAuth's signIn method
       const result = await signIn('credentials', {
@@ -38,6 +40,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         password,
         cfTurnstileResponse,
         userType,
+        remember,
       });
 
       if (!result?.ok) {

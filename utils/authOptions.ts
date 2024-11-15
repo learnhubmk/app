@@ -26,6 +26,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
         cfTurnstileResponse: { label: 'Token', type: 'text' },
+        remember: { label: 'Remember me', type: 'checkbox' },
         userType: { label: 'User Type', type: 'text' },
       },
       async authorize(credentials) {
@@ -60,6 +61,7 @@ export const authOptions: NextAuthOptions = {
             email: credentials?.email,
             password: credentials?.password,
             cfTurnstileResponse: credentials?.cfTurnstileResponse,
+            remember: credentials?.remember,
           }),
         });
 
@@ -73,6 +75,7 @@ export const authOptions: NextAuthOptions = {
 
         // If login is successful, return the user object.
         if (res.ok) {
+          const rememberUser = credentials?.remember === 'true';
           const { user } = data.data;
 
           // If we get here, we have a successful login
@@ -83,6 +86,7 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             role: user.role,
             image: user.image,
+            remember: rememberUser,
             accessToken: data.data.access_token, // If API returns a token
           };
         }
@@ -99,6 +103,7 @@ export const authOptions: NextAuthOptions = {
         newToken.id = user.id;
         newToken.name = user.name;
         newToken.email = user.email;
+        newToken.remember = user.remember;
       }
       return newToken;
     },
@@ -109,6 +114,7 @@ export const authOptions: NextAuthOptions = {
       newSession.user.id = token.id;
       newSession.user.email = token.email;
       newSession.user.name = token.name;
+
       return newSession;
     },
   },
