@@ -12,10 +12,9 @@ interface TagListProps {
 const TagList = ({ selectedTags, onRemoveTag }: TagListProps) => {
   return (
     <div className={styles.tagsWrapper}>
-      Tags:
       <div className={styles.selectedTags}>
         {selectedTags.length === 0 ? (
-          <div>No tags selected</div>
+          <div>Немаш селектирано тагови</div>
         ) : (
           selectedTags.map((tag) => (
             <div key={tag.id} className={styles.selectedTag}>

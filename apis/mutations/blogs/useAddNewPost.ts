@@ -29,11 +29,11 @@ const useAddNewPost = () => {
       return response.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {
-      toast.error(error?.response?.data?.message || 'Настана грешка при додавање на тагот');
+      toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
-      toast.success('Тагот беше успешно додаден.');
+      toast.success('Статијата беше успешно објавена!');
     },
   });
 };

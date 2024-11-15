@@ -20,6 +20,14 @@
   },
   "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "controlComponents": ["Field"],
+        "assert": "htmlFor",
+        "depth": 3
+      }
+    ],
     "no-param-reassign": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
