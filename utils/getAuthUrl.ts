@@ -1,4 +1,4 @@
-import { Role } from '../app/context/authContext';
+import { Role } from '../Types';
 
 export default function getAuthUrl(baseUrl: string, role: Role): string {
   let url = baseUrl;
