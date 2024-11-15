@@ -66,7 +66,7 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
         type="text"
         value={searchTag}
         onChange={handleSearchChange}
-        placeholder="Search or add a tag"
+        placeholder="Пребарај или креирај таг"
         className={styles.searchInput}
         name="searchTagInput"
       />

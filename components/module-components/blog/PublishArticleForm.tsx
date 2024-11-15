@@ -31,7 +31,7 @@ const PublishArticleForm = () => {
       }),
     tags: Yup.array()
       .required('Таговите се задолжителни.')
-      .min(1, 'Мора да селектираш барем еден таг'),
+      .min(1, 'Мора да селектираш барем еден таг.'),
   });
 
   const handleAddPost = (values: Values) => {
