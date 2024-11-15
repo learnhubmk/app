@@ -6,7 +6,7 @@ import style from './actionDropdown.module.scss';
 interface DropdownItem {
   id: string;
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 interface ActionDropdownProps {
   dropdownItems: DropdownItem[];
@@ -38,7 +38,9 @@ const ActionDropdown = ({ dropdownItems }: ActionDropdownProps) => {
         <ul className={style.dropdownMenu}>
           {dropdownItems.map((item) => (
             <li key={item.id} className={style.dropdownItem}>
-              {item.label}
+              <button type="button" onClick={item.onClick}>
+                {item.label}
+              </button>
             </li>
           ))}
         </ul>

@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+'use client';
 
 import React, { useState, useMemo } from 'react';
 import TableRowComponent from './TableRowComponent';
@@ -11,6 +11,10 @@ interface ReusableTableProps<T> {
   data: T[];
   renderActions?: (item: T) => React.ReactNode;
   renderActionsDropdown?: (item: T) => React.ReactNode;
+  editingTagId?: string | null;
+  renderEditInput?: (item: T) => React.ReactNode;
+  isLoading?: boolean;
+  onRowClick?: (id: string) => void;
 }
 
 interface SortState<T> {
@@ -19,18 +23,17 @@ interface SortState<T> {
 }
 
 const ReusableTable = <T extends { id: string }>({
+  isLoading,
   headers,
   displayNames,
   data,
   renderActions,
   renderActionsDropdown,
+  editingTagId,
+  renderEditInput,
+  onRowClick,
 }: ReusableTableProps<T>): React.JSX.Element => {
   const [sortState, setSortState] = useState<SortState<T>[]>([]);
-  const [checkedId, setCheckedId] = useState<string | null>(null);
-
-  const handleCheckboxChange = (id: string) => {
-    setCheckedId(id === checkedId ? null : id);
-  };
 
   const handleSort = (field: keyof T) => {
     setSortState((prevSortState) => {
@@ -40,25 +43,14 @@ const ReusableTable = <T extends { id: string }>({
     });
   };
 
-  const getNestedValue = (obj: any, path: string) => {
-    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
-  };
-
   const sortedData = useMemo(() => {
     if (sortState.length > 0) {
       return [...data].sort((a, b) => {
         const sort = sortState[0];
-        const aValue = getNestedValue(a, sort.field as string);
-        const bValue = getNestedValue(b, sort.field as string);
-
-        if (typeof aValue === 'string' && typeof bValue === 'string') {
-          return sort.order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        }
-
-        if (aValue > bValue) {
+        if (a[sort.field] > b[sort.field]) {
           return sort.order === 'asc' ? 1 : -1;
         }
-        if (aValue < bValue) {
+        if (a[sort.field] < b[sort.field]) {
           return sort.order === 'asc' ? -1 : 1;
         }
         return 0;
@@ -67,32 +59,36 @@ const ReusableTable = <T extends { id: string }>({
     return data;
   }, [data, sortState]);
 
-  if (data?.length === 0) {
-    return <div className={style.noDataMessage}>No data available</div>;
+  if (isLoading) {
+    return <div className={style.noDataMessage}>Се вчитува</div>;
+  }
+
+  if (!isLoading && data?.length === 0) {
+    return <div className={style.noDataMessage}>Нема податоци</div>;
   }
 
   return (
     <div className={style.tableWrapper}>
       <table className={style.reusableTable}>
-        <TableHead
+        <TableHead<T>
           headers={headers}
           sortState={sortState}
           onSort={handleSort}
-          displayNames={displayNames as { [key in keyof T]?: string }}
+          displayNames={displayNames}
           showActions={!!renderActions}
           showDropdownActions={!!renderActionsDropdown}
         />
         <tbody>
           {sortedData.map((item) => (
             <TableRowComponent<T>
+              onClick={() => onRowClick && onRowClick(item.id)}
               key={item.id}
               data={item}
-              isChecked={checkedId === item.id}
-              onCheckboxChange={handleCheckboxChange}
               displayFields={headers}
-              showCheckbox={false}
               renderActions={renderActions}
-              renderActionsDropdown={renderActionsDropdown && renderActionsDropdown(item)}
+              renderActionsDropdown={renderActionsDropdown}
+              editingTagId={editingTagId}
+              renderEditInput={renderEditInput}
             />
           ))}
         </tbody>

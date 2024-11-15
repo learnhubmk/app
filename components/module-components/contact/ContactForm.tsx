@@ -13,7 +13,7 @@ import { fullNameRegexValidation, emailRegexValidation } from './regexValidation
 import {
   useSubmitContactForm,
   ContactFormData,
-} from '../../../api/mutations/contact/useSubmitContactform';
+} from '../../../apis/mutations/contact/useSubmitContactform';
 
 const ContactForm = () => {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -54,7 +54,7 @@ const ContactForm = () => {
         toast.success('Пораката беше успешно испратена!');
         resetForm();
         setTurnstileToken(null);
-      } catch (error) {
+      } catch {
         toast.error('Настана грешка при испраќањето на пораката. Пробајте повторно.');
       }
     },
