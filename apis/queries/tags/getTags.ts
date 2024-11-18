@@ -4,7 +4,7 @@ import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 
 export interface Tag {
-  id: number;
+  id: string;
   name: string;
   created_at: string;
   updated_at: string;
