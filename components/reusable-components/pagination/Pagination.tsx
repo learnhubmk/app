@@ -1,8 +1,5 @@
 /* eslint-disable camelcase */
 
-// This component expects to receive meta object that contains the links
-// as well as pagination data. See types for more details on what's expected.
-
 import React from 'react';
 import styles from './Pagination.module.scss';
 import { MetaData } from '../../../apis/queries/tags/getTags';
@@ -14,7 +11,7 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ meta, setPage }) => {
   const { current_page, last_page } = meta;
-  const pages = Array.from({ length: last_page }, (_, i) => i + 1); // create array with page numbers [1, 2...]
+  const pages = Array.from({ length: last_page }, (_, i) => i + 1);
 
   if (meta) {
     return (
