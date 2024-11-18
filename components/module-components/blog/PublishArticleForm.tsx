@@ -3,19 +3,12 @@
 import React, { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import useAddNewPost from '../../../apis/mutations/blogs/useAddNewPost';
+import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
 import { TagObject } from './TagInput';
 import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
-
-interface Values {
-  title: string;
-  excerpt: string;
-  content: string;
-  tags: number[] | string[];
-}
 
 const PublishArticleForm = () => {
   const addNewPostMutation = useAddNewPost();
@@ -35,7 +28,7 @@ const PublishArticleForm = () => {
       .min(1, 'Мора да селектираш барем еден таг.'),
   });
 
-  const handleAddPost = (values: Values) => {
+  const handleAddPost = (values: NewPost) => {
     addNewPostMutation.mutate(values);
   };
 

@@ -7,11 +7,11 @@ import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 
-type NewPost = {
+export type NewPost = {
   title: string;
   excerpt: string;
   content: string;
-  tags: number[] | string[];
+  tags: string[];
 };
 
 type ErrorResponse = {
