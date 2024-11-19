@@ -1,11 +1,9 @@
 title = "Custom Gitleaks Config"
-allowlist = { regexes = ["https://registry\\.npmjs\\.org"],
-files = [
-    "package-lock.json", 
-    "node_modules/" 
-  ],
-  paths=["package-lock.json"]
-}
+
+[allowlist]
+files = ["package-lock.json"]
+regexes = ["https://registry\\.npmjs\\.org"]
+paths = ['''package-lock\.json''']
 
 # Rule to detect API keys
 [[rules]]

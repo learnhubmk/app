@@ -1,34 +1,54 @@
+$table-height: 400px;
+
 .tableWrapper {
   margin-block: 1.5rem;
   border: 1px solid #94a3b8;
   background-color: #f8fafc;
   color: black;
+  height: $table-height;
+  overflow-y: auto;
 
   .reusableTable {
     width: 100%;
-    min-height: 15rem;
     border-collapse: collapse;
     text-align: left;
     text-indent: 1rem;
 
-    th,
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    td {
+      height: 60px;
+      padding: 15px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
     th:first-child,
     td:first-child {
-      width: 70%;
+      width: 60%;
     }
 
     th:last-child,
     td:last-child {
-      width: 10%;
-      white-space: nowrap;
+      width: auto;
+      text-align: right;
     }
   }
 }
 
 .noDataMessage {
+  height: $table-height;
   background-color: #ec4f1e;
-  padding: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   font-size: 50px;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #94a3b8;
+  box-sizing: border-box;
+  padding: 20px;
 }

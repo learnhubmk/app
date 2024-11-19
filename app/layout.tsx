@@ -13,7 +13,7 @@ import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 import styles from './page.module.scss';
 import { AuthProvider } from './context/authContext';
-import { AxiosProvider } from '../api/AxiosProvider';
+import { AxiosProvider } from '../apis/AxiosProvider';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { EditorProvider } from './context/EditorContext';
 

@@ -18,6 +18,12 @@ const ENDPOINTS = {
   NEWSLETTER: {
     SUBSCRIBE: `${API_BASE_URL}/newsletter-subscribers`,
   },
+  TAGS: {
+    GET_ALL: `${API_BASE_URL}/content/blog-post-tags`,
+    CREATE: `${API_BASE_URL}/content/blog-post-tags`,
+    DELETE: `${API_BASE_URL}/content/blog-post-tags`,
+    EDIT: `${API_BASE_URL}/content/blog-post-tags`,
+  },
 };
 
 export default ENDPOINTS;
