@@ -1,7 +1,7 @@
 'use server';
 
 import axios from 'axios';
-import axiosInstance from '../api/axiosInstance';
+import axiosInstance from '../apis/axiosInstance';
 import { BlogCardProps } from '../components/reusable-components/blog-card/BlogCard';
 
 const fetchBlogPosts = async (

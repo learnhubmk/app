@@ -17,7 +17,7 @@ import Button from '../button/Button';
 import {
   NewsletterFormData,
   useSubmitNewsletterForm,
-} from '../../../api/mutations/newsletter/useSubmitNewsletterForm';
+} from '../../../apis/mutations/newsletter/useSubmitNewsletterForm';
 
 // eslint-disable-next-line no-unused-vars
 interface FormValues {
@@ -67,7 +67,7 @@ const Footer = () => {
       toast.success('Успешно се претплативте на нашиот билтен!');
       resetForm();
       setTurnstileToken(null);
-    } catch (error) {
+    } catch {
       toast.error('Настана грешка. Пробај повторно.');
     }
   };

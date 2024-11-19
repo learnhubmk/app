@@ -38,7 +38,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         console.error('Turnstile token is missing');
         return;
       }
-
       const loginParams: LoginParams = {
         ...values,
         cfTurnstileResponse: turnstileToken,

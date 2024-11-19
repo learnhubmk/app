@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import Filter from '../SearchAndFilter/Filter';
 import Search from '../SearchAndFilter/Search';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
+import { useEditor } from '../../../app/context/EditorContext';
 
 interface Author {
   first_name: string;
@@ -18,7 +20,7 @@ interface Tag {
 }
 
 interface BlogPostAPI {
-  id: string;
+  slug: string;
   title: string;
   tags: Tag[];
   author: Author;
@@ -32,8 +34,10 @@ interface BlogPost {
 }
 
 const BlogListView = () => {
+  const { editorStateChange } = useEditor();
   const [data, setData] = useState<BlogPost[]>([]);
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,14 +48,14 @@ const BlogListView = () => {
         }
         const result = await response.json();
         const transformedData: BlogPost[] = result.data.map((item: BlogPostAPI) => ({
-          id: item.id,
+          id: item.slug,
           title: item.title,
           tags: item.tags,
           author: `${item.author.first_name} ${item.author.last_name}`,
         }));
         setData(transformedData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        throw new Error(`Error fetching data: ${error}`);
       }
     };
 
@@ -66,15 +70,17 @@ const BlogListView = () => {
   };
 
   const handleView = (id: string) => {
-    console.log('View blog', id);
+    editorStateChange({ isEditable: false });
+    router.push(`/content-panel/blogs/${id}`);
   };
 
   const handleEdit = (id: string) => {
-    console.log('Edit blog', id);
+    editorStateChange({ isEditable: true });
+    router.push(`/content-panel/blogs/${id}`);
   };
 
-  const handleDelete = (id: string) => {
-    console.log('Delete blog', id);
+  const handleDelete = () => {
+    // delete logic here
   };
 
   const renderActionsDropdown = (item: BlogPost) => (
@@ -82,7 +88,7 @@ const BlogListView = () => {
       dropdownItems={[
         { id: 'view', label: 'View', onClick: () => handleView(item.id) },
         { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
-        { id: 'delete', label: 'Delete', onClick: () => handleDelete(item.id) },
+        { id: 'delete', label: 'Delete', onClick: () => handleDelete() },
       ]}
     />
   );
@@ -106,6 +112,7 @@ const BlogListView = () => {
         headers={headers}
         displayNames={displayNames}
         data={data}
+        onRowClick={handleView}
         renderActionsDropdown={renderActionsDropdown}
       />
     </div>
