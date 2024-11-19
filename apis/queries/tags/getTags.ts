@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
+import { TagObject } from '../../../components/module-components/blog/TagInput';
 
 const useGetTags = (search?: string) => {
   const axios = useAxios();
@@ -16,6 +17,13 @@ const useGetTags = (search?: string) => {
       const { data } = await axios.get(url);
       return data;
     },
+    select: (data) => ({
+      ...data,
+      data: data.data.map((tag: TagObject) => ({
+        ...tag,
+        name: tag.name.toLowerCase(),
+      })),
+    }),
   });
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import styles from './TagInput.module.scss';
 import useGetTags from '../../../apis/queries/tags/getTags';
@@ -22,31 +22,18 @@ interface TagInputProps {
 
 const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
   const [searchTag, setSearchTag] = useState<string>('');
-  const [filteredTags, setFilteredTags] = useState<TagObject[]>([]);
-
   const debouncedSearchTerm = useDebounce(searchTag, 300);
   const { data } = useGetTags(debouncedSearchTerm);
-
   const addNewTagMutation = useAddNewTag();
+
+  const filteredTags = data?.data ?? [];
 
   const addNewTag = async (tagName: string) => {
     const newTag = await addNewTagMutation.mutateAsync({ tagName });
     onTagsChange([...selectedTags, newTag.data as TagObject]);
 
     setSearchTag('');
-    setFilteredTags([]);
   };
-
-  useEffect(() => {
-    if (data?.data) {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const filteredTags = data.data.filter((tag: { name: string }) =>
-        tag.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-      );
-
-      setFilteredTags(filteredTags);
-    }
-  }, [debouncedSearchTerm, data]);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTag(e.target.value);
@@ -57,7 +44,6 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
       onTagsChange([...selectedTags, tag]);
     }
     setSearchTag('');
-    setFilteredTags([]);
   };
 
   return (
@@ -95,6 +81,7 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
               onClick={() => {
                 if (debouncedSearchTerm.trim()) {
                   addNewTag(debouncedSearchTerm);
+                  return;
                 }
                 toast.error('Празни тагови не се дозволени');
               }}
