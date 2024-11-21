@@ -16,7 +16,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./src/*"],
       "@tests-pages/*": ["./tests/pages/*"],
       "@tests-steps/*": ["./tests/steps/*"],
       "@tests-utils/*": ["./tests/utils/*"]

@@ -43,5 +43,4 @@ export interface BlogDetailsData {
   author: Author;
   publishDate: string;
   tags: string[];
-
 }
