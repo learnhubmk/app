@@ -13,12 +13,12 @@ $table-height: 400px;
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    text-indent: 1rem;
 
-    thead {
-      position: sticky;
-      top: 0;
-      z-index: 1;
+    th {
+      padding: 15px;
+      white-space: nowrap;
+      text-align: left;
+      overflow: hidden;
     }
 
     td {
