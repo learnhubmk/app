@@ -7,15 +7,19 @@ import { transformMembersResponse } from './transformMembersResponse';
 
 const useGetMembers = (
   { initialData }: { initialData: MemberResponse },
-  paginationPage: number
+  paginationPage: number,
+  sort: {
+    sortDirection: string;
+    sortBy: string;
+  }
 ) => {
   const axios = useAxios();
 
   return useQuery({
-    queryKey: [...QUERY_KEYS.MEMBERS.ALL, paginationPage],
+    queryKey: [...QUERY_KEYS.MEMBERS.ALL, paginationPage, sort],
     queryFn: async () => {
       const { data } = await axios.get<MemberResponse>(
-        `${ENDPOINTS.MEMBERS.GET_ALL}?per_page=5&page=${paginationPage}`
+        `${ENDPOINTS.MEMBERS.GET_ALL}?per_page=5&page=${paginationPage}&sort_direction=${sort.sortDirection}&sort_by=${sort.sortBy}`
       );
       return transformMembersResponse(data);
     },
