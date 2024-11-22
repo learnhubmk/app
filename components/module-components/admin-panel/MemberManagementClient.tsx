@@ -10,12 +10,19 @@ import Pagination from '../../reusable-components/pagination/Pagination';
 import sortActions from './sortActions';
 import SortDropdown from '../../reusable-components/reusable-dropdown/ReusableDropdown';
 import Input from '../../reusable-components/input/Input';
+import useDebounce from '../../../utils/hooks/useDebounce';
 
 const MemberManagementClient = ({ initialData }: { initialData: MemberResponse }) => {
   const [paginationPage, setPaginationPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sort, setSort] = useState({ sortBy: '', sortDirection: '' });
-  const { data, isLoading, isError } = useGetMembers({ initialData }, paginationPage, sort);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const { data, isLoading, isError } = useGetMembers(
+    { initialData },
+    paginationPage,
+    sort,
+    debouncedSearchTerm
+  );
   const headers: (keyof TransformedMember)[] = [
     'first_name',
     'last_name',
