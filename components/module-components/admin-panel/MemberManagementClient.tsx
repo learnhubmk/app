@@ -1,14 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Loading from '../../../app/loading';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import useGetMembers from '../../../apis/queries/members/getMembers';
 import { MemberResponse, TransformedMember } from '../../../apis/queries/members/types';
 import styles from './MemberManagementClient.module.scss';
+import Pagination from '../../reusable-components/pagination/Pagination';
 
 const MemberManagementClient = ({ initialData }: { initialData: MemberResponse }) => {
-  const { data, isLoading, isError } = useGetMembers({ initialData });
+  const [paginationPage, setPaginationPage] = useState(1);
+  const { data, isLoading, isError } = useGetMembers({ initialData }, paginationPage);
   const headers: (keyof TransformedMember)[] = [
     'first_name',
     'last_name',
@@ -36,6 +38,8 @@ const MemberManagementClient = ({ initialData }: { initialData: MemberResponse }
           displayNames={displayNames}
           data={data.data}
         />
+
+        <Pagination meta={data.meta} setPage={setPaginationPage} />
       </div>
     </div>
   );

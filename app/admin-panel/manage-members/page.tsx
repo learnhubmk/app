@@ -5,7 +5,7 @@ import { transformMembersResponse } from '../../../apis/queries/members/transfor
 import ENDPOINTS from '../../../apis/endpoints';
 
 const page = async () => {
-  const response = await axiosInstance.get(ENDPOINTS.MEMBERS.GET_ALL);
+  const response = await axiosInstance.get(`${ENDPOINTS.MEMBERS.GET_ALL}?per_page=5`);
   const transformedData = transformMembersResponse(response.data);
 
   return <MemberManagementClient initialData={transformedData} />;

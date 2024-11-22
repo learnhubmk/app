@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
+import Loading from '../../../app/loading';
 
 interface ReusableTableProps<T> {
   headers: (keyof T)[];
@@ -60,7 +61,7 @@ const ReusableTable = <T extends { id: string }>({
   }, [data, sortState]);
 
   if (isLoading) {
-    return <div className={style.noDataMessage}>Се вчитува</div>;
+    return <Loading />;
   }
 
   if (!isLoading && data?.length === 0) {

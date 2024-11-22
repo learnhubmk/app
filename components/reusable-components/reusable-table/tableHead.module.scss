@@ -1,12 +1,14 @@
 .tableHead {
-  background-color: #ec4f1e;
+  background-color: var(--primary-btn-active-color);
 }
 
 .tableHeaderCell {
+  width: 100%;
   padding: 10px 10px 10px 0;
   text-align: left;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
+  white-space: nowrap;
 }
 
 .sortArrow {
