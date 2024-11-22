@@ -4,6 +4,9 @@
 }
 
 .dropdownButton {
+  height: 100%;
+  display: flex;
+  justify-content: end;
   font-size: var(--fs-button);
   font-weight: 400;
   background-color: #ffffff;

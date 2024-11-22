@@ -10,9 +10,10 @@ type DropdownItem = {
 type DropdownProps = {
   items: DropdownItem[];
   placeholder?: string;
+  icon?: React.ReactNode;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({ items, placeholder = 'Select an option' }) => {
+const Dropdown: React.FC<DropdownProps> = ({ items, placeholder = 'Select an option', icon }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -41,6 +42,7 @@ const Dropdown: React.FC<DropdownProps> = ({ items, placeholder = 'Select an opt
     <div className={styles.dropdown} ref={dropdownRef}>
       <button type="button" onClick={toggleDropdown} className={styles.dropdownButton}>
         {placeholder}
+        {icon && <span>{icon}</span>}
       </button>
       {isOpen && (
         <ul className={styles.dropdownList}>

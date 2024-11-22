@@ -1,9 +1,34 @@
+@import '../../../app/styles/utils/breakpoints.scss';
+
 .mainContainer {
+  padding: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
 .table {
-  width: 60%;
+  padding: 10px;
+  width: 100%;
+
+  @include breakpoint(small) {
+    width: 80%;
+  }
+
+  @include breakpoint(medium) {
+    width: 60%;
+  }
+}
+
+.searchInputWrapper {
+  width: 100%;
+}
+
+.searchAndSort {
+  display: flex;
+  gap: 10px;
+  height: 40px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
 }
