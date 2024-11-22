@@ -39,3 +39,12 @@ id = "ssh_key"
 description = "Match SSH keys"
 regex = '''-----BEGIN (RSA|DSA|EC|OPENSSH) PRIVATE KEY----'''
 tags = ["ssh_key"]
+
+# Rule URLs
+[[rules]]
+  id = "url"
+  description = "Allow specific URL"
+  regex = '''https:\/\/jsonplaceholder\.typicode\.com\/posts'''
+  allowlist = { regexes = ['https:\/\/jsonplaceholder\.typicode\.com\/posts.*'] }
+
+
