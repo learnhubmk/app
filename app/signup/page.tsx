@@ -51,6 +51,7 @@ const SignupPage = () => {
       await response.json();
       toast.success('Successfully registered!');
     } catch (err) {
+      console.error(err);
       toast.error('Registration failed');
     }
   };
