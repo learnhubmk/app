@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 import React from 'react';
 import styles from './Pagination.module.scss';
 import { MetaData } from '../../../apis/queries/tags/getTags';
@@ -10,6 +8,7 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ meta, setPage }) => {
+  /* eslint-disable camelcase */
   const { current_page, last_page } = meta;
   const pages = Array.from({ length: last_page }, (_, i) => i + 1);
 

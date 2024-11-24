@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './Pagination.module.scss';
 
 export interface DropdownOption {
   id: string;
@@ -24,51 +25,25 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onSelect, initialSelected 
   };
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block' }}>
+    <div className={styles.buttonPosition}>
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.5rem 1rem',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          background: '#fff',
-          cursor: 'pointer',
-        }}
+        className={styles.dropdownButton}
       >
         <span>{selected.label}</span>
-        <span style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+        <span className={`${styles.dropdownArrow} ${isOpen ? styles.rotated : styles.default}`}>
+          ▼
+        </span>
       </button>
       {isOpen && (
-        <ul
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            background: '#fff',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            listStyle: 'none',
-            margin: 0,
-            padding: '0.5rem 0',
-            zIndex: 1000,
-          }}
-        >
+        <ul className={styles.buttonUlStyle}>
           {options.map((option) => (
             <li key={option.id} style={{ padding: '0.5rem 1rem' }}>
               <button
                 type="button"
                 onClick={() => handleSelect(option)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  textAlign: 'left',
-                  width: '100%',
-                  cursor: 'pointer',
-                }}
+                className={styles.buttonNumberStyle}
               >
                 {option.label}
               </button>

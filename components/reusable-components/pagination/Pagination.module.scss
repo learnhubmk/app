@@ -38,3 +38,81 @@
   background-color: var(--primary-btn-active-color);
   color: white;
 }
+
+.container {
+  max-width: 800px;
+  margin-bottom: 150px;
+  h1 {
+    font-size: 20px;
+  }
+}
+
+.itemList {
+  list-style-type: none;
+  padding: 0;
+
+  .item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.selectPagination {
+  padding: 500px;
+}
+
+.buttonPosition {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5re;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.buttonUlStyle {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  z-index: 1000;
+}
+
+.buttonNumberStyle {
+  background: none;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dropdownArrow {
+  transition: transform 0.3s ease;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+
+  &.default {
+    transform: rotate(0deg);
+  }
+}

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { usePagination } from './PaginationContext';
 import Dropdown from './Dropdown';
 import ReusableTable from '../reusable-table/ReusableTable';
-import styles from './HomePagination.module.scss';
+import styles from './Pagination.module.scss';
 
 const HomePaginationContent: React.FC = () => {
   const { items, setItems, itemsPerPage, setItemsPerPage } = usePagination();
