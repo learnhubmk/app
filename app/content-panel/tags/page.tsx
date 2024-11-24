@@ -11,15 +11,11 @@ import AddTag from '../../../components/module-components/tags/AddTag';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import useDebounce from '../../../utils/hooks/useDebounce';
 
-import useGetTags from '../../../apis/queries/tags/getTags';
+import useGetTags, { Tag } from '../../../apis/queries/tags/getTags';
 import useAddNewTag from '../../../apis/mutations/tags/useAddNewTag';
 import useDeleteTag from '../../../apis/mutations/tags/useDeleteTag';
 import useEditTag from '../../../apis/mutations/tags/useEditTag';
-
-interface Tag {
-  id: string;
-  name: string;
-}
+import Pagination from '../../../components/reusable-components/pagination/Pagination';
 
 const Tags = () => {
   // MUTATIONS
@@ -32,9 +28,10 @@ const Tags = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [editingTagId, setEditingTagId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = useState(1);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { data, isLoading } = useGetTags(debouncedSearchTerm);
+  const { data, isLoading } = useGetTags(debouncedSearchTerm, page);
 
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
@@ -128,6 +125,8 @@ const Tags = () => {
           </div>
         )}
       />
+
+      {data && <Pagination setPage={setPage} meta={data?.meta} />}
     </div>
   );
 };
