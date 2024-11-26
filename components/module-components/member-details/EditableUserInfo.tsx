@@ -27,7 +27,6 @@ const EditableUserInfo = ({
             disabled={!isEditing}
             type="text"
             placeholder="https://example.com/placeholder-image.png"
-            onChange={() => {}}
             label="Слика"
             name="profileImageURL"
             field="profileImageURL"
@@ -41,7 +40,6 @@ const EditableUserInfo = ({
             disabled={!isEditing}
             type="text"
             placeholder="Митре"
-            onChange={() => {}}
             label="Име"
             name="firstName"
             field="firstName"
@@ -55,7 +53,6 @@ const EditableUserInfo = ({
             disabled={!isEditing}
             type="text"
             placeholder="Митревски"
-            onChange={() => {}}
             label="Презиме"
             name="lastName"
             field="lastName"

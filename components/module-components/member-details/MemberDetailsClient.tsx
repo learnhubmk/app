@@ -7,6 +7,8 @@ import EditableUserInfo from './EditableUserInfo';
 import Loading from '../../../app/loading';
 import { TransformedMember } from '../../../apis/queries/members/types';
 import useGetMemberDetails from '../../../apis/queries/members/getMemberDetails';
+import axiosInstance from '../../../apis/axiosInstance';
+import ENDPOINTS from '../../../apis/endpoints';
 
 const MemberDetailsClient = ({
   initialData,
@@ -22,8 +24,28 @@ const MemberDetailsClient = ({
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    setIsEditing(!isEditing);
+  const handleSave = async ({
+    profileImageURL,
+    firstName,
+    lastName,
+  }: {
+    profileImageURL: string;
+    firstName: string;
+    lastName: string;
+  }) => {
+    try {
+      await axiosInstance.put(`${ENDPOINTS.MEMBERS.UPDATE}/${userId}`, {
+        image: profileImageURL, // TO DO: CHANGE IMAGE LOGIC (backend expects actual file and not url)
+        first_name: firstName,
+        last_name: lastName,
+        email: data?.email,
+        status: data?.status,
+        role: data?.role,
+      });
+      setIsEditing(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -40,13 +62,13 @@ const MemberDetailsClient = ({
 
   const formik = useFormik({
     initialValues: {
-      profileImageURL: '',
-      firstName: '',
-      lastName: '',
+      profileImageURL: data?.image || '',
+      firstName: data?.first_name || '',
+      lastName: data?.last_name || '',
     },
     validationSchema,
     onSubmit: (values, { resetForm }) => {
-      handleSave();
+      handleSave(values);
       resetForm();
     },
   });
@@ -55,17 +77,13 @@ const MemberDetailsClient = ({
 
   if (isError) return <div>Настана грешка</div>;
 
+  console.log(isEditing);
   return (
     <form onSubmit={formik.handleSubmit}>
       {isEditing ? (
-        <button type="submit">Save</button>
+        <button type="button">Save</button>
       ) : (
-        <button
-          type="button"
-          onClick={() => {
-            handleEdit();
-          }}
-        >
+        <button type="button" onClick={() => handleEdit()}>
           Edit
         </button>
       )}
