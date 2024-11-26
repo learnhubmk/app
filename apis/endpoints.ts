@@ -26,6 +26,7 @@ const ENDPOINTS = {
   },
   MEMBERS: {
     GET_ALL: `${API_BASE_URL}/admin/members`,
+    GET_ONE: `${API_BASE_URL}/admin/members`,
   },
 };
 

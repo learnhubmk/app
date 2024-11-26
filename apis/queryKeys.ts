@@ -10,6 +10,7 @@ const QUERY_KEYS = {
     ALL: ['blogPostTags'],
   },
   MEMBERS: {
+    ONE: ['member'],
     ALL: ['members'],
   },
 } as const;

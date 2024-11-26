@@ -5,6 +5,7 @@ import style from './input.module.scss';
 
 interface InputProps {
   type: string;
+  disabled?: boolean;
   placeholder: string;
   icon?: React.JSX.Element;
   value?: string;
@@ -12,7 +13,7 @@ interface InputProps {
   className?: string;
 }
 
-const Input = ({ type, placeholder, icon, value, onChange, className }: InputProps) => {
+const Input = ({ disabled, type, placeholder, icon, value, onChange, className }: InputProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(event.target.value);
   };
@@ -22,6 +23,7 @@ const Input = ({ type, placeholder, icon, value, onChange, className }: InputPro
       <div className={style.inputContainer}>
         {icon && <div className={style.inputIcon}>{icon}</div>}
         <input
+          disabled={disabled}
           className={`${style.input} ${className || ''}`}
           type={type}
           placeholder={placeholder}

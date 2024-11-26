@@ -63,3 +63,9 @@ export type MemberResponse = {
   links: Links;
   meta: Meta;
 };
+
+export type MemberDetailsResponse = {
+  data: {
+    data: Member;
+  };
+};
