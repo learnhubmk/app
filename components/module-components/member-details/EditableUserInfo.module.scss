@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: var(--secondary-light-mode);
+}
+
+.input {
+  width: 650px;
+  padding-bottom: 10px;
+}
+
+.buttonContainer {
+  height: 45px;
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+}

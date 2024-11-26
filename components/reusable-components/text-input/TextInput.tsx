@@ -6,6 +6,7 @@ import { useTheme } from '../../../app/context/themeContext';
 import setClass from '../../../utils/setClass';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
+  disabled?: boolean;
   placeholder: string;
   label: string | '';
   name: string;
@@ -18,6 +19,7 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
 }
 
 const TextInput: FC<InputProps> = ({
+  disabled,
   placeholder,
   label,
   name,
@@ -50,6 +52,7 @@ const TextInput: FC<InputProps> = ({
       )}
       <div className={style.inputWrapper}>
         <input
+          disabled={disabled}
           type={type}
           className={`${style.input} ${setClass(inputClass, style)} ${style[`${isError}`]} ${style[`${isValid}`]}`}
           placeholder={placeholder}
