@@ -2,8 +2,9 @@
 
 import React, { FC, HTMLProps } from 'react';
 import style from './textInput.module.scss';
-import { useTheme } from '../../../app/context/themeContext';
+
 import setClass from '../../../utils/setClass';
+import { useTheme } from '../../../app/context/themeContext';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   placeholder: string;

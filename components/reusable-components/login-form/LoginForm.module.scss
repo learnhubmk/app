@@ -69,6 +69,12 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+
+    button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
   }
   .socialIcon {
     width: 48px;
@@ -148,4 +154,16 @@
 }
 .checkboxDark {
   border: 1.5px solid var(--Secondary, hsla(220, 20%, 43%, 1));
+}
+.errorMessageContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--error-color);
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+.errorMessage {
+  color: var(--error-color);
 }
