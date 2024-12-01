@@ -100,6 +100,9 @@ const BlogListView = () => {
         <div className={style.rightContainer}>
           <Filter handleRoleChange={() => {}} />
           <Button
+            onClick={() => {
+              router.push(`/content-panel/blogs/create`);
+            }}
             href=""
             type="button"
             buttonText="Add Blog"

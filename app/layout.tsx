@@ -13,9 +13,10 @@ import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 import styles from './page.module.scss';
 import { AuthProvider } from './context/authContext';
-import { AxiosProvider } from '../apis/AxiosProvider';
+import NextAuthSessionProvider from '../utils/providers/NextAuthSessionProvider';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { EditorProvider } from './context/EditorContext';
+import { AxiosProvider } from '../apis/AxiosProvider';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -55,17 +56,20 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           </noscript>
         )}
         <ToastContainer />
+
         <EditorProvider>
           <ThemeProvider>
             <AxiosProvider>
               <ReactQueryProvider>
                 <AuthProvider>
-                  <Navigation />
-                  <main className={styles.main}>
-                    <Suspense fallback={<Loading />}>{children}</Suspense>
-                    <SpeedInsights />
-                  </main>
-                  <Footer />
+                  <NextAuthSessionProvider>
+                    <Navigation />
+                    <main className={styles.main}>
+                      <Suspense fallback={<Loading />}>{children}</Suspense>
+                      <SpeedInsights />
+                    </main>
+                    <Footer />
+                  </NextAuthSessionProvider>
                 </AuthProvider>
               </ReactQueryProvider>
             </AxiosProvider>

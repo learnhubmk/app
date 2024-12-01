@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
+import { TagObject } from '../../../components/module-components/blog/TagInput';
 
 export interface Tag {
   id: string;
@@ -51,6 +52,13 @@ const useGetTags = (search?: string, page?: number) => {
       const { data } = await axios.get<TagsResponse>(url);
       return data;
     },
+    select: (data) => ({
+      ...data,
+      data: data.data.map((tag: TagObject) => ({
+        ...tag,
+        name: tag.name.toLowerCase(),
+      })),
+    }),
   });
 };
 

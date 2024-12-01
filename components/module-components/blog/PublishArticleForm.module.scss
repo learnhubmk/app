@@ -1,0 +1,34 @@
+.form {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 15px;
+}
+
+.error {
+  color: red;
+  font-size: 0.79rem;
+}
+
+.input {
+  color: white;
+  font-size: 15px;
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  background-color: var(--elevated-elements-dark-mode);
+}
+
+.inputLabel {
+  font-size: 1.2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
