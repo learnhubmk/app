@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // pages/signup/index.tsx
 
 'use client';

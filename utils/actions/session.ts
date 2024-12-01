@@ -51,7 +51,8 @@ export async function getNewToken({
     const data: RefreshTokenResponse = await response.json();
     return data.new_token;
   } catch (error: any) {
-    // console.error({ msg: 'Error from getNewToken', error });
+    // eslint-disable-next-line no-console
+    console.error({ msg: 'Error from getNewToken', error });
     return null;
   }
 }

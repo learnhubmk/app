@@ -9,7 +9,7 @@ interface TagManagerProps {
 }
 
 const TagManager = ({ selectedTags, onTagsChange }: TagManagerProps) => {
-  const handleRemoveTag = (tagId: number) => {
+  const handleRemoveTag = (tagId: string) => {
     onTagsChange(selectedTags.filter((tag) => tag.id !== tagId));
   };
 
