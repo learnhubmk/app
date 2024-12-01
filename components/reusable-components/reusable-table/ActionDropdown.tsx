@@ -6,7 +6,7 @@ import style from './actionDropdown.module.scss';
 interface DropdownItem {
   id: string;
   label: string;
-  onClick?: () => void;
+  onClick: () => void;
 }
 interface ActionDropdownProps {
   dropdownItems: DropdownItem[];
@@ -20,6 +20,11 @@ const ActionDropdown = ({ dropdownItems }: ActionDropdownProps) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
+  };
+
+  const handleClick = (item: DropdownItem) => {
+    setIsOpen(!isOpen);
+    item.onClick();
   };
 
   useEffect(() => {
@@ -38,7 +43,12 @@ const ActionDropdown = ({ dropdownItems }: ActionDropdownProps) => {
         <ul className={style.dropdownMenu}>
           {dropdownItems.map((item) => (
             <li key={item.id} className={style.dropdownItem}>
-              <button type="button" onClick={item.onClick}>
+              <button
+                type="button"
+                onClick={() => {
+                  handleClick(item);
+                }}
+              >
                 {item.label}
               </button>
             </li>

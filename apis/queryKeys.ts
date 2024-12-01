@@ -9,6 +9,9 @@ const QUERY_KEYS = {
   TAGS: {
     ALL: ['blogPostTags'],
   },
+  MEMBERS: {
+    ALL: ['members'],
+  },
 } as const;
 
 export default QUERY_KEYS;

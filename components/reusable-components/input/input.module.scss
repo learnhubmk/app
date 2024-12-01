@@ -1,16 +1,20 @@
 @import '../../../app/styles/utils/breakpoints.scss';
 
 .inputWrapp {
+  height: 100%;
   width: 100%;
 }
 
 .inputContainer {
+  height: 100%;
+
   display: flex;
   align-items: center;
   width: 100%;
 }
 
 .input {
+  height: 100%;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;

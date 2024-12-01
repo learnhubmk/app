@@ -24,6 +24,9 @@ const ENDPOINTS = {
     DELETE: `${API_BASE_URL}/content/blog-post-tags`,
     EDIT: `${API_BASE_URL}/content/blog-post-tags`,
   },
+  MEMBERS: {
+    GET_ALL: `${API_BASE_URL}/admin/members`,
+  },
 };
 
 export default ENDPOINTS;
