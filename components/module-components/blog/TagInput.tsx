@@ -9,7 +9,7 @@ import useDebounce from '../../../utils/hooks/useDebounce';
 import useAddNewTag from '../../../apis/mutations/tags/useAddNewTag';
 
 export interface TagObject {
-  id: number;
+  id: string;
   name: string;
   created_at: string;
   updated_at: string;
