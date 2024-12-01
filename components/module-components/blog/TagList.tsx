@@ -6,7 +6,7 @@ import styles from './TagList.module.scss';
 
 interface TagListProps {
   selectedTags: TagObject[];
-  onRemoveTag: (tagId: number) => void;
+  onRemoveTag: (tagId: string) => void;
 }
 
 const TagList = ({ selectedTags, onRemoveTag }: TagListProps) => {
