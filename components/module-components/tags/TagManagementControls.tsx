@@ -19,12 +19,17 @@ const TagManagementControls: React.FC<TagManagementControlsProps> = ({
       <div className={styles.searchInputWrapper}>
         <Input
           type="text"
-          placeholder="Search tags..."
+          placeholder="Пребарувај тагови..."
           value={searchTerm}
           onChange={setSearchTerm}
         />
       </div>
-      <Button onClick={onAddClick} type="button" buttonText="Add Tag" buttonClass={['addButton']} />
+      <Button
+        onClick={onAddClick}
+        type="button"
+        buttonText="Додади таг"
+        buttonClass={['addButton']}
+      />
     </div>
   );
 };

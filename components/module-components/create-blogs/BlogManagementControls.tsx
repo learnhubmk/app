@@ -43,7 +43,7 @@ const TagManagementControls: React.FC<TagManagementControlsProps> = ({
       <div className={styles.searchInputWrapper}>
         <Input
           type="text"
-          placeholder="Search blog posts..."
+          placeholder="Пребарувај статии..."
           value={searchTerm}
           onChange={setSearchTerm}
         />
@@ -56,7 +56,7 @@ const TagManagementControls: React.FC<TagManagementControlsProps> = ({
       <Button
         onClick={onAddClick}
         type="button"
-        buttonText="New Article"
+        buttonText="Нова Статија"
         buttonClass={['addButton']}
       />
     </div>

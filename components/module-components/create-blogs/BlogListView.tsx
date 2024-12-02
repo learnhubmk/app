@@ -93,7 +93,13 @@ const BlogListView = () => {
   return (
     <div className={style.mainContainer}>
       <div className={style.inputWrapper}>
-        <BlogManagementControls onAddClick={() => {}} searchTerm="" setSearchTerm={() => {}} />
+        <BlogManagementControls
+          onAddClick={() => {
+            router.push('/content-panel/blogs/create');
+          }}
+          searchTerm=""
+          setSearchTerm={() => {}}
+        />
       </div>
       <ReusableTable
         headers={headers}
