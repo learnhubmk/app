@@ -2,10 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
-import Filter from '../SearchAndFilter/Filter';
-import Search from '../SearchAndFilter/Search';
+import BlogManagementControls from './BlogManagementControls';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
 import { useEditor } from '../../../app/context/EditorContext';
@@ -62,11 +60,10 @@ const BlogListView = () => {
     fetchData();
   }, [url]);
 
-  const headers: (keyof BlogPost)[] = ['title', 'author', 'tags'];
+  const headers: (keyof BlogPost)[] = ['title', 'author'];
   const displayNames = {
     title: 'Title',
     author: 'Author',
-    tags: 'Tags',
   };
 
   const handleView = (id: string) => {
@@ -96,20 +93,7 @@ const BlogListView = () => {
   return (
     <div className={style.mainContainer}>
       <div className={style.inputWrapper}>
-        <Search handleInputChange={() => {}} searchValue="Search" />
-        <div className={style.rightContainer}>
-          <Filter handleRoleChange={() => {}} />
-          <Button
-            onClick={() => {
-              router.push(`/content-panel/blogs/create`);
-            }}
-            href=""
-            type="button"
-            buttonText="Add Blog"
-            buttonClass={['primaryButton']}
-            moveIcon
-          />
-        </div>
+        <BlogManagementControls onAddClick={() => {}} searchTerm="" setSearchTerm={() => {}} />
       </div>
       <ReusableTable
         headers={headers}
