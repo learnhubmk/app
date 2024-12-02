@@ -17,6 +17,7 @@ interface ButtonProps {
   rotateIcon?: boolean;
   moveIcon?: boolean;
   buttonTarget?: string;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -30,6 +31,7 @@ const Button = ({
   rotateIcon,
   moveIcon,
   buttonTarget,
+  disabled = false,
 }: ButtonProps) => {
   return (
     (type === 'button' && (
@@ -67,7 +69,11 @@ const Button = ({
       </div>
     )) ||
     (type === 'submit' && (
-      <button type="submit" className={`${styles.button} ${setClass(buttonClass, styles)}`}>
+      <button
+        disabled={disabled}
+        type="submit"
+        className={`${styles.button} ${setClass(buttonClass, styles)}`}
+      >
         {buttonText} {icon && <div className={styles.iconContainer}>{icon}</div>}
       </button>
     ))

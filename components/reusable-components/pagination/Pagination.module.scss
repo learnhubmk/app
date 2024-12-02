@@ -1,0 +1,40 @@
+.pagination {
+  gap: 3px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.paginationButton {
+  border-radius: 10px;
+  border: none;
+  padding: 3px;
+  width: 40px;
+  height: 40px;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: black;
+    background-color: white;
+    opacity: 20%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--primary-btn-hover-color);
+    color: white;
+
+    &:disabled {
+      cursor: not-allowed;
+      color: black;
+      background-color: white;
+    }
+  }
+}
+
+.selectedPaginationButton {
+  @extend .paginationButton;
+  background-color: var(--primary-btn-active-color);
+  color: white;
+}

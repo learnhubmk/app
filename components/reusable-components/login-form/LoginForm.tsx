@@ -1,71 +1,49 @@
 'use client';
 
-import { FormikHelpers, useFormik } from 'formik';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { useState } from 'react';
-import Turnstile from 'react-turnstile';
-import Link from 'next/link';
+import { useFormik } from 'formik';
 import Image from 'next/image';
+import Link from 'next/link';
+import Turnstile from 'react-turnstile';
+
 import styles from './LoginForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
+import { useAuth } from '../../../app/context/authContext';
+import { LoginFormProps, LoginParams } from '../../../Types';
 import TextInput from '../text-input/TextInput';
-import { submitLoginForm } from './SubmitLoginForm';
+import error from '../../../public/error.svg';
 import linkedin from '../../../public/icons/linkedin.svg';
 import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
 
-interface FormValues {
-  email: string;
-  password: string;
-}
-const LoginForm = () => {
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const { theme } = useTheme();
-  const isLightTheme = theme === 'light';
-
+  const { loginMutation } = useAuth();
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const initialValues = { email: '', password: '' };
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email('*Невалидна емаил адреса')
-      .required('*Задолжително внесете емаил адреса'),
-    password: Yup.string()
-      .required('Задолжително внесете пасворд.')
-      .min(8, 'Пасвордот би требало да содржи минимум 8 знаци.')
-      .matches(
-        /^(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]*$/,
-        'Мора да содржи еден број и еден посебен знак'
-      ),
-  });
-  const handleSubmit = async (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
-    if (!turnstileToken) {
-      return;
-    }
-
-    const formValues = {
-      email: values.email,
-      password: values.password,
-      cfTurnstileResponse: turnstileToken,
-    };
-
-    try {
-      const response = await submitLoginForm(formValues);
-      if (response) {
-        toast.success(response);
-
-        resetForm();
-      } else {
-        toast.error(response);
-      }
-    } catch {
-      toast.error('Грешка');
-    }
-  };
-
+  const isLightTheme = theme === 'light';
   const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: handleSubmit,
+    initialValues: {
+      email: '',
+      password: '',
+      remember: false,
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string().required('Required'),
+    }),
+    onSubmit: (values) => {
+      if (!turnstileToken) {
+        // eslint-disable-next-line no-console
+        console.error('Turnstile token is missing');
+        return;
+      }
+      const loginParams: LoginParams = {
+        ...values,
+        cfTurnstileResponse: turnstileToken,
+      };
+      onSubmit({ ...loginParams });
+    },
   });
 
   return (
@@ -91,31 +69,37 @@ const LoginForm = () => {
           field="password"
           formik={formik}
           isRequired
-        />{' '}
+        />
         <div className={styles.forgotPasswordContainer}>
           <div className={styles.rememberCheck}>
             <input
-              className={`${styles.checkbox} ${isLightTheme ? styles.checkboxLight : styles.checkboxDark}`}
+              className={`${styles.checkbox} ${isLightTheme ? styles.checkboxLight : styles.darkLoginForm}`}
               type="checkbox"
               id="remember"
               name="remember"
-            />{' '}
+              checked={formik.values.remember}
+              onChange={formik.handleChange}
+            />
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="remember">Запомни ме</label>
           </div>
-
-          <a className={styles.forgotPassword} href="/">
+          <Link href="/forgot-password" className={styles.forgotPassword}>
             Заборавена лозинка?
-          </a>
+          </Link>
         </div>
-        <button type="submit" className={styles.loginBtn}>
-          {' '}
-          Најави се
+        <button type="submit" className={styles.loginBtn} disabled={loginMutation.isLoading}>
+          {loginMutation.isLoading ? 'Најавување...' : 'Најави се'}
         </button>
+        {loginMutation.error && (
+          <div className={styles.errorMessageContainer}>
+            <Image src={error} alt="Linkedin" />
+            <p className={styles.errorMessage}>Погрешни креденцијали. Обиди се повторно</p>
+          </div>
+        )}
         <Turnstile
           sitekey={process.env.NEXT_PUBLIC_TURNSTILE || ''}
           onVerify={(token) => setTurnstileToken(token)}
-          theme="light"
+          theme={isLightTheme ? 'light' : 'dark'}
           size="invisible"
         />
       </form>
@@ -135,9 +119,12 @@ const LoginForm = () => {
           >
             <Image className={styles.socialIcon} src={linkedin} alt="Linkedin" />
           </Link>
-        </div>{' '}
+        </div>
         <p>
-          Немаш креиран профил? <span className={styles.signup}>Регистрирај се</span>
+          Немаш креиран профил?{' '}
+          <Link href="/signup" className={styles.signup}>
+            Регистрирај се
+          </Link>
         </p>
       </div>
     </div>
