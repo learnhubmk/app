@@ -1,0 +1,79 @@
+@use '../../../app/styles/utils/breakpoints' as u;
+
+.addMemberForm {
+  width: 672px;
+  padding: 96px 0px 96px 0px;
+  gap: 56px;
+  box-shadow: 0px 25px 40px -12px hsla(0, 0%, 0%, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #121d36;
+
+  z-index: 2;
+  margin-top: 100px;
+  margin-bottom: 100px;
+
+  @include u.breakpoint-down(large) {
+    width: 100%;
+    margin-top: 30px;
+    background-color: #121d36;
+  }
+
+  @include u.breakpoint-down(small) {
+    margin-top: 15px;
+    padding: 48px 0px 48px 0px;
+  }
+
+  .innerAddMemberForm {
+    width: 90%;
+    gap: 0px;
+
+    .addMemberTitle {
+      font-size: var(--fs-h2);
+      font-weight: 700;
+      line-height: 60px;
+      text-align: center;
+      margin-bottom: 30px;
+
+      @include u.breakpoint-down(small) {
+        line-height: 29.26px;
+      }
+    }
+  }
+}
+
+.addMemberBtn {
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 8px 24px 8px 24px;
+  gap: 8px;
+  border-radius: 8px;
+  color: white;
+  background: hsla(10, 94%, 63%, 1);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  margin-top: 20px;
+}
+
+.errorMessageContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--error-color);
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+.errorMessage {
+  color: var(--error-color);
+}
+
+.successMessage {
+  color: green;
+  text-align: center;
+  margin-top: 16px;
+}
