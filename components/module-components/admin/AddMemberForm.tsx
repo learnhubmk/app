@@ -51,9 +51,9 @@ const AddMemberForm: React.FC = () => {
   return (
     <div className={styles.addMemberForm}>
       <form className={styles.innerAddMemberForm} onSubmit={formik.handleSubmit}>
-        <h2 className={styles.addMemberTitle}>Invite New Member</h2>
+        <h2 className={styles.addMemberTitle}>Покани нов член</h2>
         <TextInput
-          placeholder="Enter email address"
+          placeholder="Внеси email адреаса"
           label="Email"
           name="email"
           type="email"
@@ -62,8 +62,8 @@ const AddMemberForm: React.FC = () => {
           isRequired
         />
         <TextInput
-          placeholder="Enter first name"
-          label="First Name"
+          placeholder="Име"
+          label="Име"
           name="first_name"
           type="text"
           field="first_name"
@@ -71,8 +71,8 @@ const AddMemberForm: React.FC = () => {
           isRequired
         />
         <TextInput
-          placeholder="Enter last name"
-          label="Last Name"
+          placeholder="Презиме"
+          label="Презиме"
           name="last_name"
           type="text"
           field="last_name"
@@ -90,12 +90,12 @@ const AddMemberForm: React.FC = () => {
           <div className={styles.errorMessageContainer}>
             <Image src={error} alt="Error" />
             <p className={styles.errorMessage}>
-              {addMemberMutation.error?.message || 'An error occurred while inviting the member'}
+              {addMemberMutation.error?.message || 'Настана грешка при испраќање покана'}
             </p>
           </div>
         )}
         {addMemberMutation.isSuccess && (
-          <p className={styles.successMessage}>Member invited successfully!</p>
+          <p className={styles.successMessage}>Поканата е успешно испратена</p>
         )}
       </form>
     </div>
