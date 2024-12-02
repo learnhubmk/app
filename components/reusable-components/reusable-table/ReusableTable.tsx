@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -43,6 +45,25 @@ const ReusableTable = <T extends { id: string }>({
     });
   };
 
+  const renderSkeletonLoader = () => {
+    const skeletonRows = Array.from({ length: 5 });
+
+    return skeletonRows.map((_, rowIndex) => (
+      <tr key={`skeleton-row-${rowIndex}`} className={style.skeletonRow}>
+        {headers.map((__, colIndex) => (
+          <td key={`skeleton-cell-${rowIndex}-${colIndex}`}>
+            <div className={style.skeletonCell} />
+          </td>
+        ))}
+        {(renderActions || renderActionsDropdown) && (
+          <td key={`skeleton-action-${rowIndex}`}>
+            <div className={style.skeletonCell} />
+          </td>
+        )}
+      </tr>
+    ));
+  };
+
   const sortedData = useMemo(() => {
     if (sortState.length > 0) {
       return [...data].sort((a, b) => {
@@ -59,13 +80,38 @@ const ReusableTable = <T extends { id: string }>({
     return data;
   }, [data, sortState]);
 
-  if (isLoading) {
-    return <div className={style.noDataMessage}>Се вчитува</div>;
-  }
+  const renderNoDataRow = (message: string) => {
+    return (
+      <tr>
+        <td colSpan={headers.length + (renderActions || renderActionsDropdown ? 1 : 0)}>
+          <div className={style.noDataMessage}>{message}</div>
+        </td>
+      </tr>
+    );
+  };
 
-  if (!isLoading && data?.length === 0) {
-    return <div className={style.noDataMessage}>Нема податоци</div>;
-  }
+  const renderTableContent = () => {
+    if (isLoading) {
+      return renderSkeletonLoader();
+    }
+
+    if (data.length === 0) {
+      return renderNoDataRow('Нема податоци');
+    }
+
+    return sortedData.map((item) => (
+      <TableRowComponent<T>
+        onClick={() => onRowClick && onRowClick(item.id)}
+        key={item.id}
+        data={item}
+        displayFields={headers}
+        renderActions={renderActions}
+        renderActionsDropdown={renderActionsDropdown}
+        editingTagId={editingTagId}
+        renderEditInput={renderEditInput}
+      />
+    ));
+  };
 
   return (
     <div className={style.tableWrapper}>
@@ -78,20 +124,7 @@ const ReusableTable = <T extends { id: string }>({
           showActions={!!renderActions}
           showDropdownActions={!!renderActionsDropdown}
         />
-        <tbody>
-          {sortedData.map((item) => (
-            <TableRowComponent<T>
-              onClick={() => onRowClick && onRowClick(item.id)}
-              key={item.id}
-              data={item}
-              displayFields={headers}
-              renderActions={renderActions}
-              renderActionsDropdown={renderActionsDropdown}
-              editingTagId={editingTagId}
-              renderEditInput={renderEditInput}
-            />
-          ))}
-        </tbody>
+        <tbody>{renderTableContent()}</tbody>
       </table>
     </div>
   );
