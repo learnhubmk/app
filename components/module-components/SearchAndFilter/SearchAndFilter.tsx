@@ -41,7 +41,7 @@ const SearchAndFilter = () => {
   return (
     <div className={style.searchAndFilterWrapper}>
       <div className={style.searchAndFilter}>
-        <Search searchValue={searchValue} handleInputChange={handleInputChange} />
+        <Search searchTerm={searchValue} setSearchTerm={handleInputChange} />
         <Filter handleRoleChange={handleRoleChange} />
       </div>
       <DisplayNames filterValue={debouncedValue} selectedRoles={selectedRoles} />{' '}

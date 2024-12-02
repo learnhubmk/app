@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
-import Filter from '../SearchAndFilter/Filter';
 import Search from '../SearchAndFilter/Search';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
@@ -38,6 +37,7 @@ const BlogListView = () => {
   const [data, setData] = useState<BlogPost[]>([]);
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,9 +96,8 @@ const BlogListView = () => {
   return (
     <div className={style.mainContainer}>
       <div className={style.inputWrapper}>
-        <Search handleInputChange={() => {}} searchValue="Search" />
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <div className={style.rightContainer}>
-          <Filter handleRoleChange={() => {}} />
           <Button
             href=""
             type="button"

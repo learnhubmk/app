@@ -5,23 +5,18 @@ import Input from '../../reusable-components/input/Input';
 import style from './search.module.scss';
 
 interface SearchProps {
-  handleInputChange: (value: string) => void;
-  searchValue: string;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 }
 
-const Search = ({ handleInputChange, searchValue }: SearchProps) => {
-  const onChange = (value: string) => {
-    handleInputChange(value);
-  };
-
+const Search = ({ searchTerm, setSearchTerm }: SearchProps) => {
   return (
     <div className={style.search}>
       <Input
-        type="string"
-        placeholder="Search"
-        icon={<i className="bi bi-search" />}
-        value={searchValue}
-        onChange={onChange}
+        type="text"
+        placeholder="Search Blogs..."
+        value={searchTerm}
+        onChange={setSearchTerm}
       />
     </div>
   );
