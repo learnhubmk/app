@@ -1,6 +1,7 @@
 $table-height: 400px;
 
 .tableWrapper {
+  border-radius: 8px;
   margin-block: 1.5rem;
   border: 1px solid #94a3b8;
   background-color: #f8fafc;
@@ -14,10 +15,11 @@ $table-height: 400px;
     text-align: left;
     text-indent: 1rem;
 
-    thead {
-      position: sticky;
-      top: 0;
-      z-index: 1;
+    th {
+      padding: 15px;
+      white-space: nowrap;
+      text-align: left;
+      overflow: hidden;
     }
 
     td {
@@ -42,7 +44,7 @@ $table-height: 400px;
 
 .noDataMessage {
   height: $table-height;
-  background-color: #ec4f1e;
+  background-color: var(--primary-btn-active-color);
   display: flex;
   align-items: center;
   justify-content: center;
