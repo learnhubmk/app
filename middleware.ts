@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { NextRequest, NextResponse } from 'next/server';
 
 const authorizedRoles = new Map<string, string[]>();
@@ -9,20 +10,21 @@ export default async function middleware(request: NextRequest): Promise<NextResp
   const { pathname } = request.nextUrl;
   console.log(`Middleware triggered for path: ${pathname}`);
 
-  const response = NextResponse.next();
-
   if (
     pathname === '/' ||
     pathname.startsWith('/public') ||
-    pathname.startsWith('/admin-dashboard/login') ||
-    pathname.startsWith('/content-panel/login') ||
-    pathname.startsWith('/login') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/favicon.ico') ||
-    pathname.startsWith('/static')
+    pathname.startsWith('/static') ||
+    pathname.endsWith('.svg')
   ) {
     console.log('Public or static path, allowing access.');
-    return response;
+    return NextResponse.next();
+  }
+
+  if (pathname === '/admin-dashboard/login' || pathname === '/content-panel/login') {
+    console.log('Login page, allowing access.');
+    return NextResponse.next();
   }
 
   const sessionCookie = request.cookies.get('session');
@@ -37,11 +39,17 @@ export default async function middleware(request: NextRequest): Promise<NextResp
       return NextResponse.redirect(new URL('/content-panel/login', request.url));
     }
     console.log('Redirecting to general login page.');
-    return NextResponse.redirect(new URL('/content-panel', request.url));
+    return NextResponse.redirect(new URL('/content-panel/login', request.url));
   }
 
-  const session = JSON.parse(sessionCookie.value);
-  console.log(`Session found: ${JSON.stringify(session)}`);
+  let session;
+  try {
+    session = JSON.parse(sessionCookie.value);
+    console.log(`Session found: ${JSON.stringify(session)}`);
+  } catch {
+    console.error('Invalid session cookie. Redirecting to login.');
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
 
   let isAuthorized = false;
   authorizedRoles.forEach((roles, path) => {
@@ -56,5 +64,5 @@ export default async function middleware(request: NextRequest): Promise<NextResp
   }
 
   console.log('User authorized, allowing access.');
-  return response;
+  return NextResponse.next();
 }
