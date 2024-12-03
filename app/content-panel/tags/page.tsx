@@ -104,7 +104,7 @@ const Tags = () => {
 
       <TagTable
         isLoading={isLoading}
-        tags={tags}
+        tags={data?.data || []}
         editingTagId={editingTagId}
         onEdit={triggerEdit}
         onDelete={handleDelete}

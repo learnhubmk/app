@@ -1,6 +1,8 @@
 $table-height: 400px;
 
 .tableWrapper {
+  position: relative;
+  border-radius: 8px;
   margin-block: 1.5rem;
   border: 1px solid #94a3b8;
   background-color: #f8fafc;
@@ -18,6 +20,12 @@ $table-height: 400px;
       position: sticky;
       top: 0;
       z-index: 1;
+    }
+    th {
+      padding: 15px;
+      white-space: nowrap;
+      text-align: left;
+      overflow: hidden;
     }
 
     td {
@@ -41,14 +49,39 @@ $table-height: 400px;
 }
 
 .noDataMessage {
-  height: $table-height;
-  background-color: #ec4f1e;
+  height: 77%;
+  width: 95%;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 50px;
-  border: 1px solid #94a3b8;
-  box-sizing: border-box;
-  padding: 20px;
+  font-size: 25px;
+}
+
+.skeletonRow {
+  td {
+    padding: 15px;
+    height: 60px;
+  }
+}
+
+.skeletonCell {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  height: 20px;
+  width: 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
 }
