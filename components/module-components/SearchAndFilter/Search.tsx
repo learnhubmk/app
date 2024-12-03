@@ -7,23 +7,22 @@ import style from './search.module.scss';
 interface SearchProps {
   handleInputChange: (value: string) => void;
   searchValue: string;
+  placeholder?: string;
 }
 
-const Search = ({ handleInputChange, searchValue }: SearchProps) => {
+const Search = ({ handleInputChange, searchValue, placeholder = 'Пребарувај...' }: SearchProps) => {
   const onChange = (value: string) => {
     handleInputChange(value);
   };
 
   return (
-    <div className={style.search}>
-      <Input
-        type="string"
-        placeholder="Search"
-        icon={<i className="bi bi-search" />}
-        value={searchValue}
-        onChange={onChange}
-      />
-    </div>
+    <Input
+      className={style.search}
+      type="string"
+      placeholder={placeholder}
+      value={searchValue}
+      onChange={onChange}
+    />
   );
 };
 

@@ -1,0 +1,26 @@
+@import '../../../app/styles/utils/breakpoints.scss';
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  @include breakpoint(small) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.searchInputWrapper {
+  text-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  @include breakpoint(small) {
+    width: 600px;
+    height: 100%;
+  }
+}
