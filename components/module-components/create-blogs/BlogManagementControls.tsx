@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '../../reusable-components/button/Button';
-import Input from '../../reusable-components/input/Input';
 import styles from './BlogManagementControls.module.scss';
 import ReusableDropdown from '../../reusable-components/reusable-dropdown/ReusableDropdown';
+import Search from '../SearchAndFilter/Search';
 
 interface TagManagementControlsProps {
   onAddClick: () => void;
@@ -33,7 +33,7 @@ const filterBy = [
   },
 ];
 
-const TagManagementControls: React.FC<TagManagementControlsProps> = ({
+const BlogManagementControls: React.FC<TagManagementControlsProps> = ({
   onAddClick,
   searchTerm,
   setSearchTerm,
@@ -41,11 +41,10 @@ const TagManagementControls: React.FC<TagManagementControlsProps> = ({
   return (
     <div className={styles.controls}>
       <div className={styles.searchInputWrapper}>
-        <Input
-          type="text"
-          placeholder="Пребарувај статии..."
-          value={searchTerm}
-          onChange={setSearchTerm}
+        <Search
+          placeholder="Пребарај статии..."
+          handleInputChange={setSearchTerm}
+          searchValue={searchTerm}
         />
         <ReusableDropdown
           placeholder="Филтрирај"
@@ -63,4 +62,4 @@ const TagManagementControls: React.FC<TagManagementControlsProps> = ({
   );
 };
 
-export default TagManagementControls;
+export default BlogManagementControls;

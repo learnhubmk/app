@@ -67,10 +67,10 @@ $table-height: 400px;
 }
 
 .skeletonCell {
-  background-color: #e0e0e0; /* Light gray for skeleton */
+  background-color: #e0e0e0;
   border-radius: 4px;
-  height: 20px; /* Skeleton height */
-  width: 100%; /* Fills the cell width */
+  height: 20px;
+  width: 100%;
   animation: skeleton-loading 1.5s infinite;
 }
 

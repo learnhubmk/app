@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../../reusable-components/button/Button';
-import Input from '../../reusable-components/input/Input';
 import styles from './tagManagementControls.module.scss';
+import Search from '../SearchAndFilter/Search';
 
 interface TagManagementControlsProps {
   onAddClick: () => void;
@@ -17,11 +17,10 @@ const TagManagementControls: React.FC<TagManagementControlsProps> = ({
   return (
     <div className={styles.controls}>
       <div className={styles.searchInputWrapper}>
-        <Input
-          type="text"
-          placeholder="Пребарувај тагови..."
-          value={searchTerm}
-          onChange={setSearchTerm}
+        <Search
+          placeholder="Пребарај тагови..."
+          handleInputChange={setSearchTerm}
+          searchValue={searchTerm}
         />
       </div>
       <Button

@@ -32,6 +32,7 @@ interface BlogPost {
 }
 
 const BlogListView = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const { editorStateChange } = useEditor();
   const [data, setData] = useState<BlogPost[]>([]);
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
@@ -97,8 +98,8 @@ const BlogListView = () => {
           onAddClick={() => {
             router.push('/content-panel/blogs/new');
           }}
-          searchTerm=""
-          setSearchTerm={() => {}}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
         />
       </div>
       <ReusableTable
