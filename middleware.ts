@@ -25,5 +25,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ['/admin-dashboard/dashboard', '/content-panel/blogs', '/platform/'],
+  matcher: ['/admin-dashboard/dashboard', '/content-panel/blogs'],
 };
