@@ -1,19 +1,29 @@
-import { MiddlewareConfig, NextRequest } from 'next/server';
-import updateSession from './utils/middlewares/updateSession';
+import { withAuth } from 'next-auth/middleware';
 
-export default async function middleware(request: NextRequest) {
-  // eslint-disable-next-line no-return-await
-  return await updateSession(request);
-}
+export default withAuth({
+  callbacks: {
+    authorized({ token, req }) {
+      const { pathname } = req.nextUrl;
 
-export const config: MiddlewareConfig = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-  ],
+      if (pathname.startsWith('/admin-dashboard') && token?.role === 'admin') {
+        return true;
+      }
+
+      if (
+        pathname.startsWith('/content-panel') &&
+        (token?.role === 'admin' || token?.role === 'content-manager')
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+  },
+  pages: {
+    signIn: '/content-panel/login',
+  },
+});
+
+export const config = {
+  matcher: ['/admin-dashboard/dashboard', '/content-panel/blogs'],
 };
