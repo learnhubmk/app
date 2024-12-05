@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -15,7 +17,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 }) => {
   const { editorState, editorStateChange } = useEditor();
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
-  // console.log('xxxxx', isEditing, isEditable, editorState);
+  // console.log('xxxxxx', isEditing, isEditable, editorState);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -40,9 +42,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   };
 
   const handleAction = (action: 'back' | 'edit' | 'cancel') => {
+    const form = document.querySelector('form') as HTMLFormElement;
     switch (action) {
       case 'edit':
-        const form = document.querySelector('form') as HTMLFormElement;
         if (form?.checkValidity()) {
           const newEditableState = !isEditable;
           setIsEditable(newEditableState);
