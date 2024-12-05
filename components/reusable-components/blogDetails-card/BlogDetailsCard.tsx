@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -11,20 +9,13 @@ import { BlogDetailsCardProps } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
-  title,
-  imageUrl,
-  content,
-  publishDate,
-  tags,
-  onImageChange,
-  onChange,
-  onDeleteClick,
-  onCancelClick,
-  imageError,
-  onValidationError,
+  blogContent: { title, image, content, publishDate, tags },
+  actions: { onImageChange, onChange, onDeleteClick, onCancelClick, imageError, onValidationError },
+  // states: { isEditing, setIsEditing },
 }) => {
   const { editorState, editorStateChange } = useEditor();
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
+  // console.log('xxxxx', isEditing, isEditable, editorState);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -48,35 +39,41 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     }
   };
 
-  const handleBackClick = () => {
-    if (hasUnsavedChanges) {
-      setModalType('back');
-      setShowModal(true);
-    } else {
-      router.push('/content-panel/blogs');
-    }
-  };
+  const handleAction = (action: 'back' | 'edit' | 'cancel') => {
+    switch (action) {
+      case 'edit':
+        const form = document.querySelector('form') as HTMLFormElement;
+        if (form?.checkValidity()) {
+          const newEditableState = !isEditable;
+          setIsEditable(newEditableState);
+          editorStateChange({ isEditable: newEditableState });
+          onValidationError('');
+          setHasUnsavedChanges(false);
+        } else {
+          form?.reportValidity();
+        }
+        break;
 
-  const handleCancelClick = () => {
-    if (hasUnsavedChanges) {
-      setModalType('cancel');
-      setShowModal(true);
-    } else {
-      handleConfirm();
-    }
-  };
+      case 'back':
+        if (hasUnsavedChanges) {
+          setModalType('back');
+          setShowModal(true);
+        } else {
+          router.push('/content-panel/blogs');
+        }
+        break;
 
-  const handleEditClick = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
+      case 'cancel':
+        if (hasUnsavedChanges) {
+          setModalType('cancel');
+          setShowModal(true);
+        } else {
+          handleConfirm();
+        }
+        break;
 
-    if (form?.checkValidity()) {
-      const newEditableState = !isEditable;
-      setIsEditable(newEditableState);
-      editorStateChange({ isEditable: newEditableState });
-      onValidationError('');
-      setHasUnsavedChanges(false);
-    } else {
-      form?.reportValidity();
+      default:
+        console.error('Unknown action:', action);
     }
   };
 
@@ -105,23 +102,23 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.actionButtons}>
         <div className={styles.leftButton}>
-          <button type="button" onClick={handleBackClick} aria-label="Go back">
+          <button type="button" onClick={() => handleAction('back')} aria-label="Go back">
             <i className="bi bi-arrow-left" />
           </button>
         </div>
         <div className={styles.rightButtons}>
           {isEditable ? (
             <>
-              <button type="button" onClick={handleEditClick}>
+              <button type="button" onClick={() => handleAction('edit')}>
                 Save
               </button>
-              <button type="button" onClick={handleCancelClick}>
+              <button type="button" onClick={() => handleAction('cancel')}>
                 Cancel
               </button>
             </>
           ) : (
             <>
-              <button type="button" onClick={handleEditClick}>
+              <button type="button" onClick={() => handleAction('edit')}>
                 Edit
               </button>
               <button type="button" onClick={onDeleteClick}>
@@ -150,7 +147,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             isRequired={false}
           />
         ) : (
-          imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
+          image && <Image src={image} alt="Blog" width={400} height={300} />
         )}
       </div>
 
@@ -165,7 +162,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             }
           />
         ) : (
-          // eslint-disable-next-line react/no-danger
           <div dangerouslySetInnerHTML={{ __html: content }} />
         )}
       </div>

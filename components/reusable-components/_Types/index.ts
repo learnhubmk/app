@@ -13,24 +13,6 @@ export interface IPasswordValidation {
   minLength: boolean;
 }
 
-export interface BlogDetailsCardProps {
-  title: string;
-  imageUrl: string;
-  content: string;
-  publishDate: string;
-  tags: string[];
-  onImageChange: (files: File[]) => void;
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
-  ) => void;
-  onDeleteClick: () => void;
-  onCancelClick: () => void;
-  imageError: string | null;
-  onValidationError: (error: string) => void;
-  isEditing: boolean;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export interface Author {
   firstName: string;
   lastName: string;
@@ -43,4 +25,22 @@ export interface BlogDetailsData {
   author: Author;
   publishDate: string;
   tags: string[];
+}
+
+export interface BlogDetailsCardProps {
+  blogContent: BlogDetailsData;
+  states: {
+    isEditing: boolean;
+    setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  actions: {
+    onImageChange: (files: File[]) => void;
+    onChange: (
+      event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
+    ) => void;
+    onDeleteClick: () => void;
+    onCancelClick: () => void;
+    imageError: string | null;
+    onValidationError: (error: string) => void;
+  };
 }

@@ -66,21 +66,19 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className={styles.blogDetailsPageContainer}>
       <BlogDetailsCard
-        title={blogDetailsData.title}
-        imageUrl={blogDetailsData.image}
-        content={blogDetailsData.content}
-        publishDate={blogDetailsData.publishDate}
-        tags={blogDetailsData.tags}
-        onChange={handleChange}
-        onImageChange={handleImageChange}
-        onValidationError={handleValidationError}
-        onDeleteClick={() => {
-          // Future delete logic will go here
+        blogContent={blogDetailsData}
+        actions={{
+          onChange: handleChange,
+          onImageChange: handleImageChange,
+          onValidationError: handleValidationError,
+          onDeleteClick: () => console.log('Future delete logic will go here'),
+          onCancelClick: handleCancelClick,
+          imageError: imageError,
         }}
-        onCancelClick={handleCancelClick}
-        imageError={imageError}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
+        states={{
+          isEditing,
+          setIsEditing,
+        }}
       />
     </div>
   );
