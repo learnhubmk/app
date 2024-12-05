@@ -17,7 +17,8 @@ const BlogCardInitialState: IBlogCardState = {
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   blogContent: { title, image, content, publishDate, tags },
-  actions: { onImageChange, onChange, onDeleteClick, onCancelClick, imageError, onValidationError },
+  actions: { onImageChange, onChange, onDeleteClick, onCancelClick },
+  errors: { imageError, onValidationError },
   states: { isEditing, setIsEditing },
 }) => {
   const [state, setState] = useState<IBlogCardState>(BlogCardInitialState);

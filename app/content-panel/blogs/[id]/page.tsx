@@ -70,9 +70,11 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         actions={{
           onChange: handleChange,
           onImageChange: handleImageChange,
-          onValidationError: handleValidationError,
           onDeleteClick: () => console.log('Future delete logic will go here'),
           onCancelClick: handleCancelClick,
+        }}
+        errors={{
+          onValidationError: handleValidationError,
           imageError: imageError,
         }}
         states={{

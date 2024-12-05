@@ -46,6 +46,8 @@ export interface BlogDetailsCardProps {
     ) => void;
     onDeleteClick: () => void;
     onCancelClick: () => void;
+  };
+  errors: {
     imageError: string | null;
     onValidationError: (error: string) => void;
   };
