@@ -1,41 +1,36 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
-import { BlogDetailsCardProps } from '../_Types';
-import { useEditor } from '../../../app/context/EditorContext';
+import { BlogDetailsCardProps, IBlogCardState } from '../_Types';
+
+const BlogCardInitialState: IBlogCardState = {
+  showModal: false,
+  modalType: 'back',
+  hasUnsavedChanges: false,
+};
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   blogContent: { title, image, content, publishDate, tags },
   actions: { onImageChange, onChange, onDeleteClick, onCancelClick, imageError, onValidationError },
-  // states: { isEditing, setIsEditing },
+  states: { isEditing, setIsEditing },
 }) => {
-  const { editorState, editorStateChange } = useEditor();
-  const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
-  // console.log('xxxxxx', isEditing, isEditable, editorState);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [state, setState] = useState<IBlogCardState>(BlogCardInitialState);
 
   const router = useRouter();
 
-  useEffect(() => {
-    setIsEditable(editorState.isEditable);
-  }, [editorState.isEditable]);
-
   const handleConfirm = () => {
-    setShowModal(false);
-    if (modalType === 'back') {
+    setState((prev) => ({ ...prev, showModal: false }));
+    if (state.modalType === 'back') {
       router.push('/content-panel/blogs');
     } else {
-      setIsEditable(false);
-      setHasUnsavedChanges(false);
-      editorStateChange({ isEditable: false });
+      setIsEditing(false);
+      setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
       router.replace(window.location.pathname);
       onCancelClick?.();
     }
@@ -46,29 +41,25 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     switch (action) {
       case 'edit':
         if (form?.checkValidity()) {
-          const newEditableState = !isEditable;
-          setIsEditable(newEditableState);
-          editorStateChange({ isEditable: newEditableState });
+          setIsEditing(!isEditing);
           onValidationError('');
-          setHasUnsavedChanges(false);
+          setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
         } else {
           form?.reportValidity();
         }
         break;
 
       case 'back':
-        if (hasUnsavedChanges) {
-          setModalType('back');
-          setShowModal(true);
+        if (state.hasUnsavedChanges) {
+          setState((prev) => ({ ...prev, modalType: 'back', showModal: true }));
         } else {
           router.push('/content-panel/blogs');
         }
         break;
 
       case 'cancel':
-        if (hasUnsavedChanges) {
-          setModalType('cancel');
-          setShowModal(true);
+        if (state.hasUnsavedChanges) {
+          setState((prev) => ({ ...prev, modalType: 'cancel', showModal: true }));
         } else {
           handleConfirm();
         }
@@ -83,10 +74,10 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
   ) => {
     onChange(event);
-    setHasUnsavedChanges(true);
+    setState((prev) => ({ ...prev, hasUnsavedChanges: true }));
   };
 
-  const renderInput = (id: string, value: string, disabled: boolean = !isEditable) => (
+  const renderInput = (id: string, value: string, disabled: boolean = !isEditing) => (
     <input
       type="text"
       id={id}
@@ -109,7 +100,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           </button>
         </div>
         <div className={styles.rightButtons}>
-          {isEditable ? (
+          {isEditing ? (
             <>
               <button type="button" onClick={() => handleAction('edit')}>
                 Save
@@ -138,12 +129,15 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       <div className={styles.imageSection}>
         <label htmlFor="imageUpload">Image:</label>
         {imageError && <p className={styles.errorText}>{imageError}</p>}
-        {isEditable ? (
+        {isEditing ? (
           <DropZone
             onImageChange={(files) => {
               onImageChange(files);
               if (imageError) onValidationError('');
-              setHasUnsavedChanges(true);
+              setState({
+                ...state,
+                hasUnsavedChanges: true,
+              });
             }}
             onValidationError={onValidationError}
             isRequired={false}
@@ -155,10 +149,10 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.contentSection}>
         <label htmlFor="content">Content:</label>
-        {isEditable ? (
+        {isEditing ? (
           <TiptapEditor
             content={content}
-            editable={isEditable}
+            editable={isEditing}
             onChange={(editorContent: string) =>
               handleInputChange({ target: { name: 'content', value: editorContent } })
             }
@@ -190,7 +184,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         {renderInput('tags', tags.join(', '))}
       </div>
 
-      <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />
+      <CancelModal
+        show={state.showModal}
+        onHide={() => setState((prev) => ({ ...prev, showModal: false }))}
+        onConfirm={handleConfirm}
+      />
     </form>
   );
 };

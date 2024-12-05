@@ -27,6 +27,12 @@ export interface BlogDetailsData {
   tags: string[];
 }
 
+export interface IBlogCardState {
+  showModal: boolean;
+  modalType: 'back' | 'cancel';
+  hasUnsavedChanges: boolean;
+}
+
 export interface BlogDetailsCardProps {
   blogContent: BlogDetailsData;
   states: {
