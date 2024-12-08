@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode, useMemo, useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession, signOut } from 'next-auth/react';
 import { clearSession, getSession } from '../../utils/actions/session';
 import { getUser, logout as logoutApi } from '../../api/authApi';
 import { getUserFromStorage } from '../../api/utils/actions/session';
@@ -12,9 +12,10 @@ import { AuthContextType, LoginParams, UserType } from '../../Types';
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const session = useSession();
   const queryClient = useQueryClient();
   const router = useRouter();
-
+  console.log(session);
   const userQuery = useQuery<UserType | null, Error>({
     queryKey: ['user'],
     queryFn: async () => {
@@ -48,6 +49,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
 
       router.push(redirectUrl);
+      console.log(result);
       return result;
     },
     onError: (error) => {
@@ -58,26 +60,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const logoutMutation = useMutation<void, Error, void>({
     mutationFn: async () => {
-      const session = await getSession();
-      if (session) {
-        await logoutApi();
-      }
-      await clearSession();
+      signOut();
     },
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
     },
   });
-
-  useEffect(() => {
-    const checkSession = async () => {
-      const session = await getSession();
-      if (session) {
-        userQuery.refetch();
-      }
-    };
-    checkSession();
-  }, [userQuery]);
 
   const value: AuthContextType = useMemo(
     () => ({

@@ -61,16 +61,16 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <ThemeProvider>
             <AxiosProvider>
               <ReactQueryProvider>
-                <AuthProvider>
-                  <NextAuthSessionProvider>
+                <NextAuthSessionProvider>
+                  <AuthProvider>
                     <Navigation />
                     <main className={styles.main}>
                       <Suspense fallback={<Loading />}>{children}</Suspense>
                       <SpeedInsights />
                     </main>
                     <Footer />
-                  </NextAuthSessionProvider>
-                </AuthProvider>
+                  </AuthProvider>
+                </NextAuthSessionProvider>
               </ReactQueryProvider>
             </AxiosProvider>
           </ThemeProvider>

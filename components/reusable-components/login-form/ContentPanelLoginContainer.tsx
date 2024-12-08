@@ -13,7 +13,7 @@ const ContentPanelLoginContainer = () => {
     login({
       ...formValues,
       userType: 'content-manager',
-      redirectUrl: '/content-panel/dashboard',
+      redirectUrl: '/content-panel',
     });
   };
   return (
