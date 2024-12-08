@@ -44,3 +44,9 @@ export interface BlogDetailsData {
   publishDate: string;
   tags: string[];
 }
+
+export interface User {
+  name: string;
+  email: string;
+  avatar: string;
+}
