@@ -2,25 +2,22 @@
 
 import React from 'react';
 
-import { useAuth } from '../../../app/context/authContext';
-import { LoginParams } from '../../../Types';
 import LoginForm from './LoginForm';
+import { useLogin } from '../../../apis/mutations/login/useLogin';
+import { LoginParams } from '../../../Types';
 
 const ContentPanelLoginContainer = () => {
-  const { login } = useAuth();
+  const { isPending, isError, mutate } = useLogin();
 
   const handleSubmit = async (formValues: LoginParams) => {
-    login({
+    mutate({
       ...formValues,
       userType: 'content-manager',
       redirectUrl: '/content-panel',
     });
   };
-  return (
-    <>
-      <LoginForm onSubmit={handleSubmit} />{' '}
-    </>
-  );
+
+  return <LoginForm isError={isError} isLoading={isPending} onSubmit={handleSubmit} />;
 };
 
 export default ContentPanelLoginContainer;

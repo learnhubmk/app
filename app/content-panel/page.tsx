@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import LogoutButton from '../../components/reusable-components/button/LogoutButton';
 
 const page = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data: session } = useSession();
   return (
     <div>
