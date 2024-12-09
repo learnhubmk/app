@@ -66,6 +66,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className={styles.blogDetailsPageContainer}>
       <BlogDetailsCard
+        postId={params.id}
         blogContent={blogDetailsData}
         actions={{
           onChange: handleChange,

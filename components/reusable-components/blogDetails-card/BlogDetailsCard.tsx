@@ -17,6 +17,7 @@ const BlogCardInitialState: IBlogCardState = {
 };
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
+  postId,
   blogContent,
   actions: { onImageChange, onChange, onDeleteClick, onCancelClick },
   errors: { imageError, onValidationError },
@@ -26,6 +27,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const { title, image, content, publishDate, tags } = blogContent;
   const router = useRouter();
   const updatePostMutation = useUpdatePost();
+  console.log('postId', postId);
 
   const handleConfirm = () => {
     setState((prev) => ({ ...prev, showModal: false }));
@@ -49,7 +51,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
           // call the API here.............
           //https://api.learnhub.mk/docs/#content-PUTcontent-blog-posts--id-
-          updatePostMutation.mutate(blogContent);
+          updatePostMutation.mutate({ id: postId, updatedPost: blogContent });
         } else {
           form?.reportValidity();
         }

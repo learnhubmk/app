@@ -34,6 +34,7 @@ export interface IBlogCardState {
 }
 
 export interface BlogDetailsCardProps {
+  postId: string;
   blogContent: BlogDetailsData;
   states: {
     isEditing: boolean;

@@ -11,8 +11,8 @@ const useUpdatePost = () => {
   const axios = useAxios();
 
   return useMutation({
-    mutationFn: async (updatedPost: any) => {
-      return await axios.put(ENDPOINTS.BLOGS.UPDATE('xxxxxx'), updatedPost);
+    mutationFn: async ({ id, updatedPost }: { id: string; updatedPost: any }) => {
+      return await axios.put(ENDPOINTS.BLOGS.UPDATE(id), updatedPost);
     },
     onError: (error: AxiosError<ErrorResponse>) => {
       toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
