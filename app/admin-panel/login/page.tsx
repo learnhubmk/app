@@ -6,7 +6,7 @@ import AdminPanelLoginContainer from '../../../components/reusable-components/lo
 const AdminLogin = () => {
   return (
     <SignupAndLoginLayout
-      welcomeTitle="Admin Login Panel (draft content)!"
+      welcomeTitle="Admin Login Panel"
       welcomeSubtitle="Ве молиме пополнете ги податоците подолу за да се најавите."
     >
       <AdminPanelLoginContainer />

@@ -2,22 +2,23 @@
 
 import React from 'react';
 
-import { useAuth } from '../../../app/context/authContext';
-import { LoginParams } from '../../../Types';
 import LoginForm from './LoginForm';
+import { useLogin } from '../../../apis/mutations/login/useLogin';
+import { LoginParams } from '../../../Types';
 
 const AdminPanelLoginContainer = () => {
-  const { login } = useAuth();
+  const { mutate, isPending, isError } = useLogin();
   const handleSubmit = async (formValues: LoginParams) => {
-    login({
+    mutate({
       ...formValues,
       userType: 'admin',
-      redirectUrl: '/admin-dashboard',
+      redirectUrl: '/admin-panel',
     });
   };
+
   return (
     <>
-      <LoginForm onSubmit={handleSubmit} />{' '}
+      <LoginForm isError={isError} isLoading={isPending} onSubmit={handleSubmit} />{' '}
     </>
   );
 };
