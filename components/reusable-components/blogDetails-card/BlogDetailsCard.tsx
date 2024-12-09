@@ -45,6 +45,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           setIsEditing(!isEditing);
           onValidationError('');
           setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
+          // call the API here.............
+          // https://api.learnhub.mk/docs/#content-PUTcontent-blog-posts--id-
         } else {
           form?.reportValidity();
         }

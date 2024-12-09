@@ -47,6 +47,11 @@ export interface AuthContextType {
   loginStatus: MutationStatus;
 }
 
+export type ErrorResponse = {
+  message: string;
+  statusCode?: number;
+};
+
 export interface LoginResponse {
   data: {
     user: UserType;

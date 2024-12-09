@@ -1,5 +1,3 @@
-'use client';
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
@@ -8,21 +6,13 @@ import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 import { ErrorResponse } from '../../../Types';
 
-export type NewPost = {
-  title: string;
-  excerpt: string;
-  content: string;
-  tags: string[];
-};
-
-const useAddNewPost = () => {
+const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const axios = useAxios();
 
   return useMutation({
-    mutationFn: async (newPost: NewPost) => {
-      const response = await axios.post(ENDPOINTS.BLOGS.CREATE, newPost);
-      return response.data;
+    mutationFn: async (updatedPost: any) => {
+      return await axios.put(ENDPOINTS.BLOGS.UPDATE('xxxxxx'), updatedPost);
     },
     onError: (error: AxiosError<ErrorResponse>) => {
       toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
@@ -34,4 +24,4 @@ const useAddNewPost = () => {
   });
 };
 
-export default useAddNewPost;
+export default useUpdatePost;
