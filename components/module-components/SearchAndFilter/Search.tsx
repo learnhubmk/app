@@ -5,20 +5,24 @@ import Input from '../../reusable-components/input/Input';
 import style from './search.module.scss';
 
 interface SearchProps {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
+  handleInputChange: (value: string) => void;
+  searchValue: string;
+  placeholder?: string;
 }
 
-const Search = ({ searchTerm, setSearchTerm }: SearchProps) => {
+const Search = ({ handleInputChange, searchValue, placeholder = 'Пребарувај...' }: SearchProps) => {
+  const onChange = (value: string) => {
+    handleInputChange(value);
+  };
+
   return (
-    <div className={style.search}>
-      <Input
-        type="text"
-        placeholder="Search Blogs..."
-        value={searchTerm}
-        onChange={setSearchTerm}
-      />
-    </div>
+    <Input
+      className={style.search}
+      type="string"
+      placeholder={placeholder}
+      value={searchValue}
+      onChange={onChange}
+    />
   );
 };
 

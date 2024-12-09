@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { Role } from '../../app/context/authContext';
+import { Role } from '../../Types';
 import getAuthUrl from '../getAuthUrl';
 
 type Session = {
@@ -51,7 +51,7 @@ export async function getNewToken({
     const data: RefreshTokenResponse = await response.json();
     return data.new_token;
   } catch (error: any) {
-    // console.error({ msg: 'Error from getNewToken', error });
+    console.error({ msg: 'Error from getNewToken', error });
     return null;
   }
 }

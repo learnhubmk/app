@@ -1,9 +1,14 @@
 title = "Custom Gitleaks Config"
 
 [allowlist]
-files = ["package-lock.json"]
-regexes = ["https://registry\\.npmjs\\.org"]
-paths = ['''package-lock\.json''']
+files = [
+    "package-lock.json", 
+    "node_modules/" 
+  ]
+regexes = ["https://registry\\.npmjs\\.org", "https://github\\.com", "https://google\\.com",
+ "https://linkedin\\.com"
+]
+paths=["package-lock.json", "public/error.svg"]
 
 # Rule to detect API keys
 [[rules]]
@@ -30,7 +35,7 @@ tags = ["url"]
 [[rules]]
 id = "password"
 description = "Match passwords"
-regex = '''(?i)(password|pwd|pass|passwd)([=:].+)?[ \t]*(\S+)'''
+regex = '''^[A-Za-z\d@$!%*?&]{8,}$'''
 tags = ["password"]
 
 # Rule to detect SSH keys

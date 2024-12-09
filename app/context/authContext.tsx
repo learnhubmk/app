@@ -1,233 +1,117 @@
 'use client';
 
 import React, { createContext, useContext, ReactNode, useMemo, useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { MutationStatus, QueryStatus, useMutation, useQuery } from '@tanstack/react-query';
-import { clearSession, getSession, setSession } from '../../utils/actions/session';
-import getAuthUrl from '../../utils/getAuthUrl';
+import { signIn } from 'next-auth/react';
+import { clearSession, getSession } from '../../utils/actions/session';
+import { getUser, logout as logoutApi } from '../../api/authApi';
+import { getUserFromStorage } from '../../api/utils/actions/session';
+import { AuthContextType, LoginParams, UserType } from '../../Types';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
-
-export enum Role {
-  admin = 'admin',
-  content_manager = 'content_manager',
-  member = 'member',
-}
-
-export enum AuthMiddleware {
-  auth = 'auth',
-  guest = 'guest',
-}
-
-type UserType = {
-  id: number | string;
-  is_verified: boolean;
-  email: string;
-  role: Role;
-};
-
-interface LoginParams {
-  email: string;
-  password: string;
-  role: Role;
-}
-
-interface SuccessfulLoginResponse {
-  data: { user: UserType; access_token: string };
-}
-
-interface AuthContextType {
-  user?: UserType | null;
-  login: ({ email, password, role }: LoginParams) => void;
-  getUserStatus: QueryStatus;
-  getUserError: Error | null;
-  logout: () => void;
-  loginStatus: MutationStatus;
-  loginError: Error | null;
-  logoutStatus: MutationStatus;
-  logoutError: Error | null;
-}
-
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const getUser = async (): Promise<UserType | null | undefined> => {
-    const session = await getSession();
-    if (!session?.token || !session.role) throw new Error('No session found');
-    const response = await fetch(`${getAuthUrl(baseUrl, session.role)}/user`, {
-      headers: {
-        Accept: 'application/json',
-        Referer: 'learnhub.mk',
-        Authorization: `Bearer ${session.token}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(response.statusText || 'An error occurred while fetching the user');
-    }
-    const data = await response.json();
-    return data.data.user;
-  };
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-  const {
-    data: user,
-    status: getUserStatus,
-    error: getUserError,
-    refetch: refetchUser,
-  } = useQuery({
+  const userQuery = useQuery<UserType | null, Error>({
     queryKey: ['user'],
-    queryFn: getUser,
+    queryFn: async () => {
+      const storedUser = await getUserFromStorage();
+      if (storedUser) {
+        return storedUser;
+      }
+      return getUser();
+    },
   });
 
-  const {
-    mutate: login,
-    error: loginError,
-    status: loginStatus,
-  } = useMutation({
-    mutationKey: ['login'],
-    mutationFn: async ({
-      email,
-      password,
-      role,
-    }: LoginParams): Promise<SuccessfulLoginResponse> => {
-      const response = await fetch(`${getAuthUrl(baseUrl, role)}/login`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+  // This is loginMutation function with next-auth
+  const loginMutation = useMutation({
+    mutationFn: async (
+      formValues: LoginParams & { userType: string; redirectUrl: string; remember: boolean }
+    ) => {
+      const { email, password, cfTurnstileResponse, userType, redirectUrl, remember } = formValues;
+
+      // Call NextAuth's signIn method
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+        cfTurnstileResponse,
+        userType,
+        remember,
       });
 
-      if (!response.ok) {
-        // If we don't thrown an error here, the onSuccess callback will be called
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'An error occurred while logging in');
+      if (!result?.ok) {
+        throw new Error(result?.error || 'Failed to login');
       }
-      const data = await response.json();
-      return data;
-    },
-    onSuccess: async (data) => {
-      const token = data.data.access_token;
-      if (token) await setSession({ token, role: data.data.user.role });
-      await refetchUser();
+
+      router.push(redirectUrl);
+      return result;
     },
     onError: (error) => {
-      throw new Error(error?.message || 'An error occurred while logging in');
+      // eslint-disable-next-line no-console
+      console.error('Login error:', error);
     },
   });
 
-  const {
-    status: logoutStatus,
-    mutate: logout,
-    error: logoutError,
-  } = useMutation({
-    mutationKey: ['logout'],
+  const logoutMutation = useMutation<void, Error, void>({
     mutationFn: async () => {
       const session = await getSession();
-      if (!session?.token || !session.role) throw new Error('No session found');
-      const response = await fetch(`${getAuthUrl(baseUrl, session.role)}/logout`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Referer: 'learnhub.mk',
-          Authorization: `Bearer ${session.token}`,
-        },
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'An error occurred while logging in');
+      if (session) {
+        await logoutApi();
       }
-    },
-    onSuccess: async () => {
       await clearSession();
-      await refetchUser();
     },
-    onError: (error) => {
-      throw new Error(error?.message || 'An error occurred while logging out');
+    onSuccess: () => {
+      queryClient.setQueryData(['user'], null);
     },
   });
 
-  const memoizedValue = useMemo(
+  useEffect(() => {
+    const checkSession = async () => {
+      const session = await getSession();
+      if (session) {
+        userQuery.refetch();
+      }
+    };
+    checkSession();
+  }, [userQuery]);
+
+  const value: AuthContextType = useMemo(
     () => ({
-      user,
-      getUserStatus,
-      getUserError,
-      login,
-      logout,
-      loginStatus,
-      loginError,
-      logoutStatus,
-      logoutError,
+      user: userQuery.data ?? null,
+      login: (params: LoginParams & { userType: string; redirectUrl: string }) =>
+        loginMutation.mutate(params),
+      logout: () => logoutMutation.mutate(),
+      userQuery: {
+        status: userQuery.status,
+        error: userQuery.error,
+        isLoading: userQuery.status === 'pending',
+      },
+      loginMutation: {
+        isLoading: loginMutation.status === 'pending',
+        status: loginMutation.status,
+        error: loginMutation.error,
+      },
+      logoutMutation: {
+        isLoading: logoutMutation.status === 'pending',
+        status: logoutMutation.status,
+        error: logoutMutation.error,
+      },
+      loginStatus: loginMutation.status,
     }),
-    [
-      user,
-      getUserStatus,
-      getUserError,
-      login,
-      logout,
-      loginStatus,
-      loginError,
-      logoutStatus,
-      logoutError,
-    ]
+    [userQuery, loginMutation, logoutMutation]
   );
 
-  return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-/**
- *
- * @param middleware - This param is used to determine if the user shall be redirected to the login page if they are not authenticated or to the home page if they are authenticated.
- * @param redirectIfAuthenticatedTo - This param is used to determine where the user shall be redirected if they are authenticated.
- * @param roles - This param is used to determine if the user has the required role to access the page. It's an array because a route can be accessed by multiple roles.
- * @param redirectUrlIfRoleMismatch - This param is used to determine where the user shall be redirected if they don't have the required role to access the page.
- */
-export const useAuth = ({
-  middleware,
-  redirectIfAuthenticatedTo,
-  authorization,
-}: {
-  middleware: AuthMiddleware;
-  redirectIfAuthenticatedTo?: string;
-  authorization?: {
-    roles: Role[];
-    redirectUrlIfRoleMismatch: string;
-  };
-}) => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
-  const router = useRouter();
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-  const { getUserStatus } = context;
-  useEffect(() => {
-    if (middleware === AuthMiddleware.auth) {
-      if (
-        getUserStatus === 'success' &&
-        authorization &&
-        context.user &&
-        !authorization.roles.includes(context.user.role)
-      ) {
-        router.push(authorization.redirectUrlIfRoleMismatch);
-      }
-      if (getUserStatus === 'pending') return;
-      if (getUserStatus === 'error') {
-        router.push('/login');
-      }
-    }
-
-    if (getUserStatus === 'error') {
-      (async () => {
-        await clearSession();
-      })();
-    }
-
-    //  Redirect to a certain page if the user is authenticated. Ex. on the login page, if the user is authenticated, redirect them to the home page.
-    if (middleware === AuthMiddleware.guest) {
-      if (getUserStatus === 'success' && redirectIfAuthenticatedTo)
-        router.push(redirectIfAuthenticatedTo);
-    }
-  }, [context.user, getUserStatus, middleware, redirectIfAuthenticatedTo, authorization, router]);
-
-  return { ...context };
+  return context;
 };

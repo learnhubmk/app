@@ -1,5 +1,7 @@
-import LoginForm from '../../components/reusable-components/login-form/LoginForm';
-import SignupAndLoginLayout from '../../components/reusable-components/signup-and-login-layout/SignupAndLoginLayout';
+import React from 'react';
+
+import SignupAndLoginLayout from '../../../components/reusable-components/signup-and-login-layout/SignupAndLoginLayout';
+import ContentPanelLoginContainer from '../../../components/reusable-components/login-form/ContentPanelLoginContainer';
 
 const Login = () => {
   return (
@@ -7,7 +9,7 @@ const Login = () => {
       welcomeTitle="Добредојдовте назад!"
       welcomeSubtitle="Ве молиме пополнете ги податоците подолу за да се најавите."
     >
-      <LoginForm />
+      <ContentPanelLoginContainer />
     </SignupAndLoginLayout>
   );
 };
