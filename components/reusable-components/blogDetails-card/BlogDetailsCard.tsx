@@ -8,6 +8,7 @@ import TiptapEditor from '../../editor/TiptapEditor';
 import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps, IBlogCardState } from '../_Types';
+import useUpdatePost from '../../../apis/mutations/blogs/useUpdatePost';
 
 const BlogCardInitialState: IBlogCardState = {
   showModal: false,
@@ -16,14 +17,15 @@ const BlogCardInitialState: IBlogCardState = {
 };
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
-  blogContent: { title, image, content, publishDate, tags },
+  blogContent,
   actions: { onImageChange, onChange, onDeleteClick, onCancelClick },
   errors: { imageError, onValidationError },
   states: { isEditing, setIsEditing },
 }) => {
   const [state, setState] = useState<IBlogCardState>(BlogCardInitialState);
-
+  const { title, image, content, publishDate, tags } = blogContent;
   const router = useRouter();
+  const updatePostMutation = useUpdatePost();
 
   const handleConfirm = () => {
     setState((prev) => ({ ...prev, showModal: false }));
@@ -37,16 +39,26 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     }
   };
 
-  const handleAction = (action: 'back' | 'edit' | 'cancel') => {
+  const handleAction = (action: 'back' | 'edit' | 'cancel' | 'save') => {
     const form = document.querySelector('form') as HTMLFormElement;
     switch (action) {
-      case 'edit':
+      case 'save':
         if (form?.checkValidity()) {
           setIsEditing(!isEditing);
           onValidationError('');
           setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
           // call the API here.............
-          // https://api.learnhub.mk/docs/#content-PUTcontent-blog-posts--id-
+          //https://api.learnhub.mk/docs/#content-PUTcontent-blog-posts--id-
+          updatePostMutation.mutate(blogContent);
+        } else {
+          form?.reportValidity();
+        }
+        break;
+      case 'edit':
+        if (form?.checkValidity()) {
+          setIsEditing(!isEditing);
+          onValidationError('');
+          setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
         } else {
           form?.reportValidity();
         }
@@ -105,7 +117,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <div className={styles.rightButtons}>
           {isEditing ? (
             <>
-              <button type="button" onClick={() => handleAction('edit')}>
+              <button type="button" onClick={() => handleAction('save')}>
                 Save
               </button>
               <button type="button" onClick={() => handleAction('cancel')}>
