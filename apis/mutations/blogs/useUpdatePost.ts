@@ -12,14 +12,14 @@ const useUpdatePost = () => {
 
   return useMutation({
     mutationFn: async ({ id, updatedPost }: { id: string; updatedPost: any }) => {
-      return await axios.put(ENDPOINTS.BLOGS.UPDATE(id), updatedPost);
+      return axios.put(ENDPOINTS.BLOGS.UPDATE(id), updatedPost);
     },
     onError: (error: AxiosError<ErrorResponse>) => {
-      toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
+      toast.error(error?.response?.data?.message || 'Настана грешка при ажурирање на статијата.');
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
-      toast.success('Статијата беше успешно објавена!');
+      toast.success('Статијата беше успешно ажурирана!');
     },
   });
 };
