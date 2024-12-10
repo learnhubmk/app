@@ -1,27 +1,27 @@
 'use client';
 
 import React, { useState } from 'react';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
 import Image from 'next/image';
 import Link from 'next/link';
 import Turnstile from 'react-turnstile';
-
-import styles from './LoginForm.module.scss';
-import { useTheme } from '../../../app/context/themeContext';
-import { useAuth } from '../../../app/context/authContext';
-import { LoginFormProps, LoginParams } from '../../../Types';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import TextInput from '../text-input/TextInput';
+
+import github from '../../../public/icons/github.svg';
 import error from '../../../public/error.svg';
 import linkedin from '../../../public/icons/linkedin.svg';
-import github from '../../../public/icons/github.svg';
 import google from '../../../public/icons/google.svg';
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+import { useTheme } from '../../../app/context/themeContext';
+import { LoginFormProps, LoginParams } from '../../../Types';
+import styles from './LoginForm.module.scss';
+
+const LoginForm = ({ isError, isLoading, onSubmit }: LoginFormProps) => {
   const { theme } = useTheme();
-  const { loginMutation } = useAuth();
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const isLightTheme = theme === 'light';
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -29,8 +29,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       remember: false,
     },
     validationSchema: Yup.object({
-      email: Yup.string().email('Invalid email address').required('Required'),
-      password: Yup.string().required('Required'),
+      email: Yup.string().email('Невалидна емаил адреса').required('Задолжително'),
+      password: Yup.string().required('Задолжително'),
     }),
     onSubmit: (values) => {
       if (!turnstileToken) {
@@ -87,10 +87,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             Заборавена лозинка?
           </Link>
         </div>
-        <button type="submit" className={styles.loginBtn} disabled={loginMutation.isLoading}>
-          {loginMutation.isLoading ? 'Најавување...' : 'Најави се'}
+        <button type="submit" className={styles.loginBtn} disabled={isLoading}>
+          {isLoading ? 'Најавување...' : 'Најави се'}
         </button>
-        {loginMutation.error && (
+        {isError && (
           <div className={styles.errorMessageContainer}>
             <Image src={error} alt="Linkedin" />
             <p className={styles.errorMessage}>Погрешни креденцијали. Обиди се повторно</p>

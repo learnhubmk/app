@@ -12,7 +12,6 @@ import Navigation from '../components/reusable-components/navigation/Navigation'
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 import styles from './page.module.scss';
-import { AuthProvider } from './context/authContext';
 import NextAuthSessionProvider from '../utils/providers/NextAuthSessionProvider';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { EditorProvider } from './context/EditorContext';
@@ -61,16 +60,14 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <ThemeProvider>
             <AxiosProvider>
               <ReactQueryProvider>
-                <AuthProvider>
-                  <NextAuthSessionProvider>
-                    <Navigation />
-                    <main className={styles.main}>
-                      <Suspense fallback={<Loading />}>{children}</Suspense>
-                      <SpeedInsights />
-                    </main>
-                    <Footer />
-                  </NextAuthSessionProvider>
-                </AuthProvider>
+                <NextAuthSessionProvider>
+                  <Navigation />
+                  <main className={styles.main}>
+                    <Suspense fallback={<Loading />}>{children}</Suspense>
+                    <SpeedInsights />
+                  </main>
+                  <Footer />
+                </NextAuthSessionProvider>
               </ReactQueryProvider>
             </AxiosProvider>
           </ThemeProvider>

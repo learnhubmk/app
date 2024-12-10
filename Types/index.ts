@@ -59,6 +59,7 @@ export interface Session {
 }
 
 export interface LoginFormProps {
+  isError: boolean;
   onSubmit: (values: LoginParams) => Promise<void>;
   isLoading?: boolean;
   turnstileToken?: string | null;
