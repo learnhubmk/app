@@ -1,12 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { signOut } from 'next-auth/react';
 
-const LogoutButton = ({ redirectUrl }: { redirectUrl: string }) => {
+interface LogoutButtonProps {
+  redirectUrl: string;
+  className?: string;
+  icon?: ReactNode;
+}
+
+const LogoutButton: React.FC<LogoutButtonProps> = ({ redirectUrl, className, icon }) => {
   return (
-    <button type="button" onClick={() => signOut({ callbackUrl: redirectUrl })}>
-      Logout
+    <button
+      type="button"
+      className={className}
+      onClick={() => signOut({ callbackUrl: redirectUrl })}
+    >
+      {icon && <span className="icon-wrapper">{icon}</span>}
+      Sign Out
     </button>
   );
 };

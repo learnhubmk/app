@@ -44,3 +44,11 @@ export interface BlogDetailsData {
   publishDate: string;
   tags: string[];
 }
+
+export interface User {
+  email: string;
+  first_name: string;
+  last_name: string;
+  status: 'active' | 'banned' | 'deleted';
+  image: File | null;
+}
