@@ -15,7 +15,7 @@ import useGetTags, { Tag } from '../../../apis/queries/tags/getTags';
 import useAddNewTag from '../../../apis/mutations/tags/useAddNewTag';
 import useDeleteTag from '../../../apis/mutations/tags/useDeleteTag';
 import useEditTag from '../../../apis/mutations/tags/useEditTag';
-import Pagination from '../../../components/reusable-components/pagination/Pagination';
+import { defaultMeta } from '../../../components/reusable-components/pagination/Pagination';
 
 const Tags = () => {
   // MUTATIONS
@@ -103,6 +103,8 @@ const Tags = () => {
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
 
       <TagTable
+        paginationData={data?.meta || defaultMeta}
+        setPaginationPage={setPage}
         isLoading={isLoading}
         tags={data?.data || []}
         editingTagId={editingTagId}
@@ -125,8 +127,6 @@ const Tags = () => {
           </div>
         )}
       />
-
-      {data && <Pagination setPage={setPage} meta={data?.meta} />}
     </div>
   );
 };

@@ -2,14 +2,24 @@
 
 import React from 'react';
 import styles from './Pagination.module.scss';
-import { MetaData } from '../../../apis/queries/tags/getTags';
+import { MetaData } from '../../../Types';
 
 interface PaginationProps {
   meta: MetaData;
   setPage: (page: number) => void;
 }
+const defaultMeta: MetaData = {
+  current_page: 1,
+  from: 0,
+  last_page: 1,
+  links: [],
+  path: '',
+  per_page: 10,
+  to: 0,
+  total: 0,
+};
 
-const Pagination: React.FC<PaginationProps> = ({ meta, setPage }) => {
+const Pagination = ({ meta, setPage }: PaginationProps) => {
   const { current_page, last_page } = meta;
   const pages = Array.from({ length: last_page }, (_, i) => i + 1);
 
@@ -52,3 +62,4 @@ const Pagination: React.FC<PaginationProps> = ({ meta, setPage }) => {
 };
 
 export default Pagination;
+export { defaultMeta };

@@ -6,7 +6,7 @@ if (!API_BASE_URL) {
 
 const ENDPOINTS = {
   BLOGS: {
-    GET_ALL: (limit: number, skip: number) => `${API_BASE_URL}/posts?limit=${limit}&skip=${skip}`,
+    GET_ALL: `${API_BASE_URL}/blog-posts`,
     CREATE: `${API_BASE_URL}/content/blog-posts`,
   },
   USERS: {
