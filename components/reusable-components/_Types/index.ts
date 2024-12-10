@@ -46,7 +46,9 @@ export interface BlogDetailsData {
 }
 
 export interface User {
-  name: string;
   email: string;
-  avatar: string;
+  first_name: string;
+  last_name: string;
+  status: 'active' | 'banned' | 'deleted';
+  image: File | null;
 }

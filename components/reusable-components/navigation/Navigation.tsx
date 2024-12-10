@@ -3,7 +3,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -14,14 +14,18 @@ import LogoNavigation from '../../../public/logo/logo-black.svg';
 import styles from './navigation.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import { User } from '../_Types';
+import useClickOutside from '../../../api/utils/HOC/useClickOutside';
+import LogoutButton from '../button/LogoutButton';
 
 const user: User = {
-  name: 'John Doe',
   email: 'john@example.com',
-  avatar: '/user.png',
+  first_name: 'John',
+  last_name: 'Doe',
+  status: 'active',
+  image: null,
 };
 
-const Navigation: React.FC = () => {
+const Navigation = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -30,34 +34,19 @@ const Navigation: React.FC = () => {
   const isContentPanel = pathname.startsWith('/content-panel');
   const isSun = theme === 'light';
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useClickOutside(menuRef, () => {
+    if (isMenuOpen) setIsMenuOpen(false);
+  });
 
   const renderAvatarMenu = () => (
     <div className={styles.avatarMenu}>
       <Link href="/content-panel/dashboard" className={styles.menuItem}>
-        <FaUser /> {user.name}
+        <FaUser /> {`${user.first_name} ${user.last_name}`}
       </Link>
       <div className={styles.userEmail}>
         <FaEnvelope /> {user.email}
       </div>
-      <button
-        type="button"
-        className={styles.menuItem}
-        onClick={() => {
-          /* Implement sign out logic */
-        }}
-      >
-        <FaSignOutAlt /> Sign Out
-      </button>
+      <LogoutButton redirectUrl="/" className={styles.menuItem} icon={<FaSignOutAlt />} />
     </div>
   );
 
@@ -99,7 +88,7 @@ const Navigation: React.FC = () => {
                   tabIndex={0}
                 >
                   <Image
-                    src={user.avatar || '/user.png'}
+                    src={user.image ? URL.createObjectURL(user.image) : '/user.png'}
                     alt="User avatar"
                     width={40}
                     height={40}
@@ -138,4 +127,5 @@ const Navigation: React.FC = () => {
     </nav>
   );
 };
+
 export default Navigation;
