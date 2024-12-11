@@ -2,22 +2,31 @@
 
 import React from 'react';
 
-import { useAuth } from '../../../app/context/authContext';
-import { LoginParams } from '../../../Types';
+import { useRouter } from 'next/navigation';
 import LoginForm from './LoginForm';
+import { useLogin } from '../../../apis/mutations/login/useLogin';
+import { LoginParams } from '../../../Types';
 
 const AdminPanelLoginContainer = () => {
-  const { login } = useAuth();
+  const router = useRouter();
+  const { mutate, isPending, isError } = useLogin();
   const handleSubmit = async (formValues: LoginParams) => {
-    login({
-      ...formValues,
-      userType: 'admin',
-      redirectUrl: '/admin-dashboard',
-    });
+    mutate(
+      {
+        ...formValues,
+        userType: 'admin',
+      },
+      {
+        onSuccess: () => {
+          router.push('/admin-panel');
+        },
+      }
+    );
   };
+
   return (
     <>
-      <LoginForm onSubmit={handleSubmit} />{' '}
+      <LoginForm isError={isError} isLoading={isPending} onSubmit={handleSubmit} />{' '}
     </>
   );
 };
