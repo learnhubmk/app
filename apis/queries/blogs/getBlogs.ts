@@ -23,12 +23,14 @@ export interface BlogsResponse {
   meta: MetaData;
 }
 
-const useGetBlogs = (search?: string, page?: number) => {
+const useGetBlogs = (search?: string, page?: number, itemsPerPage?: number, status?: string) => {
   return useQuery({
-    queryKey: [...QUERY_KEYS.BLOGS.ALL, search, page],
+    queryKey: [...QUERY_KEYS.BLOGS.ALL, search, page, itemsPerPage],
     queryFn: async () => {
-      const url = `${ENDPOINTS.BLOGS.GET_ALL}?search=${encodeURIComponent(search || '')}&page=${page || 1}`;
-      const response = await axiosInstance.get<BlogsResponse>(url);
+      const url = `${ENDPOINTS.BLOGS.GET_ALL}?title=${encodeURIComponent(search || '')}&page=${page || 1}&per_page=${itemsPerPage}`;
+      const response = await axiosInstance.get<BlogsResponse>(url, {
+        params: { status: status || 'published' },
+      });
       return response.data;
     },
     select: (response) => ({

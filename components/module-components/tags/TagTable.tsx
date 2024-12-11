@@ -12,6 +12,7 @@ interface Tag {
 }
 
 interface TagTableProps {
+  setItemsPerPage: (itemsPerPage: number) => void;
   paginationData: MetaData;
   setPaginationPage: (page: number) => void;
   tags: Tag[];
@@ -25,6 +26,7 @@ interface TagTableProps {
 }
 
 const TagTable: React.FC<TagTableProps> = ({
+  setItemsPerPage,
   paginationData,
   setPaginationPage,
   isLoading,
@@ -84,6 +86,7 @@ const TagTable: React.FC<TagTableProps> = ({
   return (
     <>
       <ReusableTable<Tag>
+        setItemsPerPage={setItemsPerPage}
         setPaginationPage={setPaginationPage}
         paginationData={paginationData}
         isLoading={isLoading}

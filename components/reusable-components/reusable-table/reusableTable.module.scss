@@ -85,3 +85,10 @@ $table-height: 400px;
     background-color: #e0e0e0;
   }
 }
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-wrap: nowrap;
+}

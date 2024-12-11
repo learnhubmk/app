@@ -8,8 +8,10 @@ import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
 import Pagination, { defaultMeta } from '../pagination/Pagination';
 import { MetaData } from '../../../Types';
+import PaginationDropdown from '../pagination/PaginationDropdown';
 
 interface ReusableTableProps<T> {
+  setItemsPerPage: (itemsPerPage: number) => void;
   paginationData: MetaData;
   setPaginationPage: (page: number) => void;
   headers: (keyof T)[];
@@ -29,6 +31,7 @@ interface SortState<T> {
 }
 
 const ReusableTable = <T extends { id: string }>({
+  setItemsPerPage,
   paginationData,
   setPaginationPage,
   isLoading,
@@ -134,7 +137,14 @@ const ReusableTable = <T extends { id: string }>({
           <tbody>{renderTableContent()}</tbody>
         </table>
       </div>
-      <Pagination meta={paginationData || defaultMeta} setPage={setPaginationPage} />
+      <div className={style.paginationContainer}>
+        <div>
+          <Pagination meta={paginationData || defaultMeta} setPage={setPaginationPage} />
+        </div>
+        <div>
+          <PaginationDropdown setItemsPerPage={setItemsPerPage} />
+        </div>
+      </div>
     </>
   );
 };

@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 
 import React from 'react';
-import styles from './Pagination.module.scss';
 import { MetaData } from '../../../Types';
+import styles from './Pagination.module.scss';
 
 interface PaginationProps {
   meta: MetaData;

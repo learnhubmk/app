@@ -6,7 +6,7 @@ if (!API_BASE_URL) {
 
 const ENDPOINTS = {
   BLOGS: {
-    GET_ALL: `${API_BASE_URL}/blog-posts`,
+    GET_ALL: `${API_BASE_URL}/content/blog-posts`,
     CREATE: `${API_BASE_URL}/content/blog-posts`,
   },
   USERS: {

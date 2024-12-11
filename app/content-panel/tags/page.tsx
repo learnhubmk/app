@@ -25,13 +25,18 @@ const Tags = () => {
 
   // STATE
   const [showAddTag, setShowAddTag] = useState(false);
+  const [itemsPerPage, setItemsPerPage] = useState(25);
+  const [page, setPage] = useState(1);
   const [tags, setTags] = useState<Tag[]>([]);
   const [editingTagId, setEditingTagId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [page, setPage] = useState(1);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { data, isLoading } = useGetTags(debouncedSearchTerm, page);
+  const { data, isLoading } = useGetTags(debouncedSearchTerm, page, itemsPerPage);
+
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearchTerm, itemsPerPage]);
 
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
@@ -103,6 +108,7 @@ const Tags = () => {
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
 
       <TagTable
+        setItemsPerPage={setItemsPerPage}
         paginationData={data?.meta || defaultMeta}
         setPaginationPage={setPage}
         isLoading={isLoading}

@@ -18,13 +18,13 @@ export interface TagsResponse {
   meta: MetaData;
 }
 
-const useGetTags = (search?: string, page?: number) => {
+const useGetTags = (search?: string, page?: number, itemsPerPage?: number) => {
   const axios = useAxios();
 
   return useQuery({
-    queryKey: [...QUERY_KEYS.TAGS.ALL, search, page],
+    queryKey: [...QUERY_KEYS.TAGS.ALL, search, page, itemsPerPage],
     queryFn: async () => {
-      const url = `${ENDPOINTS.TAGS.GET_ALL}?search=${encodeURIComponent(search || '')}&page=${encodeURIComponent(page || 1)}`;
+      const url = `${ENDPOINTS.TAGS.GET_ALL}?search=${encodeURIComponent(search || '')}&page=${encodeURIComponent(page || 1)}&per_page=${encodeURIComponent(itemsPerPage)}`;
 
       const { data } = await axios.get<TagsResponse>(url);
       return data;
@@ -36,6 +36,9 @@ const useGetTags = (search?: string, page?: number) => {
         name: tag.name.toLowerCase(),
       })),
     }),
+    staleTime: 1 * 60 * 1000, // 1 minute
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
   });
 };
 

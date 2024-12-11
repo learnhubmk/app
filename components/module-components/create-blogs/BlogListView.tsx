@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import BlogManagementControls from './BlogManagementControls';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
@@ -9,16 +9,21 @@ import { useEditor } from '../../../app/context/EditorContext';
 import useGetBlogs from '../../../apis/queries/blogs/getBlogs';
 import useDebounce from '../../../utils/hooks/useDebounce';
 import { BlogPost } from './interfaces';
-import style from './createBlogs.module.scss';
 import { defaultMeta } from '../../reusable-components/pagination/Pagination';
+import style from './createBlogs.module.scss';
 
 const BlogListView = () => {
   const [paginationPage, setPaginationPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(25);
   const [searchTerm, setSearchTerm] = useState('');
   const { editorStateChange } = useEditor();
   const router = useRouter();
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { data, isLoading } = useGetBlogs(debouncedSearchTerm, paginationPage);
+  const { data, isLoading } = useGetBlogs(debouncedSearchTerm, paginationPage, itemsPerPage);
+
+  useEffect(() => {
+    setPaginationPage(1);
+  }, [debouncedSearchTerm, itemsPerPage]);
 
   const handleView = (id: string) => {
     editorStateChange({ isEditable: false });
@@ -58,6 +63,7 @@ const BlogListView = () => {
         />
       </div>
       <ReusableTable
+        setItemsPerPage={setItemsPerPage}
         paginationData={data?.meta || defaultMeta}
         setPaginationPage={setPaginationPage}
         headers={headers}
