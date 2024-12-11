@@ -24,7 +24,7 @@ const useGetTags = (search?: string, page?: number, itemsPerPage?: number) => {
   return useQuery({
     queryKey: [...QUERY_KEYS.TAGS.ALL, search, page, itemsPerPage],
     queryFn: async () => {
-      const url = `${ENDPOINTS.TAGS.GET_ALL}?search=${encodeURIComponent(search || '')}&page=${encodeURIComponent(page || 1)}&per_page=${encodeURIComponent(itemsPerPage)}`;
+      const url = `${ENDPOINTS.TAGS.GET_ALL}?search=${encodeURIComponent(search || '')}&page=${encodeURIComponent(page || 1)}&per_page=${encodeURIComponent(itemsPerPage || 25)}`;
 
       const { data } = await axios.get<TagsResponse>(url);
       return data;

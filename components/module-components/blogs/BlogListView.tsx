@@ -10,7 +10,7 @@ import useGetBlogs from '../../../apis/queries/blogs/getBlogs';
 import useDebounce from '../../../utils/hooks/useDebounce';
 import { BlogPost } from './interfaces';
 import { defaultMeta } from '../../reusable-components/pagination/Pagination';
-import style from './createBlogs.module.scss';
+import style from './BlogListView.module.scss';
 
 const BlogListView = () => {
   const [paginationPage, setPaginationPage] = useState(1);
@@ -45,10 +45,11 @@ const BlogListView = () => {
     />
   );
 
-  const headers: (keyof BlogPost)[] = ['title', 'author'];
+  const headers: (keyof BlogPost)[] = ['title', 'author', 'status'];
   const displayNames = {
     title: 'Title',
     author: 'Author',
+    status: 'Status',
   };
 
   return (

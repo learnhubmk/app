@@ -19,7 +19,7 @@ export interface BlogPostAPI {
 export interface BlogPost {
   id: string;
   title: string;
-  tags: Tag[];
+  status: string;
   author: string;
 }
 

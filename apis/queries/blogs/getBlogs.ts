@@ -12,6 +12,7 @@ export interface BlogPost {
 }
 
 export interface BlogPostAPI {
+  status: string;
   slug: string;
   title: string;
   tags: { name: string }[];
@@ -38,7 +39,7 @@ const useGetBlogs = (search?: string, page?: number, itemsPerPage?: number, stat
       data: response.data.map((item: BlogPostAPI) => ({
         id: item.slug,
         title: item.title,
-        tags: item.tags,
+        status: item.status,
         author: `${item.author.first_name} ${item.author.last_name}`,
       })),
     }),
