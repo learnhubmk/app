@@ -9,6 +9,7 @@ export interface BlogPost {
   title: string;
   tags: { name: string }[];
   author: string;
+  status: string;
 }
 
 export interface BlogPostAPI {
@@ -28,9 +29,14 @@ const useGetBlogs = (search?: string, page?: number, itemsPerPage?: number, stat
   return useQuery({
     queryKey: [...QUERY_KEYS.BLOGS.ALL, search, page, itemsPerPage],
     queryFn: async () => {
-      const url = `${ENDPOINTS.BLOGS.GET_ALL}?title=${encodeURIComponent(search || '')}&page=${page || 1}&per_page=${itemsPerPage}`;
+      const url = `${ENDPOINTS.BLOGS.GET_ALL}`;
       const response = await axiosInstance.get<BlogsResponse>(url, {
-        params: { status: status || 'published' },
+        params: {
+          title: search || '',
+          page: page || 1,
+          per_page: itemsPerPage,
+          status: status || 'published',
+        },
       });
       return response.data;
     },
