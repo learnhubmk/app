@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './ReusableDropdown.module.scss';
 
 type DropdownItem = {
-  id: number;
+  id: number | string;
   label: string;
   onClick: () => void;
 };
@@ -11,9 +11,15 @@ type DropdownProps = {
   items: DropdownItem[];
   placeholder?: string;
   icon?: React.ReactNode;
+  selectable?: boolean;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({ items, placeholder = 'Select an option', icon }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  items,
+  placeholder = 'Select an option',
+  icon,
+  selectable = false,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
 
@@ -37,7 +43,9 @@ const Dropdown: React.FC<DropdownProps> = ({ items, placeholder = 'Select an opt
   };
 
   const handleItemClick = (item: DropdownItem) => {
-    setSelectedItem(item);
+    if (selectable) {
+      setSelectedItem(item);
+    }
     item.onClick();
     setIsOpen(false);
   };

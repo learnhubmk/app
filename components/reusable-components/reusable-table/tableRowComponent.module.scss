@@ -1,12 +1,12 @@
 .rowComponent {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(175, 175, 175);
   height: 40px;
   max-height: 40px;
 
   td {
     padding: 15px;
     vertical-align: middle;
-    overflow: hidden;
+    //overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
