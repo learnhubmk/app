@@ -57,7 +57,7 @@ const BlogListView = () => {
       <div className={style.inputWrapper}>
         <BlogManagementControls
           onAddClick={() => {
-            router.push('/content-panel/blogs/new');
+            router.push('/content-panel/blogs/create');
           }}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
