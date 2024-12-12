@@ -57,7 +57,8 @@ const BlogManagementControls: React.FC<TagManagementControlsProps> = ({
           searchValue={searchTerm}
         />
         <ReusableDropdown
-          placeholder="Филтрирај"
+          selectable
+          placeholder="status"
           icon={<i className="bi bi-caret-down-fill" />}
           items={filterBy}
         />

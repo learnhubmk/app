@@ -32,6 +32,7 @@ const PaginationDropdown = ({
 
   return (
     <ReusableDropdown
+      selectable
       placeholder="Прикази по страна"
       icon={<i className="bi bi-caret-down-fill" />}
       items={itemsPerPage}

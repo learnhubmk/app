@@ -19,7 +19,7 @@ $table-height: 400px;
     thead {
       position: sticky;
       top: 0;
-      z-index: 1;
+      z-index: 2;
     }
     th {
       padding: 15px;
@@ -31,7 +31,6 @@ $table-height: 400px;
     td {
       height: 60px;
       padding: 15px;
-      overflow: hidden;
       white-space: nowrap;
     }
 
