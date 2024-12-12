@@ -28,7 +28,7 @@ export interface BlogsResponse {
 
 const useGetBlogs = (search?: string, page?: number, itemsPerPage?: number, status?: string) => {
   return useQuery({
-    queryKey: [...QUERY_KEYS.BLOGS.ALL, search, page, itemsPerPage],
+    queryKey: [...QUERY_KEYS.BLOGS.ALL, search, page, itemsPerPage, status],
     queryFn: async () => {
       const url = `${ENDPOINTS.BLOGS.GET_ALL}`;
       const response = await axiosInstance.get<BlogsResponse>(url, {

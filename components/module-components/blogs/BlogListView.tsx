@@ -14,12 +14,18 @@ import style from './BlogListView.module.scss';
 
 const BlogListView = () => {
   const [paginationPage, setPaginationPage] = useState(1);
+  const [status, setStatus] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(25);
   const [searchTerm, setSearchTerm] = useState('');
   const { editorStateChange } = useEditor();
   const router = useRouter();
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { data, isLoading } = useGetBlogs(debouncedSearchTerm, paginationPage, itemsPerPage);
+  const { data, isLoading } = useGetBlogs(
+    debouncedSearchTerm,
+    paginationPage,
+    itemsPerPage,
+    status
+  );
 
   useEffect(() => {
     setPaginationPage(1);
@@ -56,6 +62,7 @@ const BlogListView = () => {
     <div className={style.mainContainer}>
       <div className={style.inputWrapper}>
         <BlogManagementControls
+          setFilter={setStatus}
           onAddClick={() => {
             router.push('/content-panel/blogs/create');
           }}
