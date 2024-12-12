@@ -11,17 +11,9 @@ import { BlogDetailsCardProps } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
-  title,
-  imageUrl,
-  content,
-  publishDate,
-  tags,
-  onImageChange,
-  onChange,
-  onDeleteClick,
-  onCancelClick,
-  imageError,
-  onValidationError,
+  blogContent: { title, image, content, publishDate, tags },
+  actions: { onImageChange, onChange, onDeleteClick, onCancelClick, imageError, onValidationError },
+  // states: { isEditing, setIsEditing },
 }) => {
   const { editorState, editorStateChange } = useEditor();
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
@@ -48,35 +40,38 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     }
   };
 
-  const handleBackClick = () => {
-    if (hasUnsavedChanges) {
-      setModalType('back');
-      setShowModal(true);
-    } else {
-      router.push('/content-panel/blogs');
-    }
-  };
-
-  const handleCancelClick = () => {
-    if (hasUnsavedChanges) {
-      setModalType('cancel');
-      setShowModal(true);
-    } else {
-      handleConfirm();
-    }
-  };
-
-  const handleEditClick = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
-
-    if (form?.checkValidity()) {
-      const newEditableState = !isEditable;
-      setIsEditable(newEditableState);
-      editorStateChange({ isEditable: newEditableState });
-      onValidationError('');
-      setHasUnsavedChanges(false);
-    } else {
-      form?.reportValidity();
+  const handleAction = (action: 'back' | 'edit' | 'cancel') => {
+    switch (action) {
+      case 'edit': {
+        const form = document.querySelector('form') as HTMLFormElement;
+        if (form?.checkValidity()) {
+          const newEditableState = !isEditable;
+          setIsEditable(newEditableState);
+          editorStateChange({ isEditable: newEditableState });
+          onValidationError('');
+          setHasUnsavedChanges(false);
+        } else {
+          form?.reportValidity();
+        }
+        break;
+      }
+      case 'back':
+        if (hasUnsavedChanges) {
+          setModalType('back');
+          setShowModal(true);
+        } else {
+          router.push('/content-panel/blogs');
+        }
+        break;
+      case 'cancel':
+        if (hasUnsavedChanges) {
+          setModalType('cancel');
+          setShowModal(true);
+        } else {
+          handleConfirm();
+        }
+        break;
+      default:
     }
   };
 
@@ -105,23 +100,23 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.actionButtons}>
         <div className={styles.leftButton}>
-          <button type="button" onClick={handleBackClick} aria-label="Go back">
+          <button type="button" onClick={() => handleAction('back')} aria-label="Go back">
             <i className="bi bi-arrow-left" />
           </button>
         </div>
         <div className={styles.rightButtons}>
           {isEditable ? (
             <>
-              <button type="button" onClick={handleEditClick}>
+              <button type="button" onClick={() => handleAction('edit')}>
                 Save
               </button>
-              <button type="button" onClick={handleCancelClick}>
+              <button type="button" onClick={() => handleAction('cancel')}>
                 Cancel
               </button>
             </>
           ) : (
             <>
-              <button type="button" onClick={handleEditClick}>
+              <button type="button" onClick={() => handleAction('edit')}>
                 Edit
               </button>
               <button type="button" onClick={onDeleteClick}>
@@ -150,7 +145,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             isRequired={false}
           />
         ) : (
-          imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
+          image && <Image src={image} alt="Blog" width={400} height={300} />
         )}
       </div>
 
