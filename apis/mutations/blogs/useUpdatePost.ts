@@ -12,7 +12,8 @@ const useUpdatePost = () => {
 
   return useMutation({
     mutationFn: async ({ id, updatedPost }: { id: string; updatedPost: any }) => {
-      return axios.put(ENDPOINTS.BLOGS.UPDATE(id), updatedPost);
+      const { tags, ...rest } = updatedPost;
+      return axios.put(ENDPOINTS.BLOGS.UPDATE(id), rest);
     },
     onError: (error: AxiosError<ErrorResponse>) => {
       toast.error(error?.response?.data?.message || 'Настана грешка при ажурирање на статијата.');
