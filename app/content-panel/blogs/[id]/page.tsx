@@ -66,14 +66,17 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className={styles.blogDetailsPageContainer}>
       <BlogDetailsCard
+        postId={params.id}
         blogContent={blogDetailsData}
         actions={{
           onChange: handleChange,
           onImageChange: handleImageChange,
-          onValidationError: handleValidationError,
-          onDeleteClick: () => {},
+          onDeleteClick: () => console.log('Future delete logic will go here'),
           onCancelClick: handleCancelClick,
-          imageError,
+        }}
+        errors={{
+          onValidationError: handleValidationError,
+          imageError: imageError,
         }}
         states={{
           isEditing,

@@ -27,7 +27,19 @@ export interface BlogDetailsData {
   tags: string[];
 }
 
+export interface IBlogCardState {
+  showModal: boolean;
+  modalType: 'back' | 'cancel';
+  hasUnsavedChanges: boolean;
+}
+
+export type ErrorResponse = {
+  message: string;
+  statusCode?: number;
+};
+
 export interface BlogDetailsCardProps {
+  postId: string;
   blogContent: BlogDetailsData;
   states: {
     isEditing: boolean;
@@ -40,6 +52,8 @@ export interface BlogDetailsCardProps {
     ) => void;
     onDeleteClick: () => void;
     onCancelClick: () => void;
+  };
+  errors: {
     imageError: string | null;
     onValidationError: (error: string) => void;
   };
