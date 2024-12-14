@@ -16,6 +16,7 @@ export interface IPasswordValidation {
 export interface Author {
   firstName: string;
   lastName: string;
+  authorId?: string;
 }
 
 export interface BlogDetailsData {
@@ -27,6 +28,7 @@ export interface BlogDetailsData {
   tags: string[];
   excerpt?: string;
   slug?: string;
+  authorId?: string;
 }
 
 export interface IBlogCardState {

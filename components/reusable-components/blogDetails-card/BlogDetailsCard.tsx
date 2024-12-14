@@ -24,7 +24,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const [state, setState] = useState<IBlogCardState>(BlogCardInitialState);
   const { title, image, content, publishDate, tags, author, excerpt, slug } = blogContent;
   const router = useRouter();
-  const updatePostMutation = useUpdatePost();
+  const { updatePost } = useUpdatePost();
 
   const handleConfirm = () => {
     setState((prev) => ({ ...prev, showModal: false }));
@@ -46,7 +46,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           setIsEditing(false);
           onValidationError('');
           setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
-          updatePostMutation.mutate({ id: postId, updatedPost: blogContent });
+          updatePost.mutate({ id: postId, updatedPost: blogContent });
         } else {
           form?.reportValidity();
         }
