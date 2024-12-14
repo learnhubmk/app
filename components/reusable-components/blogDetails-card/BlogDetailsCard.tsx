@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -24,10 +22,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   states: { isEditing, setIsEditing },
 }) => {
   const [state, setState] = useState<IBlogCardState>(BlogCardInitialState);
-  const { title, image, content, publishDate, tags } = blogContent;
+  const { title, image, content, publishDate, tags, author, excerpt, slug } = blogContent;
   const router = useRouter();
   const updatePostMutation = useUpdatePost();
-  console.log('postId', postId);
 
   const handleConfirm = () => {
     setState((prev) => ({ ...prev, showModal: false }));
@@ -46,11 +43,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     switch (action) {
       case 'save':
         if (form?.checkValidity()) {
-          setIsEditing(!isEditing);
+          setIsEditing(false);
           onValidationError('');
           setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
-          // call the API here.............
-          //https://api.learnhub.mk/docs/#content-PUTcontent-blog-posts--id-
           updatePostMutation.mutate({ id: postId, updatedPost: blogContent });
         } else {
           form?.reportValidity();
@@ -58,14 +53,13 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         break;
       case 'edit':
         if (form?.checkValidity()) {
-          setIsEditing(!isEditing);
+          setIsEditing(true);
           onValidationError('');
           setState((prev) => ({ ...prev, hasUnsavedChanges: false }));
         } else {
           form?.reportValidity();
         }
         break;
-
       case 'back':
         if (state.hasUnsavedChanges) {
           setState((prev) => ({ ...prev, modalType: 'back', showModal: true }));
@@ -73,7 +67,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           router.push('/content-panel/blogs');
         }
         break;
-
       case 'cancel':
         if (state.hasUnsavedChanges) {
           setState((prev) => ({ ...prev, modalType: 'cancel', showModal: true }));
@@ -81,9 +74,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           handleConfirm();
         }
         break;
-
       default:
-        console.error('Unknown action:', action);
     }
   };
 
@@ -94,26 +85,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     setState((prev) => ({ ...prev, hasUnsavedChanges: true }));
   };
 
-  const renderInput = (id: string, value: string, disabled: boolean = !isEditing) => (
-    <input
-      type="text"
-      id={id}
-      name={id}
-      value={value}
-      onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
-      disabled={disabled}
-      required
-      placeholder={`${id.charAt(0).toUpperCase() + id.slice(1)} is required`}
-      className={styles.inputField}
-    />
-  );
-
   return (
     <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.actionButtons}>
         <div className={styles.leftButton}>
           <button type="button" onClick={() => handleAction('back')} aria-label="Go back">
-            <i className="bi bi-arrow-left" />
+            <i className="bi bi-arrow-left" aria-hidden="true" />
           </button>
         </div>
         <div className={styles.rightButtons}>
@@ -138,14 +115,36 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           )}
         </div>
       </div>
-
       <div className={styles.titleInput}>
-        <h1>{renderInput('title', title)}</h1>
+        <label htmlFor="title">
+          <h1>
+            {isEditing ? (
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={title}
+                onChange={handleInputChange}
+                required
+                placeholder="Title is required"
+                className={styles.inputField}
+              />
+            ) : (
+              title
+            )}
+          </h1>
+        </label>
       </div>
-
+      <div className={styles.excerptSection}>
+        <label htmlFor="excerpt">Excerpt:</label>
+        <p id="excerpt">{excerpt}</p>
+      </div>
+      <div className={styles.slugSection}>
+        <label htmlFor="slug">Slug:</label>
+        <p id="slug">{slug}</p>
+      </div>
       <div className={styles.imageSection}>
-        <label htmlFor="imageUpload">Image:</label>
-        {imageError && <p className={styles.errorText}>{imageError}</p>}
+        <label htmlFor="image">Image:</label>
         {isEditing ? (
           <DropZone
             onImageChange={(files) => {
@@ -163,44 +162,32 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
           image && <Image src={image} alt="Blog" width={400} height={300} />
         )}
       </div>
-
       <div className={styles.contentSection}>
         <label htmlFor="content">Content:</label>
         {isEditing ? (
           <TiptapEditor
             content={content}
-            editable={isEditing}
+            editable
             onChange={(editorContent: string) =>
               handleInputChange({ target: { name: 'content', value: editorContent } })
             }
           />
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: content }} />
+          <div id="content" dangerouslySetInnerHTML={{ __html: content }} />
         )}
       </div>
-
       <div className={styles.authorSection}>
         <label htmlFor="author">Author:</label>
-        {renderInput('author', 'John Doe', true)}
+        <span id="author">{`${author.firstName} ${author.lastName}`}</span>
       </div>
-
       <div className={styles.dateSection}>
         <label htmlFor="publishDate">Date:</label>
-        <input
-          id="publishDate"
-          type="date"
-          value={publishDate}
-          disabled
-          className={styles.inputField}
-          required
-        />
+        <span id="publishDate">{publishDate}</span>
       </div>
-
       <div className={styles.tagsSection}>
         <label htmlFor="tags">Tags:</label>
-        {renderInput('tags', tags.join(', '))}
+        <span id="tags">{tags.join(', ')}</span>
       </div>
-
       <CancelModal
         show={state.showModal}
         onHide={() => setState((prev) => ({ ...prev, showModal: false }))}

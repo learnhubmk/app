@@ -25,6 +25,8 @@ export interface BlogDetailsData {
   author: Author;
   publishDate: string;
   tags: string[];
+  excerpt?: string;
+  slug?: string;
 }
 
 export interface IBlogCardState {

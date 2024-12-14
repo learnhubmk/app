@@ -12,10 +12,30 @@ const useUpdatePost = () => {
 
   return useMutation({
     mutationFn: async ({ id, updatedPost }: { id: string; updatedPost: any }) => {
-      const { tags, ...rest } = updatedPost;
-      return axios.put(ENDPOINTS.BLOGS.UPDATE(id), rest);
+      const { title, excerpt, slug, content, tags } = updatedPost;
+
+      const formattedTags = Array.isArray(tags)
+        ? tags
+        : tags.split(',').map((tag: string) => tag.trim());
+
+      const postData = {
+        author_id: '6',
+        title,
+        excerpt,
+        slug,
+        content,
+        tags: formattedTags,
+      };
+
+      // console.log('Updating post:', updatedPost);
+
+      return axios.put(ENDPOINTS.BLOGS.UPDATE(id), postData, {
+        headers: { 'Content-Type': 'application/json' },
+      });
     },
     onError: (error: AxiosError<ErrorResponse>) => {
+      // console.error('Update post error:', error);
+      // console.error('Error response:', error.response);
       toast.error(error?.response?.data?.message || 'Настана грешка при ажурирање на статијата.');
     },
     onSuccess: () => {
