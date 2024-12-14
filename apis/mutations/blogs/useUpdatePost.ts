@@ -16,7 +16,6 @@ const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const axios = useAxios();
 
-  // Query to fetch all blog posts
   const getAllPosts = useQuery<BlogDetailsData[], AxiosError>({
     queryKey: QUERY_KEYS.BLOGS.ALL,
     queryFn: async () => {
@@ -26,14 +25,10 @@ const useUpdatePost = () => {
     },
   });
 
-  // Handle error for getAllPosts query
   if (getAllPosts.error) {
     toast.error('Настана грешка при вчитување на блог постовите.');
-    // Log error to a custom error tracking service or use a development-only logging mechanism
-    // For example: errorTrackingService.logError('Error fetching blog posts', getAllPosts.error);
   }
 
-  // Mutation to update a blog post
   const updatePost = useMutation<void, AxiosError<ErrorResponse>, UpdatePostParams>({
     mutationFn: async ({ id, updatedPost }: UpdatePostParams) => {
       const { title, excerpt, slug, content, tags, authorId } = updatedPost;
@@ -54,8 +49,6 @@ const useUpdatePost = () => {
     },
     onError: (error) => {
       toast.error(error?.response?.data?.message || 'Настана грешка при ажурирање на статијата.');
-      // Log error to a custom error tracking service or use a development-only logging mechanism
-      // For example: errorTrackingService.logError('Error updating blog post', error);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
