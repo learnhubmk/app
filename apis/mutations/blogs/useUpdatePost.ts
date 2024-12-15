@@ -5,12 +5,7 @@ import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 import { ErrorResponse } from '../../../Types';
-import { BlogDetailsData } from '../../../components/reusable-components/_Types';
-
-interface UpdatePostParams {
-  id: string;
-  updatedPost: Partial<BlogDetailsData>;
-}
+import { BlogDetailsData, UpdatePostParams } from '../../../components/reusable-components/_Types';
 
 const useUpdatePost = () => {
   const queryClient = useQueryClient();

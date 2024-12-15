@@ -57,3 +57,8 @@ export interface BlogDetailsCardProps {
     onValidationError: (error: string) => void;
   };
 }
+
+export interface UpdatePostParams {
+  id: string;
+  updatedPost: Partial<BlogDetailsData>;
+}
