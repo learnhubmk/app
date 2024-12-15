@@ -44,3 +44,17 @@ export interface BlogDetailsData {
   publishDate: string;
   tags: string[];
 }
+
+export enum UserStatus {
+  Active = 'active',
+  Banned = 'banned',
+  Deleted = 'deleted',
+}
+
+export interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
+  status: UserStatus;
+  image: File | null;
+}

@@ -1,13 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 import useLogout from '../../../apis/mutations/login/useLogout';
 
-const LogoutButton = ({ redirectUrl }: { redirectUrl: string }) => {
+interface LogoutButtonProps {
+  redirectUrl: string;
+  className?: string;
+  icon?: ReactElement;
+}
+
+const LogoutButton: React.FC<LogoutButtonProps> = ({ redirectUrl, className, icon }) => {
   const logout = useLogout(redirectUrl);
 
   return (
-    <button type="button" onClick={() => logout.mutate()}>
+    <button type="button" onClick={() => logout.mutate()} className={className}>
+      {icon}
       Logout
     </button>
   );
