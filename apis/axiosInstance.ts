@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getSession } from 'next-auth/react';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -7,15 +8,14 @@ const axiosInstance = axios.create({
   },
 });
 
-// TODO: REPLACE BEARER LOGIC AS SOON AS AUTHENTICATION IS IMPLEMENTED. THIS IS FOR TESTING PURPOSES
 axiosInstance.interceptors.request.use(
-  (config) => {
-    if (process.env.NEXT_PUBLIC_BEARER) {
-      // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = `Bearer ${process.env.NEXT_PUBLIC_BEARER}`;
-    } else {
-      throw new Error('No bearer token found');
+  async (config) => {
+    const session = await getSession();
+
+    if (session && session.accessToken) {
+      config.headers.Authorization = `Bearer ${session.accessToken}`;
     }
+
     return config;
   },
   (error) => {

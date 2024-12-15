@@ -3,7 +3,7 @@ import LogoutButton from '../../components/reusable-components/button/LogoutButt
 const AdminDashboardPage = () => {
   return (
     <div>
-      AdminDashboardPage <LogoutButton redirectUrl="/admin-dashboard/login" />
+      AdminDashboardPage <LogoutButton redirectUrl="/admin-panel/login" />
     </div>
   );
 };

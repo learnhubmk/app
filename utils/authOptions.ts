@@ -3,7 +3,7 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 /* eslint-disable import/prefer-default-export */
 export const authOptions: NextAuthOptions = {
@@ -39,13 +39,13 @@ export const authOptions: NextAuthOptions = {
         let endpoint = '';
         switch (credentials.userType) {
           case 'content-manager':
-            endpoint = `${baseUrl}/content/login`;
+            endpoint = `${apiUrl}/content/login`;
             break;
           case 'admin':
-            endpoint = `${baseUrl}/admin/login`;
+            endpoint = `${apiUrl}/admin/login`;
             break;
           case 'member':
-            endpoint = `${baseUrl}/login`;
+            endpoint = `${apiUrl}/login`;
             break;
           default:
             console.error('Invalid user type');
@@ -104,6 +104,7 @@ export const authOptions: NextAuthOptions = {
         newToken.name = user.name;
         newToken.email = user.email;
         newToken.remember = user.remember;
+        newToken.role = user.role;
       }
       return newToken;
     },
@@ -114,6 +115,7 @@ export const authOptions: NextAuthOptions = {
       newSession.user.id = token.id;
       newSession.user.email = token.email;
       newSession.user.name = token.name;
+      newSession.user.role = token.role;
 
       return newSession;
     },
