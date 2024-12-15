@@ -1,36 +1,38 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 'use client';
 
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { FaUser, FaSignOutAlt, FaChevronDown, FaChevronUp, FaEnvelope } from 'react-icons/fa';
+import { Session } from 'next-auth';
 import sunImage from '../../../public/theme/sun.png';
 import moonImage from '../../../public/theme/moon.png';
 import LogoNavigation from '../../../public/logo/logo-black.svg';
 import styles from './navigation.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
-import { User } from '../_Types';
+import { User, UserStatus } from '../_Types';
 import useClickOutside from '../../../api/utils/HOC/useClickOutside';
 import LogoutButton from '../button/LogoutButton';
 
-const user: User = {
-  email: 'john@example.com',
-  first_name: 'John',
-  last_name: 'Doe',
-  status: 'active',
-  image: null,
-};
+function extractUserFromSession(session: Session | null): User {
+  return {
+    email: typeof session?.user?.email === 'string' ? session.user.email : '',
+    firstName: typeof session?.user?.name === 'string' ? session.user.name.split(' ')[0] : 'Name',
+    lastName: typeof session?.user?.name === 'string' ? session.user.name.split(' ')[1] || '' : '',
+    status: UserStatus.Active,
+    image: null,
+  };
+}
 
 const Navigation = () => {
+  const { data: session } = useSession();
+  const user: User = extractUserFromSession(session);
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
-
   const isContentPanel = pathname.startsWith('/content-panel');
   const isSun = theme === 'light';
 
@@ -41,7 +43,7 @@ const Navigation = () => {
   const renderAvatarMenu = () => (
     <div className={styles.avatarMenu}>
       <Link href="/content-panel/dashboard" className={styles.menuItem}>
-        <FaUser /> {`${user.first_name} ${user.last_name}`}
+        <FaUser /> {`${user.firstName} ${user.lastName}`}
       </Link>
       <div className={styles.userEmail}>
         <FaEnvelope /> {user.email}
@@ -56,27 +58,35 @@ const Navigation = () => {
     }
   };
 
+  const getImageSrc = (image: string | File | null): string => {
+    if (typeof image === 'string') return image;
+    if (image instanceof File) return URL.createObjectURL(image);
+    return '/user.png';
+  };
+
+  const contentPanelRoutes = [
+    { path: '/content-panel/blogs', name: 'Blogs' },
+    { path: '/content-panel/tags', name: 'Tags' },
+  ];
+
   return (
     <nav className={`${styles.navigation} ${isSun ? styles.lightNavigation : ''}`}>
       <div className={styles.navigationContainer}>
         <Link className={styles.navigationLogoLink} href="/">
           <Image src={LogoNavigation} className={styles.navigationLogo} alt="LearnHub Logo" />
         </Link>
-        {isContentPanel && (
+        {isContentPanel && session?.user && (
           <>
             <div className={styles.navLinks}>
-              <Link
-                href="/content-panel/blogs"
-                className={pathname === '/content-panel/blogs' ? styles.active : ''}
-              >
-                Blogs
-              </Link>
-              <Link
-                href="/content-panel/tags"
-                className={pathname === '/content-panel/tags' ? styles.active : ''}
-              >
-                Tags
-              </Link>
+              {contentPanelRoutes.map((route) => (
+                <Link
+                  key={route.path}
+                  href={route.path}
+                  className={pathname === route.path ? styles.active : ''}
+                >
+                  {route.name}
+                </Link>
+              ))}
             </div>
             <div className={styles.rightSection}>
               <div className={styles.avatarWrapper} ref={menuRef}>
@@ -88,7 +98,7 @@ const Navigation = () => {
                   tabIndex={0}
                 >
                   <Image
-                    src={user.image ? URL.createObjectURL(user.image) : '/user.png'}
+                    src={getImageSrc(user.image)}
                     alt="User avatar"
                     width={40}
                     height={40}
