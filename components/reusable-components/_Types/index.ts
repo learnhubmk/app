@@ -53,8 +53,8 @@ export enum UserStatus {
 
 export interface User {
   email: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   status: UserStatus;
   image: File | null;
 }
