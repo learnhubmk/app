@@ -11,7 +11,7 @@ import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
 
 interface PublishArticleFormProps {
-  userRole: 'content-manager' | 'admin';
+  userRole: 'content_manager' | 'admin';
 }
 
 const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => {
@@ -115,7 +115,7 @@ const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => 
             </label>
             <Field as="select" name="status" classname={styles.input}>
               <option value="draft">Draft</option>
-              {userRole === 'content-manager' && <option value="in_review">In Review</option>}
+              {userRole === 'content_manager' && <option value="in_review">In Review</option>}
               {userRole === 'admin' && (
                 <>
                   <option value="in_review">In Review</option>
