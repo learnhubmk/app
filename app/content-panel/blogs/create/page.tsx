@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import styles from './createArticlePage.module.scss';
 import PublishArticleForm from '../../../../components/module-components/blog/PublishArticleForm';
 
-type UserRole = 'content-manager' | 'admin';
+type UserRole = 'content_manager' | 'admin';
 
 const PostArticle = () => {
   const { data: session, status } = useSession();
