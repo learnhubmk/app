@@ -25,14 +25,14 @@ $table-height: 400px;
       padding: 15px;
       white-space: nowrap;
       text-align: left;
-      overflow: hidden;
+      overflow: visible;
     }
 
     td {
       height: 60px;
       padding: 15px;
-      overflow: hidden;
-      white-space: nowrap;
+      overflow: visible;
+      white-space: wrap;
     }
 
     th:first-child,

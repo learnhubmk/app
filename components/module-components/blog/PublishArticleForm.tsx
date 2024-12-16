@@ -10,7 +10,11 @@ import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
 
-const PublishArticleForm = () => {
+interface PublishArticleFormProps {
+  userRole: 'content-manager' | 'admin';
+}
+
+const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => {
   const addNewPostMutation = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
 
@@ -40,6 +44,7 @@ const PublishArticleForm = () => {
         excerpt: '',
         content: '',
         tags: [],
+        status: 'draft',
       }}
       onSubmit={handleAddPost}
     >
@@ -102,6 +107,23 @@ const PublishArticleForm = () => {
               }}
             />
             {touched.tags && errors.tags && <div className={styles.error}>{errors.tags}</div>}
+          </div>
+
+          <div className={styles.fields}>
+            <label htmlFor="status" className={styles.inputLabel}>
+              Статус
+            </label>
+            <Field as="select" name="status" classname={styles.input}>
+              <option value="draft">Draft</option>
+              {userRole === 'content-manager' && <option value="in_review">In Review</option>}
+              {userRole === 'admin' && (
+                <>
+                  <option value="in_review">In Review</option>
+                  <option value="published">Published</option>
+                </>
+              )}
+            </Field>
+            {touched.status && errors.status && <div className={styles.error}>{errors.status}</div>}
           </div>
 
           {addNewPostMutation.isPending ? (
