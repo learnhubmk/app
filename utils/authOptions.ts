@@ -1,11 +1,15 @@
+/* eslint-disable no-console */
 import { NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import refreshAccessToken from './refreshAccessToken';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+const TOKEN_EXPIRATION_TIME = 10000; // 1 minute for testing purposes
 
 /* eslint-disable import/prefer-default-export */
+
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
@@ -84,6 +88,7 @@ export const authOptions: NextAuthOptions = {
             role: user.role,
             remember: rememberUser,
             accessToken: data.data.access_token,
+            accessTokenExpires: TOKEN_EXPIRATION_TIME + Date.now(),
           };
         }
 
@@ -93,22 +98,37 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log('JWT Callback - Token:', token);
+
       if (user) {
-        return { ...token, ...user };
+        return {
+          ...token,
+          ...user,
+          accessTokenExpires: TOKEN_EXPIRATION_TIME + Date.now(),
+        };
       }
 
-      return token;
+      if (Date.now() < (token.accessTokenExpires as number)) {
+        return token;
+      }
+
+      console.log('Access token expired. Refreshing...');
+      const refreshedToken = await refreshAccessToken(token, TOKEN_EXPIRATION_TIME);
+      return refreshedToken;
     },
 
     async session({ session, token }) {
-      const newSession = { ...session };
-      newSession.accessToken = token.accessToken;
-      newSession.user.id = token.id;
-      newSession.user.email = token.email;
-      newSession.user.name = token.name;
-      newSession.user.role = token.role;
+      if (token.error) return session;
 
-      return newSession;
+      return {
+        ...session,
+        accessToken: token.accessToken,
+        user: {
+          id: token.id,
+          email: token.email,
+          role: token.role,
+        },
+      };
     },
   },
 
