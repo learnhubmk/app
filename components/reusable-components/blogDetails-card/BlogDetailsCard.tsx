@@ -173,7 +173,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             }
           />
         ) : (
-          <div id="content" dangerouslySetInnerHTML={{ __html: content }} />
+          <div id="content">{content}</div>
         )}
       </div>
       <div className={styles.authorSection}>
