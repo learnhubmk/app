@@ -47,16 +47,21 @@ const ReusableTable = <T extends { id: string }>({
 
   const renderSkeletonLoader = () => {
     const skeletonRows = Array.from({ length: 5 });
-
     return skeletonRows.map((_, rowIndex) => (
       <tr key={`skeleton-row-${rowIndex}`} className={style.skeletonRow}>
         {headers.map((__, colIndex) => (
-          <td key={`skeleton-cell-${rowIndex}-${colIndex}`}>
+          <td
+            key={`skeleton-cell-${rowIndex}-${colIndex}`}
+            aria-label={`Loading skeleton cell ${rowIndex}-${colIndex}`}
+          >
             <div className={style.skeletonCell} />
           </td>
         ))}
         {(renderActions || renderActionsDropdown) && (
-          <td key={`skeleton-action-${rowIndex}`}>
+          <td
+            key={`skeleton-action-${rowIndex}`}
+            aria-label={`Loading skeleton action cell ${rowIndex}`}
+          >
             <div className={style.skeletonCell} />
           </td>
         )}

@@ -1,5 +1,3 @@
-// pages/signup/index.tsx
-
 'use client';
 
 import React from 'react';
@@ -51,8 +49,11 @@ const SignupPage = () => {
       await response.json();
       toast.success('Successfully registered!');
     } catch (err) {
-      console.error(err);
-      toast.error('Registration failed');
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error('Something went wrong! Please try again later!');
+      }
     }
   };
 

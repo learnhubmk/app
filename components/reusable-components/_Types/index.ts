@@ -13,27 +13,10 @@ export interface IPasswordValidation {
   minLength: boolean;
 }
 
-export interface BlogDetailsCardProps {
-  title: string;
-  imageUrl: string;
-  content: string;
-  publishDate: string;
-  tags: string[];
-  onImageChange: (files: File[]) => void;
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
-  ) => void;
-  onDeleteClick: () => void;
-  onCancelClick: () => void;
-  imageError: string | null;
-  onValidationError: (error: string) => void;
-  isEditing: boolean;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export interface Author {
   firstName: string;
   lastName: string;
+  authorId?: string;
 }
 
 export interface BlogDetailsData {
@@ -43,4 +26,39 @@ export interface BlogDetailsData {
   author: Author;
   publishDate: string;
   tags: string[];
+  excerpt?: string;
+  slug?: string;
+  authorId?: string;
+}
+
+export interface IBlogCardState {
+  showModal: boolean;
+  modalType: 'back' | 'cancel';
+  hasUnsavedChanges: boolean;
+}
+
+export interface BlogDetailsCardProps {
+  postId: string;
+  blogContent: BlogDetailsData;
+  states: {
+    isEditing: boolean;
+    setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  actions: {
+    onImageChange: (files: File[]) => void;
+    onChange: (
+      event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
+    ) => void;
+    onDeleteClick: () => void;
+    onCancelClick: () => void;
+  };
+  errors: {
+    imageError: string | null;
+    onValidationError: (error: string) => void;
+  };
+}
+
+export interface UpdatePostParams {
+  id: string;
+  updatedPost: Partial<BlogDetailsData>;
 }

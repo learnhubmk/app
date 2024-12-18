@@ -6,17 +6,13 @@ import { toast } from 'react-toastify';
 import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
+import { ErrorResponse } from '../../../Types';
 
 export type NewPost = {
   title: string;
   excerpt: string;
   content: string;
   tags: string[];
-};
-
-type ErrorResponse = {
-  message: string;
-  statusCode?: number;
 };
 
 const useAddNewPost = () => {
