@@ -35,7 +35,6 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Determine the endpoint based on the user type
         let endpoint = '';
         switch (credentials.userType) {
           case 'content-manager':
@@ -51,6 +50,7 @@ export const authOptions: NextAuthOptions = {
             console.error('Invalid user type');
             return null;
         }
+
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: {
@@ -78,35 +78,26 @@ export const authOptions: NextAuthOptions = {
           const rememberUser = credentials?.remember === 'true';
           const { user } = data.data;
 
-          // If we get here, we have a successful login
-          // Return the user object that will be saved in the token
           return {
             id: user.id,
-            name: user.name,
             email: user.email,
             role: user.role,
-            image: user.image,
             remember: rememberUser,
-            accessToken: data.data.access_token, // If API returns a token
+            accessToken: data.data.access_token,
           };
         }
-        // Return null if login failed.
+
         return null;
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      const newToken = { ...token };
       if (user) {
-        newToken.accessToken = user.accessToken;
-        newToken.id = user.id;
-        newToken.name = user.name;
-        newToken.email = user.email;
-        newToken.remember = user.remember;
-        newToken.role = user.role;
+        return { ...token, ...user };
       }
-      return newToken;
+
+      return token;
     },
 
     async session({ session, token }) {
