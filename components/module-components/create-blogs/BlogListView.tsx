@@ -90,6 +90,11 @@ const BlogListView = () => {
       ]}
     />
   );
+  const filteredData = data.filter(
+    (blog) =>
+      blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      blog.author.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className={style.mainContainer}>
@@ -105,7 +110,7 @@ const BlogListView = () => {
       <ReusableTable
         headers={headers}
         displayNames={displayNames}
-        data={data}
+        data={filteredData}
         onRowClick={handleView}
         renderActionsDropdown={renderActionsDropdown}
       />
