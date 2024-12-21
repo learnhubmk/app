@@ -3,11 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import BlogManagementControls from './BlogManagementControls';
 import ActionDropdown from '../../reusable-components/reusable-table/ActionDropdown';
 import style from './createBlogs.module.scss';
 import { useEditor } from '../../../app/context/EditorContext';
+import { UserRole } from '../../../Types';
+import ENDPOINTS from '../../../apis/endpoints';
 
 interface Author {
   first_name: string;
@@ -37,18 +41,20 @@ const BlogListView = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { editorStateChange } = useEditor();
   const [data, setData] = useState<BlogPost[]>([]);
-  const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts`;
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { data: session } = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(ENDPOINTS.BLOGS.GET_ALL(10, 0));
         if (!response.ok) {
           throw new Error(`${response.status} ${response.statusText}`);
         }
         const result = await response.json();
+
+        // console.log('Result:', result);
 
         const transformedData: BlogPost[] = result.data.map((item: BlogPostAPI) => ({
           id: item.slug,
@@ -66,7 +72,44 @@ const BlogListView = () => {
     };
 
     fetchData();
-  }, [apiUrl]);
+  }, []);
+
+  const mutation = useMutation({
+    mutationFn: async ({ id, newStatus }: { id: string; newStatus: string }) => {
+      const changeStatusUrl = new URL(`${ENDPOINTS.BLOGS.CREATE}/${id}/statuses`);
+      const body = {
+        status: newStatus,
+        publish_date:
+          newStatus === 'published' ? new Date().toISOString().split('T')[0] : undefined,
+      };
+
+      const response = await fetch(changeStatusUrl.toString(), {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to update blog status');
+      }
+      return { id, newStatus };
+    },
+    onError: (error: any) => {
+      toast.error(error.message || 'Failed to update blog status');
+    },
+    onSuccess: ({ id, newStatus }: { id: string; newStatus: string }) => {
+      toast.success('Blog status updated successfully');
+      setData((prevData) =>
+        prevData.map((item) => (item.id === id ? { ...item, status: newStatus } : item))
+      );
+      queryClient.invalidateQueries({ queryKey: ['blog-posts'] });
+    },
+  });
 
   const headers: (keyof BlogPost)[] = ['title', 'author', 'status'];
   const displayNames = {
@@ -86,104 +129,34 @@ const BlogListView = () => {
   };
 
   const handleChangeStatus = async (id: string, newStatus: string) => {
-    if (!session || !session.user) {
-      // eslint-disable-next-line no-console
-      console.error('Session is not available');
-      return;
-    }
-
-    try {
-      const changeStatusUrl = new URL(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts/${id}/statuses`
-      );
-
-      const requestHeaders = {
-        Authorization: `Bearer ${session.accessToken}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      };
-
-      const body: { publish_date?: string; status: string } = {
-        status: newStatus,
-      };
-
-      if (newStatus === 'published') {
-        // eslint-disable-next-line prefer-destructuring
-        body.publish_date = new Date().toISOString().split('T')[0];
-      }
-
-      fetch(changeStatusUrl.toString(), {
-        method: 'PATCH',
-        headers: requestHeaders,
-        body: JSON.stringify(body),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}`);
-          }
-          return response.json();
-        })
-        .then(() => {
-          setData((prevData) => {
-            const [updatedItem] = prevData.filter((item) => item.id === id);
-            updatedItem.status = newStatus;
-            return prevData.map((item) => (item.id === id ? updatedItem : item));
-          });
-        })
-        .catch((err) => {
-          if (err instanceof Error) {
-            // eslint-disable-next-line no-console
-            console.error(`Error updating status: ${err.message}`);
-            if (err.message.includes('404')) {
-              // eslint-disable-next-line no-console
-              console.error('The specified blog post ID was not found.');
-            }
-          } else {
-            // eslint-disable-next-line no-console
-            console.error('An unexpected error occurred:', err);
-          }
-        });
-    } catch (err) {
-      if (err instanceof Error) {
-        // eslint-disable-next-line no-console
-        console.error(`Error updating status: ${err.message}`);
-      } else {
-        // eslint-disable-next-line no-console
-        console.error('An unexpected error occurred:', err);
-      }
-    }
+    mutation.mutate({ id, newStatus });
   };
 
   const renderActionsDropdown = (item: BlogPost) => {
-    if (!session || !session.user.role) {
-      return null;
-    }
-
-    const userRole = session.user.role as 'admin' | 'content_manager';
-
     const dropdownItems = [
       { id: 'view', label: 'View', onClick: () => handleView(item.id) },
       { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
-      userRole === 'admin'
+      UserRole.admin
         ? {
             id: 'publish',
             label: 'Publish',
             onClick: () => handleChangeStatus(item.id, 'published'),
           }
         : undefined,
-      userRole === 'content_manager' && item.status === 'draft'
+      UserRole.content_manager && item.status === 'draft'
         ? {
             id: 'in-review',
             label: 'Move to In Review',
             onClick: () => handleChangeStatus(item.id, 'in_review'),
           }
         : undefined,
-    ].filter(
-      (dropdownItem): dropdownItem is { id: string; label: string; onClick: () => void } =>
-        dropdownItem !== undefined
-    );
+    ].filter(Boolean);
 
-    return <ActionDropdown dropdownItems={dropdownItems} />;
+    return (
+      <ActionDropdown
+        dropdownItems={dropdownItems as { id: string; label: string; onClick: () => void }[]}
+      />
+    );
   };
 
   return (

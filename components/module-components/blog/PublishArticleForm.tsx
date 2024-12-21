@@ -9,9 +9,10 @@ import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
+import { UserRole } from '../../../Types';
 
 interface PublishArticleFormProps {
-  userRole: 'content_manager' | 'admin';
+  userRole: UserRole;
 }
 
 const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => {
@@ -115,13 +116,8 @@ const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => 
             </label>
             <Field as="select" name="status" classname={styles.input}>
               <option value="draft">Draft</option>
-              {userRole === 'content_manager' && <option value="in_review">In Review</option>}
-              {userRole === 'admin' && (
-                <>
-                  <option value="in_review">In Review</option>
-                  <option value="published">Published</option>
-                </>
-              )}
+              <option value="in_review">In Review</option>
+              {userRole === UserRole.admin && <option value="published">Published</option>}
             </Field>
             {touched.status && errors.status && <div className={styles.error}>{errors.status}</div>}
           </div>

@@ -6,21 +6,13 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import styles from './createArticlePage.module.scss';
 import PublishArticleForm from '../../../../components/module-components/blog/PublishArticleForm';
-
-type UserRole = 'content_manager' | 'admin';
+import { UserRole } from '../../../../Types';
 
 const PostArticle = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
-  if (status === 'loading') {
-    return <div>Loading....</div>;
-  }
-
-  if (!session || !session.user.role) {
-    return <div>Access denied</div>;
-  }
-
-  const userRole = session.user.role as UserRole;
+  // console.log('Session data:', session);
+  const userRole = session?.user.role as UserRole;
 
   return (
     <div className={styles.container}>
