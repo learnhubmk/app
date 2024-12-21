@@ -51,8 +51,7 @@ export async function getNewToken({
     const data: RefreshTokenResponse = await response.json();
     return data.new_token;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_error: any) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error: any) {
     // console.error({ msg: 'Error from getNewToken', error });
     return null;
   }
