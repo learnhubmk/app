@@ -83,7 +83,7 @@ const LoginForm = ({ isError, isLoading, onSubmit }: LoginFormProps) => {
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="remember">Запомни ме</label>
           </div>
-          <Link href="/forgot-password" className={styles.forgotPassword}>
+          <Link href="/content-panel/forgot-password" className={styles.forgotPassword}>
             Заборавена лозинка?
           </Link>
         </div>
