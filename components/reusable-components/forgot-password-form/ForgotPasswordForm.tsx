@@ -7,11 +7,13 @@ import Button from '../button/Button';
 import style from './ForgotPasswordForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import { useForgotPasswordForm } from '../../../utils/hooks/usePasswordForm';
+import getBaseUrl from '../../../utils/getBaseUrl';
 
 const ForgotPasswordForm = () => {
   const { theme } = useTheme();
   const router = useRouter();
   const lightTheme = theme === 'light';
+  const baseUrl = getBaseUrl();
 
   const { formik, isLoading, error, success } = useForgotPasswordForm();
 
@@ -30,7 +32,7 @@ const ForgotPasswordForm = () => {
             type="button"
             buttonText="Назад кон најава"
             buttonClass={['primaryButton']}
-            onClick={() => router.push('/content-panel/login')}
+            onClick={() => router.push(`${baseUrl}/content-panel/login`)}
           />
         </div>
       </div>

@@ -1,5 +1,3 @@
-// components/ResetPasswordForm.tsx
-
 'use client';
 
 import React from 'react';
@@ -9,6 +7,7 @@ import Button from '../button/Button';
 import style from './ResetPasswordForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
 import { useResetPasswordForm } from '../../../utils/hooks/usePasswordForm';
+import getBaseUrl from '../../../utils/getBaseUrl';
 
 const ResetPasswordForm = () => {
   const { theme } = useTheme();
@@ -17,6 +16,7 @@ const ResetPasswordForm = () => {
   const lightTheme = theme === 'light';
   const resetToken = searchParams.get('token');
   const email = searchParams.get('email');
+  const baseUrl = getBaseUrl();
 
   const { formik, isLoading, error } = useResetPasswordForm(email, resetToken);
 
@@ -32,7 +32,7 @@ const ResetPasswordForm = () => {
             type="button"
             buttonText="Назад кон најава"
             buttonClass={['primaryButton']}
-            onClick={() => router.push(`/content-panel/login`)}
+            onClick={() => router.push(`${baseUrl}/content-panel/login`)}
           />
         </div>
       </div>

@@ -1,5 +1,3 @@
-// hooks/usePasswordForm.ts
-
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
