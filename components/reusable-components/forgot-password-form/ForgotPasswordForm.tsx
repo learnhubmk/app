@@ -1,48 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import TextInput from '../text-input/TextInput';
 import Button from '../button/Button';
 import style from './ForgotPasswordForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
+import { useForgotPasswordForm } from '../../../utils/hooks/usePasswordForm';
 
 const ForgotPasswordForm = () => {
   const { theme } = useTheme();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
   const lightTheme = theme === 'light';
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email('Невалидна емаил адреса').required('Задолжително'),
-    }),
-    onSubmit: async (values) => {
-      setIsLoading(true);
-      setError('');
-      try {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/passwords/request-new`, {
-          email: values.email,
-        });
-        setSuccess(true);
-      } catch (err: any) {
-        setError(
-          err.response?.data?.message ||
-            'Внесете валидна емаил адреса која е регистрирана во системот.'
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    },
-  });
+  const { formik, isLoading, error, success } = useForgotPasswordForm();
 
   if (success) {
     return (

@@ -1,65 +1,24 @@
+// components/ResetPasswordForm.tsx
+
 'use client';
 
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import TextInput from '../text-input/TextInput';
 import Button from '../button/Button';
 import style from './ResetPasswordForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
+import { useResetPasswordForm } from '../../../utils/hooks/usePasswordForm';
 
 const ResetPasswordForm = () => {
   const { theme } = useTheme();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
   const lightTheme = theme === 'light';
-
   const resetToken = searchParams.get('token');
   const email = searchParams.get('email');
 
-  const formik = useFormik({
-    initialValues: {
-      email: email || '',
-      password: '',
-      confirmPassword: '',
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email('Невалидна емаил адреса').required('Задолжително'),
-      password: Yup.string()
-        .min(8, 'Лозинката мора да содржи најмалку 8 карактери')
-        .required('Задолжително'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Лозинките не се совпаѓаат')
-        .required('Задолжително'),
-    }),
-    onSubmit: async (values) => {
-      if (!resetToken) {
-        setError('Невалиден токен за ресетирање');
-        return;
-      }
-
-      setIsLoading(true);
-      setError('');
-
-      try {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/passwords/reset`, {
-          email: values.email,
-          password: values.password,
-          token: resetToken,
-        });
-
-        router.push('/content-panel/login?reset=success');
-      } catch (err: any) {
-        setError(err.response?.data?.message || 'Настана грешка. Ве молиме обидете се повторно.');
-      } finally {
-        setIsLoading(false);
-      }
-    },
-  });
+  const { formik, isLoading, error } = useResetPasswordForm(email, resetToken);
 
   if (!resetToken || !email) {
     return (
@@ -73,7 +32,7 @@ const ResetPasswordForm = () => {
             type="button"
             buttonText="Назад кон најава"
             buttonClass={['primaryButton']}
-            onClick={() => router.push('/content-panel/login')}
+            onClick={() => router.push(`/content-panel/login`)}
           />
         </div>
       </div>
