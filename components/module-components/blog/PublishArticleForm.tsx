@@ -10,13 +10,16 @@ import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
 import { UserRole } from '../../../Types';
+import UpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
 
 interface PublishArticleFormProps {
   userRole: UserRole;
+  postId?: string;
 }
 
-const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => {
+const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole, postId }) => {
   const addNewPostMutation = useAddNewPost();
+  const updatePostStatusMutation = UpdatePostStatus();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
 
   const validationSchema = Yup.object({
@@ -33,8 +36,12 @@ const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => 
       .min(1, 'Мора да селектираш барем еден таг.'),
   });
 
-  const handleAddPost = (values: NewPost) => {
-    addNewPostMutation.mutate(values);
+  const handleSubmit = (values: NewPost) => {
+    if (postId) {
+      updatePostStatusMutation.mutate({ id: postId, status: values.status });
+    } else {
+      addNewPostMutation.mutate(values);
+    }
   };
 
   return (
@@ -47,7 +54,7 @@ const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => 
         tags: [],
         status: 'draft',
       }}
-      onSubmit={handleAddPost}
+      onSubmit={handleSubmit}
     >
       {({ values, setFieldValue, touched, errors }) => (
         <Form className={styles.form}>
