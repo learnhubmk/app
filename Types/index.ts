@@ -3,10 +3,9 @@
 import { MutationStatus, QueryStatus } from '@tanstack/react-query';
 import { HTMLProps } from 'react';
 
-export enum Role {
+export enum UserRole {
   admin = 'admin',
   content_manager = 'content_manager',
-  content = 'content',
   member = 'member',
 }
 
@@ -14,7 +13,7 @@ export type UserType = {
   id: number | string;
   is_verified: boolean;
   email: string;
-  role: Role;
+  role: UserRole;
 };
 
 export interface LoginParams {

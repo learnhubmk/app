@@ -7,11 +7,8 @@ import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 
-export type NewPost = {
-  title: string;
-  excerpt: string;
-  content: string;
-  tags: string[];
+type UpdatePostStatusPayload = {
+  id: string;
   status: string;
 };
 
@@ -20,23 +17,25 @@ type ErrorResponse = {
   statusCode?: number;
 };
 
-const useAddNewPost = () => {
+const useUpdatePostStatus = () => {
   const queryClient = useQueryClient();
   const axios = useAxios();
 
   return useMutation({
-    mutationFn: async (newPost: NewPost) => {
-      const response = await axios.post(ENDPOINTS.BLOGS.CREATE, newPost);
+    mutationFn: async ({ id, status }: UpdatePostStatusPayload) => {
+      const response = await axios.patch(ENDPOINTS.BLOGS.UPDATE_STATUS(id), { status });
       return response.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {
-      toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
+      toast.error(
+        error?.response?.data?.message || 'Настана грешка при ажурирање на статусот на статијата.'
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
-      toast.success('Статијата беше успешно објавена!');
+      toast.success('Статусот на статијата е успешно ажуриран!');
     },
   });
 };
 
-export default useAddNewPost;
+export default useUpdatePostStatus;

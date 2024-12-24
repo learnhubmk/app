@@ -9,9 +9,17 @@ import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
+import { UserRole } from '../../../Types';
+import UpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
 
-const PublishArticleForm = () => {
+interface PublishArticleFormProps {
+  userRole: UserRole;
+  postId?: string;
+}
+
+const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole, postId }) => {
   const addNewPostMutation = useAddNewPost();
+  const updatePostStatusMutation = UpdatePostStatus();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
 
   const validationSchema = Yup.object({
@@ -28,8 +36,12 @@ const PublishArticleForm = () => {
       .min(1, 'Мора да селектираш барем еден таг.'),
   });
 
-  const handleAddPost = (values: NewPost) => {
-    addNewPostMutation.mutate(values);
+  const handleSubmit = (values: NewPost) => {
+    if (postId) {
+      updatePostStatusMutation.mutate({ id: postId, status: values.status });
+    } else {
+      addNewPostMutation.mutate(values);
+    }
   };
 
   return (
@@ -40,8 +52,9 @@ const PublishArticleForm = () => {
         excerpt: '',
         content: '',
         tags: [],
+        status: 'draft',
       }}
-      onSubmit={handleAddPost}
+      onSubmit={handleSubmit}
     >
       {({ values, setFieldValue, touched, errors }) => (
         <Form className={styles.form}>
@@ -102,6 +115,18 @@ const PublishArticleForm = () => {
               }}
             />
             {touched.tags && errors.tags && <div className={styles.error}>{errors.tags}</div>}
+          </div>
+
+          <div className={styles.fields}>
+            <label htmlFor="status" className={styles.inputLabel}>
+              Статус
+            </label>
+            <Field as="select" name="status" classname={styles.input}>
+              <option value="draft">Draft</option>
+              <option value="in_review">In Review</option>
+              {userRole === UserRole.admin && <option value="published">Published</option>}
+            </Field>
+            {touched.status && errors.status && <div className={styles.error}>{errors.status}</div>}
           </div>
 
           {addNewPostMutation.isPending ? (

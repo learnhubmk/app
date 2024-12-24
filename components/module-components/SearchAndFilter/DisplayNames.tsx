@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import fetchSearchResultsFromApi from './SubmitSearchForm';
 import style from './displayNames.module.scss';
-import { UserRole } from './Filter';
 import Loading from '../../../app/loading';
+import { UserRole } from '../../../Types';
 
 interface Author {
   id: string;

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+import { UserRole } from './Types';
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req });
@@ -24,14 +25,14 @@ export async function middleware(req: NextRequest) {
 
   // Content Panel access
   if (isContentPanelRoute && !isLoginRoute) {
-    if (userRole !== 'admin' && userRole !== 'content_manager') {
+    if (userRole !== UserRole.admin && userRole !== UserRole.content_manager) {
       return NextResponse.redirect(new URL('/unauthorized', req.url));
     }
   }
 
   // Admin Panel access
   if (isAdminPanelRoute && !isLoginRoute) {
-    if (userRole !== 'admin') {
+    if (userRole !== UserRole.admin) {
       return NextResponse.redirect(new URL('/unauthorized', req.url));
     }
   }
@@ -40,11 +41,11 @@ export async function middleware(req: NextRequest) {
   if (isLoginRoute) {
     if (
       path.startsWith('/content-panel/login') &&
-      (userRole === 'admin' || userRole === 'content-manager')
+      (userRole === UserRole.admin || userRole === UserRole.content_manager)
     ) {
       return NextResponse.redirect(new URL('/content-panel', req.url));
     }
-    if (path.startsWith('/admin-panel/login') && userRole === 'admin') {
+    if (path.startsWith('/admin-panel/login') && userRole === UserRole.admin) {
       return NextResponse.redirect(new URL('/admin-panel', req.url));
     }
   }
