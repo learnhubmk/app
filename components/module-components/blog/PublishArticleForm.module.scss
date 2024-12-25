@@ -8,8 +8,12 @@
 }
 
 .error {
-  color: red;
+  color: var(--error-color);
   font-size: 0.79rem;
+}
+.required {
+  color: var(--error-color);
+  font-size: 1.2rem;
 }
 
 .input {

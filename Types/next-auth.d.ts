@@ -15,6 +15,7 @@ declare module 'next-auth' {
       name?: string | unknown;
       email?: string | unknown;
       image?: string | unknown;
+      role?: string | unknown;
     };
   }
 }
@@ -26,6 +27,7 @@ declare module 'next-auth' {
     name?: string;
     email?: string;
     exp?: number;
+    role?: string;
   }
 }
 declare module 'next-auth' {
@@ -36,5 +38,6 @@ declare module 'next-auth' {
     image?: string;
     accessToken?: string;
     remember?: boolean;
+    role?: string;
   }
 }

@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
+import { useSession } from 'next-auth/react';
 import * as Yup from 'yup';
+
 import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
 import { TagObject } from './TagInput';
 import styles from './PublishArticleForm.module.scss';
@@ -11,8 +13,13 @@ import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
 
 const PublishArticleForm = () => {
+  const { data: session } = useSession();
   const addNewPostMutation = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
+
+  const isUserAdmin = session?.user.role === 'admin';
+
+  console.log('isUserAdmin', isUserAdmin);
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -47,7 +54,7 @@ const PublishArticleForm = () => {
         <Form className={styles.form}>
           <div className={styles.field}>
             <label className={styles.inputLabel} htmlFor="title">
-              Наслов
+              Наслов<span className={styles.required}>*</span>
             </label>
             <Field
               className={styles.input}
@@ -60,7 +67,7 @@ const PublishArticleForm = () => {
 
           <div className={styles.field}>
             <label className={styles.inputLabel} htmlFor="excerpt">
-              Краток опис
+              Краток опис<span className={styles.required}>*</span>
             </label>
             <Field
               className={styles.input}
@@ -75,7 +82,7 @@ const PublishArticleForm = () => {
 
           <div className={styles.field}>
             <label htmlFor="content-editor" className={styles.inputLabel}>
-              Содржина
+              Содржина<span className={styles.required}>*</span>
             </label>
             <TiptapEditor
               editable
@@ -89,7 +96,7 @@ const PublishArticleForm = () => {
 
           <div className={styles.field}>
             <label htmlFor="tags" className={styles.inputLabel}>
-              Тагови
+              Тагови<span className={styles.required}>*</span>
             </label>
             <TagManager
               selectedTags={selectedTags}

@@ -31,7 +31,6 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.userType) {
-          console.error('User type is missing');
           return null;
         }
 
@@ -48,7 +47,6 @@ export const authOptions: NextAuthOptions = {
             endpoint = `${baseUrl}/login`;
             break;
           default:
-            console.error('Invalid user type');
             return null;
         }
         const res = await fetch(endpoint, {
@@ -103,6 +101,7 @@ export const authOptions: NextAuthOptions = {
         newToken.id = user.id;
         newToken.name = user.name;
         newToken.email = user.email;
+        newToken.role = user.role;
         newToken.remember = user.remember;
       }
       return newToken;
@@ -114,6 +113,7 @@ export const authOptions: NextAuthOptions = {
       newSession.user.id = token.id;
       newSession.user.email = token.email;
       newSession.user.name = token.name;
+      newSession.user.role = token.role;
 
       return newSession;
     },
