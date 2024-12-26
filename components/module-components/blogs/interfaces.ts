@@ -9,7 +9,9 @@ export interface Tag {
   name: string;
 }
 
-export interface BlogPostAPI {
+export interface RawBlogPost {
+  id: string;
+  status: string;
   slug: string;
   title: string;
   tags: Tag[];
@@ -18,12 +20,13 @@ export interface BlogPostAPI {
 
 export interface BlogPost {
   id: string;
+  slug: string;
   title: string;
   status: string;
   author: string;
 }
 
 export interface BlogsResponse {
-  data: BlogPostAPI[];
+  data: RawBlogPost[];
   meta: MetaData;
 }
