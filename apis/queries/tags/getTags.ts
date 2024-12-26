@@ -3,6 +3,7 @@ import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 import { TagObject } from '../../../components/module-components/blog/TagInput';
+import { Links, MetaData } from '../../../Types';
 
 export interface Tag {
   id: string;
@@ -11,43 +12,19 @@ export interface Tag {
   updated_at: string;
 }
 
-export interface Link {
-  url: string | null;
-  label: string;
-  active: boolean;
-}
-
-export interface MetaData {
-  current_page: number;
-  from: number;
-  last_page: number;
-  links: Link[];
-  path: string;
-  per_page: number;
-  to: number;
-  total: number;
-}
-
-export interface Links {
-  first: string;
-  last: string;
-  prev: string | null;
-  next: string | null;
-}
-
 export interface TagsResponse {
   data: Tag[];
   links: Links;
   meta: MetaData;
 }
 
-const useGetTags = (search?: string, page?: number) => {
+const useGetTags = (search?: string, page?: number, itemsPerPage?: number) => {
   const axios = useAxios();
 
   return useQuery({
-    queryKey: [...QUERY_KEYS.TAGS.ALL, search, page],
+    queryKey: [...QUERY_KEYS.TAGS.ALL, search, page, itemsPerPage],
     queryFn: async () => {
-      const url = `${ENDPOINTS.TAGS.GET_ALL}?search=${encodeURIComponent(search || '')}&page=${encodeURIComponent(page || 1)}`;
+      const url = `${ENDPOINTS.TAGS.GET_ALL}?search=${encodeURIComponent(search || '')}&page=${encodeURIComponent(page || 1)}&per_page=${encodeURIComponent(itemsPerPage || 25)}`;
 
       const { data } = await axios.get<TagsResponse>(url);
       return data;
@@ -59,6 +36,9 @@ const useGetTags = (search?: string, page?: number) => {
         name: tag.name.toLowerCase(),
       })),
     }),
+    staleTime: 1 * 60 * 1000, // 1 minute
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
   });
 };
 
