@@ -17,12 +17,26 @@ import useClickOutside from '../../../api/utils/HOC/useClickOutside';
 import LogoutButton from '../button/LogoutButton';
 
 function extractUserFromSession(session: Session | null): User {
+  if (!session || !session.user) {
+    return {
+      email: '',
+      firstName: 'Guest',
+      lastName: '',
+      status: UserStatus.Active,
+      image: null,
+    };
+  }
+
+  const email = typeof session.user.email === 'string' ? session.user.email : '';
+  const name = typeof session.user.name === 'string' ? session.user.name : '';
+  const [firstName, lastName] = name.split(' ');
+
   return {
-    email: typeof session?.user?.email === 'string' ? session.user.email : '',
-    firstName: typeof session?.user?.name === 'string' ? session.user.name.split(' ')[0] : 'Name',
-    lastName: typeof session?.user?.name === 'string' ? session.user.name.split(' ')[1] || '' : '',
+    email,
+    firstName: firstName || 'Guest',
+    lastName: lastName || '',
     status: UserStatus.Active,
-    image: null,
+    image: typeof session.user.image === 'string' ? session.user.image : null,
   };
 }
 

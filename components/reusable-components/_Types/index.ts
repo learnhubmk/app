@@ -56,5 +56,5 @@ export interface User {
   firstName: string;
   lastName: string;
   status: UserStatus;
-  image: File | null;
+  image: string | File | null;
 }
