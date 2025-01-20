@@ -57,6 +57,30 @@ export interface Session {
   token: string;
 }
 
+export interface Link {
+  url: string | null;
+  label: string;
+  active: boolean;
+}
+
+export interface MetaData {
+  current_page: number;
+  from: number;
+  last_page: number;
+  links: Link[];
+  path: string;
+  per_page: number;
+  to: number;
+  total: number;
+}
+
+export interface Links {
+  first: string;
+  last: string;
+  prev: string | null;
+  next: string | null;
+}
+
 export interface LoginFormProps {
   isError: boolean;
   onSubmit: (values: LoginParams) => Promise<void>;

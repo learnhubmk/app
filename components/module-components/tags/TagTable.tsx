@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Button from '../../reusable-components/button/Button';
 import ReusableTable from '../../reusable-components/reusable-table/ReusableTable';
 import ReusableModal from '../../reusable-components/reusable-modal/ReusableModal';
+import { MetaData } from '../../../Types';
 
 interface Tag {
   id: string;
@@ -11,6 +12,9 @@ interface Tag {
 }
 
 interface TagTableProps {
+  setItemsPerPage: (itemsPerPage: number) => void;
+  paginationData: MetaData;
+  setPaginationPage: (page: number) => void;
   tags: Tag[];
   editingTagId: string | null;
   onEdit: (id: string) => void;
@@ -22,6 +26,9 @@ interface TagTableProps {
 }
 
 const TagTable: React.FC<TagTableProps> = ({
+  setItemsPerPage,
+  paginationData,
+  setPaginationPage,
   isLoading,
   tags,
   editingTagId,
@@ -79,6 +86,9 @@ const TagTable: React.FC<TagTableProps> = ({
   return (
     <>
       <ReusableTable<Tag>
+        setItemsPerPage={setItemsPerPage}
+        setPaginationPage={setPaginationPage}
+        paginationData={paginationData}
         isLoading={isLoading}
         headers={headers}
         displayNames={displayNames}
