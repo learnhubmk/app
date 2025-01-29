@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useSession } from 'next-auth/react';
 import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
 import { TagObject } from './TagInput';
 import styles from './PublishArticleForm.module.scss';
@@ -11,13 +12,11 @@ import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
 import { UserRole } from '../../../Types';
 
-interface PublishArticleFormProps {
-  userRole: UserRole;
-}
-
-const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => {
+const PublishArticleForm = () => {
   const addNewPostMutation = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
+  const { data: session } = useSession();
+  const userRole = session?.user.role as UserRole;
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -114,7 +113,7 @@ const PublishArticleForm: React.FC<PublishArticleFormProps> = ({ userRole }) => 
             <label htmlFor="status" className={styles.inputLabel}>
               Статус
             </label>
-            <Field as="select" name="status" classname={styles.input}>
+            <Field as="select" name="status" className={styles.dropdown}>
               <option value="draft">Draft</option>
               <option value="in_review">In Review</option>
               {userRole === UserRole.admin && <option value="published">Published</option>}

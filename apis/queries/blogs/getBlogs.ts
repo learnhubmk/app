@@ -14,7 +14,7 @@ const useGetBlogs = (search?: string, page?: number, itemsPerPage?: number, stat
           title: search || '',
           page: page || 1,
           per_page: itemsPerPage,
-          status: status || 'published',
+          status,
         },
       });
       return response.data;
