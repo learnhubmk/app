@@ -2,12 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getSession } from 'next-auth/react';
 import QUERY_KEYS from '../../queryKeys';
 import { BlogDetailsData } from '../../../components/reusable-components/_Types';
+import ENDPOINTS from '../../endpoints';
 
 const fetchBlogDetails = async (id: string): Promise<BlogDetailsData> => {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/content/blog-posts/${id}`;
-
   const session = await getSession();
-  const response = await fetch(url, {
+  const response = await fetch(`${ENDPOINTS.BLOGS.GET_ALL}/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -26,7 +25,7 @@ const fetchBlogDetails = async (id: string): Promise<BlogDetailsData> => {
     content: blogPost.content,
     author: {
       first_name: blogPost.author.first_name,
-      last_name: data.data.author.last_name,
+      last_name: blogPost.author.last_name,
     },
     publishDate: blogPost.publish_date
       ? new Date(blogPost.publish_date).toISOString().split('T')[0]
