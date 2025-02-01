@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
 import { TagObject } from './TagInput';
 import styles from './PublishArticleForm.module.scss';
@@ -16,7 +17,17 @@ const PublishArticleForm = () => {
   const addNewPostMutation = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
   const { data: session } = useSession();
-  const userRole = session?.user.role as UserRole;
+  const router = useRouter();
+  const userRole = session?.user.role;
+
+  const statusOptions = [
+    { value: 'draft', label: 'Draft' },
+    { value: 'in_review', label: 'In Review' },
+  ];
+
+  if (userRole === UserRole.admin) {
+    statusOptions.push({ value: 'published', label: 'Published' });
+  }
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -35,6 +46,12 @@ const PublishArticleForm = () => {
   const handleAddPost = (values: NewPost) => {
     addNewPostMutation.mutate(values);
   };
+
+  useEffect(() => {
+    if (addNewPostMutation.isSuccess) {
+      router.push('/content-panel/blogs');
+    }
+  }, [addNewPostMutation.isSuccess, router]);
 
   return (
     <Formik
@@ -114,9 +131,11 @@ const PublishArticleForm = () => {
               Статус
             </label>
             <Field as="select" name="status" className={styles.dropdown}>
-              <option value="draft">Draft</option>
-              <option value="in_review">In Review</option>
-              {userRole === UserRole.admin && <option value="published">Published</option>}
+              {statusOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.value}
+                </option>
+              ))}
             </Field>
             {touched.status && errors.status && <div className={styles.error}>{errors.status}</div>}
           </div>

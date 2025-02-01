@@ -40,7 +40,7 @@ const BlogListView = () => {
   };
 
   const handleStatusChange = (id: string, status: string) => {
-    updateStatus({ id, status }); // Користење на мутацијата за да го ажурирате статусот
+    updateStatus({ id, status });
   };
 
   const getActions = (item: BlogPost) => {
