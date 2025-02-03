@@ -1,24 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
+import { getSession } from 'next-auth/react';
 import QUERY_KEYS from '../../queryKeys';
 import { BlogDetailsData } from '../../../components/reusable-components/_Types';
+import ENDPOINTS from '../../endpoints';
 
 const fetchBlogDetails = async (id: string): Promise<BlogDetailsData> => {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog-posts/${id}`;
-  const response = await fetch(url);
+  const session = await getSession();
+  const response = await fetch(`${ENDPOINTS.BLOGS.GET_ALL}/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.accessToken}`,
+    },
+  });
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
   const data = await response.json();
-
-  const blogPost = data.data || data;
+  const blogPost = data.data;
 
   return {
-    title: blogPost.title || 'N/A',
-    image: blogPost.image || '',
-    content: blogPost.content || 'N/A',
+    title: blogPost.title,
+    image: blogPost.image,
+    content: blogPost.content,
     author: {
-      firstName: blogPost.author?.firstName || blogPost.author?.first_name || 'N/A',
-      lastName: blogPost.author?.lastName || blogPost.author?.last_name || 'N/A',
+      first_name: blogPost.author.first_name,
+      last_name: blogPost.author.last_name,
     },
     publishDate: blogPost.publish_date
       ? new Date(blogPost.publish_date).toISOString().split('T')[0]

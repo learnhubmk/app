@@ -14,6 +14,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   title,
   imageUrl,
   content,
+  author,
   publishDate,
   tags,
   onImageChange,
@@ -101,6 +102,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     />
   );
 
+  const blogAuthor = `${author.first_name} ${author.last_name}`;
+  const tagNames = tags.map((tag) => tag.name);
+
   return (
     <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.actionButtons}>
@@ -172,7 +176,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.authorSection}>
         <label htmlFor="author">Author:</label>
-        {renderInput('author', 'John Doe', true)}
+        {renderInput('author', blogAuthor, true)}
       </div>
 
       <div className={styles.dateSection}>
@@ -189,7 +193,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
       <div className={styles.tagsSection}>
         <label htmlFor="tags">Tags:</label>
-        {renderInput('tags', tags.join(', '))}
+        {renderInput('tags', tagNames.join(', '))}
       </div>
 
       <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />

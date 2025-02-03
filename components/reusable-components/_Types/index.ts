@@ -7,18 +7,29 @@ export interface IAuthFormProps {
   password: string;
 }
 
+export interface Tag {
+  id: number;
+  name: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface IPasswordValidation {
   uppercase: boolean;
   specialChar: boolean;
   minLength: boolean;
 }
-
+export interface Author {
+  first_name: string;
+  last_name: string;
+}
 export interface BlogDetailsCardProps {
   title: string;
   imageUrl: string;
   content: string;
+  author: Author;
   publishDate: string;
-  tags: string[];
+  tags: Tag[];
   onImageChange: (files: File[]) => void;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
@@ -30,17 +41,11 @@ export interface BlogDetailsCardProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-export interface Author {
-  firstName: string;
-  lastName: string;
-}
-
 export interface BlogDetailsData {
   title: string;
   image: string;
   content: string;
   author: Author;
   publishDate: string;
-  tags: string[];
+  tags: Tag[];
 }
