@@ -6,8 +6,14 @@ import React, { useState, useMemo } from 'react';
 import TableRowComponent from './TableRowComponent';
 import style from './reusableTable.module.scss';
 import TableHead from './TableHead';
+import Pagination, { defaultMeta } from '../pagination/Pagination';
+import { MetaData } from '../../../Types';
+import PaginationDropdown from '../pagination/PaginationDropdown';
 
 interface ReusableTableProps<T> {
+  setItemsPerPage: (itemsPerPage: number) => void;
+  paginationData: MetaData;
+  setPaginationPage: (page: number) => void;
   headers: (keyof T)[];
   displayNames: { [key in keyof T]?: string };
   data: T[];
@@ -25,6 +31,9 @@ interface SortState<T> {
 }
 
 const ReusableTable = <T extends { id: string }>({
+  setItemsPerPage,
+  paginationData,
+  setPaginationPage,
   isLoading,
   headers,
   displayNames,
@@ -114,19 +123,29 @@ const ReusableTable = <T extends { id: string }>({
   };
 
   return (
-    <div className={style.tableWrapper}>
-      <table className={style.reusableTable}>
-        <TableHead<T>
-          headers={headers}
-          sortState={sortState}
-          onSort={handleSort}
-          displayNames={displayNames}
-          showActions={!!renderActions}
-          showDropdownActions={!!renderActionsDropdown}
-        />
-        <tbody>{renderTableContent()}</tbody>
-      </table>
-    </div>
+    <>
+      <div className={style.tableWrapper}>
+        <table className={style.reusableTable}>
+          <TableHead<T>
+            headers={headers}
+            sortState={sortState}
+            onSort={handleSort}
+            displayNames={displayNames}
+            showActions={!!renderActions}
+            showDropdownActions={!!renderActionsDropdown}
+          />
+          <tbody>{renderTableContent()}</tbody>
+        </table>
+      </div>
+      <div className={style.paginationContainer}>
+        <div>
+          <Pagination meta={paginationData || defaultMeta} setPage={setPaginationPage} />
+        </div>
+        <div>
+          <PaginationDropdown setItemsPerPage={setItemsPerPage} />
+        </div>
+      </div>
+    </>
   );
 };
 
