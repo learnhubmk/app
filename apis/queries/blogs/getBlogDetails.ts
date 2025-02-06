@@ -31,6 +31,8 @@ const fetchBlogDetails = async (id: string): Promise<BlogDetailsData> => {
       ? new Date(blogPost.publish_date).toISOString().split('T')[0]
       : 'N/A',
     tags: Array.isArray(blogPost.tags) ? blogPost.tags : [],
+    id: blogPost.id,
+    status: blogPost.status,
   };
 };
 

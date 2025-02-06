@@ -9,14 +9,18 @@ import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
+import useUpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
+import StatusManager, { capitalizeFirstLetter } from '../../module-components/blog/StatusManager';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
+  id,
   title,
   imageUrl,
   content,
   author,
   publishDate,
   tags,
+  status,
   onImageChange,
   onChange,
   onDeleteClick,
@@ -29,8 +33,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState(status);
+  const [tempStatus, setTempStatus] = useState(status);
 
   const router = useRouter();
+  const { mutate: updateStatus } = useUpdatePostStatus();
 
   useEffect(() => {
     setIsEditable(editorState.isEditable);
@@ -76,6 +83,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       editorStateChange({ isEditable: newEditableState });
       onValidationError('');
       setHasUnsavedChanges(false);
+
+      if (!newEditableState && tempStatus !== currentStatus) {
+        updateStatus({ id, status: tempStatus });
+        setCurrentStatus(tempStatus);
+      }
     } else {
       form?.reportValidity();
     }
@@ -88,16 +100,21 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     setHasUnsavedChanges(true);
   };
 
-  const renderInput = (id: string, value: string, disabled: boolean = !isEditable) => (
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setTempStatus(event.target.value);
+    setHasUnsavedChanges(true);
+  };
+
+  const renderInput = (inputId: string, value: string, disabled: boolean = !isEditable) => (
     <input
       type="text"
-      id={id}
+      id={inputId}
       name={id}
       value={value}
       onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
       disabled={disabled}
       required
-      placeholder={`${id.charAt(0).toUpperCase() + id.slice(1)} is required`}
+      placeholder={`${String(inputId).charAt(0).toUpperCase() + String(inputId).slice(1)} is required`}
       className={styles.inputField}
     />
   );
@@ -196,6 +213,14 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         {renderInput('tags', tagNames.join(', '))}
       </div>
 
+      <div className={styles.contentSection}>
+        <label htmlFor="status">Статус</label>
+        {isEditable ? (
+          <StatusManager currentStatus={tempStatus} handleStatusChange={handleStatusChange} />
+        ) : (
+          <span className={styles.statusField}>{capitalizeFirstLetter(currentStatus)}</span>
+        )}
+      </div>
       <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />
     </form>
   );

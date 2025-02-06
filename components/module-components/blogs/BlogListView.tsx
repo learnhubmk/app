@@ -11,8 +11,6 @@ import { BlogPost } from './interfaces';
 import { defaultMeta } from '../../reusable-components/pagination/Pagination';
 import style from './BlogListView.module.scss';
 import Dropdown from '../../reusable-components/reusable-dropdown/ReusableDropdown';
-import { UserRole } from '../../../Types';
-import useUpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
 
 const BlogListView = () => {
   const [paginationPage, setPaginationPage] = useState(1);
@@ -22,8 +20,6 @@ const BlogListView = () => {
   const router = useRouter();
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const { data, isLoading } = useGetBlogs(debouncedSearchTerm, paginationPage, itemsPerPage);
-
-  const { mutate: updateStatus } = useUpdatePostStatus();
 
   useEffect(() => {
     setPaginationPage(1);
@@ -39,32 +35,12 @@ const BlogListView = () => {
     router.push(`/content-panel/blogs/${id}`);
   };
 
-  const handleStatusChange = (id: string, status: string) => {
-    updateStatus({ id, status });
-  };
-
   const getActions = (item: BlogPost) => {
     const actions = [
       { id: 'view', label: 'View', onClick: () => handleView(item.id) },
       { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
       { id: 'delete', label: 'Delete', onClick: () => {} },
     ];
-
-    if (UserRole.admin && item.status === 'in_review') {
-      actions.push({
-        id: 'publish',
-        label: 'Publish',
-        onClick: () => handleStatusChange(item.id, 'published'),
-      });
-    }
-
-    if (UserRole.content_manager && item.status === 'draft') {
-      actions.push({
-        id: 'in_review',
-        label: 'Move to Review',
-        onClick: () => handleStatusChange(item.id, 'in_review'),
-      });
-    }
     return actions;
   };
 

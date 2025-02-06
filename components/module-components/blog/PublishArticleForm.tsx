@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
 import { TagObject } from './TagInput';
@@ -11,23 +10,13 @@ import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
-import { UserRole } from '../../../Types';
+import StatusManager from './StatusManager';
 
 const PublishArticleForm = () => {
   const addNewPostMutation = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
-  const { data: session } = useSession();
   const router = useRouter();
-  const userRole = session?.user.role;
-
-  const statusOptions = [
-    { value: 'draft', label: 'Draft' },
-    { value: 'in_review', label: 'In Review' },
-  ];
-
-  if (userRole === UserRole.admin) {
-    statusOptions.push({ value: 'published', label: 'Published' });
-  }
+  const [currentStatus, setCurrentStatus] = useState('');
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -130,13 +119,10 @@ const PublishArticleForm = () => {
             <label htmlFor="status" className={styles.inputLabel}>
               Статус
             </label>
-            <Field as="select" name="status" className={styles.dropdown}>
-              {statusOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.value}
-                </option>
-              ))}
-            </Field>
+            <StatusManager
+              currentStatus={currentStatus}
+              handleStatusChange={(event) => setCurrentStatus(event.target.value)}
+            />
             {touched.status && errors.status && <div className={styles.error}>{errors.status}</div>}
           </div>
 
