@@ -111,7 +111,7 @@ const TiptapEditor = ({
       )}
       <EditorContent
         editor={editorInstance}
-        className={`${styles.tiptap} ${isCodeBlockActive ? styles.codeBlockActive : ''}`}
+        className={`${styles.editor} ${styles.tiptap} ${isCodeBlockActive ? styles.codeBlockActive : ''}`}
       />
     </div>
   );
