@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
@@ -10,7 +10,8 @@ import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
 import useUpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
-import StatusManager, { capitalizeFirstLetter } from '../../module-components/blog/StatusManager';
+import StatusManager from '../../module-components/blog/StatusManager';
+import transformBlogStatus from '../../../api/utils/blogStatusUtils';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   id,
@@ -33,8 +34,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState(status);
-  const [tempStatus, setTempStatus] = useState(status);
+  const [blogStatus, setBlogStatus] = useState(status);
+
+  const initialStatus = useRef(status);
 
   const router = useRouter();
   const { mutate: updateStatus } = useUpdatePostStatus();
@@ -84,9 +86,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       onValidationError('');
       setHasUnsavedChanges(false);
 
-      if (!newEditableState && tempStatus !== currentStatus) {
-        updateStatus({ id, status: tempStatus });
-        setCurrentStatus(tempStatus);
+      if (newEditableState) {
+        // eslint-disable-next-line no-unused-expressions
+        initialStatus.current === blogStatus;
+      } else if (!newEditableState && blogStatus !== initialStatus.current) {
+        updateStatus({ id, status: blogStatus });
       }
     } else {
       form?.reportValidity();
@@ -101,7 +105,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   };
 
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setTempStatus(event.target.value);
+    setBlogStatus(event.target.value);
     setHasUnsavedChanges(true);
   };
 
@@ -216,9 +220,9 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       <div className={styles.contentSection}>
         <label htmlFor="status">Статус</label>
         {isEditable ? (
-          <StatusManager currentStatus={tempStatus} handleStatusChange={handleStatusChange} />
+          <StatusManager currentStatus={blogStatus} handleStatusChange={handleStatusChange} />
         ) : (
-          <span className={styles.statusField}>{capitalizeFirstLetter(currentStatus)}</span>
+          <span className={styles.statusField}>{transformBlogStatus(blogStatus)}</span>
         )}
       </div>
       <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />

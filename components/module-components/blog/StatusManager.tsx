@@ -2,16 +2,13 @@ import { useSession } from 'next-auth/react';
 import React from 'react';
 import { UserRole } from '../../../Types';
 import styles from './PublishArticleForm.module.scss';
+import transformBlogStatus from '../../../api/utils/blogStatusUtils';
 
-export const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1).replace(/_/g, ' ');
-};
-
-export const statusOptions = [
+const statusOptions = [
   { value: 'draft', label: 'Draft' },
   { value: 'in_review', label: 'In Review' },
-];
-
+  { value: 'published', label: 'Published' },
+] as const;
 interface StatusManagerProps {
   currentStatus: string;
   handleStatusChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -21,11 +18,10 @@ const StatusManager: React.FC<StatusManagerProps> = ({ currentStatus, handleStat
   const { data: session } = useSession();
   const userRole = session?.user.role;
 
-  const currentStatusOptions = [...statusOptions];
-
-  if (userRole === UserRole.admin) {
-    currentStatusOptions.push({ value: 'published', label: 'Published' });
-  }
+  const currentStatusOptions =
+    userRole === UserRole.admin
+      ? statusOptions
+      : statusOptions.filter((option) => option.value !== 'published');
 
   return (
     <select
@@ -36,7 +32,7 @@ const StatusManager: React.FC<StatusManagerProps> = ({ currentStatus, handleStat
     >
       {currentStatusOptions.map((option) => (
         <option key={option.value} value={option.value}>
-          {capitalizeFirstLetter(option.value)}
+          {transformBlogStatus(option.value)}
         </option>
       ))}
     </select>
