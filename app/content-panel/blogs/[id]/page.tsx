@@ -69,6 +69,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
         title={blogDetailsData.title}
         imageUrl={blogDetailsData.image}
         content={blogDetailsData.content}
+        author={blogDetailsData.author}
         publishDate={blogDetailsData.publishDate}
         tags={blogDetailsData.tags}
         onChange={handleChange}

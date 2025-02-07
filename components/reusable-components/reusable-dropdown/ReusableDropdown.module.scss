@@ -25,14 +25,13 @@
 .dropdownList {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0px;
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 5px;
   list-style: none;
   margin: 5px 0 0;
   padding: 5px 0;
-  width: 200px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 
@@ -50,11 +49,12 @@
 }
 
 .dropdownItemButton {
+  display: flex;
+  justify-content: flex-start;
   background: none;
   border: none;
+  text-align: center;
   padding: 10px 15px;
-  width: 100%;
-  text-align: left;
   cursor: pointer;
   font: inherit;
   color: inherit;
