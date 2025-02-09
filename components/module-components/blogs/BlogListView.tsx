@@ -35,15 +35,17 @@ const BlogListView = () => {
     router.push(`/content-panel/blogs/${id}`);
   };
 
+  const getActions = (item: BlogPost) => {
+    const actions = [
+      { id: 'view', label: 'View', onClick: () => handleView(item.id) },
+      { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
+      { id: 'delete', label: 'Delete', onClick: () => {} },
+    ];
+    return actions;
+  };
+
   const renderActionsDropdown = (item: BlogPost) => (
-    <Dropdown
-      placeholder="Actions"
-      items={[
-        { id: 'view', label: 'View', onClick: () => handleView(item.id) },
-        { id: 'edit', label: 'Edit', onClick: () => handleEdit(item.id) },
-        { id: 'delete', label: 'Delete', onClick: () => {} },
-      ]}
-    />
+    <Dropdown placeholder="Actions" items={getActions(item)} />
   );
 
   const headers: (keyof BlogPost)[] = ['title', 'author', 'status'];

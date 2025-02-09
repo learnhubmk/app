@@ -51,6 +51,7 @@ const SignupPage = () => {
       await response.json();
       toast.success('Successfully registered!');
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err);
       toast.error('Registration failed');
     }

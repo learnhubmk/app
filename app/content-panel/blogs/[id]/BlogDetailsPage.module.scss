@@ -115,8 +115,63 @@
   }
 }
 
+/* 🔹 NEW: Status Section Styling */
+.statusSection {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hero-text-light-color);
+    font-weight: bold;
+  }
+
+  select,
+  span {
+    width: 100%;
+    padding: 10px;
+    color: var(--input-text-color);
+    background-color: var(--elevated-elements-dark-mode);
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  select {
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--hover-bg-color);
+    }
+
+    &:focus {
+      border-color: var(--primary-btn-color);
+    }
+
+    &:disabled {
+      background-color: var(--secondary-dark-mode);
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Error text styling */
 .errorText {
   color: red;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.statusField {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: inherit;
+  color: var(--text-color);
+  background-color: var(--secondary-dark-mode);
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  outline: none;
 }

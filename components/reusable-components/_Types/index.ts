@@ -24,12 +24,14 @@ export interface Author {
   last_name: string;
 }
 export interface BlogDetailsCardProps {
+  id: string;
   title: string;
   imageUrl: string;
   content: string;
   author: Author;
   publishDate: string;
   tags: Tag[];
+  status: string;
   onImageChange: (files: File[]) => void;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
@@ -48,4 +50,6 @@ export interface BlogDetailsData {
   author: Author;
   publishDate: string;
   tags: Tag[];
+  status: string;
+  id: string;
 }

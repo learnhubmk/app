@@ -1,12 +1,12 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { Role } from '../../Types';
+import { UserRole } from '../../Types';
 import getAuthUrl from '../getAuthUrl';
 
 type Session = {
   token: string;
-  role: Role;
+  role: UserRole;
 };
 
 type RefreshTokenResponse = { message: string; new_token: string };
@@ -34,7 +34,7 @@ export async function getNewToken({
   role,
   existingToken,
 }: {
-  role: Role;
+  role: UserRole;
   existingToken: string;
 }): Promise<string | null> {
   try {
@@ -50,6 +50,7 @@ export async function getNewToken({
     if (!response.ok) throw new Error(response.statusText);
     const data: RefreshTokenResponse = await response.json();
     return data.new_token;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error: any) {
     // console.error({ msg: 'Error from getNewToken', error });
     return null;
