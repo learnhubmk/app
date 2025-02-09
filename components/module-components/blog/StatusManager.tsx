@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import React from 'react';
 import { UserRole } from '../../../Types';
 import styles from './PublishArticleForm.module.scss';
-import transformBlogStatus from '../../../api/utils/blogStatusUtils';
+import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 
 const statusOptions = [
   { value: 'draft', label: 'Draft' },
@@ -32,7 +32,7 @@ const StatusManager: React.FC<StatusManagerProps> = ({ currentStatus, handleStat
     >
       {currentStatusOptions.map((option) => (
         <option key={option.value} value={option.value}>
-          {transformBlogStatus(option.value)}
+          {capitalizeAndFormatString(option.value)}
         </option>
       ))}
     </select>

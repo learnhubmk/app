@@ -3,7 +3,7 @@ import QUERY_KEYS from '../../queryKeys';
 import ENDPOINTS from '../../endpoints';
 import axiosInstance from '../../axiosInstance';
 import { BlogsResponse, RawBlogPost } from '../../../components/module-components/blogs/interfaces';
-import transformBlogStatus from '../../../api/utils/blogStatusUtils';
+import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 
 const useGetBlogs = (search?: string, page?: number, itemsPerPage?: number, status?: string) => {
   return useQuery({
@@ -26,7 +26,7 @@ const useGetBlogs = (search?: string, page?: number, itemsPerPage?: number, stat
         id: item.id,
         slug: item.slug,
         title: item.title,
-        status: transformBlogStatus(item.status),
+        status: capitalizeAndFormatString(item.status),
         author: `${item.author.first_name} ${item.author.last_name}`,
       })),
     }),

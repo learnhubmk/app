@@ -11,7 +11,7 @@ import { BlogDetailsCardProps } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
 import useUpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
 import StatusManager from '../../module-components/blog/StatusManager';
-import transformBlogStatus from '../../../api/utils/blogStatusUtils';
+import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   id,
@@ -222,7 +222,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         {isEditable ? (
           <StatusManager currentStatus={blogStatus} handleStatusChange={handleStatusChange} />
         ) : (
-          <span className={styles.statusField}>{transformBlogStatus(blogStatus)}</span>
+          <span className={styles.statusField}>{capitalizeAndFormatString(blogStatus)}</span>
         )}
       </div>
       <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />
