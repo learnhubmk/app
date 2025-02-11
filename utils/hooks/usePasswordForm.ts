@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -32,7 +33,7 @@ export const useResetPasswordForm = (email: string | null, resetToken: string | 
       setIsLoading(true);
       setError('');
       try {
-        await api.resetPassword(values.email, values.password, resetToken);
+        await api.resetPassword(values.email, values.password, values.confirmPassword, resetToken);
         router.push(`/content-panel/login?reset=success`);
       } catch (err: any) {
         setError(err.response?.data?.message || 'Настана грешка. Ве молиме обидете се повторно.');
