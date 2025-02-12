@@ -15,8 +15,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
-
-  const deletePostMutation = useDeletePost();
+  const { mutateAsync: deleteBlogPost } = useDeletePost();
 
   useEffect(() => {
     if (data) {
@@ -59,7 +58,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   };
 
   const handleDeleteClick = async (id: string) => {
-    await deletePostMutation.mutateAsync(id);
+    await deleteBlogPost(id);
   };
 
   const handleValidationError = (validationError: string) => {

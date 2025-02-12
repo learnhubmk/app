@@ -23,7 +23,7 @@ const BlogListView = () => {
   const { editorStateChange } = useEditor();
   const router = useRouter();
 
-  const deletePostMutation = useDeletePost();
+  const { mutateAsync: deleteBlogPost } = useDeletePost();
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const { data, isLoading } = useGetBlogs(debouncedSearchTerm, paginationPage, itemsPerPage);
 
@@ -48,7 +48,7 @@ const BlogListView = () => {
 
   const handleDeleteConfirm = async () => {
     if (postToDelete) {
-      await deletePostMutation.mutateAsync(postToDelete.id);
+      await deleteBlogPost(postToDelete.id);
       handleDeleteClose();
     }
   };
