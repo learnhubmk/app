@@ -36,7 +36,7 @@ export interface BlogDetailsCardProps {
   onChange: (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
   ) => void;
-  onDeleteClick: () => void;
+  onDeleteClick: (id: string) => void;
   onCancelClick: () => void;
   imageError: string | null;
   onValidationError: (error: string) => void;

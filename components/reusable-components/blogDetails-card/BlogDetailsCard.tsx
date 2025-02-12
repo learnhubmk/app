@@ -12,6 +12,7 @@ import { useEditor } from '../../../app/context/EditorContext';
 import useUpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
 import StatusManager from '../../module-components/blog/StatusManager';
 import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
+import ReusableModal from '../reusable-modal/ReusableModal';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   id,
@@ -34,8 +35,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [blogStatus, setBlogStatus] = useState(status);
-
   const initialStatus = useRef(status);
 
   const router = useRouter();
@@ -97,6 +98,20 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     }
   };
 
+  const handleDeleteClick = () => {
+    setIsOpen(true);
+  };
+
+  const handleDeleteClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleDeleteConfirm = async () => {
+    setIsOpen(false);
+    onDeleteClick(id);
+    router.push('/content-panel/blogs');
+  };
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
   ) => {
@@ -149,7 +164,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               <button type="button" onClick={handleEditClick}>
                 Edit
               </button>
-              <button type="button" onClick={onDeleteClick}>
+              <button type="button" onClick={handleDeleteClick}>
                 Delete
               </button>
             </>
@@ -226,6 +241,15 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         )}
       </div>
       <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />
+      <ReusableModal
+        title="Are you sure you want to proceed?"
+        isOpen={isOpen}
+        onClose={handleDeleteClose}
+        primaryButtonLabel="Delete"
+        secondaryButtonLabel="Cancel"
+        onPrimaryButtonClick={handleDeleteConfirm}
+        onSecondaryButtonClick={handleDeleteClose}
+      />
     </form>
   );
 };
