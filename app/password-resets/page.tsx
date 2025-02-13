@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function PasswordResetRedirect() {
+const ResetRedirect = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -18,4 +18,6 @@ export default function PasswordResetRedirect() {
   }, [router, searchParams]);
 
   return <div>Redirecting...</div>;
-}
+};
+
+export default ResetRedirect;
