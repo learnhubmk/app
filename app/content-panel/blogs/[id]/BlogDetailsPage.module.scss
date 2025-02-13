@@ -29,44 +29,30 @@
 
   .rightButtons {
     display: flex;
+    gap: 10px;
 
     button {
-      background-color: var(--primary-btn-color);
-      color: white;
       border: none;
       padding: 10px 20px;
-      margin-left: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: var(--primary-btn-hover-color);
-      }
-
-      &:active {
-        background-color: var(--primary-btn-active-color);
-      }
-
-      &:nth-child(2) {
-        background-color: var(--error-state);
-      }
     }
   }
 }
 
 .titleInput {
   margin-bottom: 20px;
-
   h1 {
     font-size: 24px;
     input {
       width: 100%;
       padding: 10px;
       font-size: inherit;
-      color: var(--text-color);
+      color: white;
       background-color: var(--elevated-elements-dark-mode);
-      border: 1px solid var(--input-border-color);
+      border: 2px solid var(--elevated-elements-dark-mode);
+
+      &:focus-within {
+        border: 2px solid var(--input-border-color);
+      }
       border-radius: 4px;
       outline: none;
 
@@ -96,15 +82,21 @@
   select {
     width: 100%;
     padding: 10px;
-    color: var(--input-text-color);
+    color: white;
     background-color: var(--elevated-elements-dark-mode);
-    border: 1px solid var(--input-border-color);
+    border: 2px solid var(--elevated-elements-dark-mode);
+
+    &:focus-within {
+      border: 2px solid var(--input-border-color);
+    }
     border-radius: 4px;
     outline: none;
     box-sizing: border-box;
 
     &:disabled {
+      color: rgb(167, 167, 167);
       background-color: var(--secondary-dark-mode);
+      cursor: not-allowed;
     }
   }
 

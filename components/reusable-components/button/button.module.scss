@@ -36,6 +36,7 @@
 }
 .cancelButtonSecondary {
   background-color: #eaeaec;
+  color: red;
   color: rgb(39, 39, 39);
 }
 
@@ -181,23 +182,44 @@
 
 // Button variations
 .deleteButton {
+  width: fit-content;
+  text-wrap: nowrap;
+  @extend %button-small;
+  background-color: #f44336;
+  @include button-hover(#f44336);
+}
+
+.deleteButton {
+  width: fit-content;
+  text-wrap: nowrap;
   @extend %button-small;
   background-color: #f44336;
   @include button-hover(#f44336);
 }
 
 .saveButton {
+  width: fit-content;
+  text-wrap: nowrap;
   @extend %button-small;
   background-color: #4caf50;
   @include button-hover(#4caf50);
 }
 
+.cancelButtonGray {
+  width: fit-content;
+  text-wrap: nowrap;
+  @extend %button-small;
+  background-color: #a1a1a1;
+  @include button-hover(#aeaeae);
+}
 .createTag {
   @extend .saveButton;
   width: 125px;
 }
 
 .editButton {
+  width: fit-content;
+  text-wrap: nowrap;
   @extend %button-small;
   background-color: #2196f3;
   @include button-hover(#2196f3);

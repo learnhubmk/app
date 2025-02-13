@@ -17,13 +17,14 @@
 }
 
 .tiptapEditorContainer {
-  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   padding: 12px;
-  max-height: 550px;
-  overflow: auto;
   background-color: var(--elevated-elements-dark-mode);
+  border: 2px solid var(--elevated-elements-dark-mode);
 
+  &:focus-within {
+    border: 2px solid var(--input-border-color);
+  }
   .tiptapToolbar {
     margin-bottom: 10px;
 
@@ -39,20 +40,18 @@
       &:hover {
         background-color: #0056b3;
       }
-
-      &.codeBlockActive {
-        background-color: #0056b3;
-      }
-    }
-  }
-
-  .codeBlockActive {
-    pre {
-      background: #000;
     }
   }
 }
 
 .editor {
-  min-height: 250px;
+  div {
+    min-height: 300px;
+    max-height: 650px;
+    overflow: auto;
+    outline: none;
+  }
+  p {
+    height: 100%;
+  }
 }

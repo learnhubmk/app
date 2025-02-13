@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
@@ -13,6 +12,8 @@ import useUpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus'
 import StatusManager from '../../module-components/blog/StatusManager';
 import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 import ReusableModal from '../reusable-modal/ReusableModal';
+import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
+import Button from '../button/Button';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   id,
@@ -152,21 +153,33 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         <div className={styles.rightButtons}>
           {isEditable ? (
             <>
-              <button type="button" onClick={handleEditClick}>
-                Save
-              </button>
-              <button type="button" onClick={handleCancelClick}>
-                Cancel
-              </button>
+              <Button
+                buttonText="Зачувај"
+                type="button"
+                buttonClass={['saveButton']}
+                onClick={handleEditClick}
+              />
+              <Button
+                buttonText="Отфрли промени"
+                type="button"
+                buttonClass={['cancelButtonGray']}
+                onClick={handleCancelClick}
+              />
             </>
           ) : (
             <>
-              <button type="button" onClick={handleEditClick}>
-                Edit
-              </button>
-              <button type="button" onClick={handleDeleteClick}>
-                Delete
-              </button>
+              <Button
+                buttonText="Уредувај"
+                type="button"
+                buttonClass={['editButton']}
+                onClick={handleEditClick}
+              />
+              <Button
+                buttonText="Избриши статија"
+                type="button"
+                buttonClass={['deleteButton']}
+                onClick={handleDeleteClick}
+              />
             </>
           )}
         </div>

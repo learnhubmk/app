@@ -32,18 +32,12 @@ const CancelModal: React.FC<CancelModalProps> = ({ show, onHide, onConfirm }) =>
         <p>Имаш незачувани промени. Дали си сигурен дека сакаш да ги отфрлиш промените?</p>
         <div className={styles.modalBtns}>
           <Button
-            buttonText="Отфрли промени"
-            type="button"
-            buttonClass={['cancelButtonSecondary']}
-            onClick={onConfirm}
-          />
-
-          <Button
             buttonText="Продолжи со уредување"
             type="button"
             buttonClass={['primaryButton']}
             onClick={onHide}
           />
+          <Button buttonText="Отфрли промени" type="button" buttonClass={[]} onClick={onConfirm} />
         </div>
       </div>
     </div>
