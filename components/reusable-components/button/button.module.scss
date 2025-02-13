@@ -34,9 +34,12 @@
     gap: 0.5rem;
   }
 }
+.cancelButtonSecondary {
+  background-color: #eaeaec;
+  color: rgb(39, 39, 39);
+}
 
 .primaryButton {
-  font-size: var(--fs-title);
   background-color: var(--primary-btn-color);
   color: var(--text-color);
   transition: background-color 0.3s ease-in-out;

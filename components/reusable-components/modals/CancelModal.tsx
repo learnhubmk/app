@@ -1,5 +1,6 @@
 import React, { KeyboardEvent } from 'react';
 import styles from './CancelModal.module.scss';
+import Button from '../button/Button';
 
 interface CancelModalProps {
   show: boolean;
@@ -27,15 +28,22 @@ const CancelModal: React.FC<CancelModalProps> = ({ show, onHide, onConfirm }) =>
           tabIndex={0}
           aria-label="Close modal"
         />
-        <h2 className={styles.modalTitle}>Unsaved Changes</h2>
-        <p>You have unsaved changes. Are you sure you want to discard them?</p>
+        <h2 className={styles.modalTitle}>Незачувани промени</h2>
+        <p>Имаш незачувани промени. Дали си сигурен дека сакаш да ги отфрлиш промените?</p>
         <div className={styles.modalBtns}>
-          <button type="button" className={styles.cancelButton} onClick={onConfirm}>
-            Discard Changes
-          </button>
-          <button type="button" className={styles.cancelButton} onClick={onHide}>
-            Continue Edit
-          </button>
+          <Button
+            buttonText="Отфрли промени"
+            type="button"
+            buttonClass={['cancelButtonSecondary']}
+            onClick={onConfirm}
+          />
+
+          <Button
+            buttonText="Продолжи со уредување"
+            type="button"
+            buttonClass={['primaryButton']}
+            onClick={onHide}
+          />
         </div>
       </div>
     </div>

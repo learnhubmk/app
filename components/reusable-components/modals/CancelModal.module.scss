@@ -44,11 +44,11 @@
 .closeModal::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 14px;
+  top: 70%;
+  left: 40%;
+  width: 20px;
   height: 2px;
-  background-color: #333;
+  background-color: rgb(156, 156, 156);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
