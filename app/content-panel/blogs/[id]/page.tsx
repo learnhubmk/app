@@ -7,6 +7,7 @@ import BlogDetailsCard from '../../../../components/reusable-components/blogDeta
 import useGetBlogDetails from '../../../../apis/queries/blogs/getBlogDetails';
 import { BlogDetailsData } from '../../../../components/reusable-components/_Types';
 import useDeletePost from '../../../../apis/mutations/blogs/useDeletePost';
+import TitleContentLayout from '../../../../components/reusable-components/title-content-layout/TitleContentLayout';
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -70,26 +71,28 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   if (!blogDetailsData) return null;
 
   return (
-    <div className={styles.blogDetailsPageContainer}>
-      <BlogDetailsCard
-        id={blogDetailsData.id}
-        title={blogDetailsData.title}
-        imageUrl={blogDetailsData.image}
-        content={blogDetailsData.content}
-        author={blogDetailsData.author}
-        publishDate={blogDetailsData.publishDate}
-        tags={blogDetailsData.tags}
-        status={blogDetailsData.status}
-        onChange={handleChange}
-        onImageChange={handleImageChange}
-        onValidationError={handleValidationError}
-        onDeleteClick={handleDeleteClick}
-        onCancelClick={handleCancelClick}
-        imageError={imageError}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-      />
-    </div>
+    <TitleContentLayout title="Детали за статијата">
+      <div className={styles.blogDetailsPageContainer}>
+        <BlogDetailsCard
+          id={blogDetailsData.id}
+          title={blogDetailsData.title}
+          imageUrl={blogDetailsData.image}
+          content={blogDetailsData.content}
+          author={blogDetailsData.author}
+          publishDate={blogDetailsData.publishDate}
+          tags={blogDetailsData.tags}
+          status={blogDetailsData.status}
+          onChange={handleChange}
+          onImageChange={handleImageChange}
+          onValidationError={handleValidationError}
+          onDeleteClick={handleDeleteClick}
+          onCancelClick={handleCancelClick}
+          imageError={imageError}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
+      </div>
+    </TitleContentLayout>
   );
 };
 

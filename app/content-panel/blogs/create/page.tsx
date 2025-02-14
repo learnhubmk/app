@@ -1,20 +1,11 @@
-'use client';
-
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
-import React from 'react';
-import styles from './createArticlePage.module.scss';
 import PublishArticleForm from '../../../../components/module-components/blog/PublishArticleForm';
+import TitleContentLayout from '../../../../components/reusable-components/title-content-layout/TitleContentLayout';
 
 const PostArticle = () => {
   return (
-    <div className={styles.container}>
-      <h2>Објави статија</h2>
-
-      <div className={styles.controlsContainer}>
-        <PublishArticleForm />
-      </div>
-    </div>
+    <TitleContentLayout title="Објави статија">
+      <PublishArticleForm />
+    </TitleContentLayout>
   );
 };
 

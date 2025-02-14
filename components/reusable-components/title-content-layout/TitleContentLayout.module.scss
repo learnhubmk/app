@@ -5,7 +5,7 @@ $breakpoint-xl: 1280px;
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 20px 0px;
   width: 100%;
@@ -20,13 +20,12 @@ $breakpoint-xl: 1280px;
   background-color: var(--section-bg-color);
   display: flex;
   flex-direction: column;
-  width: 90%;
 
   @media (min-width: $breakpoint-md) {
     width: 80%;
   }
 
   @media (min-width: $breakpoint-xl) {
-    width: 50%;
+    width: 60%;
   }
 }
