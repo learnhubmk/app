@@ -57,6 +57,8 @@
 
       &:disabled {
         background-color: var(--secondary-dark-mode);
+        color: var(--text-disabled-color);
+        cursor: not-allowed;
       }
     }
   }
@@ -97,7 +99,7 @@
     box-sizing: border-box;
 
     &:disabled {
-      color: rgb(167, 167, 167);
+      color: var(--text-disabled-color);
       background-color: var(--secondary-dark-mode);
       cursor: not-allowed;
     }
@@ -160,13 +162,13 @@
 }
 
 .statusField {
+  cursor: not-allowed;
   display: block;
   width: 100%;
   padding: 10px;
   font-size: inherit;
-  color: var(--text-color);
+  color: var(--text-disabled-color);
   background-color: var(--secondary-dark-mode);
-  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   outline: none;
 }
