@@ -186,7 +186,10 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       </div>
 
       <div className={styles.titleInput}>
-        <h1>{renderInput('title', title)}</h1>
+        <label htmlFor="title" className={styles.titleLabel}>
+          Title:
+        </label>
+        <h1 id="title">{renderInput('title', title)}</h1>
       </div>
 
       <div className={styles.imageSection}>
