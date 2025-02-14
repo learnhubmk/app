@@ -48,12 +48,10 @@ const SignupPage = () => {
         },
         body: JSON.stringify(values),
       });
-      const data = await response.json();
-      if (!response.ok) {
-        throw data;
-      }
-      toast.success('Успешна регистрација!');
-    } catch (err: any) {
+      await response.json();
+      toast.success('Successfully registered!');
+    } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err);
       toast.error(err.message || 'Регистрацијата не беше успешна');
     }

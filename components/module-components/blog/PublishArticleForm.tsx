@@ -1,18 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useRouter } from 'next/navigation';
 import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
 import { TagObject } from './TagInput';
 import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
+import StatusManager from './StatusManager';
 
 const PublishArticleForm = () => {
   const addNewPostMutation = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
+  const router = useRouter();
+  const [currentStatus, setCurrentStatus] = useState('');
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -32,6 +36,12 @@ const PublishArticleForm = () => {
     addNewPostMutation.mutate(values);
   };
 
+  useEffect(() => {
+    if (addNewPostMutation.isSuccess) {
+      router.push('/content-panel/blogs');
+    }
+  }, [addNewPostMutation.isSuccess, router]);
+
   return (
     <Formik
       validationSchema={validationSchema}
@@ -40,6 +50,7 @@ const PublishArticleForm = () => {
         excerpt: '',
         content: '',
         tags: [],
+        status: '',
       }}
       onSubmit={handleAddPost}
     >
@@ -102,6 +113,17 @@ const PublishArticleForm = () => {
               }}
             />
             {touched.tags && errors.tags && <div className={styles.error}>{errors.tags}</div>}
+          </div>
+
+          <div className={styles.fields}>
+            <label htmlFor="status" className={styles.inputLabel}>
+              Статус
+            </label>
+            <StatusManager
+              currentStatus={currentStatus}
+              handleStatusChange={(event) => setCurrentStatus(event.target.value)}
+            />
+            {touched.status && errors.status && <div className={styles.error}>{errors.status}</div>}
           </div>
 
           {addNewPostMutation.isPending ? (

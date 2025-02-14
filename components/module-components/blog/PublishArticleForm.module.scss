@@ -32,3 +32,29 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.dropdown {
+  color: white;
+  background-color: var(--elevated-elements-dark-mode);
+  border: 1px solid var(--input-border-color);
+  height: 45px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  cursor: pointer;
+  margin-block: 0.5rem;
+}
+
+.dropdown option {
+  background-color: var(--elevated-elements-dark-mode);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.dropdown option:hover {
+  background-color: #121d36cb;
+  color: white;
+}

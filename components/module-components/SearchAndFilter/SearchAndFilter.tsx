@@ -4,9 +4,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import style from './searchAndFilter.module.scss';
-import Filter, { UserRole } from './Filter';
+import Filter from './Filter';
 import Search from './Search';
 import DisplayNames from './DisplayNames';
+import { UserRole } from '../../../Types';
 
 const SearchAndFilter = () => {
   const [searchValue, setSearchValue] = useState('');

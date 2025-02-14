@@ -6,6 +6,7 @@ import styles from './BlogDetailsPage.module.scss';
 import BlogDetailsCard from '../../../../components/reusable-components/blogDetails-card/BlogDetailsCard';
 import useGetBlogDetails from '../../../../apis/queries/blogs/getBlogDetails';
 import { BlogDetailsData } from '../../../../components/reusable-components/_Types';
+import useDeletePost from '../../../../apis/mutations/blogs/useDeletePost';
 
 const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { data, error, isLoading } = useGetBlogDetails(params.id);
+  const { mutateAsync: deleteBlogPost } = useDeletePost();
 
   useEffect(() => {
     if (data) {
@@ -55,6 +57,10 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
+  const handleDeleteClick = async (id: string) => {
+    await deleteBlogPost(id);
+  };
+
   const handleValidationError = (validationError: string) => {
     setImageError(validationError);
   };
@@ -66,18 +72,18 @@ const BlogDetailsPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className={styles.blogDetailsPageContainer}>
       <BlogDetailsCard
+        id={blogDetailsData.id}
         title={blogDetailsData.title}
         imageUrl={blogDetailsData.image}
         content={blogDetailsData.content}
         author={blogDetailsData.author}
         publishDate={blogDetailsData.publishDate}
         tags={blogDetailsData.tags}
+        status={blogDetailsData.status}
         onChange={handleChange}
         onImageChange={handleImageChange}
         onValidationError={handleValidationError}
-        onDeleteClick={() => {
-          // Future delete logic will go here
-        }}
+        onDeleteClick={handleDeleteClick}
         onCancelClick={handleCancelClick}
         imageError={imageError}
         isEditing={isEditing}
