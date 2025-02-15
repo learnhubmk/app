@@ -3,53 +3,77 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
 import api from '../../api/utils/forgotResetPswApi';
 
-export const useResetPasswordForm = (email: string | null, resetToken: string | null) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+type ResetFormValues = {
+  email: string;
+  pwd: string;
+  confirmValue: string;
+};
+
+const pwdValidationSchema = Yup.object({
+  email: Yup.string().email('Невалидна емаил адреса').required('Задолжително'),
+  pwd: Yup.string()
+    .min(8, 'Лозинката мора да содржи најмалку 8 карактери')
+    .required('Задолжително'),
+  confirmValue: Yup.string()
+    .oneOf([Yup.ref('pwd')], 'Лозинките не се совпаѓаат')
+    .required('Задолжително'),
+});
+
+export const useResetPwdForm = (email: string | null, resetToken: string | null) => {
   const router = useRouter();
+  const [customError, setCustomError] = useState<string | null>(null);
+
+  const resetPwdMutation = useMutation({
+    mutationFn: (values: ResetFormValues) =>
+      api.resetPassword(values.email, values.pwd, values.confirmValue, resetToken as string),
+    onSuccess: () => {
+      router.push(`/content-panel/login?reset=success`);
+    },
+    onError: (error: any) => {
+      setCustomError(
+        error.response?.data?.message || 'Настана грешка. Ве молиме обидете се повторно.'
+      );
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
       email: email || '',
-      password: '',
-      confirmPassword: '',
+      pwd: '',
+      confirmValue: '',
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email('Невалидна емаил адреса').required('Задолжително'),
-      password: Yup.string()
-        .min(8, 'Лозинката мора да содржи најмалку 8 карактери')
-        .required('Задолжително'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Лозинките не се совпаѓаат')
-        .required('Задолжително'),
-    }),
-    onSubmit: async (values) => {
+    validationSchema: pwdValidationSchema,
+    onSubmit: (values) => {
       if (!resetToken) {
-        setError('Невалиден токен за ресетирање');
+        setCustomError('Невалиден токен за ресетирање');
         return;
       }
-      setIsLoading(true);
-      setError('');
-      try {
-        await api.resetPassword(values.email, values.password, values.confirmPassword, resetToken);
-        router.push(`/content-panel/login?reset=success`);
-      } catch (err: any) {
-        setError(err.response?.data?.message || 'Настана грешка. Ве молиме обидете се повторно.');
-      } finally {
-        setIsLoading(false);
-      }
+      setCustomError(null);
+      resetPwdMutation.mutate(values);
     },
   });
 
-  return { formik, isLoading, error };
+  return {
+    formik,
+    isLoading: resetPwdMutation.isPending,
+    error: customError || (resetPwdMutation.error as Error)?.message,
+    isSuccess: resetPwdMutation.isSuccess,
+  };
 };
 
-export const useForgotPasswordForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+export const useForgotPwdForm = () => {
+  const forgotPwdMutation = useMutation({
+    mutationFn: (email: string) => api.requestPasswordReset(email),
+    onError: (error: any) => {
+      return (
+        error.response?.data?.message ||
+        'Внесете валидна емаил адреса која е регистрирана во системот.'
+      );
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -58,22 +82,15 @@ export const useForgotPasswordForm = () => {
     validationSchema: Yup.object({
       email: Yup.string().email('Невалидна емаил адреса').required('Задолжително'),
     }),
-    onSubmit: async (values) => {
-      setIsLoading(true);
-      setError('');
-      try {
-        await api.requestPasswordReset(values.email);
-        setSuccess(true);
-      } catch (err: any) {
-        setError(
-          err.response?.data?.message ||
-            'Внесете валидна емаил адреса која е регистрирана во системот.'
-        );
-      } finally {
-        setIsLoading(false);
-      }
+    onSubmit: (values) => {
+      forgotPwdMutation.mutate(values.email);
     },
   });
 
-  return { formik, isLoading, error, success };
+  return {
+    formik,
+    isLoading: forgotPwdMutation.isPending,
+    error: forgotPwdMutation.error,
+    isSuccess: forgotPwdMutation.isSuccess,
+  };
 };

@@ -6,12 +6,11 @@ const API_BASE_URL = 'http://localhost:8000';
 const BASE_URL = getBaseUrl();
 
 const api = {
-  resetPassword: (email: string, password: string, password_confirmation: string, token: string) =>
+  resetPassword: (email: string, pwd: string, confirmValue: string, token: string) =>
     axios.post(`${API_BASE_URL}/passwords/reset`, {
       email,
-      password,
-      // eslint-disable-next-line camelcase
-      password_confirmation,
+      password: pwd,
+      password_confirmation: confirmValue,
       token,
     }),
   requestPasswordReset: (email: string) =>

@@ -6,7 +6,7 @@ import TextInput from '../text-input/TextInput';
 import Button from '../button/Button';
 import style from './ForgotPasswordForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
-import { useForgotPasswordForm } from '../../../utils/hooks/usePasswordForm';
+import { useForgotPwdForm } from '../../../utils/hooks/usePasswordForm';
 import getBaseUrl from '../../../utils/getBaseUrl';
 
 const ForgotPasswordForm = () => {
@@ -15,9 +15,9 @@ const ForgotPasswordForm = () => {
   const lightTheme = theme === 'light';
   const baseUrl = getBaseUrl();
 
-  const { formik, isLoading, error, success } = useForgotPasswordForm();
+  const { formik, isLoading, error, isSuccess } = useForgotPwdForm();
 
-  if (success) {
+  if (isSuccess) {
     return (
       <div
         className={`${style.formWrapper} ${lightTheme ? style.lightWrapper : style.darkWrapper}`}
@@ -51,7 +51,7 @@ const ForgotPasswordForm = () => {
           formik={formik}
           isRequired
         />
-        {error && <div className={style.errorMessage}>{error}</div>}
+        {error && <div className={style.errorMessage}>{error as string}</div>}
         <Button
           type="submit"
           buttonText={isLoading ? 'Се процесира...' : 'Испрати'}
