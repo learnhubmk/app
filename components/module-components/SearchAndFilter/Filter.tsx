@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import style from './filter.module.scss';
-
-export enum UserRole {
-  Admin = 'admin',
-  Member = 'member',
-  ContentManager = 'content-manager',
-}
+import { UserRole } from '../../../Types';
 
 interface FilterProps {
   handleRoleChange: (roles: UserRole[]) => void;

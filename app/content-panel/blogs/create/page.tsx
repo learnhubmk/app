@@ -1,5 +1,8 @@
+'use client';
+
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
+import React from 'react';
 import styles from './createArticlePage.module.scss';
 import PublishArticleForm from '../../../../components/module-components/blog/PublishArticleForm';
 

@@ -2,8 +2,13 @@ import { NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { UserRole } from '../Types';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+
+function isUserRole(value: any): value is UserRole {
+  return Object.values(UserRole).includes(value);
+}
 
 /* eslint-disable import/prefer-default-export */
 export const authOptions: NextAuthOptions = {
@@ -115,7 +120,11 @@ export const authOptions: NextAuthOptions = {
       newSession.user.id = token.id;
       newSession.user.email = token.email;
       newSession.user.name = token.name;
-      newSession.user.role = token.role;
+      if (isUserRole(token.role)) {
+        newSession.user.role = token.role;
+      } else {
+        console.error('Invalid role type');
+      }
 
       return newSession;
     },

@@ -7,36 +7,28 @@ import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 
-export type NewPost = {
-  title: string;
-  excerpt: string;
-  content: string;
-  tags: string[];
-  status: string;
-};
-
-type ErrorResponse = {
-  message: string;
-  statusCode?: number;
-};
-
-const useAddNewPost = () => {
+const useDeletePost = () => {
   const queryClient = useQueryClient();
   const axios = useAxios();
 
+  interface ErrorResponse {
+    message?: string;
+  }
+
   return useMutation({
-    mutationFn: async (newPost: NewPost) => {
-      const response = await axios.post(ENDPOINTS.BLOGS.CREATE, newPost);
+    mutationFn: async (postId: string) => {
+      const response = await axios.delete(ENDPOINTS.BLOGS.DELETE(postId));
       return response.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {
-      toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
+      toast.error(error?.response?.data?.message || 'Настана грешка при бришење на постот');
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
-      toast.success('Статијата беше успешно објавена!');
+      toast.success('Постот беше успешно избришан.');
     },
   });
 };
 
-export default useAddNewPost;
+export default useDeletePost;
