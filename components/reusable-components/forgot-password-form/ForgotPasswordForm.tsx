@@ -41,6 +41,7 @@ const ForgotPasswordForm = () => {
 
   return (
     <div className={`${style.formWrapper} ${lightTheme ? style.lightWrapper : style.darkWrapper}`}>
+      {isLoading && <div className={style.loadingOverlay}>Се процесира...</div>}
       <form onSubmit={formik.handleSubmit} className={style.form}>
         <TextInput
           placeholder="Внесете ја вашата електронска пошта"
@@ -50,8 +51,9 @@ const ForgotPasswordForm = () => {
           field="email"
           formik={formik}
           isRequired
+          disabled={isLoading}
         />
-        {error && <div className={style.errorMessage}>{error as string}</div>}
+        {error && <div className={style.errorMessage}>{error}</div>}
         <Button
           type="submit"
           buttonText={isLoading ? 'Се процесира...' : 'Испрати'}

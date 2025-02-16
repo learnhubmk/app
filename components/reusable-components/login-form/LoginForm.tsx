@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import Turnstile from 'react-turnstile';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -20,7 +21,17 @@ import styles from './LoginForm.module.scss';
 const LoginForm = ({ isError, isLoading, onSubmit }: LoginFormProps) => {
   const { theme } = useTheme();
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const isLightTheme = theme === 'light';
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const reset = searchParams.get('reset');
+    const message = searchParams.get('message');
+    if (reset === 'success' && message) {
+      setSuccessMessage(message);
+    }
+  }, [searchParams]);
 
   const formik = useFormik({
     initialValues: {
@@ -52,6 +63,11 @@ const LoginForm = ({ isError, isLoading, onSubmit }: LoginFormProps) => {
     >
       <form className={styles.innerLoginForm} onSubmit={formik.handleSubmit}>
         <h2 className={styles.loginTitle}>Најави се</h2>
+        {successMessage && (
+          <div className={styles.successMessageContainer}>
+            <p className={styles.successMessage}>{successMessage}</p>
+          </div>
+        )}
         <TextInput
           placeholder="Внесете ја вашата електронска пошта"
           label="Електронска Пошта"

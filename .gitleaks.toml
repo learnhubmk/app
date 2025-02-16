@@ -17,6 +17,7 @@ paths = [
     "package-lock.json",
     "components/reusable-components/forgot-password-form/ForgotPasswordForm.tsx",
     "components/reusable-components/reset-password-form/ResetPasswordForm.tsx",
+    "api/utils/forgotResetPswApi.ts",
     "utils/hooks/usePasswordForm.ts"
 ]
 

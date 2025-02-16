@@ -60,6 +60,7 @@ const ResetPasswordForm = () => {
 
   return (
     <div className={`${style.formWrapper} ${lightTheme ? style.lightWrapper : style.darkWrapper}`}>
+      {isLoading && <div className={style.loadingOverlay}>Се процесира...</div>}
       <form onSubmit={formik.handleSubmit} className={style.form}>
         <TextInput
           placeholder="Внесете ја вашата електронска пошта"
@@ -79,6 +80,7 @@ const ResetPasswordForm = () => {
           field="pwd"
           formik={formik}
           isRequired
+          disabled={isLoading}
         />
         <TextInput
           placeholder="Потврдете ја новата лозинка"
@@ -88,14 +90,9 @@ const ResetPasswordForm = () => {
           field="confirmValue"
           formik={formik}
           isRequired
+          disabled={isLoading}
         />
-        {error && (
-          <div className={style.errorMessage}>
-            {typeof error === 'string'
-              ? error
-              : 'Настана грешка при ресетирање на лозинката. Ве молиме обидете се повторно.'}
-          </div>
-        )}
+        {error && <div className={style.errorMessage}>{error}</div>}
         <Button
           type="submit"
           buttonText={isLoading ? 'Се процесира...' : 'Ресетирај лозинка'}
