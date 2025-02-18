@@ -32,7 +32,7 @@ const ResetPasswordForm = () => {
             type="button"
             buttonText="Кон најава"
             buttonClass={['primaryButton']}
-            onClick={() => router.push(`${baseUrl}/content-panel/login`)}
+            onClick={() => router.push(`${baseUrl}/content-panel/login?reset=success`)}
           />
         </div>
       </div>

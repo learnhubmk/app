@@ -27,9 +27,8 @@ const LoginForm = ({ isError, isLoading, onSubmit }: LoginFormProps) => {
 
   useEffect(() => {
     const reset = searchParams.get('reset');
-    const message = searchParams.get('message');
-    if (reset === 'success' && message) {
-      setSuccessMessage(message);
+    if (reset === 'success') {
+      setSuccessMessage('Password reset successful. Please log in with your new password.');
     }
   }, [searchParams]);
 

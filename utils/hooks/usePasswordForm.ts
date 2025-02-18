@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
@@ -23,9 +23,14 @@ const pwdValidationSchema = Yup.object({
 
 export const useResetPwdForm = (email: string | null, resetToken: string | null) => {
   const router = useRouter();
-  const [invalidTokenError, setInvalidTokenError] = useState<string | null>(null);
 
-  const { mutate: resetPassword, isPending, isSuccess, error: resetError } = useResetPassword();
+  const {
+    mutate: resetPassword,
+    isPending,
+    isSuccess,
+    isError,
+    error: resetError,
+  } = useResetPassword();
 
   const formik = useFormik<ResetFormValues>({
     initialValues: {
@@ -36,10 +41,12 @@ export const useResetPwdForm = (email: string | null, resetToken: string | null)
     validationSchema: pwdValidationSchema,
     onSubmit: (values) => {
       if (!resetToken) {
-        setInvalidTokenError('Невалиден токен за ресетирање');
+        resetPassword({
+          ...values,
+          token: '',
+        });
         return;
       }
-      setInvalidTokenError(null);
       resetPassword({
         ...values,
         token: resetToken,
@@ -47,30 +54,27 @@ export const useResetPwdForm = (email: string | null, resetToken: string | null)
     },
   });
 
-  const getErrorMessage = (error: unknown): string | null => {
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('Password reset successful. Redirecting to login page.');
+      router.push('/content-panel/login?status=reset_success');
+    }
+  }, [isSuccess, router]);
+
+  const getErrorMessage = (error: unknown): string => {
     if (error instanceof Error) {
       return error.message;
     }
     if (error) {
-      return 'Настана грешка. Ве молиме обидете се повторно.';
+      return String(error);
     }
-    return null;
+    return 'Настана грешка. Ве молиме обидете се повторно.';
   };
-
-  const error: string | null = invalidTokenError || getErrorMessage(resetError);
-
-  useEffect(() => {
-    if (isSuccess) {
-      router.push(
-        `/content-panel/login?reset=success&message=Password reset successful. Please log in with your new password.`
-      );
-    }
-  }, [isSuccess, router]);
 
   return {
     formik,
     isLoading: isPending,
-    error,
+    error: isError ? getErrorMessage(resetError) : null,
     isSuccess,
   };
 };
@@ -80,6 +84,7 @@ export const useForgotPwdForm = () => {
     mutate: requestPasswordReset,
     isPending,
     isSuccess,
+    isError,
     error: requestError,
   } = useRequestPasswordReset();
 
@@ -95,22 +100,20 @@ export const useForgotPwdForm = () => {
     },
   });
 
-  const getErrorMessage = (error: unknown): string | null => {
+  const getErrorMessage = (error: unknown): string => {
     if (error instanceof Error) {
       return error.message;
     }
     if (error) {
-      return 'Внесете валидна емаил адреса која е регистрирана во системот.';
+      return String(error);
     }
-    return null;
+    return 'Внесете валидна емаил адреса која е регистрирана во системот.';
   };
-
-  const error = getErrorMessage(requestError);
 
   return {
     formik,
     isLoading: isPending,
-    error,
+    error: isError ? getErrorMessage(requestError) : null,
     isSuccess,
   };
 };
