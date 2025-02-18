@@ -1,22 +1,20 @@
 /* eslint-disable camelcase */
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import getBaseUrl from '../../utils/getBaseUrl';
 
 const API_BASE_URL = 'http://localhost:8000';
 const BASE_URL = getBaseUrl();
-
 export interface ResetPasswordParams {
   email: string;
   pwd: string;
   confirmValue: string;
   token: string;
 }
-
 export interface RequestPasswordResetParams {
   email: string;
 }
-
 export const useResetPassword = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ email, pwd, confirmValue, token }: ResetPasswordParams) => {
       const response = await fetch(`${API_BASE_URL}/passwords/reset`, {
@@ -32,13 +30,19 @@ export const useResetPassword = () => {
         }),
       });
       if (!response.ok) {
-        throw new Error('Failed to reset password');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to reset password');
       }
       return response.json();
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+    },
+    onError: (error: Error) => {
+      throw error;
+    },
   });
 };
-
 export const useRequestPasswordReset = () => {
   return useMutation({
     mutationFn: async ({ email }: RequestPasswordResetParams) => {
@@ -50,9 +54,13 @@ export const useRequestPasswordReset = () => {
         body: JSON.stringify({ email, baseUrl: BASE_URL }),
       });
       if (!response.ok) {
-        throw new Error('Failed to request password reset');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to request password reset');
       }
       return response.json();
+    },
+    onError: (error: Error) => {
+      throw error;
     },
   });
 };
