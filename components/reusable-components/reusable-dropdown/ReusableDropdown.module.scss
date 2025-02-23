@@ -63,3 +63,9 @@
 .dropdownItemButton:hover {
   background-color: #f0f0f0;
 }
+
+tbody tr:last-child .dropdownList {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 5px;
+}
