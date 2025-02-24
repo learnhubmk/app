@@ -64,7 +64,8 @@
   background-color: #f0f0f0;
 }
 
-tbody tr:last-child .dropdownList {
+tbody tr:last-child .dropdownList,
+tbody tr:nth-last-child(2) .dropdownList {
   top: auto;
   bottom: 100%;
   margin-bottom: 5px;
