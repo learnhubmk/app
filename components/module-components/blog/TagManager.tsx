@@ -1,5 +1,3 @@
-'use client';
-
 import TagInput, { TagObject } from './TagInput';
 import TagList from './TagList';
 
