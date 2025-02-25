@@ -11,10 +11,12 @@ import CodeBlock from '@tiptap/extension-code-block';
 import styles from './TiptapEditor.module.scss';
 
 const TiptapEditor = ({
+  id,
   content,
   editable,
   onChange,
 }: {
+  id: string;
   content: string;
   editable: boolean;
   onChange?: (content: string) => void;
@@ -68,7 +70,7 @@ const TiptapEditor = ({
   }
 
   return (
-    <div className={styles.tiptapEditorContainer}>
+    <div id={id} className={styles.tiptapEditorContainer}>
       {editable && (
         <div className={styles.tiptapToolbar}>
           <button

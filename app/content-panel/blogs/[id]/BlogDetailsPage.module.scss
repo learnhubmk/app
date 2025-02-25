@@ -58,21 +58,19 @@
 .titleInput {
   margin-bottom: 20px;
 
-  h1 {
-    font-size: 24px;
-    input {
-      width: 100%;
-      padding: 10px;
-      font-size: inherit;
-      color: var(--text-color);
-      background-color: var(--elevated-elements-dark-mode);
-      border: 1px solid var(--input-border-color);
-      border-radius: 4px;
-      outline: none;
+  font-size: 24px;
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: inherit;
+    color: var(--text-color);
+    background-color: var(--elevated-elements-dark-mode);
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    outline: none;
 
-      &:disabled {
-        background-color: var(--secondary-dark-mode);
-      }
+    &:disabled {
+      background-color: var(--secondary-dark-mode);
     }
   }
 }
@@ -159,6 +157,7 @@
 
 /* Error text styling */
 .errorText {
+  font-size: small;
   color: red;
   margin-top: 5px;
   margin-bottom: 5px;

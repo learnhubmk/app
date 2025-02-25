@@ -1,50 +1,62 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
-import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+/* eslint-disable jsx-a11y/control-has-associated-label */
+import React, { useState, useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
-import DropZone from '../drop-zone/DropZone';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
-import useUpdatePostStatus from '../../../apis/mutations/blogs/updatePostStatus';
 import StatusManager from '../../module-components/blog/StatusManager';
 import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 import ReusableModal from '../reusable-modal/ReusableModal';
+import TagManager from '../../module-components/blog/TagManager';
+import useEditBlogPost from '../../../apis/mutations/blogs/useEditBlogPost';
+import { TagObject } from '../../module-components/blog/TagInput';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   id,
   title,
-  imageUrl,
   content,
   author,
   publishDate,
   tags,
   status,
-  onImageChange,
   onChange,
   onDeleteClick,
   onCancelClick,
-  imageError,
-  onValidationError,
 }) => {
   const { editorState, editorStateChange } = useEditor();
+  const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [blogStatus, setBlogStatus] = useState(status);
-  const initialStatus = useRef(status);
 
   const router = useRouter();
-  const { mutate: updateStatus } = useUpdatePostStatus();
+  const { mutate: submitEditPostChanges } = useEditBlogPost();
+
+  const validationSchema = Yup.object({
+    title: Yup.string().trim().required('Title is required'),
+    content: Yup.string()
+      .trim()
+      .required('Content is required')
+      .test('not-empty', 'Content cannot be empty', (value) => value !== '<p></p>'),
+    tags: Yup.array()
+      .required('Таговите се задолжителни.')
+      .min(1, 'Мора да селектираш барем еден таг.'),
+    status: Yup.string().required('Status is required'),
+  });
 
   useEffect(() => {
     setIsEditable(editorState.isEditable);
   }, [editorState.isEditable]);
+
+  useEffect(() => {
+    setSelectedTags(tags);
+  }, [tags]);
 
   const handleConfirm = () => {
     setShowModal(false);
@@ -73,29 +85,17 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       setModalType('cancel');
       setShowModal(true);
     } else {
-      handleConfirm();
+      setIsEditable(false);
+      setHasUnsavedChanges(false);
+      editorStateChange({ isEditable: false });
+      onCancelClick?.();
     }
   };
 
-  const handleEditClick = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
-
-    if (form?.checkValidity()) {
-      const newEditableState = !isEditable;
-      setIsEditable(newEditableState);
-      editorStateChange({ isEditable: newEditableState });
-      onValidationError('');
-      setHasUnsavedChanges(false);
-
-      if (newEditableState) {
-        // eslint-disable-next-line no-unused-expressions
-        initialStatus.current === blogStatus;
-      } else if (!newEditableState && blogStatus !== initialStatus.current) {
-        updateStatus({ id, status: blogStatus });
-      }
-    } else {
-      form?.reportValidity();
-    }
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsEditable(true);
+    editorStateChange({ isEditable: true });
   };
 
   const handleDeleteClick = () => {
@@ -108,149 +108,184 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
 
   const handleDeleteConfirm = async () => {
     setIsOpen(false);
-    onDeleteClick(id);
+    if (onDeleteClick) {
+      onDeleteClick(id);
+    }
     router.push('/content-panel/blogs');
   };
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }
-  ) => {
-    onChange(event);
-    setHasUnsavedChanges(true);
-  };
+  const handleSubmit = (values: any) => {
+    setIsEditable(false);
+    editorStateChange({ isEditable: false });
+    setHasUnsavedChanges(false);
 
-  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setBlogStatus(event.target.value);
-    setHasUnsavedChanges(true);
-  };
+    submitEditPostChanges({ id, ...values });
 
-  const renderInput = (inputId: string, value: string, disabled: boolean = !isEditable) => (
-    <input
-      type="text"
-      id={inputId}
-      name={id}
-      value={value}
-      onChange={handleInputChange as (event: React.ChangeEvent<HTMLInputElement>) => void}
-      disabled={disabled}
-      required
-      placeholder={`${String(inputId).charAt(0).toUpperCase() + String(inputId).slice(1)} is required`}
-      className={styles.inputField}
-    />
-  );
+    onChange({
+      target: {
+        name: 'formData',
+        value: values,
+      },
+    });
+  };
 
   const blogAuthor = `${author.first_name} ${author.last_name}`;
-  const tagNames = tags.map((tag) => tag.name);
+  const tagsIdList = tags.map((tag) => tag.id);
 
   return (
-    <form className={styles.blogDetailsCard} onSubmit={(e) => e.preventDefault()}>
-      <div className={styles.actionButtons}>
-        <div className={styles.leftButton}>
-          <button type="button" onClick={handleBackClick} aria-label="Go back">
-            <i className="bi bi-arrow-left" />
-          </button>
-        </div>
-        <div className={styles.rightButtons}>
-          {isEditable ? (
-            <>
-              <button type="button" onClick={handleEditClick}>
-                Save
+    <Formik
+      initialValues={{
+        title,
+        content,
+        tags: tagsIdList,
+        status,
+      }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+      enableReinitialize
+    >
+      {({ values, setFieldValue, errors, touched }) => (
+        <Form className={styles.blogDetailsCard}>
+          <div className={styles.actionButtons}>
+            <div className={styles.leftButton}>
+              <button type="button" onClick={handleBackClick}>
+                <i className="bi bi-arrow-left" />
               </button>
-              <button type="button" onClick={handleCancelClick}>
-                Cancel
-              </button>
-            </>
-          ) : (
-            <>
-              <button type="button" onClick={handleEditClick}>
-                Edit
-              </button>
-              <button type="button" onClick={handleDeleteClick}>
-                Delete
-              </button>
-            </>
-          )}
-        </div>
-      </div>
+            </div>
+            <div className={styles.rightButtons}>
+              {isEditable ? (
+                <>
+                  <button type="submit">Save</button>
+                  <button type="button" onClick={handleCancelClick}>
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button type="button" onClick={handleEditClick}>
+                    Edit
+                  </button>
+                  <button type="button" onClick={handleDeleteClick}>
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
 
-      <div className={styles.titleInput}>
-        <h1>{renderInput('title', title)}</h1>
-      </div>
+          <div className={styles.titleInput}>
+            <label htmlFor="title">Title:</label>
+            <Field
+              id="title"
+              name="title"
+              disabled={!isEditable}
+              className={styles.inputField}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setFieldValue('title', e.target.value);
+                setHasUnsavedChanges(true);
+              }}
+            />
+            {touched.title && errors.title && (
+              <div className={styles.errorText}>{errors.title}</div>
+            )}
+          </div>
 
-      <div className={styles.imageSection}>
-        <label htmlFor="imageUpload">Image:</label>
-        {imageError && <p className={styles.errorText}>{imageError}</p>}
-        {isEditable ? (
-          <DropZone
-            onImageChange={(files) => {
-              onImageChange(files);
-              if (imageError) onValidationError('');
-              setHasUnsavedChanges(true);
-            }}
-            onValidationError={onValidationError}
-            isRequired={false}
+          <div className={styles.contentSection}>
+            <label htmlFor="content">Content:</label>
+            <TiptapEditor
+              id="content"
+              content={values.content}
+              editable={isEditable}
+              onChange={(newContent) => {
+                setFieldValue('content', newContent);
+                setHasUnsavedChanges(true);
+              }}
+            />
+            {touched.content && errors.content && (
+              <div className={styles.errorText}>{errors.content}</div>
+            )}
+          </div>
+
+          <div className={styles.authorSection}>
+            <label htmlFor="author">Author:</label>
+            <input
+              id="author"
+              type="text"
+              value={blogAuthor}
+              disabled
+              className={styles.inputField}
+            />
+          </div>
+
+          <div className={styles.dateSection}>
+            <label htmlFor="publishDate">Date:</label>
+            <input
+              id="publishDate"
+              type="date"
+              value={publishDate}
+              disabled
+              className={styles.inputField}
+            />
+          </div>
+
+          <div className={styles.tagsSection}>
+            <label htmlFor="tags">Tags:</label>
+            <div id="tags">
+              <TagManager
+                selectedTags={selectedTags}
+                onTagsChange={(newTags) => {
+                  setSelectedTags(newTags);
+                  setFieldValue(
+                    'tags',
+                    newTags.map((tag) => tag.id)
+                  );
+                }}
+              />
+            </div>
+            {touched.tags && errors.tags && <div className={styles.errorText}>{errors.tags}</div>}
+          </div>
+
+          <div className={styles.contentSection}>
+            <label htmlFor="status">Status:</label>
+            {isEditable ? (
+              <Field
+                id="status"
+                name="status"
+                component={StatusManager}
+                currentStatus={values.status}
+                handleStatusChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  setFieldValue('status', e.target.value);
+                  setHasUnsavedChanges(true);
+                }}
+              />
+            ) : (
+              <span id="status" className={styles.statusField}>
+                {capitalizeAndFormatString(values.status)}
+              </span>
+            )}
+            {touched.status && errors.status && (
+              <div className={styles.errorText}>{errors.status}</div>
+            )}
+          </div>
+
+          <CancelModal
+            show={showModal}
+            onHide={() => setShowModal(false)}
+            onConfirm={handleConfirm}
           />
-        ) : (
-          imageUrl && <Image src={imageUrl} alt="Blog" width={400} height={300} />
-        )}
-      </div>
 
-      <div className={styles.contentSection}>
-        <label htmlFor="content">Content:</label>
-        {isEditable ? (
-          <TiptapEditor
-            content={content}
-            editable={isEditable}
-            onChange={(editorContent: string) =>
-              handleInputChange({ target: { name: 'content', value: editorContent } })
-            }
+          <ReusableModal
+            title="Are you sure you want to proceed?"
+            isOpen={isOpen}
+            onClose={handleDeleteClose}
+            primaryButtonLabel="Delete"
+            secondaryButtonLabel="Cancel"
+            onPrimaryButtonClick={handleDeleteConfirm}
+            onSecondaryButtonClick={handleDeleteClose}
           />
-        ) : (
-          // eslint-disable-next-line react/no-danger
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        )}
-      </div>
-
-      <div className={styles.authorSection}>
-        <label htmlFor="author">Author:</label>
-        {renderInput('author', blogAuthor, true)}
-      </div>
-
-      <div className={styles.dateSection}>
-        <label htmlFor="publishDate">Date:</label>
-        <input
-          id="publishDate"
-          type="date"
-          value={publishDate}
-          disabled
-          className={styles.inputField}
-          required
-        />
-      </div>
-
-      <div className={styles.tagsSection}>
-        <label htmlFor="tags">Tags:</label>
-        {renderInput('tags', tagNames.join(', '))}
-      </div>
-
-      <div className={styles.contentSection}>
-        <label htmlFor="status">Статус</label>
-        {isEditable ? (
-          <StatusManager currentStatus={blogStatus} handleStatusChange={handleStatusChange} />
-        ) : (
-          <span className={styles.statusField}>{capitalizeAndFormatString(blogStatus)}</span>
-        )}
-      </div>
-      <CancelModal show={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />
-      <ReusableModal
-        title="Are you sure you want to proceed?"
-        isOpen={isOpen}
-        onClose={handleDeleteClose}
-        primaryButtonLabel="Delete"
-        secondaryButtonLabel="Cancel"
-        onPrimaryButtonClick={handleDeleteConfirm}
-        onSecondaryButtonClick={handleDeleteClose}
-      />
-    </form>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

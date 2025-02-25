@@ -8,6 +8,7 @@ const ENDPOINTS = {
   BLOGS: {
     GET_ALL: `${API_BASE_URL}/content/blog-posts`,
     CREATE: `${API_BASE_URL}/content/blog-posts`,
+    EDIT: (id: string) => `${API_BASE_URL}/content/blog-posts/${id}`,
     UPDATE_STATUS: (id: string) => `${API_BASE_URL}/content/blog-posts/${id}/statuses`,
     DELETE: (id: string) => `${API_BASE_URL}/content/blog-posts/${id}`,
   },

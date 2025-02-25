@@ -89,6 +89,7 @@ const PublishArticleForm = () => {
               Содржина
             </label>
             <TiptapEditor
+              id="content-editor"
               editable
               content={values.content}
               onChange={(newContent) => setFieldValue('content', newContent)}
