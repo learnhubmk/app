@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UserRole } from '../../../Types';
 import styles from './PublishArticleForm.module.scss';
 import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
@@ -22,6 +22,14 @@ const StatusManager: React.FC<StatusManagerProps> = ({ currentStatus, handleStat
     userRole === UserRole.admin
       ? statusOptions
       : statusOptions.filter((option) => option.value !== 'published');
+
+  useEffect(() => {
+    if (currentStatus === 'published' && userRole !== UserRole.admin) {
+      handleStatusChange({
+        target: { value: currentStatusOptions[0].value },
+      } as React.ChangeEvent<HTMLSelectElement>);
+    }
+  }, [currentStatus, userRole, handleStatusChange, currentStatusOptions]);
 
   return (
     <select
