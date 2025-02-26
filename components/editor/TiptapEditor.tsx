@@ -11,10 +11,12 @@ import CodeBlock from '@tiptap/extension-code-block';
 import styles from './TiptapEditor.module.scss';
 
 const TiptapEditor = ({
+  id,
   content,
   editable,
   onChange,
 }: {
+  id: string;
   content: string;
   editable: boolean;
   onChange?: (content: string) => void;
@@ -68,19 +70,32 @@ const TiptapEditor = ({
   }
 
   return (
-    <div className={styles.tiptapEditorContainer}>
+    <div id={id} className={styles.tiptapEditorContainer}>
       {editable && (
         <div className={styles.tiptapToolbar}>
-          <button type="button" onClick={() => editorInstance.chain().focus().toggleBold().run()}>
+          <button
+            tabIndex={-1}
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleBold().run()}
+          >
             Bold
           </button>
-          <button type="button" onClick={() => editorInstance.chain().focus().toggleItalic().run()}>
+          <button
+            tabIndex={-1}
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleItalic().run()}
+          >
             Italic
           </button>
-          <button type="button" onClick={() => editorInstance.chain().focus().toggleStrike().run()}>
+          <button
+            tabIndex={-1}
+            type="button"
+            onClick={() => editorInstance.chain().focus().toggleStrike().run()}
+          >
             Strike
           </button>
           <button
+            tabIndex={-1}
             type="button"
             onClick={() => editorInstance.chain().focus().toggleBulletList().run()}
             className={editorInstance.isActive('bulletList') ? 'is-active' : ''}
@@ -88,6 +103,7 @@ const TiptapEditor = ({
             Bullet list
           </button>
           <button
+            tabIndex={-1}
             type="button"
             onClick={() => editorInstance.chain().focus().toggleOrderedList().run()}
             className={editorInstance.isActive('orderedList') ? 'is-active' : ''}
@@ -95,6 +111,7 @@ const TiptapEditor = ({
             Ordered list
           </button>
           <button
+            tabIndex={-1}
             type="button"
             onClick={handleCodeBlockToggle}
             className={isCodeBlockActive ? styles.codeBlockActive : ''}
@@ -102,6 +119,7 @@ const TiptapEditor = ({
             Code Block
           </button>
           <button
+            tabIndex={-1}
             type="button"
             onClick={() => editorInstance.chain().focus().setHorizontalRule().run()}
           >

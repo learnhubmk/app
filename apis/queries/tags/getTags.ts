@@ -2,15 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
-import { TagObject } from '../../../components/module-components/blog/TagInput';
 import { Links, MetaData } from '../../../Types';
-
-export interface Tag {
-  id: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
-}
+import { Tag } from '../../../components/reusable-components/_Types';
 
 export interface TagsResponse {
   data: Tag[];
@@ -31,7 +24,7 @@ const useGetTags = (search?: string, page?: number, itemsPerPage?: number) => {
     },
     select: (data) => ({
       ...data,
-      data: data.data.map((tag: TagObject) => ({
+      data: data.data.map((tag: Tag) => ({
         ...tag,
         name: tag.name.toLowerCase(),
       })),
