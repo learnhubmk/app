@@ -7,17 +7,11 @@ import styles from './TagInput.module.scss';
 import useGetTags from '../../../apis/queries/tags/getTags';
 import useDebounce from '../../../utils/hooks/useDebounce';
 import useAddNewTag from '../../../apis/mutations/tags/useAddNewTag';
-
-export interface TagObject {
-  id: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
-}
+import { Tag } from '../../reusable-components/_Types';
 
 interface TagInputProps {
-  selectedTags: TagObject[];
-  onTagsChange: (tags: TagObject[]) => void;
+  selectedTags: Tag[];
+  onTagsChange: (tags: Tag[]) => void;
 }
 
 const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
@@ -30,7 +24,7 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
 
   const addNewTag = async (tagName: string) => {
     const newTag = await addNewTagMutation.mutateAsync({ tagName });
-    onTagsChange([...selectedTags, newTag.data as TagObject]);
+    onTagsChange([...selectedTags, newTag.data as Tag]);
 
     setSearchTag('');
   };
@@ -39,7 +33,7 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
     setSearchTag(e.target.value);
   };
 
-  const addTag = (tag: TagObject) => {
+  const addTag = (tag: Tag) => {
     if (!selectedTags.some((selectedTag) => selectedTag.id === tag.id)) {
       onTagsChange([...selectedTags, tag]);
     }
@@ -61,7 +55,7 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
       {debouncedSearchTerm && (
         <div className={styles.dropdown}>
           {filteredTags.length > 0 ? (
-            filteredTags.map((tag: TagObject) => (
+            filteredTags.map((tag: Tag) => (
               <div
                 key={tag.id}
                 onClick={() => addTag(tag)}

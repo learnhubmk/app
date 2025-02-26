@@ -6,14 +6,13 @@ import { useRouter } from 'next/navigation';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import CancelModal from '../modals/CancelModal';
-import { BlogDetailsCardProps } from '../_Types';
+import { BlogDetailsCardProps, Tag } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
 import StatusManager from '../../module-components/blog/StatusManager';
 import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 import ReusableModal from '../reusable-modal/ReusableModal';
 import TagManager from '../../module-components/blog/TagManager';
 import useEditBlogPost from '../../../apis/mutations/blogs/useEditBlogPost';
-import { TagObject } from '../../module-components/blog/TagInput';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   id,
@@ -28,7 +27,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onCancelClick,
 }) => {
   const { editorState, editorStateChange } = useEditor();
-  const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
@@ -253,8 +252,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
                 name="status"
                 component={StatusManager}
                 currentStatus={values.status}
-                handleStatusChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                  setFieldValue('status', e.target.value);
+                handleStatusChange={(newStatus: string) => {
+                  setFieldValue('status', newStatus);
                   setHasUnsavedChanges(true);
                 }}
               />

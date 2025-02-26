@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { TagObject } from './TagInput';
+import { Tag } from '../../reusable-components/_Types';
 import styles from './TagList.module.scss';
 
 interface TagListProps {
-  selectedTags: TagObject[];
+  selectedTags: Tag[];
   onRemoveTag: (tagId: string) => void;
 }
 

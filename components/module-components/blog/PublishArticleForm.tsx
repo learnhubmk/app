@@ -5,18 +5,17 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
-import { TagObject } from './TagInput';
 import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
 import StatusManager from './StatusManager';
+import { Tag } from '../../reusable-components/_Types';
 
 const PublishArticleForm = () => {
   const addNewPostMutation = useAddNewPost();
-  const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const router = useRouter();
-  const [currentStatus, setCurrentStatus] = useState('');
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -120,9 +119,14 @@ const PublishArticleForm = () => {
             <label htmlFor="status" className={styles.inputLabel}>
               Статус
             </label>
-            <StatusManager
-              currentStatus={currentStatus}
-              handleStatusChange={(event) => setCurrentStatus(event.target.value)}
+            <Field
+              id="status"
+              name="status"
+              component={StatusManager}
+              currentStatus={values.status}
+              handleStatusChange={(newStatus: string) => {
+                setFieldValue('status', newStatus);
+              }}
             />
             {touched.status && errors.status && <div className={styles.error}>{errors.status}</div>}
           </div>

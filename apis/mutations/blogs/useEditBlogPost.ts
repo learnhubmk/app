@@ -11,7 +11,7 @@ type UpdatePostPayload = {
   id: string;
   title: string;
   content: string;
-  tags: number[];
+  tags: string[];
   status: string;
 };
 

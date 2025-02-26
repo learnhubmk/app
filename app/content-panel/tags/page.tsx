@@ -11,11 +11,12 @@ import AddTag from '../../../components/module-components/tags/AddTag';
 import TagManagementControls from '../../../components/module-components/tags/TagManagementControls';
 import useDebounce from '../../../utils/hooks/useDebounce';
 
-import useGetTags, { Tag } from '../../../apis/queries/tags/getTags';
+import useGetTags from '../../../apis/queries/tags/getTags';
 import useAddNewTag from '../../../apis/mutations/tags/useAddNewTag';
 import useDeleteTag from '../../../apis/mutations/tags/useDeleteTag';
 import useEditTag from '../../../apis/mutations/tags/useEditTag';
 import { defaultMeta } from '../../../components/reusable-components/pagination/Pagination';
+import { Tag } from '../../../components/reusable-components/_Types';
 
 const Tags = () => {
   // MUTATIONS

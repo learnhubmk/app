@@ -1,9 +1,10 @@
-import TagInput, { TagObject } from './TagInput';
+import { Tag } from '../../reusable-components/_Types';
+import TagInput from './TagInput';
 import TagList from './TagList';
 
 interface TagManagerProps {
-  selectedTags: TagObject[];
-  onTagsChange: (tags: TagObject[]) => void;
+  selectedTags: Tag[];
+  onTagsChange: (tags: Tag[]) => void;
 }
 
 const TagManager = ({ selectedTags, onTagsChange }: TagManagerProps) => {

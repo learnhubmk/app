@@ -1,5 +1,4 @@
 import React from 'react';
-import { TagObject } from '../../module-components/blog/TagInput';
 
 export interface IAuthFormProps {
   firstName: string;
@@ -11,8 +10,8 @@ export interface IAuthFormProps {
 export interface Tag {
   id: string;
   name: string;
-  created_at?: string;
-  updated_at?: string;
+  created_at?: string | null;
+  updated_at?: string | null;
 }
 
 export interface IPasswordValidation {
@@ -31,7 +30,7 @@ export interface BlogDetailsCardProps {
   content: string;
   author: Author;
   publishDate: string;
-  tags: TagObject[];
+  tags: Tag[];
   status: string;
   onImageChange: (files: File[]) => void;
   onChange: (
@@ -50,7 +49,7 @@ export interface BlogDetailsData {
   content: string;
   author: Author;
   publishDate: string;
-  tags: TagObject[];
+  tags: Tag[];
   status: string;
   id: string;
 }
