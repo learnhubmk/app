@@ -12,6 +12,11 @@ $breakpoint-xl: 1280px;
   min-height: 100vh;
 }
 
+.backButton {
+  display: flex;
+  justify-content: start !important;
+}
+
 .controlsContainer {
   height: 100%;
   margin-top: 20px;
@@ -23,10 +28,10 @@ $breakpoint-xl: 1280px;
   width: 90%;
 
   @media (min-width: $breakpoint-md) {
-    width: 80%;
+    // width: 80%;
   }
 
   @media (min-width: $breakpoint-xl) {
-    width: 50%;
+    // width: 50%;
   }
 }

@@ -18,9 +18,10 @@ export interface TagObject {
 interface TagInputProps {
   selectedTags: TagObject[];
   onTagsChange: (tags: TagObject[]) => void;
+  isAdmin?: boolean;
 }
 
-const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
+const TagInput = ({ selectedTags, onTagsChange, isAdmin = false }: TagInputProps) => {
   const [searchTag, setSearchTag] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchTag, 300);
   const { data } = useGetTags(debouncedSearchTerm);
@@ -76,6 +77,46 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
               </div>
             ))
           ) : (
+            <>
+              {isAdmin && (
+                <div
+                  className={styles.tagItem}
+                  onClick={() => {
+                    if (debouncedSearchTerm.trim()) {
+                      addNewTag(debouncedSearchTerm);
+                      return;
+                    }
+                    toast.error('Празни тагови не се дозволени');
+                  }}
+                >
+                  Create new tag: "{debouncedSearchTerm}". <i className="bi bi-plus-lg" />
+                </div>
+              )}
+
+              {!isAdmin && <div className={styles.tagItem}>No matching tags found</div>}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* {debouncedSearchTerm && (
+        <div className={styles.dropdown}>
+          {filteredTags.length > 0 ? (
+            filteredTags.map((tag: TagObject) => (
+              <div
+                key={tag.id}
+                onClick={() => addTag(tag)}
+                className={styles.tagItem}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    addTag(tag);
+                  }
+                }}
+              >
+                {tag.name}
+              </div>
+            ))
+          ) : isAdmin ? (
             <div
               className={styles.tagItem}
               onClick={() => {
@@ -88,9 +129,11 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
             >
               Create new tag: "{debouncedSearchTerm}". <i className="bi bi-plus-lg" />
             </div>
+          ) : (
+            <div className={styles.tagItem}>No matching tags found</div>
           )}
         </div>
-      )}
+      )} */}
     </div>
   );
 };

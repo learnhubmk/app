@@ -7,12 +7,12 @@ import { useAxios } from '../../AxiosProvider';
 import ENDPOINTS from '../../endpoints';
 import QUERY_KEYS from '../../queryKeys';
 
-export type NewPost = {
+export interface NewPost {
   title: string;
   excerpt: string;
   content: string;
   tags: string[];
-};
+}
 
 type ErrorResponse = {
   message: string;
@@ -25,7 +25,21 @@ const useAddNewPost = () => {
 
   return useMutation({
     mutationFn: async (newPost: NewPost) => {
-      const response = await axios.post(ENDPOINTS.BLOGS.CREATE, newPost);
+      const formData = new FormData();
+      formData.append('title', newPost.title);
+      formData.append('excerpt', newPost.excerpt);
+      formData.append('content', newPost.content);
+
+      // Append each tag ID individually to create tags[] format
+      newPost.tags.forEach((tagId) => {
+        formData.append('tags[]', tagId);
+      });
+
+      const response = await axios.post(ENDPOINTS.BLOGS.CREATE, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       return response.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {

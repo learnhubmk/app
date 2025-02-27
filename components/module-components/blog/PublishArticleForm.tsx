@@ -4,22 +4,22 @@ import React, { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { useSession } from 'next-auth/react';
 import * as Yup from 'yup';
-
-import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
+import { useQueryClient } from '@tanstack/react-query';
+import useAddNewPost from '../../../apis/mutations/blogs/useAddNewPost';
 import { TagObject } from './TagInput';
 import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager from './TagManager';
 import Button from '../../reusable-components/button/Button';
+import QUERY_KEYS from '../../../apis/queryKeys';
 
 const PublishArticleForm = () => {
   const { data: session } = useSession();
   const addNewPostMutation = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
+  const queryClient = useQueryClient();
 
   const isUserAdmin = session?.user.role === 'admin';
-
-  console.log('isUserAdmin', isUserAdmin);
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -35,10 +35,6 @@ const PublishArticleForm = () => {
       .min(1, 'Мора да селектираш барем еден таг.'),
   });
 
-  const handleAddPost = (values: NewPost) => {
-    addNewPostMutation.mutate(values);
-  };
-
   return (
     <Formik
       validationSchema={validationSchema}
@@ -48,7 +44,16 @@ const PublishArticleForm = () => {
         content: '',
         tags: [],
       }}
-      onSubmit={handleAddPost}
+      onSubmit={(values, { resetForm }) => {
+        addNewPostMutation.mutate(values, {
+          onSuccess: () => {
+            resetForm();
+            setSelectedTags([]);
+            // Invalidate queries and show success message
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
+          },
+        });
+      }}
     >
       {({ values, setFieldValue, touched, errors }) => (
         <Form className={styles.form}>
@@ -107,9 +112,19 @@ const PublishArticleForm = () => {
                   newTags.map((tag) => tag.id)
                 );
               }}
+              isAdmin={isUserAdmin}
             />
             {touched.tags && errors.tags && <div className={styles.error}>{errors.tags}</div>}
           </div>
+
+          {/* <div className={styles.field}>
+            <label className={styles.inputLabel} htmlFor="image">
+              Слика<span className={styles.required}>*</span>
+            </label>
+            <DropZone onImageChange={handleImageChange} onValidationError={setImageError} />
+
+            {imageError && <div className={styles.error}>{imageError}</div>}
+          </div> */}
 
           {addNewPostMutation.isPending ? (
             <Button
