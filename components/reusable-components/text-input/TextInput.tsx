@@ -2,12 +2,13 @@
 
 import React, { FC, HTMLProps } from 'react';
 import style from './textInput.module.scss';
-import { useTheme } from '../../../app/context/themeContext';
+
 import setClass from '../../../utils/setClass';
+import { useTheme } from '../../../app/context/themeContext';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   placeholder: string;
-  label: string;
+  label: string | '';
   name: string;
   type: string;
   field: string;
@@ -27,24 +28,34 @@ const TextInput: FC<InputProps> = ({
   isRequired,
   isFooter,
   inputClass = [],
+  onChange,
 }) => {
   const { theme } = useTheme();
   const isLightTheme = theme === 'light';
   const isError = formik.touched[field] && formik.errors[field] !== undefined && 'error';
   const isValid = !isError && formik.touched[field] && 'valid';
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    formik.handleChange(e);
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
   return (
     <div className={style.inputContainer}>
-      <label htmlFor={name} className={style.label}>
-        {label} {isRequired && <span className={`${isLightTheme && style.errorColor}`}>*</span>}
-      </label>
+      {label && (
+        <label htmlFor={name} className={style.label}>
+          {label} {isRequired && <span className={`${isLightTheme && style.errorColor}`}>*</span>}
+        </label>
+      )}
       <div className={style.inputWrapper}>
         <input
           type={type}
           className={`${style.input} ${setClass(inputClass, style)} ${style[`${isError}`]} ${style[`${isValid}`]}`}
           placeholder={placeholder}
           value={formik.values[field]}
-          onChange={formik.handleChange}
+          onChange={handleChange}
           onBlur={formik.handleBlur}
           name={name}
         />

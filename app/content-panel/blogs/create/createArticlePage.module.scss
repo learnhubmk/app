@@ -1,0 +1,37 @@
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-xl: 1280px;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.backButton {
+  display: flex;
+  justify-content: start !important;
+}
+
+.controlsContainer {
+  height: 100%;
+  margin-top: 20px;
+  padding: 25px;
+  border-radius: 20px;
+  background-color: var(--section-bg-color);
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+
+  @media (min-width: $breakpoint-md) {
+    // width: 80%;
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    // width: 50%;
+  }
+}

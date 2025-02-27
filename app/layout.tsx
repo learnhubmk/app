@@ -5,12 +5,18 @@ import React, { Suspense } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import './styles/main.scss';
+import { ToastContainer } from 'react-toastify';
 import Loading from './loading';
 import Footer from '../components/reusable-components/footer/Footer';
 import Navigation from '../components/reusable-components/navigation/Navigation';
 import ReactQueryProvider from '../utils/providers/ReactQueryProvider';
 import { ThemeProvider } from './context/themeContext';
 import styles from './page.module.scss';
+import { AuthProvider } from './context/authContext';
+import NextAuthSessionProvider from '../utils/providers/NextAuthSessionProvider';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import { EditorProvider } from './context/EditorContext';
+import { AxiosProvider } from '../apis/AxiosProvider';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
@@ -49,16 +55,26 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             />
           </noscript>
         )}
-        <ThemeProvider>
-          <ReactQueryProvider>
-            <Navigation />
-            <main className={styles.main}>
-              <Suspense fallback={<Loading />}>{children}</Suspense>
-              <SpeedInsights />
-            </main>
-            <Footer />
-          </ReactQueryProvider>
-        </ThemeProvider>
+        <ToastContainer />
+
+        <EditorProvider>
+          <ThemeProvider>
+            <AxiosProvider>
+              <ReactQueryProvider>
+                <AuthProvider>
+                  <NextAuthSessionProvider>
+                    <Navigation />
+                    <main className={styles.main}>
+                      <Suspense fallback={<Loading />}>{children}</Suspense>
+                      <SpeedInsights />
+                    </main>
+                    <Footer />
+                  </NextAuthSessionProvider>
+                </AuthProvider>
+              </ReactQueryProvider>
+            </AxiosProvider>
+          </ThemeProvider>
+        </EditorProvider>
       </body>
     </html>
   );

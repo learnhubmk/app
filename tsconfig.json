@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "paths": {
       "@/*": ["./src/*"],
       "@tests-pages/*": ["./tests/pages/*"],
@@ -31,7 +33,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.js",
-    "jest.config.js"
+    "jest.config.js",
+    "types/next-auth.d.ts"
   ],
   "exclude": ["node_modules"]
 }

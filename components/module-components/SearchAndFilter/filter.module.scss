@@ -1,0 +1,11 @@
+.filter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  .dropdown {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+  }
+}

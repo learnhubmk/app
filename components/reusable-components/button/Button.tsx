@@ -8,8 +8,8 @@ import setClass from '../../../utils/setClass';
 interface ButtonProps {
   onClick?: () => void;
   type: string;
-  buttonText: string;
-  href: string;
+  buttonText?: string;
+  href?: string;
   // eslint-disable-next-line no-undef
   icon?: JSX.Element;
   iconSrc?: string;
@@ -17,6 +17,7 @@ interface ButtonProps {
   rotateIcon?: boolean;
   moveIcon?: boolean;
   buttonTarget?: string;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -30,6 +31,7 @@ const Button = ({
   rotateIcon,
   moveIcon,
   buttonTarget,
+  disabled = false,
 }: ButtonProps) => {
   return (
     (type === 'button' && (
@@ -48,7 +50,7 @@ const Button = ({
     )) ||
     (type === 'link' && (
       <Link
-        href={href}
+        href={href!}
         className={`${styles.linkButton} ${setClass(buttonClass, styles)}`}
         target={buttonTarget}
       >
@@ -67,7 +69,11 @@ const Button = ({
       </div>
     )) ||
     (type === 'submit' && (
-      <button type="submit" className={`${styles.button} ${setClass(buttonClass, styles)}`}>
+      <button
+        disabled={disabled}
+        type="submit"
+        className={`${styles.button} ${setClass(buttonClass, styles)}`}
+      >
         {buttonText} {icon && <div className={styles.iconContainer}>{icon}</div>}
       </button>
     ))

@@ -18,14 +18,30 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "controlComponents": ["Field"],
+        "assert": "htmlFor",
+        "depth": 3
+      }
+    ],
+    "no-param-reassign": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
+    ],
+    "@typescript-eslint/no-shadow": "error",
     "react/jsx-filename-extension": [
       1,
       {
         "extensions": [".jsx", ".tsx"]
       }
     ],
+
+    "no-shadow": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": 0,
     "@react/no-array-index-key": "off",
@@ -58,13 +74,15 @@
     {
       "files": ["*.tsx"],
       "rules": {
-        "react/require-default-props": "off"
+        "react/require-default-props": "off",
+        "no-unused-vars": "off"
       }
     },
     {
       "files": ["tests/**/*.ts"],
       "rules": {
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "no-unused-vars": "off"
       }
     }
   ],

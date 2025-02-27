@@ -1,0 +1,120 @@
+@use '../../../app/styles/utils/breakpoints' as u;
+
+.reusableFormWrapper {
+  width: 42rem;
+  height: 73rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  box-shadow: 0px 25px 40px -12px #00000033;
+  background: var(--text-color);
+
+  @include u.breakpoint-down(small) {
+    width: 90vw;
+    box-shadow: none;
+    background: hsl(173, 13%, 86%);
+  }
+
+  @include u.breakpoint-down(large) {
+    width: 90vw;
+    background: hsl(173, 13%, 86%);
+  }
+
+  .formTitle {
+    font-weight: 700;
+    color: var(--titles-color);
+  }
+
+  .reusableForm {
+    width: 35rem;
+
+    @include u.breakpoint-down(small) {
+      width: 80vw;
+    }
+
+    .requirements {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+
+      .requirementsItem {
+        display: flex;
+        align-items: center;
+
+        p {
+          margin-left: 8px;
+        }
+
+        .valid {
+          fill: var(--valid-color);
+        }
+
+        .invalid {
+          filter: grayscale(100%);
+        }
+
+        &:last-child {
+          margin-bottom: 1rem;
+
+          @include u.breakpoint-down(small) {
+            margin-bottom: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+          }
+
+          @include u.breakpoint-down(large) {
+            margin-bottom: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+          }
+        }
+      }
+    }
+
+    .signUpBtn {
+      margin-top: clamp(4rem, 6.06263rem + -10.79vw, 0rem);
+
+      @include u.breakpoint-down(small) {
+        margin-top: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+      }
+
+      @include u.breakpoint-down(large) {
+        margin-top: clamp(2rem, 6.06263rem + -10.79vw, 0rem);
+      }
+
+      button {
+        width: 100%;
+        max-height: 3rem;
+      }
+    }
+  }
+
+  .alternativeSignUp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    .socialMediaSignUp {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .haveAccount {
+      display: flex;
+      flex-direction: row;
+      padding-top: 1.25rem;
+
+      p,
+      a {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+.darkFormWrapper {
+  background: var(--elevated-elements-dark-mode);
+
+  .formTitle {
+    color: var(--text-dark-mode);
+  }
+}

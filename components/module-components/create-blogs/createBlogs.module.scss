@@ -1,0 +1,23 @@
+@import '../../../app/styles/utils/breakpoints.scss';
+
+.mainContainer {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  margin: 0 auto;
+
+  @include breakpoint-down(small) {
+    padding: 10px;
+  }
+
+  .inputWrapper {
+    width: 100%;
+  }
+}
+
+.searchInputWrapper {
+  width: 100%;
+  @include breakpoint(small) {
+    width: 300px;
+  }
+}

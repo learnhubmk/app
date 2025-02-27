@@ -1,28 +1,28 @@
 'use server';
 
-import BlogCard, { BlogCardProps } from '../components/reusable-components/blog-card/BlogCard';
+import axios from 'axios';
+import axiosInstance from '../apis/axiosInstance';
+import { BlogCardProps } from '../components/reusable-components/blog-card/BlogCard';
 
-const fetchBlogPosts = async (nextPosts: number, pageTitle: string, blogCardsNumber: number) => {
+const fetchBlogPosts = async (
+  nextPosts: number,
+  blogCardsNumber: number
+): Promise<BlogCardProps[]> => {
   try {
-    const response = await fetch(
-      `https://dummyjson.com/posts?limit=${blogCardsNumber}&skip=${nextPosts}`
-    );
-
-    const data = await response.json();
-
-    return data?.posts.map((post: BlogCardProps) => {
-      return (
-        <BlogCard
-          key={post?.id}
-          id={post?.id}
-          title={post?.title}
-          body={post?.body}
-          pageTitle={pageTitle}
-        />
-      );
+    const { data } = await axiosInstance.get('/posts', {
+      params: {
+        limit: blogCardsNumber,
+        skip: nextPosts,
+      },
     });
+    return data.posts;
   } catch (error: any) {
-    throw new Error(error);
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || 'An error occurred while fetching blog posts'
+      );
+    }
+    throw new Error('An unexpected error occurred');
   }
 };
 

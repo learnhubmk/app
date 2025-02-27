@@ -1,0 +1,44 @@
+title = "Custom Gitleaks Config"
+
+[allowlist]
+files = [
+    "package-lock.json", 
+    "node_modules/" 
+  ]
+regexes = ["https://registry\\.npmjs\\.org"]
+paths=["package-lock.json"]
+
+# Rule to detect API keys
+[[rules]]
+id = "apikey"
+description = "API Key"
+regex = '''[A-Za-z0-9_]{32,}'''
+tags = ["apikey"]
+
+# Rule to detect Google API Keys
+[[rules]]
+id = "google_apikey"
+description = "Google API Key"
+regex = '''AIza[0-9A-Za-z-_]{35}'''
+tags = ["apikey"]
+
+# Rule to detect URLs
+[[rules]]
+id = "url"
+description = "URLs"
+regex = '''https?://[^\s]+'''
+tags = ["url"]
+
+# Rule to detect passwords
+[[rules]]
+id = "password"
+description = "Match passwords"
+regex = '''(?i)(password|pwd|pass|passwd)([=:].+)?[ \t]*(\S+)'''
+tags = ["password"]
+
+# Rule to detect SSH keys
+[[rules]]
+id = "ssh_key"
+description = "Match SSH keys"
+regex = '''-----BEGIN (RSA|DSA|EC|OPENSSH) PRIVATE KEY----'''
+tags = ["ssh_key"]
