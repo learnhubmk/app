@@ -98,42 +98,6 @@ const TagInput = ({ selectedTags, onTagsChange, isAdmin = false }: TagInputProps
           )}
         </div>
       )}
-
-      {/* {debouncedSearchTerm && (
-        <div className={styles.dropdown}>
-          {filteredTags.length > 0 ? (
-            filteredTags.map((tag: TagObject) => (
-              <div
-                key={tag.id}
-                onClick={() => addTag(tag)}
-                className={styles.tagItem}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    addTag(tag);
-                  }
-                }}
-              >
-                {tag.name}
-              </div>
-            ))
-          ) : isAdmin ? (
-            <div
-              className={styles.tagItem}
-              onClick={() => {
-                if (debouncedSearchTerm.trim()) {
-                  addNewTag(debouncedSearchTerm);
-                  return;
-                }
-                toast.error('Празни тагови не се дозволени');
-              }}
-            >
-              Create new tag: "{debouncedSearchTerm}". <i className="bi bi-plus-lg" />
-            </div>
-          ) : (
-            <div className={styles.tagItem}>No matching tags found</div>
-          )}
-        </div>
-      )} */}
     </div>
   );
 };

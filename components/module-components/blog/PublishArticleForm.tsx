@@ -15,7 +15,7 @@ import QUERY_KEYS from '../../../apis/queryKeys';
 
 const PublishArticleForm = () => {
   const { data: session } = useSession();
-  const addNewPostMutation = useAddNewPost();
+  const { mutate: addNewPostMutation, isPending } = useAddNewPost();
   const [selectedTags, setSelectedTags] = useState<TagObject[]>([]);
   const queryClient = useQueryClient();
 
@@ -45,11 +45,10 @@ const PublishArticleForm = () => {
         tags: [],
       }}
       onSubmit={(values, { resetForm }) => {
-        addNewPostMutation.mutate(values, {
+        addNewPostMutation(values, {
           onSuccess: () => {
             resetForm();
             setSelectedTags([]);
-            // Invalidate queries and show success message
             queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
           },
         });
@@ -117,16 +116,7 @@ const PublishArticleForm = () => {
             {touched.tags && errors.tags && <div className={styles.error}>{errors.tags}</div>}
           </div>
 
-          {/* <div className={styles.field}>
-            <label className={styles.inputLabel} htmlFor="image">
-              Слика<span className={styles.required}>*</span>
-            </label>
-            <DropZone onImageChange={handleImageChange} onValidationError={setImageError} />
-
-            {imageError && <div className={styles.error}>{imageError}</div>}
-          </div> */}
-
-          {addNewPostMutation.isPending ? (
+          {isPending ? (
             <Button
               disabled
               buttonText="Испраќање..."

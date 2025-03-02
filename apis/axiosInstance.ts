@@ -16,7 +16,7 @@ axiosInstance.interceptors.request.use(
     if (session?.accessToken) {
       config.headers.Authorization = `Bearer ${session.accessToken}`;
     } else {
-      throw new Error('No access token found - user must be logged in');
+      throw new Error('Authentication required.');
     }
     return config;
   },

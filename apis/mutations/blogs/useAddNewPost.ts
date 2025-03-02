@@ -30,7 +30,6 @@ const useAddNewPost = () => {
       formData.append('excerpt', newPost.excerpt);
       formData.append('content', newPost.content);
 
-      // Append each tag ID individually to create tags[] format
       newPost.tags.forEach((tagId) => {
         formData.append('tags[]', tagId);
       });
