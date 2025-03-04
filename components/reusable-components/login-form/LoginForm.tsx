@@ -28,7 +28,9 @@ const LoginForm = ({ isError, isLoading, onSubmit }: LoginFormProps) => {
   useEffect(() => {
     const reset = searchParams.get('reset');
     if (reset === 'success') {
-      setSuccessMessage('Password reset successful. Please log in with your new password.');
+      setSuccessMessage(
+        'Ресетирањето на лозинката беше успешно. Ве молиме најавете се со вашата нова лозинка.'
+      );
     }
   }, [searchParams]);
 

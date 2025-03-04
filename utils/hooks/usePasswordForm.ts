@@ -56,7 +56,6 @@ export const useResetPwdForm = (email: string | null, resetToken: string | null)
 
   useEffect(() => {
     if (isSuccess) {
-      console.log('Password reset successful. Redirecting to login page.');
       router.push('/content-panel/login?status=reset_success');
     }
   }, [isSuccess, router]);

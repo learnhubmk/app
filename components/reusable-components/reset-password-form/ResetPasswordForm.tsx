@@ -2,14 +2,17 @@
 
 import React from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import TextInput from '../text-input/TextInput';
 import Button from '../button/Button';
 import style from './ResetPasswordForm.module.scss';
 import { useTheme } from '../../../app/context/themeContext';
-import { useResetPwdForm } from '../../../utils/hooks/usePasswordForm';
+import { useResetPassword, ResetPasswordParams } from '../../../api/utils/forgotResetPswApi';
 import getBaseUrl from '../../../utils/getBaseUrl';
 
-const ResetPasswordForm = () => {
+const ResetPasswordForm: React.FC = () => {
   const { theme } = useTheme();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -18,26 +21,37 @@ const ResetPasswordForm = () => {
   const email = searchParams.get('email');
   const baseUrl = getBaseUrl();
 
-  const { formik, isLoading, error, isSuccess } = useResetPwdForm(email, resetToken);
+  const resetPasswordMutation = useResetPassword();
 
-  if (isSuccess) {
-    return (
-      <div
-        className={`${style.formWrapper} ${lightTheme ? style.lightWrapper : style.darkWrapper}`}
-      >
-        <div className={style.successMessage}>
-          <h3>Лозинката е успешно ресетирана</h3>
-          <p>Можете да се најавите со вашата нова лозинка.</p>
-          <Button
-            type="button"
-            buttonText="Кон најава"
-            buttonClass={['primaryButton']}
-            onClick={() => router.push(`${baseUrl}/content-panel/login?reset=success`)}
-          />
-        </div>
-      </div>
-    );
-  }
+  const formik = useFormik<ResetPasswordParams>({
+    initialValues: {
+      email: email || '',
+      pwd: '',
+      confirmValue: '',
+      token: resetToken || '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Невалидна е-маил адреса').required('Задолжително'),
+      pwd: Yup.string().min(8, 'Мора да содржи најмалку 8 карактери').required('Задолжително'),
+      confirmValue: Yup.string()
+        .oneOf([Yup.ref('pwd')], 'Лозинките мора да се совпаѓаат')
+        .required('Задолжително'),
+      token: Yup.string().required('Токенот е задолжителен'),
+    }),
+    onSubmit: (values) => {
+      resetPasswordMutation.mutate(values, {
+        onSuccess: () => {
+          toast.success('Лозинката е успешно ресетирана!');
+          router.push(`${baseUrl}/content-panel/login?reset=success`);
+        },
+        onError: (error: any) => {
+          toast.error(
+            error?.response?.data?.message || 'Настана грешка при ресетирање на лозинката.'
+          );
+        },
+      });
+    },
+  });
 
   if (!resetToken || !email) {
     return (
@@ -60,7 +74,6 @@ const ResetPasswordForm = () => {
 
   return (
     <div className={`${style.formWrapper} ${lightTheme ? style.lightWrapper : style.darkWrapper}`}>
-      {isLoading && <div className={style.loadingOverlay}>Се процесира...</div>}
       <form onSubmit={formik.handleSubmit} className={style.form}>
         <TextInput
           placeholder="Внесете ја вашата електронска пошта"
@@ -80,7 +93,7 @@ const ResetPasswordForm = () => {
           field="pwd"
           formik={formik}
           isRequired
-          disabled={isLoading}
+          disabled={resetPasswordMutation.isPending}
         />
         <TextInput
           placeholder="Потврдете ја новата лозинка"
@@ -90,14 +103,13 @@ const ResetPasswordForm = () => {
           field="confirmValue"
           formik={formik}
           isRequired
-          disabled={isLoading}
+          disabled={resetPasswordMutation.isPending}
         />
-        {error && <div className={style.errorMessage}>{error}</div>}
         <Button
           type="submit"
-          buttonText={isLoading ? 'Се процесира...' : 'Ресетирај лозинка'}
+          buttonText={resetPasswordMutation.isPending ? 'Се процесира...' : 'Ресетирај лозинка'}
           buttonClass={['primaryButton']}
-          disabled={isLoading}
+          disabled={resetPasswordMutation.isPending}
         />
       </form>
     </div>

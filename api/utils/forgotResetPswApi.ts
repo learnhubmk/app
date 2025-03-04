@@ -1,66 +1,73 @@
 /* eslint-disable camelcase */
+
+'use client';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
 import getBaseUrl from '../../utils/getBaseUrl';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const BASE_URL = getBaseUrl();
+
 export interface ResetPasswordParams {
   email: string;
   pwd: string;
   confirmValue: string;
   token: string;
 }
+
 export interface RequestPasswordResetParams {
   email: string;
 }
+
+interface ErrorResponse {
+  message: string;
+  statusCode?: number;
+}
+
+const resetPassword = async ({ email, pwd, confirmValue, token }: ResetPasswordParams) => {
+  const response = await axios.post(`${API_BASE_URL}/passwords/reset`, {
+    email,
+    password: pwd,
+    password_confirmation: confirmValue,
+    token,
+  });
+  return response.data;
+};
+
+const requestPasswordReset = async ({ email }: RequestPasswordResetParams) => {
+  const response = await axios.post(`${API_BASE_URL}/passwords/request-new`, {
+    email,
+    baseUrl: BASE_URL,
+  });
+  return response.data;
+};
+
 export const useResetPassword = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async ({ email, pwd, confirmValue, token }: ResetPasswordParams) => {
-      const response = await fetch(`${API_BASE_URL}/passwords/reset`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password: pwd,
-          password_confirmation: confirmValue,
-          token,
-        }),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to reset password');
-      }
-      return response.json();
+    mutationFn: resetPassword,
+    onError: (error: AxiosError<ErrorResponse>) => {
+      console.error(
+        'Грешка при ресетирање на лозинката:',
+        error.response?.data?.message || error.message
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
-    onError: (error: Error) => {
-      throw error;
-    },
   });
 };
+
 export const useRequestPasswordReset = () => {
   return useMutation({
-    mutationFn: async ({ email }: RequestPasswordResetParams) => {
-      const response = await fetch(`${API_BASE_URL}/passwords/request-new`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, baseUrl: BASE_URL }),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to request password reset');
-      }
-      return response.json();
-    },
-    onError: (error: Error) => {
-      throw error;
+    mutationFn: requestPasswordReset,
+    onError: (error: AxiosError<ErrorResponse>) => {
+      console.error(
+        'Грешка при барање за ресетирање на лозинката:',
+        error.response?.data?.message || error.message
+      );
     },
   });
 };
