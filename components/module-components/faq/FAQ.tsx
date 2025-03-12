@@ -54,7 +54,9 @@ const topicStyles = {
 const FAQ = ({ data }: FAQProps) => {
   const { theme } = useTheme();
   const lightTheme = theme === 'light';
-
+  const themeClass = lightTheme ? style.faqLight : style.faqDark;
+  const listItemClass = lightTheme ? style.faqLiLight : style.faqLiDark;
+  const textClass = lightTheme ? style.faqTextDark : style.faqTextLight;
   const [clickedTopic, setClickedTopic] = useState<{ [id: number]: boolean }>({});
 
   const handleClickedTopic = (id: number) => {
@@ -65,15 +67,11 @@ const FAQ = ({ data }: FAQProps) => {
   };
 
   return (
-    <section className={`${style.faqSection} ${lightTheme ? style.faqLight : style.faqDark}`}>
+    <section className={`${style.faqSection} ${themeClass}`}>
       <div className={style.faqContainer}>
         <div>
-          <h1
-            className={`${style.faqTitle} ${lightTheme ? style.faqDarkTitle : style.faqLightTitle}`}
-          >
-            Често поставувани прашања
-          </h1>
-          <p className={`${style.faqDesc} ${lightTheme ? style.faqDarkDesc : style.faqLightDesc}`}>
+          <h1 className={`${style.faqTitle} ${textClass}`}>Често поставувани прашања</h1>
+          <p className={`${style.faqDesc} ${textClass}`}>
             Се обидовме да ги одговориме најчесто поставуваните прашања. Доколку имаш дополнителни
             прашања слободно контактирај нè.
           </p>
@@ -82,16 +80,14 @@ const FAQ = ({ data }: FAQProps) => {
           {data.map(({ id, title, content }) => {
             return (
               <li
-                className={`${style.faqLiElement} ${lightTheme ? style.faqLiLight : style.faqLiDark}`}
+                className={`${style.faqLiElement} ${listItemClass}`}
                 key={id}
+                onClick={() => handleClickedTopic(id)}
+                role="presentation"
               >
-                <div onClick={() => handleClickedTopic(id)} role="presentation">
+                <div>
                   <div>
-                    <h3
-                      className={`${style.faqStext} ${lightTheme ? style.faqTextDark : style.faqTextLight}`}
-                    >
-                      {title}
-                    </h3>
+                    <h3 className={`${textClass}`}>{title}</h3>
                     <ExpandCollapseButton trigger={clickedTopic[id]} />
                   </div>
                   <AnimatePresence>
@@ -99,11 +95,7 @@ const FAQ = ({ data }: FAQProps) => {
                       // eslint-disable-next-line react/jsx-props-no-spreading
                       <m.div {...topicStyles}>
                         <div>
-                          <p
-                            className={`${style.faqContent} ${lightTheme ? style.faqTextDark : style.faqTextLight}`}
-                          >
-                            {content}
-                          </p>
+                          <p className={`${style.faqContent} ${textClass}`}>{content}</p>
                         </div>
                       </m.div>
                     )}
