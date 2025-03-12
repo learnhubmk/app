@@ -87,7 +87,7 @@ const FAQ = ({ data }: FAQProps) => {
               >
                 <div>
                   <div>
-                    <h3 className={`${textClass}`}>{title}</h3>
+                    <h3 className={`${style.faqStext} ${textClass}`}>{title}</h3>
                     <ExpandCollapseButton trigger={clickedTopic[id]} />
                   </div>
                   <AnimatePresence>
