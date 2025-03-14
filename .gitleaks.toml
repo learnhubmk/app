@@ -5,8 +5,21 @@ files = [
     "package-lock.json", 
     "node_modules/" 
   ]
-regexes = ["https://registry\\.npmjs\\.org"]
-paths=["package-lock.json"]
+regexes = [
+    "https://registry\\.npmjs\\.org",
+    "(?i)password",
+    "(?i)reset[pP]assword",
+    "(?i)forgot[pP]assword",
+    "(?i)use[rR]eset[pP]assword[fF]orm",
+    "(?i)use[fF]orgot[pP]assword[fF]orm"
+]
+paths = [
+    "package-lock.json",
+    "components/reusable-components/forgot-password-form/ForgotPasswordForm.tsx",
+    "components/reusable-components/reset-password-form/ResetPasswordForm.tsx",
+    "api/utils/forgotResetPswApi.ts",
+    "utils/hooks/usePasswordForm.ts"
+]
 
 # Rule to detect API keys
 [[rules]]
@@ -35,6 +48,14 @@ id = "password"
 description = "Match passwords"
 regex = '''(?i)(password|pwd|pass|passwd)([=:].+)?[ \t]*(\S+)'''
 tags = ["password"]
+[rules.allowlist]
+regexes = [
+    "(?i)password",
+    "(?i)reset[pP]assword",
+    "(?i)forgot[pP]assword",
+    "(?i)use[rR]eset[pP]assword[fF]orm",
+    "(?i)use[fF]orgot[pP]assword[fF]orm"
+]
 
 # Rule to detect SSH keys
 [[rules]]

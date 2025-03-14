@@ -9,10 +9,12 @@ export async function middleware(req: NextRequest) {
   const isContentPanelRoute = path.startsWith('/content-panel');
   const isAdminPanelRoute = path.startsWith('/admin-panel');
   const isLoginRoute = path.endsWith('/login');
+  const isForgotPasswordRoute = path.endsWith('/forgot-password');
+  const isResetPasswordRoute = path.endsWith('/reset-password');
 
   // If not authenticated and trying to access protected routes
   if (!token) {
-    if (isContentPanelRoute && !isLoginRoute) {
+    if (isContentPanelRoute && !isLoginRoute && !isForgotPasswordRoute && !isResetPasswordRoute) {
       return NextResponse.redirect(new URL('/content-panel/login', req.url));
     }
     if (isAdminPanelRoute && !isLoginRoute) {

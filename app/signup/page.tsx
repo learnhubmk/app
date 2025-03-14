@@ -48,12 +48,15 @@ const SignupPage = () => {
         },
         body: JSON.stringify(values),
       });
-      await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Регистрацијата не беше успешна');
+      }
       toast.success('Successfully registered!');
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
-      toast.error('Registration failed');
+      toast.error(err instanceof Error ? err.message : 'Регистрацијата не беше успешна');
     }
   };
 
