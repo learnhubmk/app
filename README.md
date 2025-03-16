@@ -45,7 +45,47 @@ Before diving into LearnHub.mk, make sure you have Node.js installed on your mac
 
 #### Prerequisites
 
-- **Node.js version:** Make sure you have the specified Node.js version from the **.nvmrc** file.
+To successfully set up and contribute to the project, you will need to meet the following prerequisites:
+
+- **Node.js**: Ensure you have the Node.js version specified in the `.nvmrc` file.
+
+- **GitLeaks**: **Gitleaks** is required for scanning sensitive data in the codebase and preventing it from being pushed to the repository. You **must** install **gitleaks** and add it to your system’s `PATH` to push any changes.
+
+    **Installation Instructions**:
+    1. Visit the official [GitLeaks releases page](https://github.com/gitleaks/gitleaks/releases).
+    2. Download the appropriate version for your operating system:
+        - **Windows**: `gitleaks-windows-amd64`
+        - **Mac**: `gitleaks-darwin-amd64`
+        - **Linux**: `gitleaks-linux-amd64`
+    3. Extract the downloaded file to a folder (e.g., `C:\gitleaks` for Windows, `~/gitleaks` for Mac/Linux).
+    
+    **Add Gitleaks to your PATH**:
+    
+    - **Windows**:
+        1. Search for **Environment Variables** in the Windows search bar and open it.
+        2. In the **System Properties** window, click on **Environment Variables**.
+        3. Under **System Variables**, select `Path`, and click **Edit**.
+        4. Click **New** and add the path to the folder where you extracted **gitleaks** (e.g., `C:\gitleaks`).
+        5. Click **OK** to save the changes and restart your terminal or command prompt.
+        6. Verify the installation with `gitleaks --version`.
+
+    - **Mac**:
+        1. Open a terminal and extract the `gitleaks-darwin-amd64` file to a folder (e.g., `~/gitleaks`).
+        2. Add the following line to your `.bash_profile` (for Bash) or `.zshrc` (for Zsh) file:
+            ```bash
+            export PATH="$PATH:~/gitleaks"
+            ```
+        3. Run `source ~/.bash_profile` (for Bash) or `source ~/.zshrc` (for Zsh) to apply the changes.
+        4. Verify the installation with `gitleaks --version`.
+
+    - **Linux**:
+        1. Open a terminal and extract the `gitleaks-linux-amd64` file to a folder (e.g., `~/gitleaks`).
+        2. Add the following line to your `.bashrc` or `.zshrc` file:
+            ```bash
+            export PATH="$PATH:~/gitleaks"
+            ```
+        3. Run `source ~/.bashrc` (for Bash) or `source ~/.zshrc` (for Zsh) to apply the changes.
+        4. Verify the installation with `gitleaks --version`.
 
 #### Important Note
 
