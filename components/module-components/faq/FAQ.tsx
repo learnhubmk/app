@@ -2,11 +2,8 @@
 
 import { useState } from 'react';
 import { motion as m, AnimatePresence } from 'framer-motion';
-
 import ExpandCollapseButton from '../../reusable-components/expand-button/ExpandCollapseButton';
-
 import style from './FAQ.module.scss';
-
 import { useTheme } from '../../../app/context/themeContext';
 
 interface Topic {
