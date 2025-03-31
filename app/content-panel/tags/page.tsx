@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import { toast } from 'react-toastify';
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagTable from '../../../components/module-components/tags/TagTable';
 import TextInput from '../../../components/reusable-components/text-input/TextInput';
@@ -42,8 +43,11 @@ const Tags = () => {
   const validationSchema = Yup.object().shape({
     tagName: Yup.string()
       .required('Името за тагот е задолжително')
-      .test('unique', 'Тагот веќе постои', (value) => {
-        return !tags.some((tag) => tag.name.toLowerCase() === value?.toLowerCase().trim());
+      .test('unique', 'Тагот веќе постои', function (value) {
+        const currentId = editingTagId;
+        return !tags.some(
+          (tag) => tag.name.toLowerCase() === value?.toLowerCase().trim() && tag.id !== currentId
+        );
       }),
   });
 
@@ -63,7 +67,17 @@ const Tags = () => {
   };
 
   const handleSaveChanges = async (tagId: string, newName: string) => {
-    await editTagMutation.mutateAsync({ tagId, newName: newName.trim() });
+    const originalTag = tags.find((tag) => tag.id === tagId);
+    const trimmedNewName = newName.trim();
+
+    if (originalTag?.name.trim().toLowerCase() === trimmedNewName.toLowerCase()) {
+      // No changes made
+      toast.info('Нема промени.');
+      setEditingTagId(null);
+      return;
+    }
+
+    await editTagMutation.mutateAsync({ tagId, newName: trimmedNewName });
     setEditingTagId(null);
   };
 
@@ -73,7 +87,17 @@ const Tags = () => {
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      await handleSaveChanges(editingTagId!, values.tagName);
+      const trimmedName = values.tagName.trim();
+      const originalTag = tags.find((tag) => tag.id === editingTagId);
+
+      if (originalTag && originalTag.name.trim().toLowerCase() === trimmedName.toLowerCase()) {
+        toast.info('Нема промени.');
+        setEditingTagId(null);
+        resetForm();
+        return;
+      }
+
+      await handleSaveChanges(editingTagId!, trimmedName);
       resetForm();
     },
   });
