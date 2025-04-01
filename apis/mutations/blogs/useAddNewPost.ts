@@ -20,7 +20,7 @@ type ErrorResponse = {
   statusCode?: number;
 };
 
-const useAddNewPost = () => {
+const useAddNewPost = (onSuccess?: () => void) => {
   const queryClient = useQueryClient();
   const axios = useAxios();
 
@@ -33,8 +33,12 @@ const useAddNewPost = () => {
       toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
       toast.success('Статијата беше успешно објавена!');
+      onSuccess?.();
+      // Invalidate queries after showing success message
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
+      }, 100);
     },
   });
 };

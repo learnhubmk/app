@@ -1,17 +1,19 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps, Tag } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
 import StatusManager from '../../module-components/blog/StatusManager';
+import { UserRole } from '../../../Types';
 import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 import ReusableModal from '../reusable-modal/ReusableModal';
-import TagManager from '../../module-components/blog/TagManager';
+import TagManager, { TagManagerRef } from '../../module-components/blog/TagManager';
 import useEditBlogPost from '../../../apis/mutations/blogs/useEditBlogPost';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
@@ -26,6 +28,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onDeleteClick,
   onCancelClick,
 }) => {
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === UserRole.admin;
   const { editorState, editorStateChange } = useEditor();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
@@ -35,7 +39,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
-  const { mutate: submitEditPostChanges } = useEditBlogPost();
+  const { mutate: submitEditPostChanges } = useEditBlogPost(() => {
+    setIsEditable(false);
+    editorStateChange({ isEditable: false });
+    setHasUnsavedChanges(false);
+  });
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Title is required'),
@@ -113,12 +121,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     router.push('/content-panel/blogs');
   };
 
-  const handleSubmit = (values: any) => {
-    setIsEditable(false);
-    editorStateChange({ isEditable: false });
-    setHasUnsavedChanges(false);
+  const tagManagerRef = useRef<TagManagerRef>(null);
 
+  const handleSubmit = (values: any) => {
+    setHasUnsavedChanges(false); // Reset immediately since we're about to save
     submitEditPostChanges({ id, ...values });
+    tagManagerRef.current?.clearInput();
 
     onChange({
       target: {
@@ -144,10 +152,17 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       enableReinitialize
     >
       {({ values, setFieldValue, errors, touched }) => (
-        <Form className={styles.blogDetailsCard}>
+        <Form
+          className={styles.blogDetailsCard}
+          onKeyDown={(e: React.KeyboardEvent) => {
+            if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
+              e.preventDefault();
+            }
+          }}
+        >
           <div className={styles.actionButtons}>
             <div className={styles.leftButton}>
-              <button type="button" onClick={handleBackClick}>
+              <button type="button" onClick={handleBackClick} aria-label="Назад">
                 <i className="bi bi-arrow-left" />
               </button>
             </div>
@@ -231,13 +246,17 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             <label htmlFor="tags">Tags:</label>
             <div id="tags">
               <TagManager
+                ref={tagManagerRef}
                 selectedTags={selectedTags}
+                isAdmin={isAdmin}
+                isEditMode={isEditable}
                 onTagsChange={(newTags) => {
                   setSelectedTags(newTags);
                   setFieldValue(
                     'tags',
                     newTags.map((tag) => tag.id)
                   );
+                  setHasUnsavedChanges(true);
                 }}
               />
             </div>

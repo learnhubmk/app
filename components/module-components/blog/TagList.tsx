@@ -7,9 +7,10 @@ import styles from './TagList.module.scss';
 interface TagListProps {
   selectedTags: Tag[];
   onRemoveTag: (tagId: string) => void;
+  isEditMode?: boolean;
 }
 
-const TagList = ({ selectedTags, onRemoveTag }: TagListProps) => {
+const TagList = ({ selectedTags, onRemoveTag, isEditMode }: TagListProps) => {
   return (
     <div className={styles.tagsWrapper}>
       <div className={styles.selectedTags}>
@@ -18,13 +19,15 @@ const TagList = ({ selectedTags, onRemoveTag }: TagListProps) => {
         ) : (
           selectedTags.map((tag) => (
             <div key={tag.id} className={styles.selectedTag}>
-              <div
-                aria-label="Remove"
-                className={styles.removeTag}
-                onClick={() => onRemoveTag(tag.id)}
-              >
-                <i className="bi bi-x" />
-              </div>{' '}
+              {isEditMode && (
+                <div
+                  aria-label="Remove"
+                  className={styles.removeTag}
+                  onClick={() => onRemoveTag(tag.id)}
+                >
+                  <i className="bi bi-x" />
+                </div>
+              )}{' '}
               {tag.name}
             </div>
           ))
