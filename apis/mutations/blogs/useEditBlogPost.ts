@@ -20,21 +20,22 @@ type ErrorResponse = {
   statusCode?: number;
 };
 
-const useEditBlogPost = () => {
+const useEditBlogPost = (onSuccess?: () => void) => {
   const queryClient = useQueryClient();
   const axios = useAxios();
 
   return useMutation({
     mutationFn: async ({ id, title, content, tags, status }: UpdatePostPayload) => {
-      const editResponse = await axios.patch(ENDPOINTS.BLOGS.EDIT(id), {
-        title,
-        content,
-        tags,
-      });
-
-      const statusResponse = await axios.patch(`${ENDPOINTS.BLOGS.UPDATE_STATUS(id)}`, {
-        status,
-      });
+      const [editResponse, statusResponse] = await Promise.all([
+        axios.patch(ENDPOINTS.BLOGS.EDIT(id), {
+          title,
+          content,
+          tags,
+        }),
+        axios.patch(`${ENDPOINTS.BLOGS.UPDATE_STATUS(id)}`, {
+          status,
+        }),
+      ]);
 
       return {
         editData: editResponse.data,
@@ -45,8 +46,12 @@ const useEditBlogPost = () => {
       toast.error(error?.response?.data?.message || 'Настана грешка при ажурирање на статијата.');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
       toast.success('Статијата беше успешно ажурирана!');
+      onSuccess?.();
+      // Invalidate queries after showing success message
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
+      }, 100);
     },
   });
 };
