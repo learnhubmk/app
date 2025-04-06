@@ -20,25 +20,23 @@ type ErrorResponse = {
   statusCode?: number;
 };
 
-const useAddNewPost = (onSuccess?: () => void) => {
+export const useAddNewPost = (onSuccess?: (data: any, post: NewPost) => void) => {
   const queryClient = useQueryClient();
   const axios = useAxios();
 
   return useMutation({
-    mutationFn: async (newPost: NewPost) => {
-      const response = await axios.post(ENDPOINTS.BLOGS.CREATE, newPost);
-      return response.data;
+    mutationFn: (newPost: NewPost) =>
+      axios.post(ENDPOINTS.BLOGS.CREATE, newPost).then((response) => response.data),
+
+    onSuccess: (data, variables) => {
+      toast.success('Статијата беше успешно објавена!');
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
+
+      onSuccess?.(data, variables);
     },
+
     onError: (error: AxiosError<ErrorResponse>) => {
       toast.error(error?.response?.data?.message || 'Настана грешка при креирање на статијата.');
-    },
-    onSuccess: () => {
-      toast.success('Статијата беше успешно објавена!');
-      onSuccess?.();
-      // Invalidate queries after showing success message
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.BLOGS.ALL });
-      }, 100);
     },
   });
 };
