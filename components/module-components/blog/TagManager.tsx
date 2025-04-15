@@ -1,6 +1,6 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { Tag } from '../../reusable-components/_Types';
-import TagInput, { TagInputRef } from './TagInput';
+import TagInput from './TagInput';
 import TagList from './TagList';
 
 interface TagManagerProps {
@@ -16,30 +16,42 @@ export interface TagManagerRef {
 
 const TagManager = forwardRef<TagManagerRef, TagManagerProps>((props, ref) => {
   const { selectedTags, onTagsChange, isAdmin, isEditMode } = props;
-  const tagInputRef = useRef<TagInputRef>(null);
+
+  const [searchTag, setSearchTag] = useState<string>('');
 
   const handleRemoveTag = (tagId: string) => {
     onTagsChange(selectedTags.filter((tag) => tag.id !== tagId));
   };
 
+  const clearSearchInput = () => {
+    setSearchTag('');
+  };
+
   React.useImperativeHandle(ref, () => ({
     clearInput: () => {
-      tagInputRef.current?.clearInput();
+      clearSearchInput();
     },
   }));
+
+  const handleSearchTagChange = (value: string) => {
+    setSearchTag(value);
+  };
 
   return (
     <>
       <TagList selectedTags={selectedTags} onRemoveTag={handleRemoveTag} isEditMode={isEditMode} />
       <TagInput
-        ref={tagInputRef}
         selectedTags={selectedTags}
         onTagsChange={onTagsChange}
         isAdmin={isAdmin}
         isEditMode={isEditMode}
+        searchTag={searchTag}
+        onSearchTagChange={handleSearchTagChange}
+        onClearSearch={clearSearchInput}
       />
     </>
   );
 });
 
+TagManager.displayName = 'TagManager';
 export default TagManager;

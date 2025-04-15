@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
-import React, { ChangeEvent, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 import styles from './TagInput.module.scss';
 import useGetTags from '../../../apis/queries/tags/getTags';
@@ -14,22 +11,25 @@ interface TagInputProps {
   onTagsChange: (tags: Tag[]) => void;
   isAdmin?: boolean;
   isEditMode?: boolean;
+  searchTag: string;
+  onSearchTagChange: (value: string) => void;
+  onClearSearch: () => void;
 }
 
-export interface TagInputRef {
-  clearInput: () => void;
-}
+const TagInput: React.FC<TagInputProps> = (props) => {
+  const {
+    selectedTags,
+    onTagsChange,
+    isAdmin = false,
+    isEditMode = false,
+    searchTag,
+    onSearchTagChange,
+    onClearSearch,
+  } = props;
 
-const TagInput = forwardRef<TagInputRef, TagInputProps>((props, ref) => {
-  const { selectedTags, onTagsChange, isAdmin = false, isEditMode = false } = props;
-  const [searchTag, setSearchTag] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchTag, 300);
   const { data } = useGetTags(debouncedSearchTerm);
   const addNewTagMutation = useAddNewTag();
-
-  useImperativeHandle(ref, () => ({
-    clearInput: () => setSearchTag(''),
-  }));
 
   const filteredTags = data?.data ?? [];
 
@@ -42,13 +42,18 @@ const TagInput = forwardRef<TagInputRef, TagInputProps>((props, ref) => {
       toast.error('Само администратори може да креираат нови тагови');
       return;
     }
-    const newTag = await addNewTagMutation.mutateAsync({ tagName });
-    onTagsChange([...selectedTags, newTag.data as Tag]);
-    setSearchTag('');
+    try {
+      const newTag = await addNewTagMutation.mutateAsync({ tagName });
+      onTagsChange([...selectedTags, newTag.data as Tag]);
+      onClearSearch();
+    } catch (error) {
+      console.error('Failed to add new tag:', error);
+      toast.error('Грешка при додавање на таг.');
+    }
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTag(e.target.value);
+    onSearchTagChange(e.target.value);
   };
 
   const addTag = (tag: Tag) => {
@@ -59,7 +64,24 @@ const TagInput = forwardRef<TagInputRef, TagInputProps>((props, ref) => {
     if (!selectedTags.some((selectedTag) => selectedTag.id === tag.id)) {
       onTagsChange([...selectedTags, tag]);
     }
-    setSearchTag('');
+    onClearSearch();
+  };
+
+  const handleCreateTagClick = () => {
+    if (!isAdmin) {
+      toast.error('Тагот не е пронајден, само администраторите може да креираат нов таг');
+      onClearSearch();
+      return;
+    }
+    if (!isEditMode) {
+      toast.error('Тагови може да се додаваат само во едит мод');
+      return;
+    }
+    if (debouncedSearchTerm.trim()) {
+      addNewTag(debouncedSearchTerm);
+    } else {
+      toast.error('Празни тагови не се дозволени');
+    }
   };
 
   return (
@@ -74,7 +96,6 @@ const TagInput = forwardRef<TagInputRef, TagInputProps>((props, ref) => {
         name="searchTagInput"
         disabled={!isEditMode}
       />
-
       {debouncedSearchTerm && (
         <div className={styles.dropdown}>
           {filteredTags.length > 0 ? (
@@ -83,6 +104,8 @@ const TagInput = forwardRef<TagInputRef, TagInputProps>((props, ref) => {
                 key={tag.id}
                 onClick={() => addTag(tag)}
                 className={styles.tagItem}
+                role="button"
+                tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     addTag(tag);
@@ -95,24 +118,13 @@ const TagInput = forwardRef<TagInputRef, TagInputProps>((props, ref) => {
           ) : (
             <div
               className={styles.tagItem}
-              onClick={(e) => {
-                e.stopPropagation();
-                if (!isAdmin) {
-                  toast.error(
-                    'Тагот не е пронајден, само администраторите може да креираат нов таг'
-                  );
-                  setSearchTag('');
-                  return;
+              onClick={handleCreateTagClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleCreateTagClick();
                 }
-                if (!isEditMode) {
-                  toast.error('Тагови може да се додаваат само во едит мод');
-                  return;
-                }
-                if (debouncedSearchTerm.trim()) {
-                  addNewTag(debouncedSearchTerm);
-                  return;
-                }
-                toast.error('Празни тагови не се дозволени');
               }}
             >
               {isAdmin ? `Create new tag: "${debouncedSearchTerm}". ` : 'Нема пронајдено тагови'}
@@ -123,8 +135,6 @@ const TagInput = forwardRef<TagInputRef, TagInputProps>((props, ref) => {
       )}
     </div>
   );
-});
-
-TagInput.displayName = 'TagInput';
+};
 
 export default TagInput;
