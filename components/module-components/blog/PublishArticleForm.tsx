@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 import { UserRole } from '../../../Types';
-import useAddNewPost, { NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
+import { useAddNewPost, NewPost } from '../../../apis/mutations/blogs/useAddNewPost';
 import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager, { TagManagerRef } from './TagManager';
@@ -14,6 +15,14 @@ import Button from '../../reusable-components/button/Button';
 import ReusableModal from '../../reusable-components/reusable-modal/ReusableModal';
 import StatusManager from './StatusManager';
 import { Tag } from '../../reusable-components/_Types';
+
+interface FormValues {
+  title: string;
+  excerpt: string;
+  content: string;
+  tags: string[];
+  status: string;
+}
 
 const PublishArticleForm = () => {
   const { data: session } = useSession();
@@ -23,10 +32,7 @@ const PublishArticleForm = () => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-  const addNewPostMutation = useAddNewPost(() => {
-    setHasUnsavedChanges(false);
-    router.push('/content-panel/blogs');
-  });
+  const { mutate: addNewPost, isPending } = useAddNewPost();
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Насловот е задолжителен.'),
@@ -40,6 +46,7 @@ const PublishArticleForm = () => {
     tags: Yup.array()
       .required('Таговите се задолжителни.')
       .min(1, 'Мора да селектираш барем еден таг.'),
+    status: Yup.string().required('Статусот е задолжителен.'),
   });
 
   useEffect(() => {
@@ -52,20 +59,29 @@ const PublishArticleForm = () => {
       }
       return undefined;
     };
-
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [hasUnsavedChanges]);
 
   const handleAddPost = (values: NewPost) => {
-    setHasUnsavedChanges(false); // Reset immediately since we're about to save
-    addNewPostMutation.mutate(values);
-    tagManagerRef.current?.clearInput();
+    addNewPost(values, {
+      onSuccess: () => {
+        toast.success('Статијата е успешно креирана!');
+        setHasUnsavedChanges(false);
+        tagManagerRef.current?.clearInput();
+        router.push('/content-panel/blogs');
+      },
+      onError: (error: any) => {
+        const errorMessage =
+          error?.response?.data?.message || 'Настана грешка при креирање на статијата.';
+        toast.error(errorMessage);
+      },
+    });
   };
 
   const [showUnsavedChangesModal, setShowUnsavedChangesModal] = useState(false);
-
   const handleNavigateAway = useCallback(() => {
+    setHasUnsavedChanges(false);
     router.push('/content-panel/blogs');
   }, [router]);
 
@@ -85,24 +101,25 @@ const PublishArticleForm = () => {
         description="Имате незачувани промени. Дали сте сигурни дека сакате да ја напуштите страницата?"
         onClose={() => setShowUnsavedChangesModal(false)}
         primaryButtonLabel="Напушти"
-        secondaryButtonLabel="Откажи"
+        secondaryButtonLabel="Остани"
         onPrimaryButtonClick={handleNavigateAway}
         onSecondaryButtonClick={() => setShowUnsavedChangesModal(false)}
       />
-      <Formik
+      <Formik<FormValues>
         validationSchema={validationSchema}
         initialValues={{
           title: '',
           excerpt: '',
           content: '',
           tags: [],
-          status: '',
+          status: 'draft',
         }}
         onSubmit={handleAddPost}
       >
-        {({ values, setFieldValue, touched, errors }) => (
+        {({ values, setFieldValue, touched, errors }: FormikProps<FormValues>) => (
           <Form
             className={styles.form}
+            onChange={() => setHasUnsavedChanges(true)}
             onKeyDown={(e: React.KeyboardEvent) => {
               if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
                 e.preventDefault();
@@ -126,10 +143,6 @@ const PublishArticleForm = () => {
                 id="title"
                 name="title"
                 placeholder="Што најдобро ја опишува статијата?"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setFieldValue('title', e.target.value);
-                  setHasUnsavedChanges(true);
-                }}
               />
               {touched.title && errors.title && <div className={styles.error}>{errors.title}</div>}
             </div>
@@ -139,14 +152,12 @@ const PublishArticleForm = () => {
                 Краток опис
               </label>
               <Field
+                as="textarea"
+                rows={3}
                 className={styles.input}
                 id="excerpt"
                 name="excerpt"
                 placeholder="Неколку зборови кои резимираат за што е статијата."
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setFieldValue('excerpt', e.target.value);
-                  setHasUnsavedChanges(true);
-                }}
               />
               {touched.excerpt && errors.excerpt && (
                 <div className={styles.error}>{errors.excerpt}</div>
@@ -162,7 +173,7 @@ const PublishArticleForm = () => {
                 editable
                 content={values.content}
                 onChange={(newContent) => {
-                  setFieldValue('content', newContent);
+                  setFieldValue('content', newContent, true);
                   setHasUnsavedChanges(true);
                 }}
               />
@@ -184,7 +195,8 @@ const PublishArticleForm = () => {
                   setSelectedTags(newTags);
                   setFieldValue(
                     'tags',
-                    newTags.map((tag) => tag.id)
+                    newTags.map((tag) => tag.id),
+                    true
                   );
                   setHasUnsavedChanges(true);
                 }}
@@ -192,7 +204,7 @@ const PublishArticleForm = () => {
               {touched.tags && errors.tags && <div className={styles.error}>{errors.tags}</div>}
             </div>
 
-            <div className={styles.fields}>
+            <div className={styles.field}>
               <label htmlFor="status" className={styles.inputLabel}>
                 Статус
               </label>
@@ -201,7 +213,7 @@ const PublishArticleForm = () => {
                 name="status"
                 component={StatusManager}
                 currentStatus={values.status}
-                handleStatusChange={(newStatus: string) => {
+                onChange={(newStatus: string) => {
                   setFieldValue('status', newStatus);
                   setHasUnsavedChanges(true);
                 }}
@@ -211,16 +223,12 @@ const PublishArticleForm = () => {
               )}
             </div>
 
-            {addNewPostMutation.isPending ? (
-              <Button
-                disabled
-                buttonText="Испраќање..."
-                buttonClass={['primaryButton']}
-                type="submit"
-              />
-            ) : (
-              <Button buttonText="Креирај Статија" buttonClass={['primaryButton']} type="submit" />
-            )}
+            <Button
+              disabled={isPending}
+              buttonText={isPending ? 'Испраќање...' : 'Креирај Статија'}
+              buttonClass={['primaryButton']}
+              type="submit"
+            />
           </Form>
         )}
       </Formik>

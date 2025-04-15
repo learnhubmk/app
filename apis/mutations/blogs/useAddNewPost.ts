@@ -40,5 +40,3 @@ export const useAddNewPost = (onSuccess?: (data: any, post: NewPost) => void) =>
     },
   });
 };
-
-export default useAddNewPost;
