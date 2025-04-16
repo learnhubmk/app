@@ -19,6 +19,7 @@ const useLogout = (redirectUrl: string) => {
       toast.error(error?.response?.data?.message || 'Одјавувањето не успеа.');
     },
     onSuccess: () => {
+      localStorage.clear();
       router.push(redirectUrl);
       toast.success('Одјавувањето беше успешно.');
     },
