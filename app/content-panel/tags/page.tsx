@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import { UserRole } from '../../../Types';
 
 import styles from '../../../components/module-components/tags/Tags.module.scss';
 import TagTable from '../../../components/module-components/tags/TagTable';
@@ -19,6 +22,9 @@ import { defaultMeta } from '../../../components/reusable-components/pagination/
 import { Tag } from '../../../components/reusable-components/_Types';
 
 const Tags = () => {
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === UserRole.admin;
+
   // MUTATIONS
   const addNewTagMutation = useAddNewTag();
   const deleteTagMutation = useDeleteTag();
@@ -48,10 +54,18 @@ const Tags = () => {
   });
 
   const handleDelete = async (id: string) => {
+    if (!isAdmin) {
+      toast.error('Само администратори можат да бришат тагови.');
+      return;
+    }
     await deleteTagMutation.mutateAsync(id);
   };
 
   const addTag = async (newTag: string) => {
+    if (!isAdmin) {
+      return { success: false, error: 'Само администратори можат да додаваат тагови.' };
+    }
+
     const trimmedNewTag = newTag.trim();
 
     if (tags.some((tag) => tag.name.toLowerCase() === trimmedNewTag.toLowerCase())) {
@@ -63,6 +77,10 @@ const Tags = () => {
   };
 
   const handleSaveChanges = async (tagId: string, newName: string) => {
+    if (!isAdmin) {
+      toast.error('Само администратори можат да уредуваат тагови.');
+      return;
+    }
     await editTagMutation.mutateAsync({ tagId, newName: newName.trim() });
     setEditingTagId(null);
   };
@@ -79,6 +97,10 @@ const Tags = () => {
   });
 
   const triggerEdit = (tagId: string) => {
+    if (!isAdmin) {
+      toast.error('Само администратори можат да уредуваат тагови.');
+      return;
+    }
     const tagToEdit = tags.find((tag) => tag.id === tagId);
 
     if (tagToEdit) {
@@ -104,6 +126,7 @@ const Tags = () => {
         onAddClick={() => setShowAddTag(true)}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        isAdmin={isAdmin}
       />
 
       {showAddTag && <AddTag onCancel={() => setShowAddTag(false)} onAdd={addTag} />}
@@ -119,6 +142,7 @@ const Tags = () => {
         onDelete={handleDelete}
         onSave={formik.handleSubmit}
         onCancel={handleCancelEdit}
+        isAdmin={isAdmin}
         renderEditInput={() => (
           <div style={{ height: '40px' }}>
             <TextInput

@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 import styles from './TagInput.module.scss';
 import useGetTags from '../../../apis/queries/tags/getTags';
@@ -12,10 +9,24 @@ import { Tag } from '../../reusable-components/_Types';
 interface TagInputProps {
   selectedTags: Tag[];
   onTagsChange: (tags: Tag[]) => void;
+  isAdmin?: boolean;
+  isEditMode?: boolean;
+  searchTag: string;
+  onSearchTagChange: (value: string) => void;
+  onClearSearch: () => void;
 }
 
-const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
-  const [searchTag, setSearchTag] = useState<string>('');
+const TagInput: React.FC<TagInputProps> = (props) => {
+  const {
+    selectedTags,
+    onTagsChange,
+    isAdmin = false,
+    isEditMode = false,
+    searchTag,
+    onSearchTagChange,
+    onClearSearch,
+  } = props;
+
   const debouncedSearchTerm = useDebounce(searchTag, 300);
   const { data } = useGetTags(debouncedSearchTerm);
   const addNewTagMutation = useAddNewTag();
@@ -23,21 +34,54 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
   const filteredTags = data?.data ?? [];
 
   const addNewTag = async (tagName: string) => {
-    const newTag = await addNewTagMutation.mutateAsync({ tagName });
-    onTagsChange([...selectedTags, newTag.data as Tag]);
-
-    setSearchTag('');
+    if (!isEditMode) {
+      toast.error('Тагови може да се додаваат само во едит мод');
+      return;
+    }
+    if (!isAdmin) {
+      toast.error('Само администратори може да креираат нови тагови');
+      return;
+    }
+    try {
+      const newTag = await addNewTagMutation.mutateAsync({ tagName });
+      onTagsChange([...selectedTags, newTag.data as Tag]);
+      onClearSearch();
+    } catch (error) {
+      console.error('Failed to add new tag:', error);
+      toast.error('Грешка при додавање на таг.');
+    }
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTag(e.target.value);
+    onSearchTagChange(e.target.value);
   };
 
   const addTag = (tag: Tag) => {
+    if (!isEditMode) {
+      toast.error('Тагови може да се додаваат само во едит мод');
+      return;
+    }
     if (!selectedTags.some((selectedTag) => selectedTag.id === tag.id)) {
       onTagsChange([...selectedTags, tag]);
     }
-    setSearchTag('');
+    onClearSearch();
+  };
+
+  const handleCreateTagClick = () => {
+    if (!isAdmin) {
+      toast.error('Тагот не е пронајден, само администраторите може да креираат нов таг');
+      onClearSearch();
+      return;
+    }
+    if (!isEditMode) {
+      toast.error('Тагови може да се додаваат само во едит мод');
+      return;
+    }
+    if (debouncedSearchTerm.trim()) {
+      addNewTag(debouncedSearchTerm);
+    } else {
+      toast.error('Празни тагови не се дозволени');
+    }
   };
 
   return (
@@ -47,11 +91,11 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
         type="text"
         value={searchTag}
         onChange={handleSearchChange}
-        placeholder="Пребарај или креирај таг"
+        placeholder={isAdmin ? 'Пребарај или креирај таг' : 'Пребарај таг'}
         className={styles.searchInput}
         name="searchTagInput"
+        disabled={!isEditMode}
       />
-
       {debouncedSearchTerm && (
         <div className={styles.dropdown}>
           {filteredTags.length > 0 ? (
@@ -60,6 +104,8 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
                 key={tag.id}
                 onClick={() => addTag(tag)}
                 className={styles.tagItem}
+                role="button"
+                tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     addTag(tag);
@@ -72,15 +118,17 @@ const TagInput = ({ selectedTags, onTagsChange }: TagInputProps) => {
           ) : (
             <div
               className={styles.tagItem}
-              onClick={() => {
-                if (debouncedSearchTerm.trim()) {
-                  addNewTag(debouncedSearchTerm);
-                  return;
+              onClick={handleCreateTagClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleCreateTagClick();
                 }
-                toast.error('Празни тагови не се дозволени');
               }}
             >
-              Create new tag: "{debouncedSearchTerm}". <i className="bi bi-plus-lg" />
+              {isAdmin ? `Create new tag: "${debouncedSearchTerm}". ` : 'Нема пронајдено тагови'}
+              {isAdmin && <i className="bi bi-plus-lg" />}
             </div>
           )}
         </div>

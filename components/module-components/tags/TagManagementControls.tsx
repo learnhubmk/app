@@ -7,12 +7,14 @@ interface TagManagementControlsProps {
   onAddClick: () => void;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  isAdmin: boolean;
 }
 
 const TagManagementControls: React.FC<TagManagementControlsProps> = ({
   onAddClick,
   searchTerm,
   setSearchTerm,
+  isAdmin,
 }) => {
   return (
     <div className={styles.controls}>
@@ -23,12 +25,14 @@ const TagManagementControls: React.FC<TagManagementControlsProps> = ({
           searchValue={searchTerm}
         />
       </div>
-      <Button
-        onClick={onAddClick}
-        type="button"
-        buttonText="Додади таг"
-        buttonClass={['addButton']}
-      />
+      {isAdmin && (
+        <Button
+          onClick={onAddClick}
+          type="button"
+          buttonText="Додади таг"
+          buttonClass={['addButton']}
+        />
+      )}
     </div>
   );
 };

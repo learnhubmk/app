@@ -1,17 +1,19 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps, Tag } from '../_Types';
 import { useEditor } from '../../../app/context/EditorContext';
 import StatusManager from '../../module-components/blog/StatusManager';
+import { UserRole } from '../../../Types';
 import capitalizeAndFormatString from '../../../api/utils/blogStatusUtils';
 import ReusableModal from '../reusable-modal/ReusableModal';
-import TagManager from '../../module-components/blog/TagManager';
+import TagManager, { TagManagerRef } from '../../module-components/blog/TagManager';
 import useEditBlogPost from '../../../apis/mutations/blogs/useEditBlogPost';
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
@@ -26,6 +28,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   onDeleteClick,
   onCancelClick,
 }) => {
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === UserRole.admin;
   const { editorState, editorStateChange } = useEditor();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [isEditable, setIsEditable] = useState<boolean>(editorState.isEditable);
@@ -33,10 +37,8 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   const [modalType, setModalType] = useState<'back' | 'cancel'>('back');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
   const router = useRouter();
   const { mutate: submitEditPostChanges } = useEditBlogPost();
-
   const validationSchema = Yup.object({
     title: Yup.string().trim().required('Title is required'),
     content: Yup.string()
@@ -48,15 +50,12 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       .min(1, 'Мора да селектираш барем еден таг.'),
     status: Yup.string().required('Status is required'),
   });
-
   useEffect(() => {
     setIsEditable(editorState.isEditable);
   }, [editorState.isEditable]);
-
   useEffect(() => {
     setSelectedTags(tags);
   }, [tags]);
-
   const handleConfirm = () => {
     setShowModal(false);
     if (modalType === 'back') {
@@ -69,16 +68,14 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       onCancelClick?.();
     }
   };
-
   const handleBackClick = () => {
-    if (hasUnsavedChanges) {
+    if (hasUnsavedChanges && isEditable) {
       setModalType('back');
       setShowModal(true);
     } else {
       router.push('/content-panel/blogs');
     }
   };
-
   const handleCancelClick = () => {
     if (hasUnsavedChanges) {
       setModalType('cancel');
@@ -90,21 +87,17 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       onCancelClick?.();
     }
   };
-
   const handleEditClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsEditable(true);
     editorStateChange({ isEditable: true });
   };
-
   const handleDeleteClick = () => {
     setIsOpen(true);
   };
-
   const handleDeleteClose = () => {
     setIsOpen(false);
   };
-
   const handleDeleteConfirm = async () => {
     setIsOpen(false);
     if (onDeleteClick) {
@@ -112,25 +105,31 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     }
     router.push('/content-panel/blogs');
   };
-
+  const tagManagerRef = useRef<TagManagerRef>(null);
   const handleSubmit = (values: any) => {
-    setIsEditable(false);
-    editorStateChange({ isEditable: false });
-    setHasUnsavedChanges(false);
-
-    submitEditPostChanges({ id, ...values });
-
-    onChange({
-      target: {
-        name: 'formData',
-        value: values,
-      },
-    });
+    submitEditPostChanges(
+      { id, ...values },
+      {
+        onSuccess: () => {
+          setIsEditable(false);
+          editorStateChange({ isEditable: false });
+          setHasUnsavedChanges(false);
+          tagManagerRef.current?.clearInput();
+          onChange({
+            target: {
+              name: 'formData',
+              value: values,
+            },
+          });
+          setTimeout(() => {
+            setHasUnsavedChanges(false);
+          }, 100);
+        },
+      }
+    );
   };
-
   const blogAuthor = `${author.first_name} ${author.last_name}`;
   const tagsIdList = tags.map((tag) => tag.id);
-
   return (
     <Formik
       initialValues={{
@@ -144,10 +143,17 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       enableReinitialize
     >
       {({ values, setFieldValue, errors, touched }) => (
-        <Form className={styles.blogDetailsCard}>
+        <Form
+          className={styles.blogDetailsCard}
+          onKeyDown={(e: React.KeyboardEvent) => {
+            if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
+              e.preventDefault();
+            }
+          }}
+        >
           <div className={styles.actionButtons}>
             <div className={styles.leftButton}>
-              <button type="button" onClick={handleBackClick}>
+              <button type="button" onClick={handleBackClick} aria-label="Назад">
                 <i className="bi bi-arrow-left" />
               </button>
             </div>
@@ -171,7 +177,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               )}
             </div>
           </div>
-
           <div className={styles.titleInput}>
             <label htmlFor="title">Title:</label>
             <Field
@@ -188,7 +193,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               <div className={styles.errorText}>{errors.title}</div>
             )}
           </div>
-
           <div className={styles.contentSection}>
             <label htmlFor="content">Content:</label>
             <TiptapEditor
@@ -204,7 +208,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               <div className={styles.errorText}>{errors.content}</div>
             )}
           </div>
-
           <div className={styles.authorSection}>
             <label htmlFor="author">Author:</label>
             <input
@@ -215,7 +218,6 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               className={styles.inputField}
             />
           </div>
-
           <div className={styles.dateSection}>
             <label htmlFor="publishDate">Date:</label>
             <input
@@ -226,24 +228,26 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               className={styles.inputField}
             />
           </div>
-
           <div className={styles.tagsSection}>
             <label htmlFor="tags">Tags:</label>
             <div id="tags">
               <TagManager
+                ref={tagManagerRef}
                 selectedTags={selectedTags}
+                isAdmin={isAdmin}
+                isEditMode={isEditable}
                 onTagsChange={(newTags) => {
                   setSelectedTags(newTags);
                   setFieldValue(
                     'tags',
                     newTags.map((tag) => tag.id)
                   );
+                  setHasUnsavedChanges(true);
                 }}
               />
             </div>
             {touched.tags && errors.tags && <div className={styles.errorText}>{errors.tags}</div>}
           </div>
-
           <div className={styles.contentSection}>
             <label htmlFor="status">Status:</label>
             {isEditable ? (
@@ -266,13 +270,11 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
               <div className={styles.errorText}>{errors.status}</div>
             )}
           </div>
-
           <CancelModal
             show={showModal}
             onHide={() => setShowModal(false)}
             onConfirm={handleConfirm}
           />
-
           <ReusableModal
             title="Are you sure you want to proceed?"
             isOpen={isOpen}
@@ -287,5 +289,4 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     </Formik>
   );
 };
-
 export default BlogDetailsCard;
