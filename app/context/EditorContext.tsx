@@ -1,9 +1,20 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode, useMemo, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useMemo,
+  useCallback,
+  useEffect,
+} from 'react';
 
 interface EditorState {
   isEditable: boolean;
+  pagination?: {
+    paginationPage: number;
+  };
 }
 
 interface EditorContextType {
@@ -14,6 +25,9 @@ interface EditorContextType {
 
 const initialState: EditorState = {
   isEditable: false,
+  pagination: {
+    paginationPage: 1,
+  },
 };
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
@@ -21,8 +35,36 @@ const EditorContext = createContext<EditorContextType | undefined>(undefined);
 export const EditorProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [editorState, setEditorState] = useState<EditorState>(initialState);
 
-  const editorStateChange = useCallback((newState: EditorState) => {
-    setEditorState(newState);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedPaginationPage = localStorage.getItem('paginationPage');
+      if (storedPaginationPage) {
+        setEditorState((previousState) => ({
+          ...previousState,
+          pagination: {
+            paginationPage: parseInt(storedPaginationPage, 10),
+          },
+        }));
+      }
+    }
+  }, []);
+
+  const editorStateChange = useCallback((newState: Partial<EditorState>) => {
+    setEditorState((previousState) => {
+      const updatedState = {
+        ...previousState,
+        ...newState,
+        pagination: newState.pagination
+          ? { ...previousState.pagination, ...newState.pagination }
+          : previousState.pagination,
+      };
+
+      if (updatedState.pagination) {
+        localStorage.setItem('paginationPage', updatedState.pagination.paginationPage.toString());
+      }
+
+      return updatedState;
+    });
   }, []);
 
   const resetEditorState = useCallback(() => {

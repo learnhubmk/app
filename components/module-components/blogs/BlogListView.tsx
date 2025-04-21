@@ -15,12 +15,12 @@ import useDeletePost from '../../../apis/mutations/blogs/useDeletePost';
 import ReusableModal from '../../reusable-components/reusable-modal/ReusableModal';
 
 const BlogListView = () => {
-  const [paginationPage, setPaginationPage] = useState(1);
+  const { editorState, editorStateChange } = useEditor();
+  const [paginationPage, setPaginationPage] = useState(editorState.pagination?.paginationPage || 1);
   const [itemsPerPage, setItemsPerPage] = useState(25);
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState<BlogPost | null>(null);
-  const { editorStateChange } = useEditor();
   const router = useRouter();
 
   const { mutateAsync: deleteBlogPost } = useDeletePost();
@@ -28,8 +28,13 @@ const BlogListView = () => {
   const { data, isLoading } = useGetBlogs(debouncedSearchTerm, paginationPage, itemsPerPage);
 
   useEffect(() => {
-    setPaginationPage(1);
-  }, [debouncedSearchTerm, itemsPerPage]);
+    if (editorState.pagination?.paginationPage !== paginationPage) {
+      editorStateChange({
+        isEditable: editorState.isEditable,
+        pagination: { paginationPage },
+      });
+    }
+  }, [debouncedSearchTerm, paginationPage, itemsPerPage, editorState, editorStateChange]);
 
   const handleView = (id: string) => {
     editorStateChange({ isEditable: false });
