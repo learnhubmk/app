@@ -12,6 +12,7 @@ import styles from './PublishArticleForm.module.scss';
 import TiptapEditor from '../../editor/TiptapEditor';
 import TagManager, { TagManagerRef } from './TagManager';
 import Button from '../../reusable-components/button/Button';
+import ImageUpload from '../../reusable-components/image-upload/ImageUpload';
 import ReusableModal from '../../reusable-components/reusable-modal/ReusableModal';
 import StatusManager from './StatusManager';
 import { Tag } from '../../reusable-components/_Types';
@@ -22,6 +23,7 @@ interface FormValues {
   content: string;
   tags: string[];
   status: string;
+  image?: File;
 }
 
 const PublishArticleForm = () => {
@@ -47,6 +49,15 @@ const PublishArticleForm = () => {
       .required('Таговите се задолжителни.')
       .min(1, 'Мора да селектираш барем еден таг.'),
     status: Yup.string().required('Статусот е задолжителен.'),
+    image: Yup.mixed<File>()
+      .test('fileSize', 'Сликата не смее да биде поголема од 5MB', (value) => {
+        if (!value) return true;
+        return (value as File).size <= 5000000;
+      })
+      .test('fileType', 'Дозволени се само слики', (value) => {
+        if (!value) return true;
+        return ['image/jpeg', 'image/png', 'image/gif'].includes((value as File).type);
+      }),
   });
 
   useEffect(() => {
@@ -113,6 +124,7 @@ const PublishArticleForm = () => {
           content: '',
           tags: [],
           status: 'draft',
+          image: undefined,
         }}
         onSubmit={handleAddPost}
       >
@@ -221,6 +233,19 @@ const PublishArticleForm = () => {
               {touched.status && errors.status && (
                 <div className={styles.error}>{errors.status}</div>
               )}
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.inputLabel} htmlFor="image">
+                Слика
+              </label>
+              <ImageUpload
+                onImageSelect={(file) => {
+                  setFieldValue('image', file);
+                  setHasUnsavedChanges(true);
+                }}
+                error={touched.image && errors.image ? (errors.image as string) : undefined}
+              />
             </div>
 
             <Button

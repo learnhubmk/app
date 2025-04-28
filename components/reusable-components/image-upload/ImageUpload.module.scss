@@ -1,0 +1,73 @@
+.imageUpload {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    border-color: #666;
+  }
+
+  .placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+
+    i {
+      font-size: 2rem;
+    }
+  }
+
+  .previewContainer {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+
+    &:hover .overlay {
+      opacity: 1;
+    }
+
+    .preview {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 4px;
+
+      span {
+        color: white;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .error {
+    color: #dc3545;
+    margin-top: 8px;
+    font-size: 0.875rem;
+  }
+}

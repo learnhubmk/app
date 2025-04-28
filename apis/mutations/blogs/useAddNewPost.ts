@@ -13,6 +13,7 @@ export type NewPost = {
   content: string;
   tags: string[];
   status: string;
+  image?: File;
 };
 
 type ErrorResponse = {
@@ -25,8 +26,25 @@ export const useAddNewPost = (onSuccess?: (data: any, post: NewPost) => void) =>
   const axios = useAxios();
 
   return useMutation({
-    mutationFn: (newPost: NewPost) =>
-      axios.post(ENDPOINTS.BLOGS.CREATE, newPost).then((response) => response.data),
+    mutationFn: (newPost: NewPost) => {
+      const formData = new FormData();
+      formData.append('title', newPost.title);
+      formData.append('excerpt', newPost.excerpt);
+      formData.append('content', newPost.content);
+      formData.append('status', newPost.status);
+      newPost.tags.forEach((tag) => formData.append('tags[]', tag));
+      if (newPost.image) {
+        formData.append('image', newPost.image);
+      }
+
+      return axios
+        .post(ENDPOINTS.BLOGS.CREATE, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((response) => response.data);
+    },
 
     onSuccess: (data, variables) => {
       toast.success('Статијата беше успешно објавена!');
