@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
@@ -8,6 +9,7 @@ import styles from '../../../app/content-panel/blogs/[id]/BlogDetailsPage.module
 import TiptapEditor from '../../editor/TiptapEditor';
 import CancelModal from '../modals/CancelModal';
 import { BlogDetailsCardProps, Tag } from '../_Types';
+import ImageUpload from '../image-upload/ImageUpload';
 import { useEditor } from '../../../app/context/EditorContext';
 import StatusManager from '../../module-components/blog/StatusManager';
 import { UserRole } from '../../../Types';
@@ -49,6 +51,15 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
       .required('Таговите се задолжителни.')
       .min(1, 'Мора да селектираш барем еден таг.'),
     status: Yup.string().required('Status is required'),
+    image: Yup.mixed<File>()
+      .test('fileSize', 'Image must not exceed 5MB', (value) => {
+        if (!value) return true;
+        return (value as File).size <= 5000000;
+      })
+      .test('fileType', 'Only image files are allowed', (value) => {
+        if (!value) return true;
+        return ['image/jpeg', 'image/png', 'image/gif'].includes((value as File).type);
+      }),
   });
   useEffect(() => {
     setIsEditable(editorState.isEditable);
@@ -137,6 +148,7 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
         content,
         tags: tagsIdList,
         status,
+        image: undefined,
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
@@ -268,6 +280,30 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
             )}
             {touched.status && errors.status && (
               <div className={styles.errorText}>{errors.status}</div>
+            )}
+          </div>
+          <div className={styles.contentSection}>
+            <label htmlFor="image">Image:</label>
+            {isEditable ? (
+              <ImageUpload
+                onImageSelect={(file) => {
+                  setFieldValue('image', file);
+                  setHasUnsavedChanges(true);
+                }}
+                error={touched.image && errors.image ? (errors.image as string) : undefined}
+              />
+            ) : (
+              values.image && (
+                <div className={styles.imagePreview}>
+                  <Image
+                    src={URL.createObjectURL(values.image)}
+                    alt="Blog post"
+                    width={300}
+                    height={200}
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+              )
             )}
           </div>
           <CancelModal
