@@ -13,6 +13,7 @@ type UpdatePostPayload = {
   content: string;
   tags: string[];
   status?: string;
+  image?: File;
 };
 type ErrorResponse = {
   message: string;
@@ -22,15 +23,25 @@ const useEditBlogPost = () => {
   const queryClient = useQueryClient();
   const axios = useAxios();
   return useMutation({
-    mutationFn: async ({ id, title, content, tags, status }: UpdatePostPayload) => {
-      const editResponse = await axios.patch(ENDPOINTS.BLOGS.EDIT(id), {
-        title,
-        content,
-        tags,
+    mutationFn: async ({ id, title, content, tags, status, image }: UpdatePostPayload) => {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('content', content);
+      tags.forEach((tag) => formData.append('tags[]', tag));
+
+      // Always add the image field to FormData (even if it's undefined)
+      if (image) {
+        formData.append('image', image);
+      }
+
+      const editResponse = await axios.patch(ENDPOINTS.BLOGS.EDIT(id), formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
+
       if (status !== undefined) {
         await axios.patch(ENDPOINTS.BLOGS.UPDATE_STATUS(id), { status });
       }
+
       return editResponse.data;
     },
     onError: (error: AxiosError<ErrorResponse>) => {
