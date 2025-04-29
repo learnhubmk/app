@@ -106,10 +106,19 @@
     }
   }
 
-  img {
-    max-width: 100%;
+  .imagePreview {
+    max-width: 300px;
+    margin: 10px 0;
     border-radius: 8px;
+    overflow: hidden;
     background-color: var(--elevated-elements-dark-mode);
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      background-color: var(--elevated-elements-dark-mode);
+    }
   }
 }
 
